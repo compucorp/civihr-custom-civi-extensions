@@ -1,1 +1,13 @@
+/*
+/*/
+!/hrjob
+!/hrjobcontract
+
+*~
+*.bak
+hrabsence/build
+hrjob/build
+bin/setup.conf
+hrabsence/build
 .idea/
+

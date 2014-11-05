@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/contact/view/hrjobcontract</path>
+    <page_callback>CRM_Hrjobcontract_Page_JobContractTab</page_callback>
+    <title>JobContractTab</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+</menu>

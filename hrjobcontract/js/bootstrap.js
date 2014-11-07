@@ -2256,5 +2256,4 @@
     return this
   }
 
-}(jQuery);
-
+}(HR.$);

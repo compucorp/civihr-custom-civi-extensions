@@ -112,9 +112,19 @@ function hrjobcontract_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
  */
 function hrjobcontract_civicrm_pageRun($page) {
     if ($page instanceof CRM_Contact_Page_View_Summary) {
-        CRM_Core_Resources::singleton()
-            ->addScriptFile('org.civicrm.hrjobcontract', 'js/hrjobcontract.js');
 
+        //TODO
+        CRM_Core_Resources::singleton()
+            ->addScriptFile('org.civicrm.hrjobcontract', 'js/lib/jquery-2.1.1.min.js',999);
+        CRM_Core_Region::instance('page-footer')->add(array(
+            'type' => 'script',
+            'script' => 'HR = { $: jQuery.noConflict() };',
+            'weight' => 1000
+        ));
+        CRM_Core_Resources::singleton()
+            ->addScriptFile('org.civicrm.hrjobcontract', 'js/bootstrap.js',1001);
+        CRM_Core_Resources::singleton()
+            ->addScriptFile('org.civicrm.hrjobcontract', 'js/hrjobcontract.js',1002);
         CRM_Core_Resources::singleton()
             ->addStyleFile('org.civicrm.hrjobcontract', 'css/hrjobcontract.css');
     }

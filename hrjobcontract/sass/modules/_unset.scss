@@ -105,6 +105,10 @@ del {
 table {
   border-collapse: initial;
   border-spacing: initial;
+
+  td, th {
+      color: initial;
+  }
 }
 
 /**

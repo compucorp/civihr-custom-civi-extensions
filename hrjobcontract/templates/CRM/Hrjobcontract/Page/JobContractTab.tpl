@@ -121,7 +121,108 @@
                                 </form>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="{$prefix}full-history">
-                                Tab 2
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Effective Date</th>
+                                            <th>Position</th>
+                                            <th>Department</th>
+                                            <th>Pay Scale</th>
+                                            <th>Total Salary</th>
+                                            <th>Hours (Full time/ Part time)</th>
+                                            <th>Location</th>
+                                            <th>Change Record By</th>
+                                            <th>&nbsp;</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2014-10-30</td>
+                                            <td>Front-end Developer</td>
+                                            <td>IT</td>
+                                            <td>NJC</td>
+                                            <td>264000.00 $</td>
+                                            <td>Full time</td>
+                                            <td>London</td>
+                                            <td>John Smith</td>
+                                            <td></td>
+                                            <td><a href="#">view this contract revision</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2014-10-30</td>
+                                            <td>Front-end Developer</td>
+                                            <td>IT</td>
+                                            <td>NJC</td>
+                                            <td>264000.00 $</td>
+                                            <td>Full time</td>
+                                            <td>London</td>
+                                            <td>John Smith</td>
+                                            <td></td>
+                                            <td><a href="#">view this contract revision</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2014-10-30</td>
+                                            <td>Front-end Developer</td>
+                                            <td>IT</td>
+                                            <td>NJC</td>
+                                            <td>264000.00 $</td>
+                                            <td>Full time</td>
+                                            <td>London</td>
+                                            <td>John Smith</td>
+                                            <td></td>
+                                            <td><a href="#">view this contract revision</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2014-10-30</td>
+                                            <td>Front-end Developer</td>
+                                            <td>IT</td>
+                                            <td>NJC</td>
+                                            <td>264000.00 $</td>
+                                            <td>Full time</td>
+                                            <td>London</td>
+                                            <td>John Smith</td>
+                                            <td></td>
+                                            <td><a href="#">view this contract revision</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2014-10-30</td>
+                                            <td>Front-end Developer</td>
+                                            <td>IT</td>
+                                            <td>NJC</td>
+                                            <td>264000.00 $</td>
+                                            <td>Full time</td>
+                                            <td>London</td>
+                                            <td>John Smith</td>
+                                            <td></td>
+                                            <td><a href="#">view this contract revision</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2014-10-30</td>
+                                            <td>Front-end Developer</td>
+                                            <td>IT</td>
+                                            <td>NJC</td>
+                                            <td>264000.00 $</td>
+                                            <td>Full time</td>
+                                            <td>London</td>
+                                            <td>John Smith</td>
+                                            <td></td>
+                                            <td><a href="#">view this contract revision</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2014-10-30</td>
+                                            <td>Front-end Developer</td>
+                                            <td>IT</td>
+                                            <td>NJC</td>
+                                            <td>264000.00 $</td>
+                                            <td>Full time</td>
+                                            <td>London</td>
+                                            <td>John Smith</td>
+                                            <td></td>
+                                            <td><a href="#">view this contract revision</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

@@ -125,13 +125,17 @@
   border-collapse: initial;
   border-spacing: initial;
 }
-/* line 116, ../sass/modules/_unset.scss */
+/* line 109, ../sass/modules/_unset.scss */
+#hrjob-contract table td, #hrjob-contract table th {
+  color: initial;
+}
+/* line 120, ../sass/modules/_unset.scss */
 #hrjob-contract input,
 #hrjob-contract select,
 #hrjob-contract textarea {
   font-family: initial;
 }
-/* line 121, ../sass/modules/_unset.scss */
+/* line 125, ../sass/modules/_unset.scss */
 #hrjob-contract textarea {
   font-size: initial;
   line-height: initial;
@@ -1284,46 +1288,47 @@
 #hrjob-contract input,
 #hrjob-contract button,
 #hrjob-contract select,
-#hrjob-contract textarea {
+#hrjob-contract textarea,
+#hrjob-contract table {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
 }
-/* line 47, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 48, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjob-contract a {
   color: #428bca;
   text-decoration: none;
 }
-/* line 51, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 52, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjob-contract a:hover, #hrjob-contract a:focus {
   color: #2a6496;
   text-decoration: underline;
 }
-/* line 57, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 58, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjob-contract a:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-/* line 68, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 69, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjob-contract figure {
   margin: 0;
 }
-/* line 75, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 76, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjob-contract img {
   vertical-align: middle;
 }
-/* line 80, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 81, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjob-contract .img-responsive {
   display: block;
   max-width: 100%;
   height: auto;
 }
-/* line 85, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 86, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjob-contract .img-rounded {
   border-radius: 6px;
 }
-/* line 92, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 93, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjob-contract .img-thumbnail {
   padding: 4px;
   line-height: 1.428571429;
@@ -1337,18 +1342,18 @@
   max-width: 100%;
   height: auto;
 }
-/* line 105, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 106, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjob-contract .img-circle {
   border-radius: 50%;
 }
-/* line 112, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 113, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjob-contract hr {
   margin-top: 20px;
   margin-bottom: 20px;
   border: 0;
   border-top: 1px solid #eeeeee;
 }
-/* line 124, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 125, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjob-contract .sr-only {
   position: absolute;
   width: 1px;
@@ -1359,7 +1364,7 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
-/* line 140, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 141, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjob-contract .sr-only-focusable:active, #hrjob-contract .sr-only-focusable:focus {
   position: static;
   width: auto;

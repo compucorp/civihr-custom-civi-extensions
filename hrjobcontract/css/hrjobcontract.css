@@ -1,6 +1,18 @@
 @charset "UTF-8";
 /* line 3, ../sass/hrjobcontract.scss */
 #hrjob-contract {
+  /**
+   * Unset Eric Meyer's Reset CSS styles.
+   *
+   */
+  /* Remember to highlight inserts somehow! */
+  /* Tables still need 'cellspacing="0"' in the markup. */
+  /**
+   * Font reset.
+   *
+   * Specifically targets form elements which browsers often times give
+   * special treatment.
+   */
   /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -8,6 +20,121 @@
   /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
   font-size: 10px;
   -webkit-tap-highlight-color: transparent;
+}
+/* line 7, ../sass/modules/_unset.scss */
+#hrjob-contract html,
+#hrjob-contract body,
+#hrjob-contract div,
+#hrjob-contract span,
+#hrjob-contract applet,
+#hrjob-contract object,
+#hrjob-contract iframe,
+#hrjob-contract h1,
+#hrjob-contract h2,
+#hrjob-contract h3,
+#hrjob-contract h4,
+#hrjob-contract h5,
+#hrjob-contract h6,
+#hrjob-contract p,
+#hrjob-contract blockquote,
+#hrjob-contract pre,
+#hrjob-contract a,
+#hrjob-contract abbr,
+#hrjob-contract acronym,
+#hrjob-contract address,
+#hrjob-contract big,
+#hrjob-contract cite,
+#hrjob-contract code,
+#hrjob-contract del,
+#hrjob-contract dfn,
+#hrjob-contract em,
+#hrjob-contract font,
+#hrjob-contract img,
+#hrjob-contract ins,
+#hrjob-contract kbd,
+#hrjob-contract q,
+#hrjob-contract s,
+#hrjob-contract samp,
+#hrjob-contract small,
+#hrjob-contract strike,
+#hrjob-contract strong,
+#hrjob-contract sub,
+#hrjob-contract sup,
+#hrjob-contract tt,
+#hrjob-contract var,
+#hrjob-contract b,
+#hrjob-contract u,
+#hrjob-contract i,
+#hrjob-contract center,
+#hrjob-contract dl,
+#hrjob-contract dt,
+#hrjob-contract dd,
+#hrjob-contract ol,
+#hrjob-contract ul,
+#hrjob-contract li,
+#hrjob-contract fieldset,
+#hrjob-contract form,
+#hrjob-contract input,
+#hrjob-contract select,
+#hrjob-contract textarea,
+#hrjob-contract label,
+#hrjob-contract legend,
+#hrjob-contract table,
+#hrjob-contract caption,
+#hrjob-contract tbody,
+#hrjob-contract tfoot,
+#hrjob-contract thead,
+#hrjob-contract tr,
+#hrjob-contract th,
+#hrjob-contract td {
+  margin: initial;
+  padding: initial;
+  border: initial;
+  vertical-align: initial;
+}
+/* line 78, ../sass/modules/_unset.scss */
+#hrjob-contract ol,
+#hrjob-contract ul {
+  padding-start: 40px;
+  -moz-padding-start: 40px;
+  -webkit-padding-start: 40px;
+  list-style: initial;
+}
+/* line 85, ../sass/modules/_unset.scss */
+#hrjob-contract blockquote,
+#hrjob-contract q {
+  quotes: initial;
+}
+/* line 89, ../sass/modules/_unset.scss */
+#hrjob-contract blockquote:before,
+#hrjob-contract blockquote:after,
+#hrjob-contract q:before,
+#hrjob-contract q:after {
+  content: initial;
+}
+/* line 97, ../sass/modules/_unset.scss */
+#hrjob-contract ins {
+  text-decoration: initial;
+}
+/* line 100, ../sass/modules/_unset.scss */
+#hrjob-contract del {
+  text-decoration: initial;
+}
+/* line 105, ../sass/modules/_unset.scss */
+#hrjob-contract table {
+  border-collapse: initial;
+  border-spacing: initial;
+}
+/* line 116, ../sass/modules/_unset.scss */
+#hrjob-contract input,
+#hrjob-contract select,
+#hrjob-contract textarea {
+  font-family: initial;
+}
+/* line 121, ../sass/modules/_unset.scss */
+#hrjob-contract textarea {
+  font-size: initial;
+  line-height: initial;
 }
 /* line 32, ../sass/bootstrap/_normalize-custom.scss */
 #hrjob-contract article,
@@ -7353,4 +7480,6 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 /* line 1, ../sass/partials/_list.scss */
 #hrjob-contract .hrjobcont-list-contract {
   list-style: none;
+  margin: 0;
+  padding: 0;
 }

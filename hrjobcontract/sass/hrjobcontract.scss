@@ -1,10 +1,16 @@
 @import "modules/config";
 
 ##{$module} {
+
+  //Unset reset.css
+  @import "modules/unset";
+
   // bootstrap-sass v3.3.0.1
   // bootstrap/normalize and bootstrap/scaffolding customized to enable
   // the narrowed scope of the styles for the CiviHR Job Contract module only.
   // ==========================================================================
+  @import "bootstrap-sprockets";
+
   @import "bootstrap-compass";
   @import "bootstrap-variables";
 

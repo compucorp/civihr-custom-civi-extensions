@@ -34,7 +34,7 @@
  */
 require_once 'CRM/Core/DAO.php';
 require_once 'CRM/Utils/Type.php';
-class CRM_HRJob_DAO_HRJobHour extends CRM_Core_DAO
+class CRM_HRJob_DAO_HRJobHour extends CRM_HRJob_DAO_Base//CRM_Core_DAO
 {
   /**
    * static instance to hold the table name
@@ -137,6 +137,12 @@ class CRM_HRJob_DAO_HRJobHour extends CRM_Core_DAO
    */
   public $fte_denom;
   /**
+   * Contract revision id
+   * 
+   * @var int
+   */
+  public $contract_revision_id;
+  /**
    * class constructor
    *
    * @access public
@@ -159,6 +165,7 @@ class CRM_HRJob_DAO_HRJobHour extends CRM_Core_DAO
     if (!self::$_links) {
       self::$_links = array(
         new CRM_Core_Reference_Basic(self::getTableName() , 'job_id', 'civicrm_hrjob', 'id') ,
+        new CRM_Core_Reference_Basic(self::getTableName() , 'contract_revision_id', 'civicrm_hrjob_contract', 'id') ,
       );
     }
     return self::$_links;
@@ -172,88 +179,97 @@ class CRM_HRJob_DAO_HRJobHour extends CRM_Core_DAO
   static function &fields()
   {
     if (!(self::$_fields)) {
-      self::$_fields = array(
-        'id' => array(
-          'name' => 'id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Hours Id') ,
-          'required' => true,
-        ) ,
-        'job_id' => array(
-          'name' => 'job_id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Id') ,
-          'required' => true,
-          'FKClassName' => 'CRM_HRJob_DAO_HRJob',
-        ) ,
-        'hrjob_hours_type' => array(
-          'name' => 'hours_type',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Hours Type') ,
-          'maxlength' => 63,
-          'size' => CRM_Utils_Type::BIG,
-          'export' => true,
-          'import' => true,
-          'where' => 'civicrm_hrjob_hour.hours_type',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'pseudoconstant' => array(
-            'optionGroupName' => 'hrjob_hours_type',
-          )
-        ) ,
-        'hrjob_hours_amount' => array(
-          'name' => 'hours_amount',
-          'type' => CRM_Utils_Type::T_FLOAT,
-          'title' => ts('Actual Hours') ,
-          'export' => true,
-          'import' => true,
-          'where' => 'civicrm_hrjob_hour.hours_amount',
-          'headerPattern' => '',
-          'dataPattern' => '',
-        ) ,
-        'hrjob_hours_unit' => array(
-          'name' => 'hours_unit',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Hours Unit') ,
-          'export' => true,
-          'maxlength' => 63,
-          'size' => CRM_Utils_Type::BIG,
-          'import' => true,
-          'where' => 'civicrm_hrjob_hour.hours_unit',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'pseudoconstant' => array(
-            'callback' => 'CRM_HRJob_SelectValues::commonUnit',
-          )
-        ) ,
-        'hrjob_hours_fte' => array(
-          'name' => 'hours_fte',
-          'type' => CRM_Utils_Type::T_FLOAT,
-          'title' => ts('Full-Time Equivalence') ,
-          'export' => true,
-          'import' => true,
-          'where' => 'civicrm_hrjob_hour.hours_fte',
-          'headerPattern' => '',
-          'dataPattern' => '',
-        ) ,
-        'hours_fte_num' => array(
-          'name' => 'fte_num',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Full-Time Numerator Equivalence') ,
-          'where' => 'civicrm_hrjob_hour.fte_num',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'default' => '1',
-        ) ,
-        'hrjob_fte_denom' => array(
-          'name' => 'fte_denom',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Full-Time Denominator Equivalence') ,
-          'where' => 'civicrm_hrjob_hour.fte_denom',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'default' => '1',
-        ) ,
+      self::$_fields = self::setFields(
+        array(
+            'id' => array(
+              'name' => 'id',
+              'type' => CRM_Utils_Type::T_INT,
+              'title' => ts('Job Hours Id') ,
+              'required' => true,
+            ) ,
+            'job_id' => array(
+              'name' => 'job_id',
+              'type' => CRM_Utils_Type::T_INT,
+              'title' => ts('Job Id') ,
+              'required' => true,
+              'FKClassName' => 'CRM_HRJob_DAO_HRJob',
+            ) ,
+            'hrjob_hours_type' => array(
+              'name' => 'hours_type',
+              'type' => CRM_Utils_Type::T_STRING,
+              'title' => ts('Hours Type') ,
+              'maxlength' => 63,
+              'size' => CRM_Utils_Type::BIG,
+              'export' => true,
+              'import' => true,
+              'where' => 'civicrm_hrjob_hour.hours_type',
+              'headerPattern' => '',
+              'dataPattern' => '',
+              'pseudoconstant' => array(
+                'optionGroupName' => 'hrjob_hours_type',
+              )
+            ) ,
+            'hrjob_hours_amount' => array(
+              'name' => 'hours_amount',
+              'type' => CRM_Utils_Type::T_FLOAT,
+              'title' => ts('Actual Hours') ,
+              'export' => true,
+              'import' => true,
+              'where' => 'civicrm_hrjob_hour.hours_amount',
+              'headerPattern' => '',
+              'dataPattern' => '',
+            ) ,
+            'hrjob_hours_unit' => array(
+              'name' => 'hours_unit',
+              'type' => CRM_Utils_Type::T_STRING,
+              'title' => ts('Hours Unit') ,
+              'export' => true,
+              'maxlength' => 63,
+              'size' => CRM_Utils_Type::BIG,
+              'import' => true,
+              'where' => 'civicrm_hrjob_hour.hours_unit',
+              'headerPattern' => '',
+              'dataPattern' => '',
+              'pseudoconstant' => array(
+                'callback' => 'CRM_HRJob_SelectValues::commonUnit',
+              )
+            ) ,
+            'hrjob_hours_fte' => array(
+              'name' => 'hours_fte',
+              'type' => CRM_Utils_Type::T_FLOAT,
+              'title' => ts('Full-Time Equivalence') ,
+              'export' => true,
+              'import' => true,
+              'where' => 'civicrm_hrjob_hour.hours_fte',
+              'headerPattern' => '',
+              'dataPattern' => '',
+            ) ,
+            'hours_fte_num' => array(
+              'name' => 'fte_num',
+              'type' => CRM_Utils_Type::T_INT,
+              'title' => ts('Full-Time Numerator Equivalence') ,
+              'where' => 'civicrm_hrjob_hour.fte_num',
+              'headerPattern' => '',
+              'dataPattern' => '',
+              'default' => '1',
+            ) ,
+            'hrjob_fte_denom' => array(
+              'name' => 'fte_denom',
+              'type' => CRM_Utils_Type::T_INT,
+              'title' => ts('Full-Time Denominator Equivalence') ,
+              'where' => 'civicrm_hrjob_hour.fte_denom',
+              'headerPattern' => '',
+              'dataPattern' => '',
+              'default' => '1',
+            ) ,
+            /*'contract_revision_id' => array(
+              'name' => 'contract_revision_id',
+              'type' => CRM_Utils_Type::T_INT,
+              'title' => ts('Job Contract Revision Id') ,
+              'required' => true,
+              'FKClassName' => 'CRM_HRJob_DAO_HRJobContractRevision',
+            ) ,*/
+        )
       );
     }
     return self::$_fields;
@@ -277,6 +293,7 @@ class CRM_HRJob_DAO_HRJobHour extends CRM_Core_DAO
         'hours_fte' => 'hrjob_hours_fte',
         'fte_num' => 'hours_fte_num',
         'fte_denom' => 'hrjob_fte_denom',
+        'contract_revision_id' => 'contract_revision_id',
       );
     }
     return self::$_fieldKeys;

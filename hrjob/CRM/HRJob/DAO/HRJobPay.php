@@ -143,6 +143,12 @@ class CRM_HRJob_DAO_HRJobPay extends CRM_Core_DAO
    */
   public $pay_is_auto_est;
   /**
+   * Contract revision id
+   * 
+   * @var int
+   */
+  public $contract_revision_id;
+  /**
    * class constructor
    *
    * @access public
@@ -165,6 +171,7 @@ class CRM_HRJob_DAO_HRJobPay extends CRM_Core_DAO
     if (!self::$_links) {
       self::$_links = array(
         new CRM_Core_Reference_Basic(self::getTableName() , 'job_id', 'civicrm_hrjob', 'id') ,
+        new CRM_Core_Reference_Basic(self::getTableName() , 'contract_revision_id', 'civicrm_hrjob_contract_revision', 'id') ,
       );
     }
     return self::$_links;
@@ -277,6 +284,13 @@ class CRM_HRJob_DAO_HRJobPay extends CRM_Core_DAO
           'title' => ts('Estimated Auto Pay') ,
           'default' => '1',
         ) ,
+        'contract_revision_id' => array(
+          'name' => 'contract_revision_id',
+          'type' => CRM_Utils_Type::T_INT,
+          'title' => ts('Job Contract Revision Id') ,
+          'required' => true,
+          'FKClassName' => 'CRM_HRJob_DAO_HRJobContractRevision',
+        ) ,
       );
     }
     return self::$_fields;
@@ -301,6 +315,7 @@ class CRM_HRJob_DAO_HRJobPay extends CRM_Core_DAO
         'pay_currency' => 'hrjob_pay_currency',
         'pay_annualized_est' => 'hrjob_pay_annualized_est',
         'pay_is_auto_est' => 'pay_is_auto_est',
+        'contract_revision_id' => 'contract_revision_id',
       );
     }
     return self::$_fieldKeys;

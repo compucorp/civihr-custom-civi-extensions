@@ -277,6 +277,21 @@ function hrjob_civicrm_entityTypes(&$entityTypes) {
     'class' => 'CRM_HRJob_DAO_HRJobRole',
     'table' => 'civicrm_hrjob_role',
   );
+  $entityTypes[] = array(
+    'name' => 'HRJobContract',
+    'class' => 'CRM_HRJob_DAO_HRJobContract',
+    'table' => 'civicrm_hrjob_contract',
+  );
+  $entityTypes[] = array(
+    'name' => 'HRJobContractRevision',
+    'class' => 'CRM_HRJob_DAO_HRJobContractRevision',
+    'table' => 'civicrm_hrjob_contract_revision',
+  );
+  $entityTypes[] = array(
+    'name' => 'HRJobData',
+    'class' => 'CRM_HRJob_DAO_HRJobData',
+    'table' => 'civicrm_hrjob_data',
+  );
 }
 
 /*function hrjob_civicrm_triggerInfo(&$info, $tableName) {

@@ -7597,9 +7597,27 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
   width: auto;
   background-position: 0 0;
 }
+/* line 3, ../sass/partials/_modals.scss */
+.modal-open {
+  overflow: scroll;
+}
 @media (min-width: 768px) {
-  /* line 2, ../sass/partials/_modals.scss */
+  /* line 10, ../sass/partials/_modals.scss */
   #hrjob-contract .modal-dialog {
     margin: 60px auto;
   }
+}
+/* line 3, ../sass/partials/_wizard.scss */
+#hrjob-contract .hrjobcont-wizard .tabs-left > .nav-tabs {
+  margin-right: 0;
+  width: 18%;
+}
+/* line 8, ../sass/partials/_wizard.scss */
+#hrjob-contract .hrjobcont-wizard .tabs-left > .tab-content {
+  float: left;
+  width: 82%;
+}
+/* line 12, ../sass/partials/_wizard.scss */
+#hrjob-contract .hrjobcont-wizard .tabs-left > .tab-content > .tab-pane {
+  padding: 15px;
 }

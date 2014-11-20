@@ -16,10 +16,16 @@
                                 <a href="#" class="btn btn-default btn-sm" role="button">
                                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span> View current revision
                                 </a>
-                                <a href="#" class="btn btn-default btn-sm" role="button">
+                                <a href="#" class="btn btn-default btn-sm" role="button"
+                                   data-toggle="modal"
+                                   data-title="Correct error on contract"
+                                   data-target="#{$prefix}modal-edit">
                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Correct error on contract
                                 </a>
-                                <a href="#" class="btn btn-default btn-sm" role="button">
+                                <a href="#" class="btn btn-default btn-sm" role="button" role="button"
+                                   data-toggle="modal"
+                                   data-title="Change contract terms"
+                                   data-target="#{$prefix}modal-edit">
                                     <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Change contract terms
                                 </a>
                             </div>
@@ -348,50 +354,84 @@
         </ul>
         <h3>Past Job Contracts:</h3>
         <p>
-            <a href="#" class="btn btn-default btn-sm btn-primary" role="button" data-toggle="modal" data-target="#{$prefix}modal-newjob">
+            <a href="#" class="btn btn-default btn-sm btn-primary" role="button"
+               data-toggle="modal"
+               data-title="Add New Job Contract"
+               data-target="#{$prefix}modal-edit">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Job Contract
             </a>
         </p>
         <!-- Modal -->
-        <div class="modal fade" id="{$prefix}modal-newjob" tabindex="-1" role="dialog" aria-labelledby="Add New Job Contract" aria-hidden="true">
+        <div class="modal fade" id="{$prefix}modal-edit" tabindex="-1" role="dialog" aria-labelledby="Add New Job Contract" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title">Add New Job Contract</h4>
-                    </div>
-                    <div class="modal-body clearfix">
-                        <div role="tabpanel" class="tabs-left">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#{$prefix}tab-general" aria-controls="#{$prefix}tab-general" role="tab" data-toggle="tab">General</a></li>
-                                <li role="presentation"><a href="#{$prefix}tab-hours" aria-controls="{$prefix}tab-hours" role="tab" data-toggle="tab">Hours</a></li>
-                                <li role="presentation"><a href="#{$prefix}tab-pay" aria-controls="{$prefix}tab-pay" role="tab" data-toggle="tab">Pay</a></li>
-                                <li role="presentation"><a href="#{$prefix}tab-leave" aria-controls="{$prefix}tab-leave" role="tab" data-toggle="tab">Leave</a></li>
-                                <li role="presentation"><a href="#{$prefix}tab-insurance" aria-controls="{$prefix}tab-insurance" role="tab" data-toggle="tab">Insurance</a></li>
-                                <li role="presentation"><a href="#{$prefix}tab-pension" aria-controls="{$prefix}tab-pension" role="tab" data-toggle="tab">Pension</a></li>
-                                <li role="presentation"><a href="#{$prefix}tab-funding" aria-controls="{$prefix}tab-funding" role="tab" data-toggle="tab">Funding</a></li>
-                            </ul>
-                            <!-- Tab panes -->
-                            <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="{$prefix}tab-general">...</div>
-                                <div role="tabpanel" class="tab-pane" id="{$prefix}tab-hours">...</div>
-                                <div role="tabpanel" class="tab-pane" id="{$prefix}tab-pay">...</div>
-                                <div role="tabpanel" class="tab-pane" id="{$prefix}tab-leave">...</div>
-                                <div role="tabpanel" class="tab-pane" id="{$prefix}tab-insurance">...</div>
-                                <div role="tabpanel" class="tab-pane" id="{$prefix}tab-pension">...</div>
-                                <div role="tabpanel" class="tab-pane" id="{$prefix}tab-funding">...</div>
-                            </div>
-
+                    <form class="form-horizontal {$prefix}wizard" role="form">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">Add New Job Contract</h4>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+                        <div class="modal-body clearfix">
+                            <div role="tabpanel" class="tabs-left">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#{$prefix}tab-general" aria-controls="#{$prefix}tab-general" role="tab" data-toggle="tab">General</a></li>
+                                    <li role="presentation"><a href="#{$prefix}tab-hours" aria-controls="{$prefix}tab-hours" role="tab" data-toggle="tab">Hours</a></li>
+                                    <li role="presentation"><a href="#{$prefix}tab-pay" aria-controls="{$prefix}tab-pay" role="tab" data-toggle="tab">Pay</a></li>
+                                    <li role="presentation"><a href="#{$prefix}tab-leave" aria-controls="{$prefix}tab-leave" role="tab" data-toggle="tab">Leave</a></li>
+                                    <li role="presentation"><a href="#{$prefix}tab-insurance" aria-controls="{$prefix}tab-insurance" role="tab" data-toggle="tab">Insurance</a></li>
+                                    <li role="presentation"><a href="#{$prefix}tab-pension" aria-controls="{$prefix}tab-pension" role="tab" data-toggle="tab">Pension</a></li>
+                                    <li role="presentation"><a href="#{$prefix}tab-funding" aria-controls="{$prefix}tab-funding" role="tab" data-toggle="tab">Funding</a></li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="{$prefix}tab-general">
+                                        <div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="form-group">
+                                                        <label for="position" class="col-sm-3 control-label">Position</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" class="form-control" id="position" >
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="title" class="col-sm-3 control-label">Title</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" class="form-control" id="title">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="{$prefix}tab-hours">...</div>
+                                    <div role="tabpanel" class="tab-pane" id="{$prefix}tab-pay">...</div>
+                                    <div role="tabpanel" class="tab-pane" id="{$prefix}tab-leave">...</div>
+                                    <div role="tabpanel" class="tab-pane" id="{$prefix}tab-insurance">...</div>
+                                    <div role="tabpanel" class="tab-pane" id="{$prefix}tab-pension">...</div>
+                                    <div role="tabpanel" class="tab-pane" id="{$prefix}tab-funding">...</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
 
     </div>
 </div>
+
+<script type="text/javascript">
+    /**
+     * TEMPORARY JS FOR MOCKUP USE ONLY - START
+     */
+
+    HR.$.event.trigger('HRLoaded');
+
+
+</script>

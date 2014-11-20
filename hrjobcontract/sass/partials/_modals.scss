@@ -1,0 +1,12 @@
+//TEMPORARY
+@at-root {
+  .modal-open {
+    overflow: scroll;
+  }
+}
+
+@media (min-width: $screen-sm-min) {
+  .modal-dialog {
+    margin: 60px auto;
+  }
+}

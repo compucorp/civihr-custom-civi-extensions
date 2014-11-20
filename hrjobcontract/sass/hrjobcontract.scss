@@ -1,5 +1,7 @@
 @import "modules/config";
 
+@import "compass/css3/border-radius";
+
 ##{$module} {
   //Unset reset.css
   @import "modules/unset";
@@ -20,7 +22,7 @@
   @import "bootstrap/normalize-custom";
   @include normalize;
   @import "bootstrap/print";
-  @import "bootstrap/glyphicons";
+  @import "bootstrap/glyphicons-custom";
 
   // Core CSS
   @import "bootstrap/scaffolding-custom";
@@ -56,7 +58,7 @@
   @import "bootstrap/close";
 
   // Components w/ JavaScript
-  @import "bootstrap/modals";
+  @import "bootstrap/modals-custom";
   @import "bootstrap/tooltip";
   @import "bootstrap/popovers";
   @import "bootstrap/carousel";
@@ -70,5 +72,11 @@
   @import "modules/variables";
 
   @import "partials/global";
+  @include global;
   @import "partials/list";
+  @import "partials/navs";
+  @import "partials/panels";
+  @import "partials/summary";
+  @import "partials/modals";
+  @import "partials/wizard";
 }

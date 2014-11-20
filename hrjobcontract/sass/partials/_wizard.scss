@@ -1,0 +1,17 @@
+.#{$prefix}wizard {
+  .tabs-left {
+    > .nav-tabs {
+      margin-right: 0;
+      width: 18%;
+    }
+
+    > .tab-content {
+      float: left;
+      width: 82%;
+
+      > .tab-pane {
+        padding: $grid-gutter-width/2;
+      }
+    }
+  }
+}

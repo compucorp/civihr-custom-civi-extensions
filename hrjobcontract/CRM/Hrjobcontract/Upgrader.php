@@ -10,6 +10,20 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
     $this->executeSqlFile('sql/install.sql');
   }
   
+  public function upgrade_t1() {
+    $this->ctx->log->info('Applying update 1');
+    // this path is relative to the extension base dir
+    $this->executeSqlFile('sql/upgrade1.sql');
+    return TRUE;
+  }
+  
+  public function upgrade_t2() {
+    $this->ctx->log->info('Applying update 1');
+    // this path is relative to the extension base dir
+    $this->executeSqlFile('sql/upgrade2.sql');
+    return TRUE;
+  }
+  
   /*public function upgrade_4201() {
     $this->ctx->log->info('Applying update 1');
     // this path is relative to the extension base dir

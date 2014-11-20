@@ -44,3 +44,22 @@ function civicrm_api3_h_r_job_contract_revision_delete($params) {
 function civicrm_api3_h_r_job_contract_revision_get($params) {
   return _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params);
 }
+
+function civicrm_api3_h_r_job_contract_revision_getrevisionid($params) {
+    $jobContractId = !empty($params['job_contract_id']) ? $params['job_contract_id'] : null;
+    if ($jobContractId) {
+        $revision = civicrm_api3('HRJobContractRevision', 'get', array(
+          'sequential' => 1,
+          'job_contract_id' => $jobContractId,
+          'options' => array('sort' => "id DESC", 'limit' => 1),
+        ));
+        
+        if (!empty($revision['values'])) {
+            $row = array_shift($revision['values']);
+            if (!empty($row[$params['table'] . '_revision_id'])) {
+                return civicrm_api3_create_success((int)$row[$params['table'] . '_revision_id']);
+            }
+        }
+    }
+    return null;
+}

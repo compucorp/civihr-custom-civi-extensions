@@ -78,7 +78,7 @@ ALTER TABLE `civicrm_hrjob_data`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 
 ALTER TABLE `civicrm_hrjob_data`
-ADD CONSTRAINT `FK_civicrm_hrjob_data_contract_revision_id` FOREIGN KEY (`contract_revision_id`) REFERENCES `civicrm_hrjob_contract_revision` (`data_revision_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `FK_civicrm_hrjob_data_contract_revision_id` FOREIGN KEY (`contract_revision_id`) REFERENCES `civicrm_hrjob_contract_revision` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 
 
@@ -90,7 +90,7 @@ ADD INDEX `index_contract_revision_id` (`contract_revision_id` ASC);
 ALTER TABLE `civicrm_hrjob_health`
 ADD CONSTRAINT `FK_civicrm_hrjob_health_contract_revision_id`
   FOREIGN KEY (`contract_revision_id`)
-  REFERENCES `civicrm_hrjob_contract_revision` (`health_revision_id`)
+  REFERENCES `civicrm_hrjob_contract_revision` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
@@ -100,7 +100,7 @@ ADD INDEX `index_contract_revision_id` (`contract_revision_id` ASC);
 ALTER TABLE `civicrm_hrjob_hour`
 ADD CONSTRAINT `FK_civicrm_hrjob_hour_contract_revision_id`
   FOREIGN KEY (`contract_revision_id`)
-  REFERENCES `civicrm_hrjob_contract_revision` (`hour_revision_id`)
+  REFERENCES `civicrm_hrjob_contract_revision` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
@@ -110,7 +110,7 @@ ADD INDEX `index_contract_revision_id` (`contract_revision_id` ASC);
 ALTER TABLE `civicrm_hrjob_pay`
 ADD CONSTRAINT `FK_civicrm_hrjob_pay_contract_revision_id`
   FOREIGN KEY (`contract_revision_id`)
-  REFERENCES `civicrm_hrjob_contract_revision` (`pay_revision_id`)
+  REFERENCES `civicrm_hrjob_contract_revision` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
@@ -120,7 +120,7 @@ ADD INDEX `index_contract_revision_id` (`contract_revision_id` ASC);
 ALTER TABLE `civicrm_hrjob_pension`
 ADD CONSTRAINT `FK_civicrm_hrjob_pension_contract_revision_id`
   FOREIGN KEY (`contract_revision_id`)
-  REFERENCES `civicrm_hrjob_contract_revision` (`pension_revision_id`)
+  REFERENCES `civicrm_hrjob_contract_revision` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
@@ -130,7 +130,7 @@ ADD INDEX `index_contract_revision_id` (`contract_revision_id` ASC);
 ALTER TABLE `civicrm_hrjob_leave`
 ADD CONSTRAINT `FK_civicrm_hrjob_leave_contract_revision_id`
   FOREIGN KEY (`contract_revision_id`)
-  REFERENCES `civicrm_hrjob_contract_revision` (`leave_revision_id`)
+  REFERENCES `civicrm_hrjob_contract_revision` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
@@ -140,7 +140,7 @@ ADD INDEX `index_contract_revision_id` (`contract_revision_id` ASC);
 ALTER TABLE `civicrm_hrjob_role`
 ADD CONSTRAINT `FK_civicrm_hrjob_role_contract_revision_id`
   FOREIGN KEY (`contract_revision_id`)
-  REFERENCES `civicrm_hrjob_contract_revision` (`role_revision_id`)
+  REFERENCES `civicrm_hrjob_contract_revision` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
@@ -148,19 +148,40 @@ ADD CONSTRAINT `FK_civicrm_hrjob_role_contract_revision_id`
 
 # Drop Indexes:
 
-SET foreign_key_checks = 0;
+#SET foreign_key_checks = 0;
 
-ALTER TABLE `civicrm_hrjob_hour`
+#ALTER TABLE `civicrm_hrjob_hour`
+#DROP INDEX `UI_job_id` ;
+
+#ALTER TABLE `civicrm_hrjob_health`
+#DROP INDEX `UI_job_id` ;
+
+#ALTER TABLE `civicrm_hrjob_pay`
+#DROP INDEX `UI_job_id` ;
+
+#ALTER TABLE `civicrm_hrjob_pension`
+#DROP INDEX `UI_job_id` ;
+
+#SET foreign_key_checks = 1;
+
+
+
+# Delete columns and indexes:
+
+ALTER TABLE `civicrm_hrjob_hour` 
+#DROP COLUMN `job_id`,
 DROP INDEX `UI_job_id` ;
 
 ALTER TABLE `civicrm_hrjob_health`
+#DROP COLUMN `job_id`,
 DROP INDEX `UI_job_id` ;
 
 ALTER TABLE `civicrm_hrjob_pay`
+#DROP COLUMN `job_id`,
 DROP INDEX `UI_job_id` ;
 
 ALTER TABLE `civicrm_hrjob_pension`
+#DROP COLUMN `job_id`,
 DROP INDEX `UI_job_id` ;
 
-SET foreign_key_checks = 1;
 

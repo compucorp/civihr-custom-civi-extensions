@@ -25,6 +25,8 @@
 +--------------------------------------------------------------------+
 */
 
+require_once('jobcontract_utils.php');
+
 /**
  * HRJobHour.create API specification (optional)
  * This is used for documentation and validation.
@@ -82,5 +84,11 @@ function _civicrm_api3_h_r_job_hour_get_spec(&$spec) {
  * @throws API_Exception
  */
 function civicrm_api3_h_r_job_hour_get($params) {
-  return _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params);
+    //var_dump($params);
+    //$bao = _civicrm_api3_get_BAO(__FUNCTION__);
+    //$baoObj = new $bao();
+    //$baoObj::test();
+    civicrm_hrjobcontract_api3_setup_revision($params, 'hour');
+    
+    return _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params);
 }

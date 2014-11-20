@@ -141,7 +141,7 @@ class CRM_HRJob_DAO_HRJobContractRevision extends CRM_Core_DAO
         'id' => array(
           'name' => 'id',
           'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Contract Id') ,
+          'title' => ts('Id') ,
           'required' => true,
         ) ,
         'job_contract_id' => array(
@@ -168,6 +168,55 @@ class CRM_HRJob_DAO_HRJobContractRevision extends CRM_Core_DAO
           'type' => CRM_Utils_Type::T_INT,
           'title' => ts('Status') ,
           'required' => false,
+        ) ,
+        'data_revision_id' => array(
+          'name' => 'data_revision_id',
+          'type' => CRM_Utils_Type::T_INT,
+          'title' => ts('Data Revision Id'),
+          'required' => false,
+          'FKClassName' => 'CRM_HRJob_DAO_HRJobData',
+        ) ,
+        'health_revision_id' => array(
+          'name' => 'health_revision_id',
+          'type' => CRM_Utils_Type::T_INT,
+          'title' => ts('Health Revision Id'),
+          'required' => false,
+          'FKClassName' => 'CRM_HRJob_DAO_HRJobHealth',
+        ) ,
+        'hour_revision_id' => array(
+          'name' => 'hour_revision_id',
+          'type' => CRM_Utils_Type::T_INT,
+          'title' => ts('Hour Revision Id'),
+          'required' => false,
+          'FKClassName' => 'CRM_HRJob_DAO_HRJobHour',
+        ) ,
+        'leave_revision_id' => array(
+          'name' => 'leave_revision_id',
+          'type' => CRM_Utils_Type::T_INT,
+          'title' => ts('Leave Revision Id'),
+          'required' => false,
+          'FKClassName' => 'CRM_HRJob_DAO_HRJobLeave',
+        ) ,
+        'pay_revision_id' => array(
+          'name' => 'pay_revision_id',
+          'type' => CRM_Utils_Type::T_INT,
+          'title' => ts('Pay Revision Id'),
+          'required' => false,
+          'FKClassName' => 'CRM_HRJob_DAO_HRJobPay',
+        ) ,
+        'pension_revision_id' => array(
+          'name' => 'pension_revision_id',
+          'type' => CRM_Utils_Type::T_INT,
+          'title' => ts('Pension Revision Id'),
+          'required' => false,
+          'FKClassName' => 'CRM_HRJob_DAO_HRJobPension',
+        ) ,
+        'role_revision_id' => array(
+          'name' => 'role_revision_id',
+          'type' => CRM_Utils_Type::T_INT,
+          'title' => ts('Role Revision Id'),
+          'required' => false,
+          'FKClassName' => 'CRM_HRJob_DAO_HRJobRole',
         ) ,
       );
     }

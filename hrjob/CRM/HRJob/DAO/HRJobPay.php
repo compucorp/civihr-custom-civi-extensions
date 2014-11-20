@@ -34,7 +34,7 @@
  */
 require_once 'CRM/Core/DAO.php';
 require_once 'CRM/Utils/Type.php';
-class CRM_HRJob_DAO_HRJobPay extends CRM_Core_DAO
+class CRM_HRJob_DAO_HRJobPay extends CRM_HRJob_DAO_Base
 {
   /**
    * static instance to hold the table name

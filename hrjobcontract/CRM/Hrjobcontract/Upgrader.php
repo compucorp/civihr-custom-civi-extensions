@@ -5,6 +5,18 @@
  */
 class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
 
+  public function install() {
+    // $this->executeCustomDataFile('xml/customdata.xml');
+    $this->executeSqlFile('sql/install.sql');
+  }
+  
+  /*public function upgrade_4201() {
+    $this->ctx->log->info('Applying update 1');
+    // this path is relative to the extension base dir
+    $this->executeSqlFile('sql/upgrade1.sql');
+    return TRUE;
+  }*/
+    
   // By convention, functions that look like "function upgrade_NNNN()" are
   // upgrade tasks. They are executed in order (like Drupal's hook_update_N).
 

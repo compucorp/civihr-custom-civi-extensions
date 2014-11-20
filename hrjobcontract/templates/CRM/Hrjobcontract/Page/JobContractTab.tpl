@@ -360,29 +360,30 @@
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                         <h4 class="modal-title">Add New Job Contract</h4>
                     </div>
-                    <div class="modal-body">
-                        <p>
-                            Overflowing text to show scroll behavior
-<!--
-                            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.<br />
+                    <div class="modal-body clearfix">
+                        <div role="tabpanel" class="tabs-left">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#{$prefix}tab-general" aria-controls="#{$prefix}tab-general" role="tab" data-toggle="tab">General</a></li>
+                                <li role="presentation"><a href="#{$prefix}tab-hours" aria-controls="{$prefix}tab-hours" role="tab" data-toggle="tab">Hours</a></li>
+                                <li role="presentation"><a href="#{$prefix}tab-pay" aria-controls="{$prefix}tab-pay" role="tab" data-toggle="tab">Pay</a></li>
+                                <li role="presentation"><a href="#{$prefix}tab-leave" aria-controls="{$prefix}tab-leave" role="tab" data-toggle="tab">Leave</a></li>
+                                <li role="presentation"><a href="#{$prefix}tab-insurance" aria-controls="{$prefix}tab-insurance" role="tab" data-toggle="tab">Insurance</a></li>
+                                <li role="presentation"><a href="#{$prefix}tab-pension" aria-controls="{$prefix}tab-pension" role="tab" data-toggle="tab">Pension</a></li>
+                                <li role="presentation"><a href="#{$prefix}tab-funding" aria-controls="{$prefix}tab-funding" role="tab" data-toggle="tab">Funding</a></li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="{$prefix}tab-general">...</div>
+                                <div role="tabpanel" class="tab-pane" id="{$prefix}tab-hours">...</div>
+                                <div role="tabpanel" class="tab-pane" id="{$prefix}tab-pay">...</div>
+                                <div role="tabpanel" class="tab-pane" id="{$prefix}tab-leave">...</div>
+                                <div role="tabpanel" class="tab-pane" id="{$prefix}tab-insurance">...</div>
+                                <div role="tabpanel" class="tab-pane" id="{$prefix}tab-pension">...</div>
+                                <div role="tabpanel" class="tab-pane" id="{$prefix}tab-funding">...</div>
+                            </div>
 
-                            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.<br />
-
-                            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.<br />
-
-                            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.<br />
-
-                            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.<br />
-
-                            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ull<br />amcorper nulla non metus auctor fringilla.
-
-                            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur a<br />c, vestibulum at eros.
-
-                            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.<br />
-                            <br /><br /><br />
-                            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
--->
-                        </p>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

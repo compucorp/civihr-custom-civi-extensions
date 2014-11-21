@@ -18,7 +18,7 @@
 
             switch (action) {
                 case 'edit':
-                    $modal.find('*[disabled]').each(function(){
+                    $modal.find('*[disabled]:not(.disabled)').each(function(){
                         $(this).removeAttr('disabled');
                     });
                     break;

@@ -484,7 +484,52 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div role="tabpanel" class="tab-pane" id="{$prefix}tab-hours">...</div>
+                                    <div role="tabpanel" class="tab-pane" id="{$prefix}tab-hours">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="contract-type" class="col-sm-4 control-label">Location/Standard hours</label>
+                                                    <div class="col-sm-5">
+                                                        <select id="contract-type" class="form-control">
+                                                            <option value="1" selected>Head office - 40 hours per week</option>
+                                                            <option value="2">Other office - 8 per day</option>
+                                                            <option value="3">Small office - 36 per week</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="contract-type" class="col-sm-4 control-label">Hours type</label>
+                                                    <div class="col-sm-5">
+                                                        <select id="contract-type" class="form-control">
+                                                            <option value="1">Full Time</option>
+                                                            <option value="2">Part Time</option>
+                                                            <option value="3">Casual</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group required">
+                                                    <label for="actual-hours" class="col-sm-4 control-label">Actual hours</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="form-inline">
+                                                            <input type="text" class="form-control disabled" id="actual-hours" value="40" disabled>
+                                                            per
+                                                            <input type="text" class="form-control disabled" value="Week" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group required">
+                                                    <label for="actual-hours" class="col-sm-4 control-label">FTE</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="form-inline">
+                                                            <input type="text" class="form-control disabled" id="fte" value="1" disabled>
+                                                            per
+                                                            <input type="text" class="form-control disabled" value="1" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div role="tabpanel" class="tab-pane" id="{$prefix}tab-pay">...</div>
                                     <div role="tabpanel" class="tab-pane" id="{$prefix}tab-leave">...</div>
                                     <div role="tabpanel" class="tab-pane" id="{$prefix}tab-insurance">...</div>

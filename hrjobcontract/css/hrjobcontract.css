@@ -7481,6 +7481,11 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
     display: none !important;
   }
 }
+/* line 2, ../sass/partials/_forms.scss */
+#hrjob-contract .form-group.required .control-label:after {
+  content: "*";
+  color: red;
+}
 /* line 1, ../sass/partials/_list.scss */
 #hrjob-contract .hrjobcont-list-contract {
   list-style: none;
@@ -7602,7 +7607,7 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
   overflow: scroll;
 }
 @media (min-width: 768px) {
-  /* line 10, ../sass/partials/_modals.scss */
+  /* line 9, ../sass/partials/_modals.scss */
   #hrjob-contract .modal-dialog {
     margin: 60px auto;
   }

@@ -73,6 +73,7 @@
 
   @import "partials/global";
   @include global;
+  @import "partials/forms";
   @import "partials/list";
   @import "partials/navs";
   @import "partials/panels";

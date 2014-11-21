@@ -13,19 +13,25 @@
                                 Contact Type: Apprentice
                             </div>
                             <div class="col-xs-6 text-right">
-                                <a href="#" class="btn btn-default btn-sm" role="button">
+                                <a href="#" class="btn btn-default btn-sm" role="button"
+                                   data-toggle="modal"
+                                   data-action="view"
+                                   data-title="View current revision"
+                                   data-target="#{$prefix}modal-wizard">
                                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span> View current revision
                                 </a>
                                 <a href="#" class="btn btn-default btn-sm" role="button"
                                    data-toggle="modal"
+                                   data-action="edit"
                                    data-title="Correct error on contract"
-                                   data-target="#{$prefix}modal-edit">
+                                   data-target="#{$prefix}modal-wizard">
                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Correct error on contract
                                 </a>
                                 <a href="#" class="btn btn-default btn-sm" role="button" role="button"
                                    data-toggle="modal"
+                                   data-action="edit"
                                    data-title="Change contract terms"
-                                   data-target="#{$prefix}modal-edit">
+                                   data-target="#{$prefix}modal-wizard">
                                     <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Change contract terms
                                 </a>
                             </div>
@@ -355,15 +361,16 @@
         <h3>Past Job Contracts:</h3>
         <p>
             <a href="#" class="btn btn-default btn-sm btn-primary" role="button"
+               data-action="add"
                data-toggle="modal"
                data-title="Add New Job Contract"
-               data-target="#{$prefix}modal-edit">
+               data-target="#{$prefix}modal-wizard">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Job Contract
             </a>
         </p>
         <!-- Modal -->
-        <div class="modal fade" id="{$prefix}modal-edit" tabindex="-1" role="dialog" aria-labelledby="Add New Job Contract" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade" id="{$prefix}modal-wizard" tabindex="-1" role="dialog" aria-labelledby="Add New Job Contract" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <form class="form-horizontal {$prefix}wizard" role="form">
                         <div class="modal-header">
@@ -388,16 +395,89 @@
                                         <div>
                                             <div class="row">
                                                 <div class="col-xs-12">
-                                                    <div class="form-group">
-                                                        <label for="position" class="col-sm-3 control-label">Position</label>
-                                                        <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="position" >
+                                                    <div class="form-group required">
+                                                        <label for="position" class="col-sm-4 control-label">Position</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control" id="position" value="General Manager">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group required">
+                                                        <label for="title" class="col-sm-4 control-label">Title</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control" id="title" value="General Manager">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="title" class="col-sm-3 control-label">Title</label>
-                                                        <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="title">
+                                                        <label for="contract-type" class="col-sm-4 control-label">Contract type</label>
+                                                        <div class="col-sm-5">
+                                                            <select id="contract-type" class="form-control">
+                                                                <option value="">- select -</option>
+                                                                <option value="Apprentice" selected>Apprentice</option>
+                                                                <option value="Contractor">Contractor</option>
+                                                                <option value="Employee - Temporary">Employee - Temporary</option>
+                                                                <option value="Employee - Permanent">Employee - Permanent</option>
+                                                                <option value="Intern">Intern</option>
+                                                                <option value="Trustee">Trustee</option>
+                                                                <option value="Volunteer">Volunteer</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="place-of-work" class="col-sm-4 control-label">Normal Place of Work</label>
+                                                        <div class="col-sm-5">
+                                                            <select id="place-of-work" class="form-control">
+                                                                <option value="">- select -</option>
+                                                                <option value="Headquarters" selected>Headquarters</option>
+                                                                <option value="Home or Home-Office">Home or Home-Office</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="date-start" class="col-sm-4 control-label">Contract Start Date</label>
+                                                        <div class="col-sm-4">
+                                                            <input type="date" class="form-control" id="date-start" value="2014-08-26">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="date-end" class="col-sm-4 control-label">Contract End Date</label>
+                                                        <div class="col-sm-4">
+                                                            <input type="date" class="form-control" id="date-end">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="duration" class="col-sm-4 control-label">Contract Duration</label>
+                                                        <div class="col-sm-8">
+                                                            <p class="form-control-static">2 months and 15 days</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="notice-employer" class="col-sm-4 control-label">Notice Period from Employer</label>
+                                                        <div class="col-sm-8">
+                                                            <div class="form-inline">
+                                                                <input type="text" class="form-control" id="notice-employer" value="3">
+                                                                <select id="notice-employer-unit" class="form-control">
+                                                                    <option value="">- select -</option>
+                                                                    <option value="Day">Day</option>
+                                                                    <option value="Week" selected>Week</option>
+                                                                    <option value="Month" selected>Month</option>
+                                                                    <option value="Year">Year</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="notice-employee" class="col-sm-4 control-label">Notice Period from Employee</label>
+                                                        <div class="col-sm-8">
+                                                            <div class="form-inline">
+                                                                <input type="text" class="form-control" id="notice-employee" value="3">
+                                                                <select id="notice-employee-unit" class="form-control">
+                                                                    <option value="">- select -</option>
+                                                                    <option value="Day">Day</option>
+                                                                    <option value="Week">Week</option>
+                                                                    <option value="Month" selected>Month</option>
+                                                                    <option value="Year">Year</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

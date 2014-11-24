@@ -20,14 +20,14 @@
                                 <a href="#" class="btn btn-default btn-sm" role="button"
                                    data-toggle="modal"
                                    data-action="view"
-                                   data-title="View current revision"
+                                   data-title="Job Contract (rev. 4.1)"
                                    data-target="#{$prefix}modal-wizard">
                                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span> View current revision
                                 </a>
                                 <a href="#" class="btn btn-default btn-sm" role="button"
                                    data-toggle="modal"
                                    data-action="edit"
-                                   data-title="Correct error on contract"
+                                   data-title="Correct error on contract (rev. 4.1)"
                                    data-target="#{$prefix}modal-wizard">
                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Correct error on contract
                                 </a>
@@ -37,6 +37,9 @@
                                    data-title="Change contract terms"
                                    data-target="#{$prefix}modal-wizard">
                                     <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Change contract terms
+                                </a>
+                                <a href="#" class="btn btn-sm">
+                                    <i class="fa fa-question-circle fa-lg"></i>
                                 </a>
                             </div>
                         </div>
@@ -277,7 +280,11 @@
                                             <td>London</td>
                                             <td>John Smith</td>
                                             <td></td>
-                                            <td><a href="#">view this contract revision</a></td>
+                                            <td><a href="#"
+                                                   data-toggle="modal"
+                                                   data-action="view"
+                                                   data-title="Job Contract (rev. 4.0)"
+                                                   data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
                                         </tr>
                                         <tr>
                                             <td>2014-10-30</td>
@@ -289,7 +296,11 @@
                                             <td>London</td>
                                             <td>John Smith</td>
                                             <td></td>
-                                            <td><a href="#">view this contract revision</a></td>
+                                            <td><a href="#"
+                                                   data-toggle="modal"
+                                                   data-action="view"
+                                                   data-title="Job Contract (rev. 3.9)"
+                                                   data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
                                         </tr>
                                         <tr>
                                             <td>2014-10-30</td>
@@ -301,7 +312,11 @@
                                             <td>London</td>
                                             <td>John Smith</td>
                                             <td></td>
-                                            <td><a href="#">view this contract revision</a></td>
+                                            <td><a href="#"
+                                                   data-toggle="modal"
+                                                   data-action="view"
+                                                   data-title="Job Contract (rev. 3.8)"
+                                                   data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
                                         </tr>
                                         <tr>
                                             <td>2014-10-30</td>
@@ -313,7 +328,11 @@
                                             <td>London</td>
                                             <td>John Smith</td>
                                             <td></td>
-                                            <td><a href="#">view this contract revision</a></td>
+                                            <td><a href="#"
+                                                   data-toggle="modal"
+                                                   data-action="view"
+                                                   data-title="Job Contract (rev. 3.7)"
+                                                   data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
                                         </tr>
                                         <tr>
                                             <td>2014-10-30</td>
@@ -325,7 +344,11 @@
                                             <td>London</td>
                                             <td>John Smith</td>
                                             <td></td>
-                                            <td><a href="#">view this contract revision</a></td>
+                                            <td><a href="#"
+                                                   data-toggle="modal"
+                                                   data-action="view"
+                                                   data-title="Job Contract (rev. 3.6)"
+                                                   data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
                                         </tr>
                                         <tr>
                                             <td>2014-10-30</td>
@@ -337,7 +360,11 @@
                                             <td>London</td>
                                             <td>John Smith</td>
                                             <td></td>
-                                            <td><a href="#">view this contract revision</a></td>
+                                            <td><a href="#"
+                                                   data-toggle="modal"
+                                                   data-action="view"
+                                                   data-title="Job Contract (rev. 3.5)"
+                                                   data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
                                         </tr>
                                         <tr>
                                             <td>2014-10-30</td>
@@ -349,7 +376,11 @@
                                             <td>London</td>
                                             <td>John Smith</td>
                                             <td></td>
-                                            <td><a href="#">view this contract revision</a></td>
+                                            <td><a href="#"
+                                                   data-toggle="modal"
+                                                   data-action="view"
+                                                   data-title="Job Contract (rev. 3.4)"
+                                                   data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
                                         </tr>
                                     </tbody>
                                 </table>

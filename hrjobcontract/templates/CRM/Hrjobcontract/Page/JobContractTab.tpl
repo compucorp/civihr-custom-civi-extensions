@@ -392,92 +392,95 @@
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <div role="tabpanel" class="tab-pane active" id="{$prefix}tab-general">
-                                        <div>
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <div class="form-group required">
-                                                        <label for="position" class="col-sm-4 control-label">Position</label>
-                                                        <div class="col-sm-8">
-                                                            <input type="text" class="form-control" id="position" value="General Manager">
-                                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <h4>General</h4>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group required">
+                                                    <label for="position" class="col-sm-4 control-label">Position</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" id="position" value="General Manager">
                                                     </div>
-                                                    <div class="form-group required">
-                                                        <label for="title" class="col-sm-4 control-label">Title</label>
-                                                        <div class="col-sm-8">
-                                                            <input type="text" class="form-control" id="title" value="General Manager">
-                                                        </div>
+                                                </div>
+                                                <div class="form-group required">
+                                                    <label for="title" class="col-sm-4 control-label">Title</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" id="title" value="General Manager">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="contract-type" class="col-sm-4 control-label">Contract type</label>
-                                                        <div class="col-sm-5">
-                                                            <select id="contract-type" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="contract-type" class="col-sm-4 control-label">Contract type</label>
+                                                    <div class="col-sm-5">
+                                                        <select id="contract-type" class="form-control">
+                                                            <option value="">- select -</option>
+                                                            <option value="Apprentice" selected>Apprentice</option>
+                                                            <option value="Contractor">Contractor</option>
+                                                            <option value="Employee - Temporary">Employee - Temporary</option>
+                                                            <option value="Employee - Permanent">Employee - Permanent</option>
+                                                            <option value="Intern">Intern</option>
+                                                            <option value="Trustee">Trustee</option>
+                                                            <option value="Volunteer">Volunteer</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="place-of-work" class="col-sm-4 control-label">Normal Place of Work</label>
+                                                    <div class="col-sm-5">
+                                                        <select id="place-of-work" class="form-control">
+                                                            <option value="">- select -</option>
+                                                            <option value="Headquarters" selected>Headquarters</option>
+                                                            <option value="Home or Home-Office">Home or Home-Office</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="date-start" class="col-sm-4 control-label">Contract Start Date</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="date" class="form-control" id="date-start" value="2014-08-26">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="date-end" class="col-sm-4 control-label">Contract End Date</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="date" class="form-control" id="date-end">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="duration" class="col-sm-4 control-label">Contract Duration</label>
+                                                    <div class="col-sm-8">
+                                                        <p class="form-control-static">2 months and 15 days</p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="notice-employer" class="col-sm-4 control-label">Notice Period from Employer</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="form-inline">
+                                                            <input type="text" class="form-control" id="notice-employer" value="3">
+                                                            <select id="notice-employer-unit" class="form-control">
                                                                 <option value="">- select -</option>
-                                                                <option value="Apprentice" selected>Apprentice</option>
-                                                                <option value="Contractor">Contractor</option>
-                                                                <option value="Employee - Temporary">Employee - Temporary</option>
-                                                                <option value="Employee - Permanent">Employee - Permanent</option>
-                                                                <option value="Intern">Intern</option>
-                                                                <option value="Trustee">Trustee</option>
-                                                                <option value="Volunteer">Volunteer</option>
+                                                                <option value="Day">Day</option>
+                                                                <option value="Week" selected>Week</option>
+                                                                <option value="Month" selected>Month</option>
+                                                                <option value="Year">Year</option>
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="place-of-work" class="col-sm-4 control-label">Normal Place of Work</label>
-                                                        <div class="col-sm-5">
-                                                            <select id="place-of-work" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="notice-employee" class="col-sm-4 control-label">Notice Period from Employee</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="form-inline">
+                                                            <input type="text" class="form-control" id="notice-employee" value="3">
+                                                            <select id="notice-employee-unit" class="form-control">
                                                                 <option value="">- select -</option>
-                                                                <option value="Headquarters" selected>Headquarters</option>
-                                                                <option value="Home or Home-Office">Home or Home-Office</option>
+                                                                <option value="Day">Day</option>
+                                                                <option value="Week">Week</option>
+                                                                <option value="Month" selected>Month</option>
+                                                                <option value="Year">Year</option>
                                                             </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="date-start" class="col-sm-4 control-label">Contract Start Date</label>
-                                                        <div class="col-sm-4">
-                                                            <input type="date" class="form-control" id="date-start" value="2014-08-26">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="date-end" class="col-sm-4 control-label">Contract End Date</label>
-                                                        <div class="col-sm-4">
-                                                            <input type="date" class="form-control" id="date-end">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="duration" class="col-sm-4 control-label">Contract Duration</label>
-                                                        <div class="col-sm-8">
-                                                            <p class="form-control-static">2 months and 15 days</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="notice-employer" class="col-sm-4 control-label">Notice Period from Employer</label>
-                                                        <div class="col-sm-8">
-                                                            <div class="form-inline">
-                                                                <input type="text" class="form-control" id="notice-employer" value="3">
-                                                                <select id="notice-employer-unit" class="form-control">
-                                                                    <option value="">- select -</option>
-                                                                    <option value="Day">Day</option>
-                                                                    <option value="Week" selected>Week</option>
-                                                                    <option value="Month" selected>Month</option>
-                                                                    <option value="Year">Year</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="notice-employee" class="col-sm-4 control-label">Notice Period from Employee</label>
-                                                        <div class="col-sm-8">
-                                                            <div class="form-inline">
-                                                                <input type="text" class="form-control" id="notice-employee" value="3">
-                                                                <select id="notice-employee-unit" class="form-control">
-                                                                    <option value="">- select -</option>
-                                                                    <option value="Day">Day</option>
-                                                                    <option value="Week">Week</option>
-                                                                    <option value="Month" selected>Month</option>
-                                                                    <option value="Year">Year</option>
-                                                                </select>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -485,6 +488,11 @@
                                         </div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="{$prefix}tab-hours">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <h4>Hours</h4>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="col-xs-12">
                                                 <div class="form-group">
@@ -530,13 +538,286 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div role="tabpanel" class="tab-pane" id="{$prefix}tab-pay">...</div>
-                                    <div role="tabpanel" class="tab-pane" id="{$prefix}tab-leave">...</div>
-                                    <div role="tabpanel" class="tab-pane" id="{$prefix}tab-insurance">...</div>
-                                    <div role="tabpanel" class="tab-pane" id="{$prefix}tab-pension">...</div>
-                                    <div role="tabpanel" class="tab-pane" id="{$prefix}tab-funding">...</div>
+                                    <div role="tabpanel" class="tab-pane" id="{$prefix}tab-pay">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <h4>Pay</h4>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <div class="col-sm-5 col-sm-offset-4">
+                                                        <label class="radio-inline">
+                                                            <input type="radio" name="isPaid" id="paid" value="paid"> Paid
+                                                        </label>
+                                                        <label class="radio-inline">
+                                                            <input type="radio" name="isPaid" id="unpaid" value="unpaid" checked> Unpaid
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group">
+                                            <label for="contract-type" class="col-sm-4 control-label">Pay Scale / Grade</label>
+                                            <div class="col-sm-5">
+                                                <select id="pay-scale" class="form-control">
+                                                    <option value="1">US</option>
+                                                    <option value="2"> - Senior</option>
+                                                    <option value="3"> - Junior</option>
+                                                    <option value="4">UK</option>
+                                                    <option value="5"> - Senior</option>
+                                                    <option value="6"> - Junior</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pay-currency" class="col-sm-4 control-label">Pay</label>
+                                            <div class="col-sm-8">
+                                                <div class="form-inline">
+                                                <select id="pay-currency" class="form-control">
+                                                    <option value="GBP">&pound;</option>
+                                                    <option value="USD">&dollar;</option>
+                                                    <option value="EUR">&euro;</option>
+                                                </select>
+                                                <input type="text" name="pay-value" class="form-control" value="1500">
+                                                per
+                                                <select name="pay-timeunit" class="form-control">
+                                                    <option value="">- select -</option>
+                                                    <option value="Day">Day</option>
+                                                    <option value="Week">Week</option>
+                                                    <option value="Month" selected>Month</option>
+                                                    <option value="Year">Year</option>
+                                                </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pay-estimate-annual" class="col-sm-4 control-label control-label-line-2">Annual pay estimate before benefits and deductions</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" id="pay-estimate-annual" class="form-control disabled"  value="18000" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pay-cycle" class="col-sm-4 control-label">Pay cycle</label>
+                                            <div class="col-sm-5">
+                                                <select id="pay-cycle" class="form-control">
+                                                    <option value="">- select -</option>
+                                                    <option value="1">weekly</option>
+                                                    <option value="2" selected>monthly</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="well">
+                                            <div class="form-group">
+                                                <label for="pay-gross-cycle" class="col-sm-4 control-label control-label-line-2">Gross Pay per cycle<br />
+                                                    <small>(before benefits and deductions)</small></label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" id="pay-gross-cycle" class="form-control disabled"  value="18000" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="{$prefix}tab-leave">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <h4>Hours</h4>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <div class="col-sm-4 text-right">
+                                                        Leave type
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        Days per year
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="leave-sick" class="col-sm-4 control-label">Sick</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" id="leave-sick" name="leave-sick" class="form-control"  value="0" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="leave-vacation" class="col-sm-4 control-label">Vacation</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" id="leave-vacation" name="leave-vacation" class="form-control"  value="0" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="leave-maternity" class="col-sm-4 control-label">Maternity</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" id="leave-maternity" name="leave-maternity" class="form-control"  value="0" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="leave-paternity" class="col-sm-4 control-label">Paternity</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" id="leave-paternity" name="leave-paternity" class="form-control"  value="0" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="leave-toil" class="col-sm-4 control-label">TOIL</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" id="leave-toil" name="leave-toil" class="form-control"  value="0" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="leave-other" class="col-sm-4 control-label">Other</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" id="leave-other" name="leave-other" class="form-control"  value="0" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="{$prefix}tab-insurance">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <h4>Healt Insurance</h4>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="insurance-health-provider" class="col-sm-4 control-label">Provider</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" id="insurance-health-provider" name="insurance-health-provider" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="insurance-health-plan" class="col-sm-4 control-label">Plan Type</label>
+                                                    <div class="col-sm-4">
+                                                        <select id="insurance-health-plan" class="form-control">
+                                                            <option value="">- select -</option>
+                                                            <option value="1">Family</option>
+                                                            <option value="2">Individual</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="insurance-health-desc" class="col-sm-4 control-label">Description</label>
+                                                    <div class="col-sm-8">
+                                                        <textarea id="insurance-health-desc" name="insurance-health-desc" class="form-control" rows="3"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <h4>Life Insurance</h4>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="insurance-life-provider" class="col-sm-4 control-label">Provider</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" id="insurance-life-provider" name="insurance-life-provider" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="insurance-life-plan" class="col-sm-4 control-label">Plan Type</label>
+                                                    <div class="col-sm-4">
+                                                        <select id="insurance-life-plan" class="form-control">
+                                                            <option value="">- select -</option>
+                                                            <option value="1">Family</option>
+                                                            <option value="2">Individual</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="insurance-life-desc" class="col-sm-4 control-label">Description</label>
+                                                    <div class="col-sm-8">
+                                                        <textarea id="insurance-life-desc" name="insurance-life-desc" class="form-control" rows="3"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="{$prefix}tab-pension">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <h4>Pension</h4>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="pension-isenrolled" class="col-sm-4 control-label">Is Enrolled</label>
+                                                    <div class="col-sm-4">
+                                                        <select id="insurance-life-plan" class="form-control">
+                                                            <option value="">- select -</option>
+                                                            <option value="1">No</option>
+                                                            <option value="2">Yes</option>
+                                                            <option value="3">Opted out</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="pension-provider" class="col-sm-4 control-label">Provider</label>
+                                                    <div class="col-sm-4">
+                                                        <select id="insurance-provider" class="form-control">
+                                                            <option value="">- select -</option>
+                                                            <option value="1">Employer Pension</option>
+                                                            <option value="2">Personal Pension</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="pension-contrib-emplr" class="col-sm-4 control-label">Employer Contribution (%)</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" id="pension-contrib-emplr" name="pension-contrib-emplr" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="pension-contrib-emple" class="col-sm-4 control-label">Employee Contribution (%)</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" id="pension-contrib-emple" name="pension-contrib-emple" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="pension-contrib-emple-abs" class="col-sm-4 control-label control-label-line-2">Employee Contribution (absolute amount)</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" id="pension-contrib-emple-abs" name="pension-contrib-emple-abs" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="pension-evidence-file" class="col-sm-4 control-label">Evidence File</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="file" id="pension-evidence-file" name="pension-evidence-file">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="pension-evidence-note" class="col-sm-4 control-label">Evidence Note</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" id="pension-evidence-note" name="pension-evidence-note" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="{$prefix}tab-funding">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <h4>Funding</h4>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="pension-funding-notes" class="col-sm-4 control-label">Funding Notes</label>
+                                                    <div class="col-sm-8">
+                                                        <textarea id="pension-funding-notes" name="pension-funding-notes" class="form-control" rows="3"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-
                             </div>
                         </div>
                         <div class="modal-footer">

@@ -5,14 +5,18 @@
     <div class="container">
         <ul class="{$prefix}list-contract">
             <li>
-                <div class="panel panel-default">
+                <div class="panel panel-default {$prefix}panel-action">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-xs-6">
-                                Position: General Manager Dates: 13/4/2014 Paid: Is primary<br />
+                            <div class="col-xs-3">
+                                Position: General Manager
                                 Contact Type: Apprentice
                             </div>
-                            <div class="col-xs-6 text-right">
+                            <div class="col-xs-3">
+                                Dates: 13/4/2014 - 13/7/2014<br>
+                                Paid: Is primary
+                            </div>
+                            <div class="col-xs-6 text-right ">
                                 <a href="#" class="btn btn-default btn-sm" role="button"
                                    data-toggle="modal"
                                    data-action="view"

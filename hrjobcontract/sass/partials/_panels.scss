@@ -5,3 +5,9 @@
   width: auto;
   background-position: 0 0;
 }
+
+.#{$prefix}panel-action {
+  .btn {
+    margin-top: 4px;
+  }
+}

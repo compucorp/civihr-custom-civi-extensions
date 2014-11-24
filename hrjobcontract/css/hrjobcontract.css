@@ -7616,6 +7616,10 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
   width: auto;
   background-position: 0 0;
 }
+/* line 10, ../sass/partials/_panels.scss */
+#hrjob-contract .hrjobcont-panel-action .btn {
+  margin-top: 4px;
+}
 /* line 3, ../sass/partials/_modals.scss */
 .modal-open {
   overflow: scroll;

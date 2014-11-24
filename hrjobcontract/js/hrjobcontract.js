@@ -28,7 +28,7 @@
                     });
                     break;
                 case 'view':
-                    $modal.find('input, select').each(function(){
+                    $modal.find('input, select, textarea').each(function(){
                         $(this).attr('disabled',true);
                     });
                     break;

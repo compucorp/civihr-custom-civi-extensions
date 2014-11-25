@@ -34,7 +34,7 @@
  * @see http://wiki.civicrm.org/confluence/display/CRM/API+Architecture+Standards
  */
 function _civicrm_api3_h_r_job_role_create_spec(&$spec) {
-  $spec['job_id']['api.required'] = 1;
+  //$spec['job_id']['api.required'] = 1;
   $spec['job_id']['api.aliases'] = array('h_r_job_id');
 }
 

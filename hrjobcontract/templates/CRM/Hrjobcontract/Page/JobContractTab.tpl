@@ -99,7 +99,10 @@
                                                                     <p class="form-control-static">General Manager</p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Position"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -110,7 +113,10 @@
                                                                     <p class="form-control-static">General Manager</p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Title"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -121,7 +127,10 @@
                                                                     <p class="form-control-static">Apprentice</p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Contract Type"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -132,7 +141,10 @@
                                                                     <p class="form-control-static"></p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Department"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -143,7 +155,10 @@
                                                                     <p class="form-control-static"></p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Level"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -154,7 +169,10 @@
                                                                     <p class="form-control-static"></p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Manager"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -165,7 +183,10 @@
                                                                     <p class="form-control-static">Headquarters</p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Normal Place of Work"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -179,7 +200,10 @@
                                                                     </p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Time Period"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -195,7 +219,10 @@
                                                                     </p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Funding"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -208,7 +235,10 @@
                                                                     <p class="form-control-static"></p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Health Insurance"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -219,7 +249,10 @@
                                                                     <p class="form-control-static"></p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Life Insurance"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -230,7 +263,10 @@
                                                                     <p class="form-control-static">Part Time (4 per Day) (1/1 FTE)</p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Hours"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -241,7 +277,10 @@
                                                                     <p class="form-control-static"></p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Leave"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -252,7 +291,10 @@
                                                                     <p class="form-control-static">Paid (USD 40000.00 Year)</p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Pay"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -270,7 +312,10 @@
                                                                     </p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Pension"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -511,194 +556,239 @@
                                         <div class="panel panel-default">
                                             <div class="panel-heading"><strong>Apprentice: General Manager</strong></div>
                                             <div class="panel-body">
-                                                <form class="form-horizontal" role="form">
-                                                    <div class="row">
-                                                        <div class="col-xs-6">
-                                                            <div class="form-group">
-                                                                <label for="position" class="col-sm-4 control-label">Position</label>
-                                                                <div class="col-sm-6">
-                                                                    <p class="form-control-static">General Manager</p>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
-                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="title" class="col-sm-4 control-label">Title</label>
-                                                                <div class="col-sm-6">
-                                                                    <p class="form-control-static">General Manager</p>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
-                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="type" class="col-sm-4 control-label">Contract Type</label>
-                                                                <div class="col-sm-6">
-                                                                    <p class="form-control-static">Apprentice</p>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
-                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="department" class="col-sm-4 control-label">Department</label>
-                                                                <div class="col-sm-6">
-                                                                    <p class="form-control-static"></p>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
-                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="level" class="col-sm-4 control-label">Level</label>
-                                                                <div class="col-sm-6">
-                                                                    <p class="form-control-static"></p>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
-                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="manager" class="col-sm-4 control-label">Manager</label>
-                                                                <div class="col-sm-6">
-                                                                    <p class="form-control-static"></p>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
-                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="manager" class="col-sm-4 control-label">Normal Place of Work</label>
-                                                                <div class="col-sm-6">
-                                                                    <p class="form-control-static">Headquarters</p>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
-                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="time" class="col-sm-4 control-label">Time Period</label>
-                                                                <div class="col-sm-6">
-                                                                    <p class="form-control-static">
-                                                                        (2014-08-26 to Unspecified)<br />
-                                                                        <strong>Notice:</strong> 3 Month
-                                                                    </p>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
-                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="funding" class="col-sm-4 control-label">Funding</label>
-                                                                <div class="col-sm-6">
-                                                                    <p class="form-control-static">
-                                                                        <strong>Tied to funding</strong><br />
-                                                                        <strong>Funding organization:</strong> <a href="#">Jackson
-                                                                            Wellness Partnership</a><br />
-                                                                        <strong>Notes:</strong> Notes
-                                                                    </p>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
-                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-6">
-                                                            <div class="form-group">
-                                                                <label for="insurance-health" class="col-sm-4 control-label">Health Insurance</label>
-                                                                <div class="col-sm-6">
-                                                                    <p class="form-control-static"></p>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
-                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="insurance-life" class="col-sm-4 control-label">Life Insurance</label>
-                                                                <div class="col-sm-6">
-                                                                    <p class="form-control-static"></p>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
-                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="hours" class="col-sm-4 control-label">Hours</label>
-                                                                <div class="col-sm-6">
-                                                                    <p class="form-control-static">Part Time (4 per Day) (1/1 FTE)</p>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
-                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="leave" class="col-sm-4 control-label">Leave</label>
-                                                                <div class="col-sm-6">
-                                                                    <p class="form-control-static"></p>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
-                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="pay" class="col-sm-4 control-label">Pay</label>
-                                                                <div class="col-sm-6">
-                                                                    <p class="form-control-static">Paid (USD 40000.00 Year)</p>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
-                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="pension" class="col-sm-4 control-label">Pension</label>
-                                                                <div class="col-sm-6">
-                                                                    <p class="form-control-static">
-                                                                        Enrolled<br />
-                                                                        <strong>Pension Type:</strong> Employer Pension<br />
-                                                                        <strong>Employer Contribution (%):</strong> 4<br />
-                                                                        <strong>Employer Contribution (%):</strong> 4<br />
-                                                                        <strong>Employer Contribution (absolute amount):</strong>
-                                                                        10000.00
-                                                                    </p>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
-                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                            <form class="form-horizontal" role="form">
+                                            <div class="row">
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <label for="position" class="col-sm-4 control-label">Position</label>
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static">General Manager</p>
                                                     </div>
-                                                </form>
+                                                    <div class="col-sm-2">
+                                                        <a href="#" class="btn" role="button"
+                                                           data-toggle="modal"
+                                                           data-title="Position"
+                                                           data-target="#{$prefix}modal-history-section">
+                                                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="title" class="col-sm-4 control-label">Title</label>
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static">General Manager</p>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <a href="#" class="btn" role="button"
+                                                           data-toggle="modal"
+                                                           data-title="Title"
+                                                           data-target="#{$prefix}modal-history-section">
+                                                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="type" class="col-sm-4 control-label">Contract Type</label>
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static">Apprentice</p>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <a href="#" class="btn" role="button"
+                                                           data-toggle="modal"
+                                                           data-title="Contract Type"
+                                                           data-target="#{$prefix}modal-history-section">
+                                                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="department" class="col-sm-4 control-label">Department</label>
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static"></p>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <a href="#" class="btn" role="button"
+                                                           data-toggle="modal"
+                                                           data-title="Department"
+                                                           data-target="#{$prefix}modal-history-section">
+                                                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="level" class="col-sm-4 control-label">Level</label>
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static"></p>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <a href="#" class="btn" role="button"
+                                                           data-toggle="modal"
+                                                           data-title="Level"
+                                                           data-target="#{$prefix}modal-history-section">
+                                                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="manager" class="col-sm-4 control-label">Manager</label>
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static"></p>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <a href="#" class="btn" role="button"
+                                                           data-toggle="modal"
+                                                           data-title="Manager"
+                                                           data-target="#{$prefix}modal-history-section">
+                                                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="manager" class="col-sm-4 control-label">Normal Place of Work</label>
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static">Headquarters</p>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <a href="#" class="btn" role="button"
+                                                           data-toggle="modal"
+                                                           data-title="Normal Place of Work"
+                                                           data-target="#{$prefix}modal-history-section">
+                                                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="time" class="col-sm-4 control-label">Time Period</label>
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static">
+                                                            (2014-08-26 to Unspecified)<br />
+                                                            <strong>Notice:</strong> 3 Month
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <a href="#" class="btn" role="button"
+                                                           data-toggle="modal"
+                                                           data-title="Time Period"
+                                                           data-target="#{$prefix}modal-history-section">
+                                                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="funding" class="col-sm-4 control-label">Funding</label>
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static">
+                                                            <strong>Tied to funding</strong><br />
+                                                            <strong>Funding organization:</strong> <a href="#">Jackson
+                                                                Wellness Partnership</a><br />
+                                                            <strong>Notes:</strong> Notes
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <a href="#" class="btn" role="button"
+                                                           data-toggle="modal"
+                                                           data-title="Funding"
+                                                           data-target="#{$prefix}modal-history-section">
+                                                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <label for="insurance-health" class="col-sm-4 control-label">Health Insurance</label>
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static"></p>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <a href="#" class="btn" role="button"
+                                                           data-toggle="modal"
+                                                           data-title="Health Insurance"
+                                                           data-target="#{$prefix}modal-history-section">
+                                                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="insurance-life" class="col-sm-4 control-label">Life Insurance</label>
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static"></p>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <a href="#" class="btn" role="button"
+                                                           data-toggle="modal"
+                                                           data-title="Life Insurance"
+                                                           data-target="#{$prefix}modal-history-section">
+                                                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="hours" class="col-sm-4 control-label">Hours</label>
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static">Part Time (4 per Day) (1/1 FTE)</p>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <a href="#" class="btn" role="button"
+                                                           data-toggle="modal"
+                                                           data-title="Hours"
+                                                           data-target="#{$prefix}modal-history-section">
+                                                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="leave" class="col-sm-4 control-label">Leave</label>
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static"></p>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <a href="#" class="btn" role="button"
+                                                           data-toggle="modal"
+                                                           data-title="Leave"
+                                                           data-target="#{$prefix}modal-history-section">
+                                                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="pay" class="col-sm-4 control-label">Pay</label>
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static">Paid (USD 40000.00 Year)</p>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <a href="#" class="btn" role="button"
+                                                           data-toggle="modal"
+                                                           data-title="Pay"
+                                                           data-target="#{$prefix}modal-history-section">
+                                                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="pension" class="col-sm-4 control-label">Pension</label>
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static">
+                                                            Enrolled<br />
+                                                            <strong>Pension Type:</strong> Employer Pension<br />
+                                                            <strong>Employer Contribution (%):</strong> 4<br />
+                                                            <strong>Employer Contribution (%):</strong> 4<br />
+                                                            <strong>Employer Contribution (absolute amount):</strong>
+                                                            10000.00
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <a href="#" class="btn" role="button"
+                                                           data-toggle="modal"
+                                                           data-title="Pension"
+                                                           data-target="#{$prefix}modal-history-section">
+                                                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            </form>
                                             </div>
                                         </div>
                                         <a href="#" class="btn btn-default btn-sm btn-danger" role="button">
@@ -938,7 +1028,10 @@
                                                                     <p class="form-control-static">General Manager</p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Position"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -949,7 +1042,10 @@
                                                                     <p class="form-control-static">General Manager</p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Title"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -960,7 +1056,10 @@
                                                                     <p class="form-control-static">Apprentice</p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Contract Type"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -971,7 +1070,10 @@
                                                                     <p class="form-control-static"></p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Department"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -982,7 +1084,10 @@
                                                                     <p class="form-control-static"></p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Level"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -993,7 +1098,10 @@
                                                                     <p class="form-control-static"></p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Manager"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -1004,7 +1112,10 @@
                                                                     <p class="form-control-static">Headquarters</p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Normal Place of Work"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -1018,7 +1129,10 @@
                                                                     </p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Time Period"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -1034,7 +1148,10 @@
                                                                     </p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Funding"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -1047,7 +1164,10 @@
                                                                     <p class="form-control-static"></p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Health Insurance"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -1058,7 +1178,10 @@
                                                                     <p class="form-control-static"></p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Life Insurance"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -1069,7 +1192,10 @@
                                                                     <p class="form-control-static">Part Time (4 per Day) (1/1 FTE)</p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Hours"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -1080,7 +1206,10 @@
                                                                     <p class="form-control-static"></p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Leave"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -1091,7 +1220,10 @@
                                                                     <p class="form-control-static">Paid (USD 40000.00 Year)</p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Pay"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -1109,7 +1241,10 @@
                                                                     </p>
                                                                 </div>
                                                                 <div class="col-sm-2">
-                                                                    <a href="#" class="btn">
+                                                                    <a href="#" class="btn" role="button"
+                                                                       data-toggle="modal"
+                                                                       data-title="Pension"
+                                                                       data-target="#{$prefix}modal-history-section">
                                                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                                     </a>
                                                                 </div>
@@ -1734,7 +1869,148 @@
                 </div>
             </div>
         </div>
-
+        <div class="modal fade" id="{$prefix}modal-history-section" tabindex="-2" role="dialog" aria-labelledby="Section history" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Effective Date</th>
+                                <th>Field 1</th>
+                                <th>Field 2</th>
+                                <th>Field 3</th>
+                                <th>Change Recorded By</th>
+                                <th>Reason For Change</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><a href="#"
+                                           data-dismiss="modal"
+                                           data-toggle="modal"
+                                           data-action="view"
+                                           data-title="Job Contract (rev. 3.4)"
+                                           data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><a href="#"
+                                           data-dismiss="modal"
+                                           data-toggle="modal"
+                                           data-action="view"
+                                           data-title="Job Contract (rev. 3.3)"
+                                           data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><a href="#"
+                                           data-dismiss="modal"
+                                           data-toggle="modal"
+                                           data-action="view"
+                                           data-title="Job Contract (rev. 3.2)"
+                                           data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><a href="#"
+                                           data-dismiss="modal"
+                                           data-toggle="modal"
+                                           data-action="view"
+                                           data-title="Job Contract (rev. 3.1)"
+                                           data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><a href="#"
+                                           data-dismiss="modal"
+                                           data-toggle="modal"
+                                           data-action="view"
+                                           data-title="Job Contract (rev. 3.0)"
+                                           data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><a href="#"
+                                           data-dismiss="modal"
+                                           data-toggle="modal"
+                                           data-action="view"
+                                           data-title="Job Contract (rev. 2.9)"
+                                           data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><a href="#"
+                                           data-dismiss="modal"
+                                           data-toggle="modal"
+                                           data-action="view"
+                                           data-title="Job Contract (rev. 2.8)"
+                                           data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><a href="#"
+                                           data-dismiss="modal"
+                                           data-toggle="modal"
+                                           data-action="view"
+                                           data-title="Job Contract (rev. 2.7)"
+                                           data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
     </div>
 </div>
 

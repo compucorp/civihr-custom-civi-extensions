@@ -41,6 +41,15 @@
 
         });
 
+        $('#'+prefix+'modal-history-section').on('show.bs.modal', function (event) {
+            var $modal = $(this),
+                $buttonTarget = $(event.relatedTarget),
+                title = $buttonTarget.data('title');
+
+            $modal.find('.modal-title').text(title);
+            $modal.attr('aria-labelledby',title);
+        });
+
         $collapse.each(function(){
             $this = $(this);
             $this.on('hide.bs.collapse', function () {

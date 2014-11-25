@@ -25,11 +25,14 @@
                     $modal.find('*[disabled]:not(.disabled)').each(function(){
                         $(this).removeAttr('disabled');
                     });
+                    $modal.find('.btn-save').text($buttonTarget.data('save'));
                     break;
                 case 'add':
+                    $buttonSave.show();
                     $modal.find('*[disabled]').each(function(){
                         $(this).removeAttr('disabled');
                     });
+                    $modal.find('.btn-save').text($buttonTarget.data('save'));
                     break;
                 case 'view':
                     $buttonSave.hide();

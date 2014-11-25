@@ -169,12 +169,7 @@ class CRM_HRJob_DAO_HRJobData extends CRM_HRJob_DAO_Base
    * @var boolean
    */
   public $is_primary;
-  /**
-   * Contract revision id
-   * 
-   * @var int
-   */
-  public $contract_revision_id;
+
   /**
    * class constructor
    *
@@ -195,6 +190,7 @@ class CRM_HRJob_DAO_HRJobData extends CRM_HRJob_DAO_Base
    */
   static function getReferenceColumns()
   {
+      //TODO!
     if (!self::$_links) {
       self::$_links = array(
         new CRM_Core_Reference_Basic(self::getTableName() , 'contract_revision_id', 'civicrm_hrjob_contract_revision', 'id') ,
@@ -211,11 +207,11 @@ class CRM_HRJob_DAO_HRJobData extends CRM_HRJob_DAO_Base
   static function &fields()
   {
     if (!(self::$_fields)) {
-      self::$_fields = array(
+        self::$_fields = self::setFields(array(
         'id' => array(
           'name' => 'id',
           'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Contract Id') ,
+          'title' => ts('Id') ,
           'required' => true,
         ) ,
         'position' => array(
@@ -374,14 +370,7 @@ class CRM_HRJob_DAO_HRJobData extends CRM_HRJob_DAO_Base
           'headerPattern' => '',
           'dataPattern' => '',
         ) ,
-        'contract_revision_id' => array(
-          'name' => 'contract_revision_id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Contract Revision Id') ,
-          'required' => true,
-          'FKClassName' => 'CRM_HRJob_DAO_HRJobContractRevision',
-        ) ,
-      );
+      ));
     }
     return self::$_fields;
   }
@@ -410,7 +399,6 @@ class CRM_HRJob_DAO_HRJobData extends CRM_HRJob_DAO_Base
         'notice_unit_employee' => 'notice_unit_employee',
         'location' => 'location',
         'is_primary' => 'is_primary',
-        'contract_revision_id' => 'contract_revision_id',
       );
     }
     return self::$_fieldKeys;

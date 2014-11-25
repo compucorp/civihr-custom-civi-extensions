@@ -90,5 +90,6 @@ function _civicrm_api3_h_r_job_pay_get_spec(&$spec) {
  * @throws API_Exception
  */
 function civicrm_api3_h_r_job_pay_get($params) {
+  _civicrm_hrjobcontract_api3_set_current_revision($params, _civicrm_get_table_name(_civicrm_api3_get_BAO(__FUNCTION__)));
   return _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params);
 }

@@ -1,6 +1,6 @@
 <?php
 
-require_once('jobcontract_utils.php');
+require_once 'jobcontract_utils.php';
 
 /**
  * HRJobContractRevision.create API specification (optional)
@@ -11,7 +11,7 @@ require_once('jobcontract_utils.php');
  * @see http://wiki.civicrm.org/confluence/display/CRM/API+Architecture+Standards
  */
 function _civicrm_api3_h_r_job_contract_revision_create_spec(&$spec) {
-  // $spec['some_parameter']['api.required'] = 1;
+  $spec['job_contract_id']['api.required'] = 1;
 }
 
 /**
@@ -55,33 +55,10 @@ function civicrm_api3_h_r_job_contract_revision_get($params) {
  * @throws API_Exception
  */
 function civicrm_api3_h_r_job_contract_revision_getcurrentrevision($params) {
-    $jobContractId = !empty($params['job_contract_id']) ? $params['job_contract_id'] : null;
-    if ($jobContractId) {
-        $revision = civicrm_api3('HRJobContractRevision', 'get', array(
-          'sequential' => 1,
-          'job_contract_id' => $jobContractId,
-          'options' => array('sort' => "id DESC", 'limit' => 1),
-        ));
-        
-        if (!empty($revision)) {
-            $row = array_shift($revision['values']);
-            if (!empty($row)) {
-                return civicrm_api3_create_success($row);
-            }
-        }
+    if (empty($params['job_contract_id']))
+    {
+        throw new API_Exception("Cannot create entity: missing job_contract_id value");
     }
-    return null;
+    return _civicrm_hrjobcontract_api3_get_current_revision((int)$params['job_contract_id']);
 }
 
-function civicrm_api3_h_r_job_contract_revision_getcurrentrevisionid($params, array $revision = null) {
-    _civicrm_hrjobcontract_api3_create_revision(1);
-    echo 'exiting.';
-    return null;
-    if (empty($revision['values'])) {
-        $revision = civicrm_api3_h_r_job_contract_revision_getcurrentrevision($params);
-    }
-    if (!empty($revision['values'][$params['table'] . '_revision_id'])) {
-        return civicrm_api3_create_success((int)$revision['values'][$params['table'] . '_revision_id']);
-    }
-    return null;
-}

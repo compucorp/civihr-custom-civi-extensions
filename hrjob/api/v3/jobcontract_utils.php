@@ -5,26 +5,93 @@
  *
  */
 
-function _civicrm_hrjobcontract_api3_setup_revision(array &$params, $table) {
+/**
+ * Returns entity name by given BAO / DAO class name.
+ * 
+ * @param String $baoName
+ * @return String
+ */
+function _civicrm_get_entity_name($baoName)
+{
+    $parts = explode('_', $baoName);
+    return end($parts);
+}
+
+function _civicrm_get_table_name($className)
+{
+    preg_match_all('/((?:^|[A-Z])[a-z]+)/', $className, $matches);
+    if (!empty($matches[0]))
+    {
+        return strtolower(end($matches[0]));
+    }
+    return null;
+}
+
+/**
+ * Sets $params array to point valid revision of given $params['job_contract_id']
+ * Job Contract.
+ * 
+ * @param array $params
+ * @param String $table
+ */
+function _civicrm_hrjobcontract_api3_set_current_revision(array &$params, $table)
+{
     if (!empty($params['job_contract_id'])) {
-        $revisionId = civicrm_api3('HRJobContractRevision', 'getrevisionid', array(
-          'sequential' => 1,
-          'job_contract_id' => $params['job_contract_id'],
-          'table' => $table,
-          'options' => array('sort' => "id DESC", 'limit' => 1),
-        ));
+        $revisionId = _civicrm_hrjobcontract_api3_get_current_revision_id($params['job_contract_id'], $table);
         if ($revisionId) {
             $params['contract_revision_id'] = $revisionId['values'];
         }
     }
 }
 
-function _civicrm_hrjobcontract_api3_create_revision($jobContractId) {
-    $currentRevision = civicrm_api3_h_r_job_contract_revision_getcurrentrevision(
-       array('job_contract_id' => (int)$jobContractId, 'sequential' => 1, 'prettyprint' => 1, 'check_permissions' => true, 'version' => 3)
-    );
-    var_dump($currentRevision);
-    unset($currentRevision['values']['id']);
+/**
+ * Creates new revision for given Job Contract Id.
+ * If there is no previous revision the function creates new blank revision.
+ * Otherwise the function creates new revision with previous entity values.
+ * 
+ * @param int $jobContractId
+ */
+function _civicrm_hrjobcontract_api3_create_revision($jobContractId)
+{
+    $currentRevision = _civicrm_hrjobcontract_api3_get_current_revision((int)$jobContractId);
+    if (empty($currentRevision))
+    {
+        $currentRevision = array('values' => array('job_contract_id' => $jobContractId));
+    }
+    else
+    {
+        unset($currentRevision['values']['id']);
+    }
     $result = civicrm_api3('HRJobContractRevision', 'create', $currentRevision['values']);
-    var_dump($result);
+    
+    return $result;
+}
+
+function _civicrm_hrjobcontract_api3_get_current_revision($jobContractId)
+{
+    if ($jobContractId)
+    {
+        $revision = civicrm_api3('HRJobContractRevision', 'get', array(
+          'sequential' => 1,
+          'job_contract_id' => $jobContractId,
+          'options' => array('sort' => 'id DESC', 'limit' => 1),
+        ));
+
+        if (!empty($revision)) {
+            $row = array_shift($revision['values']);
+            if (!empty($row)) {
+                return civicrm_api3_create_success($row);
+            }
+        }
+    }
+    return null;
+}
+
+function _civicrm_hrjobcontract_api3_get_current_revision_id($jobContractId, $table)
+{
+    $revision = _civicrm_hrjobcontract_api3_get_current_revision((int)$jobContractId);
+    if (!empty($revision['values'][$table . '_revision_id'])) {
+        return civicrm_api3_create_success((int)$revision['values'][$table . '_revision_id']);
+    }
+    return null;
 }

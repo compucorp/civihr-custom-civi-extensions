@@ -34,6 +34,7 @@
  */
 require_once 'CRM/Core/DAO.php';
 require_once 'CRM/Utils/Type.php';
+require_once 'api/v3/jobcontract_utils.php';
 class CRM_HRJob_DAO_Base extends CRM_Core_DAO
 {
   /**
@@ -231,5 +232,46 @@ class CRM_HRJob_DAO_Base extends CRM_Core_DAO
       }
     }
     return self::$_export;
+  }
+  
+  public static function create($params)
+  {
+    if (empty($params['job_contract_id']))
+    {
+        throw new API_Exception("Cannot create entity: missing job_contract_id value");
+    }
+
+    $caller = get_called_class();
+    $className = $caller;
+    $entityName = _civicrm_get_entity_name($caller);
+    $hook = empty($params['id']) ? 'create' : 'edit';
+    if ($hook === 'create'/* && empty($params['revisioning'])*/)
+    {
+        $jobContractId = (int)$params['job_contract_id'];
+        if ($jobContractId)
+        {
+            // Creating new revision:
+            $newRevision = _civicrm_hrjobcontract_api3_create_revision($jobContractId);
+            $params['contract_revision_id'] = $newRevision['id'];
+
+            // Updating currently saved revision with its 'id' as {table}_revision_id:
+            $table = _civicrm_get_table_name($className);
+            $updatedRevision = civicrm_api3('HRJobContractRevision', 'create', array(
+                'sequential' => 1,
+                'id' => $newRevision['id'],
+                $table . '_revision_id' => $newRevision['id'],
+            ));
+        }
+    }
+    
+    $params['job_id'] = 0; // TODO: It's temporary. Finally it has to be removed
+    // and `job_id` columns has to be removed from entity tables.
+    
+    CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);
+    $instance = new $className();
+    $instance->copyValues($params);
+    $instance->save();
+    CRM_Utils_Hook::post($hook, $entityName, $instance->id, $instance);
+    return $instance;
   }
 }

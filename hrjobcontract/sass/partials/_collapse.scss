@@ -1,0 +1,10 @@
+a.collapsed,
+a[data-toggle="collapse"] {
+  background: none;
+  padding: 0;
+  cursor: pointer;
+
+  &:active {
+    @include box-shadow(none);
+  }
+}

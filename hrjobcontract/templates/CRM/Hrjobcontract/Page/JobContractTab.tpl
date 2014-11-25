@@ -6,17 +6,37 @@
         <ul class="{$prefix}list-contract">
             <li>
                 <div class="panel panel-default {$prefix}panel-action">
-                    <div class="panel-body">
+                    <div class="panel-body form-horizontal">
                         <div class="row">
                             <div class="col-xs-3">
-                                Position: General Manager
-                                Contact Type: Apprentice
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">Position:</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static">General Manager</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">Contact type:</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static">Apprentice</p>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-xs-3">
-                                Dates: 13/4/2014 - 13/7/2014<br>
-                                Paid: Is primary
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">Dates:</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static">13/4/2014 - 13/7/2014</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">Is primary?</label>
+                                    <div class="col-sm-7">
+                                        <input type="checkbox" name="primary" disabled checked>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-xs-6 text-right ">
+                            <div class="col-xs-6 text-right">
                                 <a href="#" class="btn btn-default btn-sm" role="button"
                                    data-toggle="modal"
                                    data-action="view"
@@ -46,6 +66,16 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-xs-12">
+                        <a class="btn btn-sm"
+                           data-toggle="collapse"
+                           data-target="#{$prefix}id-1234"
+                           aria-expanded="true"
+                           aria-controls="{$prefix}id-1234">
+                            <i class="fa fa-caret-down"></i> <span>Hide details</span></a>
+                    </div>
+                </div>
+                <div class="row collapse in" id="{$prefix}id-1234">
                     <div class="col-xs-12">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">

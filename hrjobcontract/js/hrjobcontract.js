@@ -8,6 +8,8 @@
      */
 
     $(document).on('HRLoaded', function(){
+        var $collapse = $('.collapse'), $this;
+
         $('#'+prefix+'modal-wizard').on('show.bs.modal', function (event) {
             var $modal = $(this),
                 $buttonTarget = $(event.relatedTarget),
@@ -37,7 +39,23 @@
                     break;
             }
 
-        })
+        });
+
+        $collapse.each(function(){
+            $this = $(this);
+            $this.on('hide.bs.collapse', function () {
+               $('a[data-target="#'+$(this).attr('id')+'"]')
+                   .find('.fa').removeClass('fa-caret-down').addClass('fa-caret-right')
+                   .next('span').html('More details');
+           });
+            $this.on('show.bs.collapse', function () {
+                $('a[data-target="#'+$(this).attr('id')+'"]')
+                    .find('.fa').removeClass('fa-caret-right').addClass('fa-caret-down')
+                    .next('span').html('Hide details');
+            });
+        });
+
+
     });
     /**
      * TEMPORARY JS FOR MOCKUP USE ONLY - END

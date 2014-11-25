@@ -9660,6 +9660,19 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 #hrjob-contract .fa-meanpath:before {
   content: "\f20c";
 }
+/* line 1, ../sass/partials/_collapse.scss */
+#hrjob-contract a.collapsed,
+#hrjob-contract a[data-toggle="collapse"] {
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+/* line 7, ../sass/partials/_collapse.scss */
+#hrjob-contract a.collapsed:active,
+#hrjob-contract a[data-toggle="collapse"]:active {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
 /* line 2, ../sass/partials/_forms.scss */
 #hrjob-contract .form-group.required .control-label:after {
   content: "*";
@@ -9684,6 +9697,10 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
   list-style: none;
   margin: 0;
   padding: 0;
+}
+/* line 6, ../sass/partials/_list.scss */
+#hrjob-contract .hrjobcont-list-contract a[data-toggle="collapse"] {
+  margin-bottom: 10px;
 }
 /* line 1, ../sass/partials/_navs.scss */
 #hrjob-contract .nav-tabs {
@@ -9795,9 +9812,42 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
   width: auto;
   background-position: 0 0;
 }
-/* line 10, ../sass/partials/_panels.scss */
+/* line 9, ../sass/partials/_panels.scss */
+#hrjob-contract .hrjobcont-panel-action {
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+/* line 13, ../sass/partials/_panels.scss */
 #hrjob-contract .hrjobcont-panel-action .btn {
-  margin-top: 4px;
+  margin-top: 5px;
+}
+/* line 17, ../sass/partials/_panels.scss */
+#hrjob-contract .hrjobcont-panel-action .form-control-static {
+  padding: 0;
+}
+/* line 21, ../sass/partials/_panels.scss */
+#hrjob-contract .hrjobcont-panel-action .form-group {
+  margin-bottom: 0;
+}
+/* line 24, ../sass/partials/_panels.scss */
+#hrjob-contract .hrjobcont-panel-action .form-group:first-child {
+  margin-bottom: 4px;
+}
+/* line 29, ../sass/partials/_panels.scss */
+#hrjob-contract .hrjobcont-panel-action input[type="checkbox"] {
+  margin-top: 0;
+  position: relative;
+  top: 4px;
+}
+@media (min-width: 768px) {
+  /* line 37, ../sass/partials/_panels.scss */
+  #hrjob-contract .hrjobcont-panel-action .form-horizontal .control-label {
+    padding-top: 0;
+  }
+}
+/* line 2, ../sass/partials/_summary.scss */
+#hrjob-contract #hrjobcont-summary .form-group {
+  margin-bottom: 10px;
 }
 /* line 3, ../sass/partials/_modals.scss */
 .modal-open {

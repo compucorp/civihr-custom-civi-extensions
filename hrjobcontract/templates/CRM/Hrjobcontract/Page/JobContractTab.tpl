@@ -47,6 +47,7 @@
                                 <a href="#" class="btn btn-default btn-sm" role="button"
                                    data-toggle="modal"
                                    data-action="edit"
+                                   data-save="Save changes"
                                    data-title="Correct error on contract (rev. 4.1)"
                                    data-target="#{$prefix}modal-wizard">
                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Correct error on contract
@@ -54,6 +55,7 @@
                                 <a href="#" class="btn btn-default btn-sm" role="button" role="button"
                                    data-toggle="modal"
                                    data-action="edit"
+                                   data-save="Save and make a new revision"
                                    data-title="Change contract terms"
                                    data-target="#{$prefix}modal-wizard">
                                     <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Change contract terms
@@ -513,6 +515,7 @@
                                 <a href="#" class="btn btn-default btn-sm" role="button"
                                    data-toggle="modal"
                                    data-action="edit"
+                                   data-save="Save changes"
                                    data-title="Correct error on contract (rev. 4.1)"
                                    data-target="#{$prefix}modal-wizard">
                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Correct error on contract
@@ -520,6 +523,7 @@
                                 <a href="#" class="btn btn-default btn-sm" role="button" role="button"
                                    data-toggle="modal"
                                    data-action="edit"
+                                   data-save="Save and make a new revision"
                                    data-title="Change contract terms"
                                    data-target="#{$prefix}modal-wizard">
                                     <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Change contract terms
@@ -976,6 +980,7 @@
                             <a href="#" class="btn btn-default btn-sm" role="button"
                                data-toggle="modal"
                                data-action="edit"
+                               data-save="Save changes"
                                data-title="Correct error on contract (rev. 4.1)"
                                data-target="#{$prefix}modal-wizard">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Correct error on contract
@@ -983,6 +988,7 @@
                             <a href="#" class="btn btn-default btn-sm" role="button" role="button"
                                data-toggle="modal"
                                data-action="edit"
+                               data-save="Save and make a new revision"
                                data-title="Change contract terms"
                                data-target="#{$prefix}modal-wizard">
                                 <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Change contract terms
@@ -1404,6 +1410,7 @@
             <a href="#" class="btn btn-default btn-sm btn-primary" role="button"
                data-action="add"
                data-toggle="modal"
+               data-save="Apply"
                data-title="Add New Job Contract"
                data-target="#{$prefix}modal-wizard">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Job Contract
@@ -1863,7 +1870,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-primary btn-save">Save changes</button>
                         </div>
                     </form>
                 </div>

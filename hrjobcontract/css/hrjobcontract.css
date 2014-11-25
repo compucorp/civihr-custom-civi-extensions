@@ -20,6 +20,15 @@
   /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
   font-size: 10px;
   -webkit-tap-highlight-color: transparent;
+  /*!
+   *  Font Awesome 4.2.0 by @davegandy - http://fontawesome.io - @fontawesome
+   *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+   */
+  /* FONT PATH
+   * -------------------------- */
+  /* makes the font 33% larger relative to the icon container */
+  /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
+     readers do not read off random characters that represent icons */
   padding-top: 20px;
 }
 /* line 7, ../sass/modules/_unset.scss */
@@ -7481,16 +7490,2221 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
     display: none !important;
   }
 }
+@font-face {
+  font-family: 'FontAwesome';
+  src: url("../fonts/fontawesome/fontawesome-webfont.eot?v=4.2.0");
+  src: url("../fonts/fontawesome/fontawesome-webfont.eot?#iefix&v=4.2.0") format("embedded-opentype"), url("../fonts/fontawesome/fontawesome-webfont.woff?v=4.2.0") format("woff"), url("../fonts/fontawesome/fontawesome-webfont.ttf?v=4.2.0") format("truetype"), url("../fonts/fontawesome/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* line 16, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* line 25, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-lg {
+  font-size: 1.33333333em;
+  line-height: 0.75em;
+  vertical-align: -15%;
+}
+/* line 30, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-2x {
+  font-size: 2em;
+}
+/* line 33, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-3x {
+  font-size: 3em;
+}
+/* line 36, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-4x {
+  font-size: 4em;
+}
+/* line 39, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-5x {
+  font-size: 5em;
+}
+/* line 42, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-fw {
+  width: 1.28571429em;
+  text-align: center;
+}
+/* line 46, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-ul {
+  padding-left: 0;
+  margin-left: 2.14285714em;
+  list-style-type: none;
+}
+/* line 51, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-ul > li {
+  position: relative;
+}
+/* line 54, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-li {
+  position: absolute;
+  left: -2.14285714em;
+  width: 2.14285714em;
+  top: 0.14285714em;
+  text-align: center;
+}
+/* line 61, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-li.fa-lg {
+  left: -1.85714286em;
+}
+/* line 64, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-border {
+  padding: .2em .25em .15em;
+  border: solid 0.08em #eeeeee;
+  border-radius: .1em;
+}
+/* line 69, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .pull-right {
+  float: right;
+}
+/* line 72, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .pull-left {
+  float: left;
+}
+/* line 75, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa.pull-left {
+  margin-right: .3em;
+}
+/* line 78, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa.pull-right {
+  margin-left: .3em;
+}
+/* line 81, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-spin {
+  -webkit-animation: fa-spin 2s infinite linear;
+  animation: fa-spin 2s infinite linear;
+}
+@-webkit-keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+/* line 105, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-rotate-90 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+/* line 111, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-rotate-180 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+/* line 117, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-rotate-270 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  -webkit-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
+/* line 123, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-flip-horizontal {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
+  -webkit-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  transform: scale(-1, 1);
+}
+/* line 129, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-flip-vertical {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
+  -webkit-transform: scale(1, -1);
+  -ms-transform: scale(1, -1);
+  transform: scale(1, -1);
+}
+/* line 135, ../sass/modules/_fontawesome.scss */
+#hrjob-contract :root .fa-rotate-90,
+#hrjob-contract :root .fa-rotate-180,
+#hrjob-contract :root .fa-rotate-270,
+#hrjob-contract :root .fa-flip-horizontal,
+#hrjob-contract :root .fa-flip-vertical {
+  filter: none;
+}
+/* line 142, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-stack {
+  position: relative;
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
+  vertical-align: middle;
+}
+/* line 150, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-stack-1x,
+#hrjob-contract .fa-stack-2x {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+/* line 157, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-stack-1x {
+  line-height: inherit;
+}
+/* line 160, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-stack-2x {
+  font-size: 2em;
+}
+/* line 163, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-inverse {
+  color: #ffffff;
+}
+/* line 168, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-glass:before {
+  content: "\f000";
+}
+/* line 171, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-music:before {
+  content: "\f001";
+}
+/* line 174, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-search:before {
+  content: "\f002";
+}
+/* line 177, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-envelope-o:before {
+  content: "\f003";
+}
+/* line 180, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-heart:before {
+  content: "\f004";
+}
+/* line 183, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-star:before {
+  content: "\f005";
+}
+/* line 186, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-star-o:before {
+  content: "\f006";
+}
+/* line 189, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-user:before {
+  content: "\f007";
+}
+/* line 192, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-film:before {
+  content: "\f008";
+}
+/* line 195, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-th-large:before {
+  content: "\f009";
+}
+/* line 198, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-th:before {
+  content: "\f00a";
+}
+/* line 201, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-th-list:before {
+  content: "\f00b";
+}
+/* line 204, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-check:before {
+  content: "\f00c";
+}
+/* line 207, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-remove:before,
+#hrjob-contract .fa-close:before,
+#hrjob-contract .fa-times:before {
+  content: "\f00d";
+}
+/* line 212, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-search-plus:before {
+  content: "\f00e";
+}
+/* line 215, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-search-minus:before {
+  content: "\f010";
+}
+/* line 218, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-power-off:before {
+  content: "\f011";
+}
+/* line 221, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-signal:before {
+  content: "\f012";
+}
+/* line 224, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-gear:before,
+#hrjob-contract .fa-cog:before {
+  content: "\f013";
+}
+/* line 228, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-trash-o:before {
+  content: "\f014";
+}
+/* line 231, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-home:before {
+  content: "\f015";
+}
+/* line 234, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-file-o:before {
+  content: "\f016";
+}
+/* line 237, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-clock-o:before {
+  content: "\f017";
+}
+/* line 240, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-road:before {
+  content: "\f018";
+}
+/* line 243, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-download:before {
+  content: "\f019";
+}
+/* line 246, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-arrow-circle-o-down:before {
+  content: "\f01a";
+}
+/* line 249, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-arrow-circle-o-up:before {
+  content: "\f01b";
+}
+/* line 252, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-inbox:before {
+  content: "\f01c";
+}
+/* line 255, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-play-circle-o:before {
+  content: "\f01d";
+}
+/* line 258, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-rotate-right:before,
+#hrjob-contract .fa-repeat:before {
+  content: "\f01e";
+}
+/* line 262, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-refresh:before {
+  content: "\f021";
+}
+/* line 265, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-list-alt:before {
+  content: "\f022";
+}
+/* line 268, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-lock:before {
+  content: "\f023";
+}
+/* line 271, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-flag:before {
+  content: "\f024";
+}
+/* line 274, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-headphones:before {
+  content: "\f025";
+}
+/* line 277, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-volume-off:before {
+  content: "\f026";
+}
+/* line 280, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-volume-down:before {
+  content: "\f027";
+}
+/* line 283, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-volume-up:before {
+  content: "\f028";
+}
+/* line 286, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-qrcode:before {
+  content: "\f029";
+}
+/* line 289, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-barcode:before {
+  content: "\f02a";
+}
+/* line 292, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-tag:before {
+  content: "\f02b";
+}
+/* line 295, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-tags:before {
+  content: "\f02c";
+}
+/* line 298, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-book:before {
+  content: "\f02d";
+}
+/* line 301, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-bookmark:before {
+  content: "\f02e";
+}
+/* line 304, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-print:before {
+  content: "\f02f";
+}
+/* line 307, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-camera:before {
+  content: "\f030";
+}
+/* line 310, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-font:before {
+  content: "\f031";
+}
+/* line 313, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-bold:before {
+  content: "\f032";
+}
+/* line 316, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-italic:before {
+  content: "\f033";
+}
+/* line 319, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-text-height:before {
+  content: "\f034";
+}
+/* line 322, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-text-width:before {
+  content: "\f035";
+}
+/* line 325, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-align-left:before {
+  content: "\f036";
+}
+/* line 328, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-align-center:before {
+  content: "\f037";
+}
+/* line 331, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-align-right:before {
+  content: "\f038";
+}
+/* line 334, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-align-justify:before {
+  content: "\f039";
+}
+/* line 337, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-list:before {
+  content: "\f03a";
+}
+/* line 340, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-dedent:before,
+#hrjob-contract .fa-outdent:before {
+  content: "\f03b";
+}
+/* line 344, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-indent:before {
+  content: "\f03c";
+}
+/* line 347, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-video-camera:before {
+  content: "\f03d";
+}
+/* line 350, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-photo:before,
+#hrjob-contract .fa-image:before,
+#hrjob-contract .fa-picture-o:before {
+  content: "\f03e";
+}
+/* line 355, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-pencil:before {
+  content: "\f040";
+}
+/* line 358, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-map-marker:before {
+  content: "\f041";
+}
+/* line 361, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-adjust:before {
+  content: "\f042";
+}
+/* line 364, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-tint:before {
+  content: "\f043";
+}
+/* line 367, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-edit:before,
+#hrjob-contract .fa-pencil-square-o:before {
+  content: "\f044";
+}
+/* line 371, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-share-square-o:before {
+  content: "\f045";
+}
+/* line 374, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-check-square-o:before {
+  content: "\f046";
+}
+/* line 377, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-arrows:before {
+  content: "\f047";
+}
+/* line 380, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-step-backward:before {
+  content: "\f048";
+}
+/* line 383, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-fast-backward:before {
+  content: "\f049";
+}
+/* line 386, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-backward:before {
+  content: "\f04a";
+}
+/* line 389, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-play:before {
+  content: "\f04b";
+}
+/* line 392, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-pause:before {
+  content: "\f04c";
+}
+/* line 395, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-stop:before {
+  content: "\f04d";
+}
+/* line 398, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-forward:before {
+  content: "\f04e";
+}
+/* line 401, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-fast-forward:before {
+  content: "\f050";
+}
+/* line 404, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-step-forward:before {
+  content: "\f051";
+}
+/* line 407, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-eject:before {
+  content: "\f052";
+}
+/* line 410, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-chevron-left:before {
+  content: "\f053";
+}
+/* line 413, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-chevron-right:before {
+  content: "\f054";
+}
+/* line 416, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-plus-circle:before {
+  content: "\f055";
+}
+/* line 419, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-minus-circle:before {
+  content: "\f056";
+}
+/* line 422, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-times-circle:before {
+  content: "\f057";
+}
+/* line 425, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-check-circle:before {
+  content: "\f058";
+}
+/* line 428, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-question-circle:before {
+  content: "\f059";
+}
+/* line 431, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-info-circle:before {
+  content: "\f05a";
+}
+/* line 434, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-crosshairs:before {
+  content: "\f05b";
+}
+/* line 437, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-times-circle-o:before {
+  content: "\f05c";
+}
+/* line 440, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-check-circle-o:before {
+  content: "\f05d";
+}
+/* line 443, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-ban:before {
+  content: "\f05e";
+}
+/* line 446, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-arrow-left:before {
+  content: "\f060";
+}
+/* line 449, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-arrow-right:before {
+  content: "\f061";
+}
+/* line 452, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-arrow-up:before {
+  content: "\f062";
+}
+/* line 455, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-arrow-down:before {
+  content: "\f063";
+}
+/* line 458, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-mail-forward:before,
+#hrjob-contract .fa-share:before {
+  content: "\f064";
+}
+/* line 462, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-expand:before {
+  content: "\f065";
+}
+/* line 465, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-compress:before {
+  content: "\f066";
+}
+/* line 468, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-plus:before {
+  content: "\f067";
+}
+/* line 471, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-minus:before {
+  content: "\f068";
+}
+/* line 474, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-asterisk:before {
+  content: "\f069";
+}
+/* line 477, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-exclamation-circle:before {
+  content: "\f06a";
+}
+/* line 480, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-gift:before {
+  content: "\f06b";
+}
+/* line 483, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-leaf:before {
+  content: "\f06c";
+}
+/* line 486, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-fire:before {
+  content: "\f06d";
+}
+/* line 489, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-eye:before {
+  content: "\f06e";
+}
+/* line 492, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-eye-slash:before {
+  content: "\f070";
+}
+/* line 495, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-warning:before,
+#hrjob-contract .fa-exclamation-triangle:before {
+  content: "\f071";
+}
+/* line 499, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-plane:before {
+  content: "\f072";
+}
+/* line 502, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-calendar:before {
+  content: "\f073";
+}
+/* line 505, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-random:before {
+  content: "\f074";
+}
+/* line 508, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-comment:before {
+  content: "\f075";
+}
+/* line 511, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-magnet:before {
+  content: "\f076";
+}
+/* line 514, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-chevron-up:before {
+  content: "\f077";
+}
+/* line 517, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-chevron-down:before {
+  content: "\f078";
+}
+/* line 520, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-retweet:before {
+  content: "\f079";
+}
+/* line 523, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-shopping-cart:before {
+  content: "\f07a";
+}
+/* line 526, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-folder:before {
+  content: "\f07b";
+}
+/* line 529, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-folder-open:before {
+  content: "\f07c";
+}
+/* line 532, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-arrows-v:before {
+  content: "\f07d";
+}
+/* line 535, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-arrows-h:before {
+  content: "\f07e";
+}
+/* line 538, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-bar-chart-o:before,
+#hrjob-contract .fa-bar-chart:before {
+  content: "\f080";
+}
+/* line 542, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-twitter-square:before {
+  content: "\f081";
+}
+/* line 545, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-facebook-square:before {
+  content: "\f082";
+}
+/* line 548, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-camera-retro:before {
+  content: "\f083";
+}
+/* line 551, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-key:before {
+  content: "\f084";
+}
+/* line 554, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-gears:before,
+#hrjob-contract .fa-cogs:before {
+  content: "\f085";
+}
+/* line 558, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-comments:before {
+  content: "\f086";
+}
+/* line 561, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-thumbs-o-up:before {
+  content: "\f087";
+}
+/* line 564, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-thumbs-o-down:before {
+  content: "\f088";
+}
+/* line 567, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-star-half:before {
+  content: "\f089";
+}
+/* line 570, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-heart-o:before {
+  content: "\f08a";
+}
+/* line 573, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-sign-out:before {
+  content: "\f08b";
+}
+/* line 576, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-linkedin-square:before {
+  content: "\f08c";
+}
+/* line 579, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-thumb-tack:before {
+  content: "\f08d";
+}
+/* line 582, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-external-link:before {
+  content: "\f08e";
+}
+/* line 585, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-sign-in:before {
+  content: "\f090";
+}
+/* line 588, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-trophy:before {
+  content: "\f091";
+}
+/* line 591, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-github-square:before {
+  content: "\f092";
+}
+/* line 594, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-upload:before {
+  content: "\f093";
+}
+/* line 597, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-lemon-o:before {
+  content: "\f094";
+}
+/* line 600, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-phone:before {
+  content: "\f095";
+}
+/* line 603, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-square-o:before {
+  content: "\f096";
+}
+/* line 606, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-bookmark-o:before {
+  content: "\f097";
+}
+/* line 609, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-phone-square:before {
+  content: "\f098";
+}
+/* line 612, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-twitter:before {
+  content: "\f099";
+}
+/* line 615, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-facebook:before {
+  content: "\f09a";
+}
+/* line 618, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-github:before {
+  content: "\f09b";
+}
+/* line 621, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-unlock:before {
+  content: "\f09c";
+}
+/* line 624, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-credit-card:before {
+  content: "\f09d";
+}
+/* line 627, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-rss:before {
+  content: "\f09e";
+}
+/* line 630, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-hdd-o:before {
+  content: "\f0a0";
+}
+/* line 633, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-bullhorn:before {
+  content: "\f0a1";
+}
+/* line 636, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-bell:before {
+  content: "\f0f3";
+}
+/* line 639, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-certificate:before {
+  content: "\f0a3";
+}
+/* line 642, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-hand-o-right:before {
+  content: "\f0a4";
+}
+/* line 645, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-hand-o-left:before {
+  content: "\f0a5";
+}
+/* line 648, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-hand-o-up:before {
+  content: "\f0a6";
+}
+/* line 651, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-hand-o-down:before {
+  content: "\f0a7";
+}
+/* line 654, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-arrow-circle-left:before {
+  content: "\f0a8";
+}
+/* line 657, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-arrow-circle-right:before {
+  content: "\f0a9";
+}
+/* line 660, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-arrow-circle-up:before {
+  content: "\f0aa";
+}
+/* line 663, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-arrow-circle-down:before {
+  content: "\f0ab";
+}
+/* line 666, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-globe:before {
+  content: "\f0ac";
+}
+/* line 669, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-wrench:before {
+  content: "\f0ad";
+}
+/* line 672, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-tasks:before {
+  content: "\f0ae";
+}
+/* line 675, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-filter:before {
+  content: "\f0b0";
+}
+/* line 678, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-briefcase:before {
+  content: "\f0b1";
+}
+/* line 681, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-arrows-alt:before {
+  content: "\f0b2";
+}
+/* line 684, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-group:before,
+#hrjob-contract .fa-users:before {
+  content: "\f0c0";
+}
+/* line 688, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-chain:before,
+#hrjob-contract .fa-link:before {
+  content: "\f0c1";
+}
+/* line 692, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-cloud:before {
+  content: "\f0c2";
+}
+/* line 695, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-flask:before {
+  content: "\f0c3";
+}
+/* line 698, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-cut:before,
+#hrjob-contract .fa-scissors:before {
+  content: "\f0c4";
+}
+/* line 702, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-copy:before,
+#hrjob-contract .fa-files-o:before {
+  content: "\f0c5";
+}
+/* line 706, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-paperclip:before {
+  content: "\f0c6";
+}
+/* line 709, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-save:before,
+#hrjob-contract .fa-floppy-o:before {
+  content: "\f0c7";
+}
+/* line 713, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-square:before {
+  content: "\f0c8";
+}
+/* line 716, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-navicon:before,
+#hrjob-contract .fa-reorder:before,
+#hrjob-contract .fa-bars:before {
+  content: "\f0c9";
+}
+/* line 721, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-list-ul:before {
+  content: "\f0ca";
+}
+/* line 724, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-list-ol:before {
+  content: "\f0cb";
+}
+/* line 727, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-strikethrough:before {
+  content: "\f0cc";
+}
+/* line 730, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-underline:before {
+  content: "\f0cd";
+}
+/* line 733, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-table:before {
+  content: "\f0ce";
+}
+/* line 736, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-magic:before {
+  content: "\f0d0";
+}
+/* line 739, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-truck:before {
+  content: "\f0d1";
+}
+/* line 742, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-pinterest:before {
+  content: "\f0d2";
+}
+/* line 745, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-pinterest-square:before {
+  content: "\f0d3";
+}
+/* line 748, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-google-plus-square:before {
+  content: "\f0d4";
+}
+/* line 751, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-google-plus:before {
+  content: "\f0d5";
+}
+/* line 754, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-money:before {
+  content: "\f0d6";
+}
+/* line 757, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-caret-down:before {
+  content: "\f0d7";
+}
+/* line 760, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-caret-up:before {
+  content: "\f0d8";
+}
+/* line 763, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-caret-left:before {
+  content: "\f0d9";
+}
+/* line 766, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-caret-right:before {
+  content: "\f0da";
+}
+/* line 769, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-columns:before {
+  content: "\f0db";
+}
+/* line 772, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-unsorted:before,
+#hrjob-contract .fa-sort:before {
+  content: "\f0dc";
+}
+/* line 776, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-sort-down:before,
+#hrjob-contract .fa-sort-desc:before {
+  content: "\f0dd";
+}
+/* line 780, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-sort-up:before,
+#hrjob-contract .fa-sort-asc:before {
+  content: "\f0de";
+}
+/* line 784, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-envelope:before {
+  content: "\f0e0";
+}
+/* line 787, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-linkedin:before {
+  content: "\f0e1";
+}
+/* line 790, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-rotate-left:before,
+#hrjob-contract .fa-undo:before {
+  content: "\f0e2";
+}
+/* line 794, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-legal:before,
+#hrjob-contract .fa-gavel:before {
+  content: "\f0e3";
+}
+/* line 798, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-dashboard:before,
+#hrjob-contract .fa-tachometer:before {
+  content: "\f0e4";
+}
+/* line 802, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-comment-o:before {
+  content: "\f0e5";
+}
+/* line 805, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-comments-o:before {
+  content: "\f0e6";
+}
+/* line 808, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-flash:before,
+#hrjob-contract .fa-bolt:before {
+  content: "\f0e7";
+}
+/* line 812, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-sitemap:before {
+  content: "\f0e8";
+}
+/* line 815, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-umbrella:before {
+  content: "\f0e9";
+}
+/* line 818, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-paste:before,
+#hrjob-contract .fa-clipboard:before {
+  content: "\f0ea";
+}
+/* line 822, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-lightbulb-o:before {
+  content: "\f0eb";
+}
+/* line 825, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-exchange:before {
+  content: "\f0ec";
+}
+/* line 828, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-cloud-download:before {
+  content: "\f0ed";
+}
+/* line 831, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-cloud-upload:before {
+  content: "\f0ee";
+}
+/* line 834, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-user-md:before {
+  content: "\f0f0";
+}
+/* line 837, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-stethoscope:before {
+  content: "\f0f1";
+}
+/* line 840, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-suitcase:before {
+  content: "\f0f2";
+}
+/* line 843, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-bell-o:before {
+  content: "\f0a2";
+}
+/* line 846, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-coffee:before {
+  content: "\f0f4";
+}
+/* line 849, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-cutlery:before {
+  content: "\f0f5";
+}
+/* line 852, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-file-text-o:before {
+  content: "\f0f6";
+}
+/* line 855, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-building-o:before {
+  content: "\f0f7";
+}
+/* line 858, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-hospital-o:before {
+  content: "\f0f8";
+}
+/* line 861, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-ambulance:before {
+  content: "\f0f9";
+}
+/* line 864, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-medkit:before {
+  content: "\f0fa";
+}
+/* line 867, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-fighter-jet:before {
+  content: "\f0fb";
+}
+/* line 870, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-beer:before {
+  content: "\f0fc";
+}
+/* line 873, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-h-square:before {
+  content: "\f0fd";
+}
+/* line 876, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-plus-square:before {
+  content: "\f0fe";
+}
+/* line 879, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-angle-double-left:before {
+  content: "\f100";
+}
+/* line 882, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-angle-double-right:before {
+  content: "\f101";
+}
+/* line 885, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-angle-double-up:before {
+  content: "\f102";
+}
+/* line 888, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-angle-double-down:before {
+  content: "\f103";
+}
+/* line 891, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-angle-left:before {
+  content: "\f104";
+}
+/* line 894, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-angle-right:before {
+  content: "\f105";
+}
+/* line 897, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-angle-up:before {
+  content: "\f106";
+}
+/* line 900, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-angle-down:before {
+  content: "\f107";
+}
+/* line 903, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-desktop:before {
+  content: "\f108";
+}
+/* line 906, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-laptop:before {
+  content: "\f109";
+}
+/* line 909, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-tablet:before {
+  content: "\f10a";
+}
+/* line 912, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-mobile-phone:before,
+#hrjob-contract .fa-mobile:before {
+  content: "\f10b";
+}
+/* line 916, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-circle-o:before {
+  content: "\f10c";
+}
+/* line 919, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-quote-left:before {
+  content: "\f10d";
+}
+/* line 922, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-quote-right:before {
+  content: "\f10e";
+}
+/* line 925, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-spinner:before {
+  content: "\f110";
+}
+/* line 928, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-circle:before {
+  content: "\f111";
+}
+/* line 931, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-mail-reply:before,
+#hrjob-contract .fa-reply:before {
+  content: "\f112";
+}
+/* line 935, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-github-alt:before {
+  content: "\f113";
+}
+/* line 938, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-folder-o:before {
+  content: "\f114";
+}
+/* line 941, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-folder-open-o:before {
+  content: "\f115";
+}
+/* line 944, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-smile-o:before {
+  content: "\f118";
+}
+/* line 947, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-frown-o:before {
+  content: "\f119";
+}
+/* line 950, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-meh-o:before {
+  content: "\f11a";
+}
+/* line 953, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-gamepad:before {
+  content: "\f11b";
+}
+/* line 956, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-keyboard-o:before {
+  content: "\f11c";
+}
+/* line 959, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-flag-o:before {
+  content: "\f11d";
+}
+/* line 962, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-flag-checkered:before {
+  content: "\f11e";
+}
+/* line 965, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-terminal:before {
+  content: "\f120";
+}
+/* line 968, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-code:before {
+  content: "\f121";
+}
+/* line 971, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-mail-reply-all:before,
+#hrjob-contract .fa-reply-all:before {
+  content: "\f122";
+}
+/* line 975, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-star-half-empty:before,
+#hrjob-contract .fa-star-half-full:before,
+#hrjob-contract .fa-star-half-o:before {
+  content: "\f123";
+}
+/* line 980, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-location-arrow:before {
+  content: "\f124";
+}
+/* line 983, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-crop:before {
+  content: "\f125";
+}
+/* line 986, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-code-fork:before {
+  content: "\f126";
+}
+/* line 989, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-unlink:before,
+#hrjob-contract .fa-chain-broken:before {
+  content: "\f127";
+}
+/* line 993, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-question:before {
+  content: "\f128";
+}
+/* line 996, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-info:before {
+  content: "\f129";
+}
+/* line 999, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-exclamation:before {
+  content: "\f12a";
+}
+/* line 1002, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-superscript:before {
+  content: "\f12b";
+}
+/* line 1005, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-subscript:before {
+  content: "\f12c";
+}
+/* line 1008, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-eraser:before {
+  content: "\f12d";
+}
+/* line 1011, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-puzzle-piece:before {
+  content: "\f12e";
+}
+/* line 1014, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-microphone:before {
+  content: "\f130";
+}
+/* line 1017, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-microphone-slash:before {
+  content: "\f131";
+}
+/* line 1020, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-shield:before {
+  content: "\f132";
+}
+/* line 1023, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-calendar-o:before {
+  content: "\f133";
+}
+/* line 1026, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-fire-extinguisher:before {
+  content: "\f134";
+}
+/* line 1029, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-rocket:before {
+  content: "\f135";
+}
+/* line 1032, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-maxcdn:before {
+  content: "\f136";
+}
+/* line 1035, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-chevron-circle-left:before {
+  content: "\f137";
+}
+/* line 1038, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-chevron-circle-right:before {
+  content: "\f138";
+}
+/* line 1041, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-chevron-circle-up:before {
+  content: "\f139";
+}
+/* line 1044, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-chevron-circle-down:before {
+  content: "\f13a";
+}
+/* line 1047, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-html5:before {
+  content: "\f13b";
+}
+/* line 1050, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-css3:before {
+  content: "\f13c";
+}
+/* line 1053, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-anchor:before {
+  content: "\f13d";
+}
+/* line 1056, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-unlock-alt:before {
+  content: "\f13e";
+}
+/* line 1059, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-bullseye:before {
+  content: "\f140";
+}
+/* line 1062, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-ellipsis-h:before {
+  content: "\f141";
+}
+/* line 1065, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-ellipsis-v:before {
+  content: "\f142";
+}
+/* line 1068, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-rss-square:before {
+  content: "\f143";
+}
+/* line 1071, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-play-circle:before {
+  content: "\f144";
+}
+/* line 1074, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-ticket:before {
+  content: "\f145";
+}
+/* line 1077, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-minus-square:before {
+  content: "\f146";
+}
+/* line 1080, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-minus-square-o:before {
+  content: "\f147";
+}
+/* line 1083, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-level-up:before {
+  content: "\f148";
+}
+/* line 1086, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-level-down:before {
+  content: "\f149";
+}
+/* line 1089, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-check-square:before {
+  content: "\f14a";
+}
+/* line 1092, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-pencil-square:before {
+  content: "\f14b";
+}
+/* line 1095, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-external-link-square:before {
+  content: "\f14c";
+}
+/* line 1098, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-share-square:before {
+  content: "\f14d";
+}
+/* line 1101, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-compass:before {
+  content: "\f14e";
+}
+/* line 1104, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-toggle-down:before,
+#hrjob-contract .fa-caret-square-o-down:before {
+  content: "\f150";
+}
+/* line 1108, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-toggle-up:before,
+#hrjob-contract .fa-caret-square-o-up:before {
+  content: "\f151";
+}
+/* line 1112, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-toggle-right:before,
+#hrjob-contract .fa-caret-square-o-right:before {
+  content: "\f152";
+}
+/* line 1116, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-euro:before,
+#hrjob-contract .fa-eur:before {
+  content: "\f153";
+}
+/* line 1120, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-gbp:before {
+  content: "\f154";
+}
+/* line 1123, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-dollar:before,
+#hrjob-contract .fa-usd:before {
+  content: "\f155";
+}
+/* line 1127, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-rupee:before,
+#hrjob-contract .fa-inr:before {
+  content: "\f156";
+}
+/* line 1131, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-cny:before,
+#hrjob-contract .fa-rmb:before,
+#hrjob-contract .fa-yen:before,
+#hrjob-contract .fa-jpy:before {
+  content: "\f157";
+}
+/* line 1137, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-ruble:before,
+#hrjob-contract .fa-rouble:before,
+#hrjob-contract .fa-rub:before {
+  content: "\f158";
+}
+/* line 1142, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-won:before,
+#hrjob-contract .fa-krw:before {
+  content: "\f159";
+}
+/* line 1146, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-bitcoin:before,
+#hrjob-contract .fa-btc:before {
+  content: "\f15a";
+}
+/* line 1150, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-file:before {
+  content: "\f15b";
+}
+/* line 1153, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-file-text:before {
+  content: "\f15c";
+}
+/* line 1156, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-sort-alpha-asc:before {
+  content: "\f15d";
+}
+/* line 1159, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-sort-alpha-desc:before {
+  content: "\f15e";
+}
+/* line 1162, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-sort-amount-asc:before {
+  content: "\f160";
+}
+/* line 1165, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-sort-amount-desc:before {
+  content: "\f161";
+}
+/* line 1168, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-sort-numeric-asc:before {
+  content: "\f162";
+}
+/* line 1171, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-sort-numeric-desc:before {
+  content: "\f163";
+}
+/* line 1174, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-thumbs-up:before {
+  content: "\f164";
+}
+/* line 1177, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-thumbs-down:before {
+  content: "\f165";
+}
+/* line 1180, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-youtube-square:before {
+  content: "\f166";
+}
+/* line 1183, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-youtube:before {
+  content: "\f167";
+}
+/* line 1186, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-xing:before {
+  content: "\f168";
+}
+/* line 1189, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-xing-square:before {
+  content: "\f169";
+}
+/* line 1192, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-youtube-play:before {
+  content: "\f16a";
+}
+/* line 1195, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-dropbox:before {
+  content: "\f16b";
+}
+/* line 1198, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-stack-overflow:before {
+  content: "\f16c";
+}
+/* line 1201, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-instagram:before {
+  content: "\f16d";
+}
+/* line 1204, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-flickr:before {
+  content: "\f16e";
+}
+/* line 1207, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-adn:before {
+  content: "\f170";
+}
+/* line 1210, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-bitbucket:before {
+  content: "\f171";
+}
+/* line 1213, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-bitbucket-square:before {
+  content: "\f172";
+}
+/* line 1216, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-tumblr:before {
+  content: "\f173";
+}
+/* line 1219, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-tumblr-square:before {
+  content: "\f174";
+}
+/* line 1222, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-long-arrow-down:before {
+  content: "\f175";
+}
+/* line 1225, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-long-arrow-up:before {
+  content: "\f176";
+}
+/* line 1228, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-long-arrow-left:before {
+  content: "\f177";
+}
+/* line 1231, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-long-arrow-right:before {
+  content: "\f178";
+}
+/* line 1234, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-apple:before {
+  content: "\f179";
+}
+/* line 1237, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-windows:before {
+  content: "\f17a";
+}
+/* line 1240, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-android:before {
+  content: "\f17b";
+}
+/* line 1243, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-linux:before {
+  content: "\f17c";
+}
+/* line 1246, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-dribbble:before {
+  content: "\f17d";
+}
+/* line 1249, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-skype:before {
+  content: "\f17e";
+}
+/* line 1252, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-foursquare:before {
+  content: "\f180";
+}
+/* line 1255, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-trello:before {
+  content: "\f181";
+}
+/* line 1258, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-female:before {
+  content: "\f182";
+}
+/* line 1261, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-male:before {
+  content: "\f183";
+}
+/* line 1264, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-gittip:before {
+  content: "\f184";
+}
+/* line 1267, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-sun-o:before {
+  content: "\f185";
+}
+/* line 1270, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-moon-o:before {
+  content: "\f186";
+}
+/* line 1273, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-archive:before {
+  content: "\f187";
+}
+/* line 1276, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-bug:before {
+  content: "\f188";
+}
+/* line 1279, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-vk:before {
+  content: "\f189";
+}
+/* line 1282, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-weibo:before {
+  content: "\f18a";
+}
+/* line 1285, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-renren:before {
+  content: "\f18b";
+}
+/* line 1288, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-pagelines:before {
+  content: "\f18c";
+}
+/* line 1291, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-stack-exchange:before {
+  content: "\f18d";
+}
+/* line 1294, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-arrow-circle-o-right:before {
+  content: "\f18e";
+}
+/* line 1297, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-arrow-circle-o-left:before {
+  content: "\f190";
+}
+/* line 1300, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-toggle-left:before,
+#hrjob-contract .fa-caret-square-o-left:before {
+  content: "\f191";
+}
+/* line 1304, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-dot-circle-o:before {
+  content: "\f192";
+}
+/* line 1307, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-wheelchair:before {
+  content: "\f193";
+}
+/* line 1310, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-vimeo-square:before {
+  content: "\f194";
+}
+/* line 1313, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-turkish-lira:before,
+#hrjob-contract .fa-try:before {
+  content: "\f195";
+}
+/* line 1317, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-plus-square-o:before {
+  content: "\f196";
+}
+/* line 1320, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-space-shuttle:before {
+  content: "\f197";
+}
+/* line 1323, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-slack:before {
+  content: "\f198";
+}
+/* line 1326, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-envelope-square:before {
+  content: "\f199";
+}
+/* line 1329, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-wordpress:before {
+  content: "\f19a";
+}
+/* line 1332, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-openid:before {
+  content: "\f19b";
+}
+/* line 1335, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-institution:before,
+#hrjob-contract .fa-bank:before,
+#hrjob-contract .fa-university:before {
+  content: "\f19c";
+}
+/* line 1340, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-mortar-board:before,
+#hrjob-contract .fa-graduation-cap:before {
+  content: "\f19d";
+}
+/* line 1344, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-yahoo:before {
+  content: "\f19e";
+}
+/* line 1347, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-google:before {
+  content: "\f1a0";
+}
+/* line 1350, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-reddit:before {
+  content: "\f1a1";
+}
+/* line 1353, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-reddit-square:before {
+  content: "\f1a2";
+}
+/* line 1356, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-stumbleupon-circle:before {
+  content: "\f1a3";
+}
+/* line 1359, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-stumbleupon:before {
+  content: "\f1a4";
+}
+/* line 1362, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-delicious:before {
+  content: "\f1a5";
+}
+/* line 1365, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-digg:before {
+  content: "\f1a6";
+}
+/* line 1368, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-pied-piper:before {
+  content: "\f1a7";
+}
+/* line 1371, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-pied-piper-alt:before {
+  content: "\f1a8";
+}
+/* line 1374, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-drupal:before {
+  content: "\f1a9";
+}
+/* line 1377, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-joomla:before {
+  content: "\f1aa";
+}
+/* line 1380, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-language:before {
+  content: "\f1ab";
+}
+/* line 1383, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-fax:before {
+  content: "\f1ac";
+}
+/* line 1386, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-building:before {
+  content: "\f1ad";
+}
+/* line 1389, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-child:before {
+  content: "\f1ae";
+}
+/* line 1392, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-paw:before {
+  content: "\f1b0";
+}
+/* line 1395, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-spoon:before {
+  content: "\f1b1";
+}
+/* line 1398, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-cube:before {
+  content: "\f1b2";
+}
+/* line 1401, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-cubes:before {
+  content: "\f1b3";
+}
+/* line 1404, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-behance:before {
+  content: "\f1b4";
+}
+/* line 1407, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-behance-square:before {
+  content: "\f1b5";
+}
+/* line 1410, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-steam:before {
+  content: "\f1b6";
+}
+/* line 1413, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-steam-square:before {
+  content: "\f1b7";
+}
+/* line 1416, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-recycle:before {
+  content: "\f1b8";
+}
+/* line 1419, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-automobile:before,
+#hrjob-contract .fa-car:before {
+  content: "\f1b9";
+}
+/* line 1423, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-cab:before,
+#hrjob-contract .fa-taxi:before {
+  content: "\f1ba";
+}
+/* line 1427, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-tree:before {
+  content: "\f1bb";
+}
+/* line 1430, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-spotify:before {
+  content: "\f1bc";
+}
+/* line 1433, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-deviantart:before {
+  content: "\f1bd";
+}
+/* line 1436, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-soundcloud:before {
+  content: "\f1be";
+}
+/* line 1439, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-database:before {
+  content: "\f1c0";
+}
+/* line 1442, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-file-pdf-o:before {
+  content: "\f1c1";
+}
+/* line 1445, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-file-word-o:before {
+  content: "\f1c2";
+}
+/* line 1448, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-file-excel-o:before {
+  content: "\f1c3";
+}
+/* line 1451, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-file-powerpoint-o:before {
+  content: "\f1c4";
+}
+/* line 1454, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-file-photo-o:before,
+#hrjob-contract .fa-file-picture-o:before,
+#hrjob-contract .fa-file-image-o:before {
+  content: "\f1c5";
+}
+/* line 1459, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-file-zip-o:before,
+#hrjob-contract .fa-file-archive-o:before {
+  content: "\f1c6";
+}
+/* line 1463, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-file-sound-o:before,
+#hrjob-contract .fa-file-audio-o:before {
+  content: "\f1c7";
+}
+/* line 1467, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-file-movie-o:before,
+#hrjob-contract .fa-file-video-o:before {
+  content: "\f1c8";
+}
+/* line 1471, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-file-code-o:before {
+  content: "\f1c9";
+}
+/* line 1474, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-vine:before {
+  content: "\f1ca";
+}
+/* line 1477, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-codepen:before {
+  content: "\f1cb";
+}
+/* line 1480, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-jsfiddle:before {
+  content: "\f1cc";
+}
+/* line 1483, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-life-bouy:before,
+#hrjob-contract .fa-life-buoy:before,
+#hrjob-contract .fa-life-saver:before,
+#hrjob-contract .fa-support:before,
+#hrjob-contract .fa-life-ring:before {
+  content: "\f1cd";
+}
+/* line 1490, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-circle-o-notch:before {
+  content: "\f1ce";
+}
+/* line 1493, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-ra:before,
+#hrjob-contract .fa-rebel:before {
+  content: "\f1d0";
+}
+/* line 1497, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-ge:before,
+#hrjob-contract .fa-empire:before {
+  content: "\f1d1";
+}
+/* line 1501, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-git-square:before {
+  content: "\f1d2";
+}
+/* line 1504, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-git:before {
+  content: "\f1d3";
+}
+/* line 1507, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-hacker-news:before {
+  content: "\f1d4";
+}
+/* line 1510, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-tencent-weibo:before {
+  content: "\f1d5";
+}
+/* line 1513, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-qq:before {
+  content: "\f1d6";
+}
+/* line 1516, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-wechat:before,
+#hrjob-contract .fa-weixin:before {
+  content: "\f1d7";
+}
+/* line 1520, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-send:before,
+#hrjob-contract .fa-paper-plane:before {
+  content: "\f1d8";
+}
+/* line 1524, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-send-o:before,
+#hrjob-contract .fa-paper-plane-o:before {
+  content: "\f1d9";
+}
+/* line 1528, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-history:before {
+  content: "\f1da";
+}
+/* line 1531, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-circle-thin:before {
+  content: "\f1db";
+}
+/* line 1534, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-header:before {
+  content: "\f1dc";
+}
+/* line 1537, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-paragraph:before {
+  content: "\f1dd";
+}
+/* line 1540, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-sliders:before {
+  content: "\f1de";
+}
+/* line 1543, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-share-alt:before {
+  content: "\f1e0";
+}
+/* line 1546, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-share-alt-square:before {
+  content: "\f1e1";
+}
+/* line 1549, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-bomb:before {
+  content: "\f1e2";
+}
+/* line 1552, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-soccer-ball-o:before,
+#hrjob-contract .fa-futbol-o:before {
+  content: "\f1e3";
+}
+/* line 1556, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-tty:before {
+  content: "\f1e4";
+}
+/* line 1559, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-binoculars:before {
+  content: "\f1e5";
+}
+/* line 1562, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-plug:before {
+  content: "\f1e6";
+}
+/* line 1565, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-slideshare:before {
+  content: "\f1e7";
+}
+/* line 1568, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-twitch:before {
+  content: "\f1e8";
+}
+/* line 1571, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-yelp:before {
+  content: "\f1e9";
+}
+/* line 1574, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-newspaper-o:before {
+  content: "\f1ea";
+}
+/* line 1577, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-wifi:before {
+  content: "\f1eb";
+}
+/* line 1580, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-calculator:before {
+  content: "\f1ec";
+}
+/* line 1583, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-paypal:before {
+  content: "\f1ed";
+}
+/* line 1586, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-google-wallet:before {
+  content: "\f1ee";
+}
+/* line 1589, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-cc-visa:before {
+  content: "\f1f0";
+}
+/* line 1592, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-cc-mastercard:before {
+  content: "\f1f1";
+}
+/* line 1595, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-cc-discover:before {
+  content: "\f1f2";
+}
+/* line 1598, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-cc-amex:before {
+  content: "\f1f3";
+}
+/* line 1601, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-cc-paypal:before {
+  content: "\f1f4";
+}
+/* line 1604, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-cc-stripe:before {
+  content: "\f1f5";
+}
+/* line 1607, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-bell-slash:before {
+  content: "\f1f6";
+}
+/* line 1610, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-bell-slash-o:before {
+  content: "\f1f7";
+}
+/* line 1613, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-trash:before {
+  content: "\f1f8";
+}
+/* line 1616, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-copyright:before {
+  content: "\f1f9";
+}
+/* line 1619, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-at:before {
+  content: "\f1fa";
+}
+/* line 1622, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-eyedropper:before {
+  content: "\f1fb";
+}
+/* line 1625, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-paint-brush:before {
+  content: "\f1fc";
+}
+/* line 1628, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-birthday-cake:before {
+  content: "\f1fd";
+}
+/* line 1631, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-area-chart:before {
+  content: "\f1fe";
+}
+/* line 1634, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-pie-chart:before {
+  content: "\f200";
+}
+/* line 1637, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-line-chart:before {
+  content: "\f201";
+}
+/* line 1640, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-lastfm:before {
+  content: "\f202";
+}
+/* line 1643, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-lastfm-square:before {
+  content: "\f203";
+}
+/* line 1646, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-toggle-off:before {
+  content: "\f204";
+}
+/* line 1649, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-toggle-on:before {
+  content: "\f205";
+}
+/* line 1652, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-bicycle:before {
+  content: "\f206";
+}
+/* line 1655, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-bus:before {
+  content: "\f207";
+}
+/* line 1658, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-ioxhost:before {
+  content: "\f208";
+}
+/* line 1661, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-angellist:before {
+  content: "\f209";
+}
+/* line 1664, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-cc:before {
+  content: "\f20a";
+}
+/* line 1667, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-shekel:before,
+#hrjob-contract .fa-sheqel:before,
+#hrjob-contract .fa-ils:before {
+  content: "\f20b";
+}
+/* line 1672, ../sass/modules/_fontawesome.scss */
+#hrjob-contract .fa-meanpath:before {
+  content: "\f20c";
+}
+/* line 1, ../sass/partials/_collapse.scss */
+#hrjob-contract a.collapsed,
+#hrjob-contract a[data-toggle="collapse"] {
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+/* line 7, ../sass/partials/_collapse.scss */
+#hrjob-contract a.collapsed:active,
+#hrjob-contract a[data-toggle="collapse"]:active {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+/* line 13, ../sass/partials/_collapse.scss */
+#hrjob-contract .collapse .hrjobcont-contract-details {
+  margin-bottom: 20px;
+}
 /* line 2, ../sass/partials/_forms.scss */
 #hrjob-contract .form-group.required .control-label:after {
   content: "*";
   color: red;
+}
+/* line 10, ../sass/partials/_forms.scss */
+#hrjob-contract .form-horizontal .control-label.control-label-line-2 {
+  margin-top: -3px;
+  padding-top: 0;
+}
+/* line 16, ../sass/partials/_forms.scss */
+#hrjob-contract .form-horizontal .well {
+  padding-left: 0;
+  padding-right: 0;
+}
+/* line 20, ../sass/partials/_forms.scss */
+#hrjob-contract .form-horizontal .well .form-group {
+  margin-bottom: 0;
 }
 /* line 1, ../sass/partials/_list.scss */
 #hrjob-contract .hrjobcont-list-contract {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+/* line 6, ../sass/partials/_list.scss */
+#hrjob-contract .hrjobcont-list-contract a[data-toggle="collapse"] {
+  margin-bottom: 10px;
 }
 /* line 1, ../sass/partials/_navs.scss */
 #hrjob-contract .nav-tabs {
@@ -7602,6 +9816,43 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
   width: auto;
   background-position: 0 0;
 }
+/* line 9, ../sass/partials/_panels.scss */
+#hrjob-contract .hrjobcont-panel-action {
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+/* line 13, ../sass/partials/_panels.scss */
+#hrjob-contract .hrjobcont-panel-action .btn {
+  margin-top: 5px;
+}
+/* line 17, ../sass/partials/_panels.scss */
+#hrjob-contract .hrjobcont-panel-action .form-control-static {
+  padding: 0;
+}
+/* line 21, ../sass/partials/_panels.scss */
+#hrjob-contract .hrjobcont-panel-action .form-group {
+  margin-bottom: 0;
+}
+/* line 24, ../sass/partials/_panels.scss */
+#hrjob-contract .hrjobcont-panel-action .form-group:first-child {
+  margin-bottom: 4px;
+}
+/* line 29, ../sass/partials/_panels.scss */
+#hrjob-contract .hrjobcont-panel-action input[type="checkbox"] {
+  margin-top: 0;
+  position: relative;
+  top: 4px;
+}
+@media (min-width: 768px) {
+  /* line 37, ../sass/partials/_panels.scss */
+  #hrjob-contract .hrjobcont-panel-action .form-horizontal .control-label {
+    padding-top: 0;
+  }
+}
+/* line 2, ../sass/partials/_summary.scss */
+#hrjob-contract .hrjobcont-summary .form-group {
+  margin-bottom: 10px;
+}
 /* line 3, ../sass/partials/_modals.scss */
 .modal-open {
   overflow: scroll;
@@ -7625,4 +9876,8 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 /* line 12, ../sass/partials/_wizard.scss */
 #hrjob-contract .hrjobcont-wizard .tabs-left > .tab-content > .tab-pane {
   padding: 15px;
+}
+/* line 18, ../sass/partials/_wizard.scss */
+#hrjob-contract .hrjobcont-wizard h4 {
+  margin-top: 0;
 }

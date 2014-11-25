@@ -4,3 +4,21 @@
     color:red;
   }
 }
+
+.form-horizontal {
+  .control-label {
+    &.control-label-line-2 {
+      margin-top: -3px;
+      padding-top: 0;
+    }
+  }
+
+  .well {
+    padding-left: 0;
+    padding-right: 0;
+
+    .form-group {
+      margin-bottom: 0;
+    }
+  }
+}

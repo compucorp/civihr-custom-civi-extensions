@@ -70,9 +70,12 @@
   // CiviHR Job Contract Module Custom
   // ==========================================================================
   @import "modules/variables";
+  @import "modules/print";
+  @import "modules/fontawesome";
 
   @import "partials/global";
   @include global;
+  @import "partials/collapse";
   @import "partials/forms";
   @import "partials/list";
   @import "partials/navs";

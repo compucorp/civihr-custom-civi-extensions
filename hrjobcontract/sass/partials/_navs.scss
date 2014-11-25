@@ -69,7 +69,7 @@
 
   > li > a {
     margin-right: -1px;
-    @include border-radius($border-radius-base 0 0$border-radius-base);
+    @include border-radius($border-radius-base 0 0 $border-radius-base);
 
     &:hover, &:focus {
       border-color: $nav-tabs-link-hover-border-color $nav-tabs-border-color $nav-tabs-link-hover-border-color $nav-tabs-link-hover-border-color;

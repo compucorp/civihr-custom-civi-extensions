@@ -75,348 +75,772 @@
                             <i class="fa fa-caret-down"></i> <span>Hide details</span></a>
                     </div>
                 </div>
-                <div class="row collapse in" id="{$prefix}id-1234">
-                    <div class="col-xs-12">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#{$prefix}summary" role="tab" data-toggle="tab">Summary</a></li>
-                            <li role="presentation"><a href="#{$prefix}full-history" role="tab" data-toggle="tab">Full History</a></li>
-                        </ul>
-
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="{$prefix}summary">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"><strong>Apprentice: General Manager</strong></div>
-                                    <div class="panel-body">
-                                        <form class="form-horizontal" role="form">
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <div class="form-group">
-                                                        <label for="position" class="col-sm-4 control-label">Position</label>
-                                                        <div class="col-sm-6">
-                                                            <p class="form-control-static">General Manager</p>
+                <div class="collapse in" id="{$prefix}id-1234">
+                    <div class="{$prefix}contract-details">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#{$prefix}summary-id-1234" role="tab" data-toggle="tab">Summary</a></li>
+                                    <li role="presentation"><a href="#{$prefix}full-history-id-1234" role="tab" data-toggle="tab">Full History</a></li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane {$prefix}summary active" id="{$prefix}summary-id-1234">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading"><strong>Apprentice: General Manager</strong></div>
+                                            <div class="panel-body">
+                                                <form class="form-horizontal" role="form">
+                                                    <div class="row">
+                                                        <div class="col-xs-6">
+                                                            <div class="form-group">
+                                                                <label for="position" class="col-sm-4 control-label">Position</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">General Manager</p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="title" class="col-sm-4 control-label">Title</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">General Manager</p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="type" class="col-sm-4 control-label">Contract Type</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">Apprentice</p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="department" class="col-sm-4 control-label">Department</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="level" class="col-sm-4 control-label">Level</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="manager" class="col-sm-4 control-label">Manager</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="manager" class="col-sm-4 control-label">Normal Place of Work</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">Headquarters</p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="time" class="col-sm-4 control-label">Time Period</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">
+                                                                        (2014-08-26 to Unspecified)<br />
+                                                                        <strong>Notice:</strong> 3 Month
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="funding" class="col-sm-4 control-label">Funding</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">
+                                                                        <strong>Tied to funding</strong><br />
+                                                                        <strong>Funding organization:</strong> <a href="#">Jackson
+                                                                            Wellness Partnership</a><br />
+                                                                        <strong>Notes:</strong> Notes
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-sm-2">
-                                                            <a href="#" class="btn">
-                                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                            </a>
+                                                        <div class="col-xs-6">
+                                                            <div class="form-group">
+                                                                <label for="insurance-health" class="col-sm-4 control-label">Health Insurance</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="insurance-life" class="col-sm-4 control-label">Life Insurance</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="hours" class="col-sm-4 control-label">Hours</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">Part Time (4 per Day) (1/1 FTE)</p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="leave" class="col-sm-4 control-label">Leave</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="pay" class="col-sm-4 control-label">Pay</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">Paid (USD 40000.00 Year)</p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="pension" class="col-sm-4 control-label">Pension</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">
+                                                                        Enrolled<br />
+                                                                        <strong>Pension Type:</strong> Employer Pension<br />
+                                                                        <strong>Employer Contribution (%):</strong> 4<br />
+                                                                        <strong>Employer Contribution (%):</strong> 4<br />
+                                                                        <strong>Employer Contribution (absolute amount):</strong>
+                                                                        10000.00
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="title" class="col-sm-4 control-label">Title</label>
-                                                        <div class="col-sm-6">
-                                                            <p class="form-control-static">General Manager</p>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <a href="#" class="btn">
-                                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="type" class="col-sm-4 control-label">Contract Type</label>
-                                                        <div class="col-sm-6">
-                                                            <p class="form-control-static">Apprentice</p>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <a href="#" class="btn">
-                                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="department" class="col-sm-4 control-label">Department</label>
-                                                        <div class="col-sm-6">
-                                                            <p class="form-control-static"></p>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <a href="#" class="btn">
-                                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="level" class="col-sm-4 control-label">Level</label>
-                                                        <div class="col-sm-6">
-                                                            <p class="form-control-static"></p>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <a href="#" class="btn">
-                                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="manager" class="col-sm-4 control-label">Manager</label>
-                                                        <div class="col-sm-6">
-                                                            <p class="form-control-static"></p>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <a href="#" class="btn">
-                                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="manager" class="col-sm-4 control-label">Normal Place of Work</label>
-                                                        <div class="col-sm-6">
-                                                            <p class="form-control-static">Headquarters</p>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <a href="#" class="btn">
-                                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="time" class="col-sm-4 control-label">Time Period</label>
-                                                        <div class="col-sm-6">
-                                                            <p class="form-control-static">
-                                                                (2014-08-26 to Unspecified)<br />
-                                                                <strong>Notice:</strong> 3 Month
-                                                            </p>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <a href="#" class="btn">
-                                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="funding" class="col-sm-4 control-label">Funding</label>
-                                                        <div class="col-sm-6">
-                                                            <p class="form-control-static">
-                                                                <strong>Tied to funding</strong><br />
-                                                                <strong>Funding organization:</strong> <a href="#">Jackson
-                                                                Wellness Partnership</a><br />
-                                                                <strong>Notes:</strong> Notes
-                                                            </p>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <a href="#" class="btn">
-                                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6">
-                                                    <div class="form-group">
-                                                        <label for="insurance-health" class="col-sm-4 control-label">Health Insurance</label>
-                                                        <div class="col-sm-6">
-                                                            <p class="form-control-static"></p>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <a href="#" class="btn">
-                                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="insurance-life" class="col-sm-4 control-label">Life Insurance</label>
-                                                        <div class="col-sm-6">
-                                                            <p class="form-control-static"></p>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <a href="#" class="btn">
-                                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="hours" class="col-sm-4 control-label">Hours</label>
-                                                        <div class="col-sm-6">
-                                                            <p class="form-control-static">Part Time (4 per Day) (1/1 FTE)</p>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <a href="#" class="btn">
-                                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="leave" class="col-sm-4 control-label">Leave</label>
-                                                        <div class="col-sm-6">
-                                                            <p class="form-control-static"></p>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <a href="#" class="btn">
-                                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="pay" class="col-sm-4 control-label">Pay</label>
-                                                        <div class="col-sm-6">
-                                                            <p class="form-control-static">Paid (USD 40000.00 Year)</p>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <a href="#" class="btn">
-                                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="pension" class="col-sm-4 control-label">Pension</label>
-                                                        <div class="col-sm-6">
-                                                            <p class="form-control-static">
-                                                                Enrolled<br />
-                                                                <strong>Pension Type:</strong> Employer Pension<br />
-                                                                <strong>Employer Contribution (%):</strong> 4<br />
-                                                                <strong>Employer Contribution (%):</strong> 4<br />
-                                                                <strong>Employer Contribution (absolute amount):</strong>
-                                                                10000.00
-                                                            </p>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <a href="#" class="btn">
-                                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                </form>
                                             </div>
-                                        </form>
+                                        </div>
+                                        <a href="#" class="btn btn-default btn-sm btn-danger" role="button">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete this job contract
+                                        </a>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="{$prefix}full-history-id-1234">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>Effective Date</th>
+                                                <th>Position</th>
+                                                <th>Department</th>
+                                                <th>Pay Scale</th>
+                                                <th>Total Salary</th>
+                                                <th>Hours (Full time/ Part time)</th>
+                                                <th>Location</th>
+                                                <th>Change Record By</th>
+                                                <th>&nbsp;</th>
+                                                <th>&nbsp;</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 4.0)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 3.9)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 3.8)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 3.7)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 3.6)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 3.5)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 3.4)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <a href="#" class="btn btn-default btn-sm btn-danger" role="button">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete this job contract
+                                        </a>
                                     </div>
                                 </div>
-                                <a href="#" class="btn btn-default btn-sm btn-danger" role="button">
-                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete this job contract
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="panel panel-default {$prefix}panel-action">
+                    <div class="panel-body form-horizontal">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">Position:</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static">General Manager</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">Contact type:</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static">Apprentice</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">Dates:</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static">13/4/2014 - 13/7/2014</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">Is primary?</label>
+                                    <div class="col-sm-7">
+                                        <input type="checkbox" name="primary" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <a href="#" class="btn btn-default btn-sm" role="button"
+                                   data-toggle="modal"
+                                   data-action="view"
+                                   data-title="Job Contract (rev. 4.1)"
+                                   data-target="#{$prefix}modal-wizard">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span> View current revision
+                                </a>
+                                <a href="#" class="btn btn-default btn-sm" role="button"
+                                   data-toggle="modal"
+                                   data-action="edit"
+                                   data-title="Correct error on contract (rev. 4.1)"
+                                   data-target="#{$prefix}modal-wizard">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Correct error on contract
+                                </a>
+                                <a href="#" class="btn btn-default btn-sm" role="button" role="button"
+                                   data-toggle="modal"
+                                   data-action="edit"
+                                   data-title="Change contract terms"
+                                   data-target="#{$prefix}modal-wizard">
+                                    <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Change contract terms
+                                </a>
+                                <a href="#" class="btn btn-sm">
+                                    <i class="fa fa-question-circle fa-lg"></i>
                                 </a>
                             </div>
-                            <div role="tabpanel" class="tab-pane" id="{$prefix}full-history">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Effective Date</th>
-                                            <th>Position</th>
-                                            <th>Department</th>
-                                            <th>Pay Scale</th>
-                                            <th>Total Salary</th>
-                                            <th>Hours (Full time/ Part time)</th>
-                                            <th>Location</th>
-                                            <th>Change Record By</th>
-                                            <th>&nbsp;</th>
-                                            <th>&nbsp;</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>2014-10-30</td>
-                                            <td>Front-end Developer</td>
-                                            <td>IT</td>
-                                            <td>NJC</td>
-                                            <td>264000.00 $</td>
-                                            <td>Full time</td>
-                                            <td>London</td>
-                                            <td>John Smith</td>
-                                            <td></td>
-                                            <td><a href="#"
-                                                   data-toggle="modal"
-                                                   data-action="view"
-                                                   data-title="Job Contract (rev. 4.0)"
-                                                   data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2014-10-30</td>
-                                            <td>Front-end Developer</td>
-                                            <td>IT</td>
-                                            <td>NJC</td>
-                                            <td>264000.00 $</td>
-                                            <td>Full time</td>
-                                            <td>London</td>
-                                            <td>John Smith</td>
-                                            <td></td>
-                                            <td><a href="#"
-                                                   data-toggle="modal"
-                                                   data-action="view"
-                                                   data-title="Job Contract (rev. 3.9)"
-                                                   data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2014-10-30</td>
-                                            <td>Front-end Developer</td>
-                                            <td>IT</td>
-                                            <td>NJC</td>
-                                            <td>264000.00 $</td>
-                                            <td>Full time</td>
-                                            <td>London</td>
-                                            <td>John Smith</td>
-                                            <td></td>
-                                            <td><a href="#"
-                                                   data-toggle="modal"
-                                                   data-action="view"
-                                                   data-title="Job Contract (rev. 3.8)"
-                                                   data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2014-10-30</td>
-                                            <td>Front-end Developer</td>
-                                            <td>IT</td>
-                                            <td>NJC</td>
-                                            <td>264000.00 $</td>
-                                            <td>Full time</td>
-                                            <td>London</td>
-                                            <td>John Smith</td>
-                                            <td></td>
-                                            <td><a href="#"
-                                                   data-toggle="modal"
-                                                   data-action="view"
-                                                   data-title="Job Contract (rev. 3.7)"
-                                                   data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2014-10-30</td>
-                                            <td>Front-end Developer</td>
-                                            <td>IT</td>
-                                            <td>NJC</td>
-                                            <td>264000.00 $</td>
-                                            <td>Full time</td>
-                                            <td>London</td>
-                                            <td>John Smith</td>
-                                            <td></td>
-                                            <td><a href="#"
-                                                   data-toggle="modal"
-                                                   data-action="view"
-                                                   data-title="Job Contract (rev. 3.6)"
-                                                   data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2014-10-30</td>
-                                            <td>Front-end Developer</td>
-                                            <td>IT</td>
-                                            <td>NJC</td>
-                                            <td>264000.00 $</td>
-                                            <td>Full time</td>
-                                            <td>London</td>
-                                            <td>John Smith</td>
-                                            <td></td>
-                                            <td><a href="#"
-                                                   data-toggle="modal"
-                                                   data-action="view"
-                                                   data-title="Job Contract (rev. 3.5)"
-                                                   data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2014-10-30</td>
-                                            <td>Front-end Developer</td>
-                                            <td>IT</td>
-                                            <td>NJC</td>
-                                            <td>264000.00 $</td>
-                                            <td>Full time</td>
-                                            <td>London</td>
-                                            <td>John Smith</td>
-                                            <td></td>
-                                            <td><a href="#"
-                                                   data-toggle="modal"
-                                                   data-action="view"
-                                                   data-title="Job Contract (rev. 3.4)"
-                                                   data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <a href="#" class="btn btn-default btn-sm btn-danger" role="button">
-                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete this job contract
-                                </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <a class="btn btn-sm"
+                           data-toggle="collapse"
+                           data-target="#{$prefix}id-1235"
+                           aria-expanded="true"
+                           aria-controls="{$prefix}id-1235">
+                            <i class="fa fa-caret-right"></i> <span>More details</span></a>
+                    </div>
+                </div>
+                <div class="collapse" id="{$prefix}id-1235">
+                    <div class="{$prefix}contract-details">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#{$prefix}summary-id-1235" role="tab" data-toggle="tab">Summary</a></li>
+                                    <li role="presentation"><a href="#{$prefix}full-history-id-1235" role="tab" data-toggle="tab">Full History</a></li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane {$prefix}summary active" id="{$prefix}summary-id-1235">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading"><strong>Apprentice: General Manager</strong></div>
+                                            <div class="panel-body">
+                                                <form class="form-horizontal" role="form">
+                                                    <div class="row">
+                                                        <div class="col-xs-6">
+                                                            <div class="form-group">
+                                                                <label for="position" class="col-sm-4 control-label">Position</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">General Manager</p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="title" class="col-sm-4 control-label">Title</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">General Manager</p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="type" class="col-sm-4 control-label">Contract Type</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">Apprentice</p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="department" class="col-sm-4 control-label">Department</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="level" class="col-sm-4 control-label">Level</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="manager" class="col-sm-4 control-label">Manager</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="manager" class="col-sm-4 control-label">Normal Place of Work</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">Headquarters</p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="time" class="col-sm-4 control-label">Time Period</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">
+                                                                        (2014-08-26 to Unspecified)<br />
+                                                                        <strong>Notice:</strong> 3 Month
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="funding" class="col-sm-4 control-label">Funding</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">
+                                                                        <strong>Tied to funding</strong><br />
+                                                                        <strong>Funding organization:</strong> <a href="#">Jackson
+                                                                            Wellness Partnership</a><br />
+                                                                        <strong>Notes:</strong> Notes
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-6">
+                                                            <div class="form-group">
+                                                                <label for="insurance-health" class="col-sm-4 control-label">Health Insurance</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="insurance-life" class="col-sm-4 control-label">Life Insurance</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="hours" class="col-sm-4 control-label">Hours</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">Part Time (4 per Day) (1/1 FTE)</p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="leave" class="col-sm-4 control-label">Leave</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="pay" class="col-sm-4 control-label">Pay</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">Paid (USD 40000.00 Year)</p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="pension" class="col-sm-4 control-label">Pension</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">
+                                                                        Enrolled<br />
+                                                                        <strong>Pension Type:</strong> Employer Pension<br />
+                                                                        <strong>Employer Contribution (%):</strong> 4<br />
+                                                                        <strong>Employer Contribution (%):</strong> 4<br />
+                                                                        <strong>Employer Contribution (absolute amount):</strong>
+                                                                        10000.00
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="btn btn-default btn-sm btn-danger" role="button">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete this job contract
+                                        </a>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="{$prefix}full-history-id-1235">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>Effective Date</th>
+                                                <th>Position</th>
+                                                <th>Department</th>
+                                                <th>Pay Scale</th>
+                                                <th>Total Salary</th>
+                                                <th>Hours (Full time/ Part time)</th>
+                                                <th>Location</th>
+                                                <th>Change Record By</th>
+                                                <th>&nbsp;</th>
+                                                <th>&nbsp;</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 4.0)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 3.9)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 3.8)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 3.7)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 3.6)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 3.5)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 3.4)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <a href="#" class="btn btn-default btn-sm btn-danger" role="button">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete this job contract
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -424,6 +848,423 @@
             </li>
         </ul>
         <h3>Past Job Contracts:</h3>
+        <ul class="{$prefix}list-contract">
+            <li>
+                <div class="panel panel-default {$prefix}panel-action">
+                    <div class="panel-body form-horizontal">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">Position:</label>
+                                <div class="col-sm-7">
+                                    <p class="form-control-static">General Manager</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">Contact type:</label>
+                                <div class="col-sm-7">
+                                    <p class="form-control-static">Apprentice</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">Dates:</label>
+                                <div class="col-sm-7">
+                                    <p class="form-control-static">13/1/2014 - 13/4/2014</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <a href="#" class="btn btn-default btn-sm" role="button"
+                               data-toggle="modal"
+                               data-action="view"
+                               data-title="Job Contract (rev. 4.1)"
+                               data-target="#{$prefix}modal-wizard">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span> View current revision
+                            </a>
+                            <a href="#" class="btn btn-default btn-sm" role="button"
+                               data-toggle="modal"
+                               data-action="edit"
+                               data-title="Correct error on contract (rev. 4.1)"
+                               data-target="#{$prefix}modal-wizard">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Correct error on contract
+                            </a>
+                            <a href="#" class="btn btn-default btn-sm" role="button" role="button"
+                               data-toggle="modal"
+                               data-action="edit"
+                               data-title="Change contract terms"
+                               data-target="#{$prefix}modal-wizard">
+                                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Change contract terms
+                            </a>
+                            <a href="#" class="btn btn-sm">
+                                <i class="fa fa-question-circle fa-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <a class="btn btn-sm"
+                           data-toggle="collapse"
+                           data-target="#{$prefix}id-1236"
+                           aria-expanded="true"
+                           aria-controls="{$prefix}id-1236">
+                            <i class="fa fa-caret-right"></i> <span>More details</span></a>
+                    </div>
+                </div>
+                <div class="collapse" id="{$prefix}id-1236">
+                    <div class="{$prefix}contract-details">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#{$prefix}summary-id-1236" role="tab" data-toggle="tab">Summary</a></li>
+                                    <li role="presentation"><a href="#{$prefix}full-history-id-1236" role="tab" data-toggle="tab">Full History</a></li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane {$prefix}summary active" id="{$prefix}summary-id-1236">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading"><strong>Apprentice: General Manager</strong></div>
+                                            <div class="panel-body">
+                                                <form class="form-horizontal" role="form">
+                                                    <div class="row">
+                                                        <div class="col-xs-6">
+                                                            <div class="form-group">
+                                                                <label for="position" class="col-sm-4 control-label">Position</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">General Manager</p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="title" class="col-sm-4 control-label">Title</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">General Manager</p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="type" class="col-sm-4 control-label">Contract Type</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">Apprentice</p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="department" class="col-sm-4 control-label">Department</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="level" class="col-sm-4 control-label">Level</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="manager" class="col-sm-4 control-label">Manager</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="manager" class="col-sm-4 control-label">Normal Place of Work</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">Headquarters</p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="time" class="col-sm-4 control-label">Time Period</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">
+                                                                        (2014-08-26 to Unspecified)<br />
+                                                                        <strong>Notice:</strong> 3 Month
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="funding" class="col-sm-4 control-label">Funding</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">
+                                                                        <strong>Tied to funding</strong><br />
+                                                                        <strong>Funding organization:</strong> <a href="#">Jackson
+                                                                            Wellness Partnership</a><br />
+                                                                        <strong>Notes:</strong> Notes
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-6">
+                                                            <div class="form-group">
+                                                                <label for="insurance-health" class="col-sm-4 control-label">Health Insurance</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="insurance-life" class="col-sm-4 control-label">Life Insurance</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="hours" class="col-sm-4 control-label">Hours</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">Part Time (4 per Day) (1/1 FTE)</p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="leave" class="col-sm-4 control-label">Leave</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="pay" class="col-sm-4 control-label">Pay</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">Paid (USD 40000.00 Year)</p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="pension" class="col-sm-4 control-label">Pension</label>
+                                                                <div class="col-sm-6">
+                                                                    <p class="form-control-static">
+                                                                        Enrolled<br />
+                                                                        <strong>Pension Type:</strong> Employer Pension<br />
+                                                                        <strong>Employer Contribution (%):</strong> 4<br />
+                                                                        <strong>Employer Contribution (%):</strong> 4<br />
+                                                                        <strong>Employer Contribution (absolute amount):</strong>
+                                                                        10000.00
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a href="#" class="btn">
+                                                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="btn btn-default btn-sm btn-danger" role="button">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete this job contract
+                                        </a>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="{$prefix}full-history-id-1236">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>Effective Date</th>
+                                                <th>Position</th>
+                                                <th>Department</th>
+                                                <th>Pay Scale</th>
+                                                <th>Total Salary</th>
+                                                <th>Hours (Full time/ Part time)</th>
+                                                <th>Location</th>
+                                                <th>Change Record By</th>
+                                                <th>&nbsp;</th>
+                                                <th>&nbsp;</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 4.0)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 3.9)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 3.8)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 3.7)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 3.6)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 3.5)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2014-10-30</td>
+                                                <td>Front-end Developer</td>
+                                                <td>IT</td>
+                                                <td>NJC</td>
+                                                <td>264000.00 $</td>
+                                                <td>Full time</td>
+                                                <td>London</td>
+                                                <td>John Smith</td>
+                                                <td></td>
+                                                <td><a href="#"
+                                                       data-toggle="modal"
+                                                       data-action="view"
+                                                       data-title="Job Contract (rev. 3.4)"
+                                                       data-target="#{$prefix}modal-wizard">view this contract revision</a></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <a href="#" class="btn btn-default btn-sm btn-danger" role="button">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete this job contract
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
         <p>
             <a href="#" class="btn btn-default btn-sm btn-primary" role="button"
                data-action="add"

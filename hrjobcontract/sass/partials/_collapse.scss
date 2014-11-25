@@ -8,3 +8,9 @@ a[data-toggle="collapse"] {
     @include box-shadow(none);
   }
 }
+
+.collapse {
+  .#{$prefix}contract-details {
+    margin-bottom: 20px;
+  }
+}

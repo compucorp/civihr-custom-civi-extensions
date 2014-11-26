@@ -19,4 +19,9 @@
     margin-top: 0;
   }
 
+  /** Wizard - Tab - General **/
+  input[id^="notice-employe"] {
+    max-width: 100px;
+  }
+
 }

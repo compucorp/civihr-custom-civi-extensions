@@ -236,20 +236,25 @@ class CRM_HRJob_DAO_Base extends CRM_Core_DAO
   
   public static function create($params)
   {
-    if (empty($params['job_contract_id']))
-    {
-        throw new API_Exception("Cannot create entity: missing job_contract_id value");
-    }
-
     $caller = get_called_class();
+    echo 'caller: ' ;
+    var_dump($caller);
     $className = $caller;
     $entityName = _civicrm_get_entity_name($caller);
     $hook = empty($params['id']) ? 'create' : 'edit';
-    if ($hook === 'create'/* && empty($params['revisioning'])*/)
+    
+    if ($hook === 'create')
     {
-        $jobContractId = (int)$params['job_contract_id'];
-        if ($jobContractId)
+        if (empty($params['job_contract_id']) && empty($params['contract_revision_id']))
         {
+            throw new API_Exception("Cannot create entity: please specify job_contract_id or contract_revision_id value");
+        }
+        
+        if (empty($params['contract_revision_id']))
+        {
+            // Creating new entity and new revision:
+            $jobContractId = (int)$params['job_contract_id'];
+            
             // Creating new revision:
             $newRevision = _civicrm_hrjobcontract_api3_create_revision($jobContractId);
             $params['contract_revision_id'] = $newRevision['id'];
@@ -265,13 +270,14 @@ class CRM_HRJob_DAO_Base extends CRM_Core_DAO
     }
     
     $params['job_id'] = 0; // TODO: It's temporary. Finally it has to be removed
-    // and `job_id` columns has to be removed from entity tables.
+    // and `job_id` columns have to be removed from entity tables.
     
     CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);
     $instance = new $className();
     $instance->copyValues($params);
     $instance->save();
     CRM_Utils_Hook::post($hook, $entityName, $instance->id, $instance);
+    
     return $instance;
   }
 }

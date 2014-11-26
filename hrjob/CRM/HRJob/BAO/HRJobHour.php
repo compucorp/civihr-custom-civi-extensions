@@ -42,18 +42,27 @@ class CRM_HRJob_BAO_HRJobHour extends CRM_HRJob_DAO_HRJobHour {
    *
    */
   public static function create($params) {
-    $className = 'CRM_HRJob_DAO_HRJobHour';
+    // TODO: update for the new API, change 'update' API call to 'create'
+    // as 'update' is deprecated.
+    
+    return parent::create($params);
+      
+    /*$className = 'CRM_HRJob_DAO_HRJobHour';
     $entityName = 'HRJobHour';
     $hook = empty($params['id']) ? 'create' : 'edit';
 
     CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);
     $instance = new $className();
     $instance->copyValues($params);
-    $instance->save();
+    $instance->save();*/
+      
+    $instance = parent::create($params);
+    
     if ($hook == 'create') {
       $result = civicrm_api3('HRJobRole', 'get', array(
         'sequential' => 1,
-        'job_id' => $instance->job_id,
+        //'job_id' => $instance->job_id,
+        'job_contract_id' => $params['job_contract_id'],
         'options' => array('limit' => 1),
       ));
       if (!empty($result['values'])) {
@@ -62,7 +71,7 @@ class CRM_HRJob_BAO_HRJobHour extends CRM_HRJob_DAO_HRJobHour {
       }
     }
 
-    CRM_Utils_Hook::post($hook, $entityName, $instance->id, $instance);
+    //CRM_Utils_Hook::post($hook, $entityName, $instance->id, $instance);
 
     return $instance;
   }

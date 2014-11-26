@@ -41,7 +41,6 @@
                     });
                     break;
             }
-
         });
 
         $('#'+prefix+'modal-history-section').on('show.bs.modal', function (event) {
@@ -67,6 +66,7 @@
             });
         });
 
+        $('[data-toggle="tooltip"]').tooltip();
 
     });
     /**

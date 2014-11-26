@@ -60,7 +60,19 @@
                                    data-target="#{$prefix}modal-wizard">
                                     <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Change contract terms
                                 </a>
-                                <a href="#" class="btn btn-sm">
+                                <a href="#" class="btn btn-sm"
+                                   data-toggle="tooltip"
+                                   data-placement="left"
+                                   data-html="true"
+                                   title="<p class='text-left'><strong>Change Contract Terms:</strong><br>
+                                       When an employeees job or role changes, i.e. promotion, secondment or move,
+                                       you can use this wizard to update the details of the contract and record a new
+                                       revision of the contract. A contract history is kept so you can always see the
+                                       previous version of the contract.</p>
+                                       <p class='text-left'><strong>Correct an error on the contract record:</strong><br>
+                                       If you notice an issue or error with the job terms you can correct these without
+                                       creating a new job history record. These changes are not stored as a new revision
+                                       of the contract.</p>">
                                     <i class="fa fa-question-circle fa-lg"></i>
                                 </a>
                             </div>
@@ -528,7 +540,19 @@
                                    data-target="#{$prefix}modal-wizard">
                                     <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Change contract terms
                                 </a>
-                                <a href="#" class="btn btn-sm">
+                                <a href="#" class="btn btn-sm"
+                                   data-toggle="tooltip"
+                                   data-placement="left"
+                                   data-html="true"
+                                   title="<p class='text-left'><strong>Change Contract Terms:</strong><br>
+                                       When an employeees job or role changes, i.e. promotion, secondment or move,
+                                       you can use this wizard to update the details of the contract and record a new
+                                       revision of the contract. A contract history is kept so you can always see the
+                                       previous version of the contract.</p>
+                                       <p class='text-left'><strong>Correct an error on the contract record:</strong><br>
+                                       If you notice an issue or error with the job terms you can correct these without
+                                       creating a new job history record. These changes are not stored as a new revision
+                                       of the contract.</p>">
                                     <i class="fa fa-question-circle fa-lg"></i>
                                 </a>
                             </div>
@@ -993,7 +1017,19 @@
                                data-target="#{$prefix}modal-wizard">
                                 <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Change contract terms
                             </a>
-                            <a href="#" class="btn btn-sm">
+                            <a href="#" class="btn btn-sm"
+                               data-toggle="tooltip"
+                               data-placement="left"
+                               data-html="true"
+                               title="<p class='text-left'><strong>Change Contract Terms:</strong><br>
+                                       When an employeees job or role changes, i.e. promotion, secondment or move,
+                                       you can use this wizard to update the details of the contract and record a new
+                                       revision of the contract. A contract history is kept so you can always see the
+                                       previous version of the contract.</p>
+                                       <p class='text-left'><strong>Correct an error on the contract record:</strong><br>
+                                       If you notice an issue or error with the job terms you can correct these without
+                                       creating a new job history record. These changes are not stored as a new revision
+                                       of the contract.</p>">
                                 <i class="fa fa-question-circle fa-lg"></i>
                             </a>
                         </div>

@@ -34,7 +34,7 @@
  */
 require_once 'CRM/Core/DAO.php';
 require_once 'CRM/Utils/Type.php';
-class CRM_HRJob_DAO_HRJobRole extends CRM_Core_DAO
+class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
 {
   /**
    * static instance to hold the table name
@@ -186,6 +186,12 @@ class CRM_HRJob_DAO_HRJobRole extends CRM_Core_DAO
    */
   public $location;
   /**
+   * Contract revision id
+   * 
+   * @var int
+   */
+  public $contract_revision_id;
+  /**
    * class constructor
    *
    * @access public
@@ -209,6 +215,7 @@ class CRM_HRJob_DAO_HRJobRole extends CRM_Core_DAO
       self::$_links = array(
         new CRM_Core_Reference_Basic(self::getTableName() , 'job_id', 'civicrm_hrjob', 'id') ,
         new CRM_Core_Reference_Basic(self::getTableName() , 'manager_contact_id', 'civicrm_contact', 'id') ,
+        new CRM_Core_Reference_Basic(self::getTableName() , 'contract_revision_id', 'civicrm_hrjob_contract_revision', 'id') ,
       );
     }
     return self::$_links;
@@ -234,7 +241,7 @@ class CRM_HRJob_DAO_HRJobRole extends CRM_Core_DAO
           'type' => CRM_Utils_Type::T_INT,
           'title' => ts('Job Id') ,
           'required' => true,
-          'FKClassName' => 'CRM_HRJob_DAO_HRJob',
+          'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJob',
         ) ,
         'title' => array(
           'name' => 'title',
@@ -265,7 +272,7 @@ class CRM_HRJob_DAO_HRJobRole extends CRM_Core_DAO
           'dataPattern' => '',
           'export' => true,
           'pseudoconstant' => array(
-            'callback' => 'CRM_HRJob_SelectValues::commonUnit',
+            'callback' => 'CRM_Hrjobcontract_SelectValues::commonUnit',
           )
         ) ,
         'hrjob_region' => array(
@@ -383,6 +390,13 @@ class CRM_HRJob_DAO_HRJobRole extends CRM_Core_DAO
             'optionGroupName' => 'hrjob_location',
           )
         ) ,
+        'contract_revision_id' => array(
+          'name' => 'contract_revision_id',
+          'type' => CRM_Utils_Type::T_INT,
+          'title' => ts('Job Contract Revision Id') ,
+          'required' => true,
+          'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJobContractRevision',
+        ) ,
       );
     }
     return self::$_fields;
@@ -415,6 +429,7 @@ class CRM_HRJob_DAO_HRJobRole extends CRM_Core_DAO
         'percent_pay_funder' => 'hrjob_role_percent_pay_funder',
         'percent_pay_role' => 'hrjob_role_percent_pay_role',
         'location' => 'location',
+        'contract_revision_id' => 'contract_revision_id',
       );
     }
     return self::$_fieldKeys;

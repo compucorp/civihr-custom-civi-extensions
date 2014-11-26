@@ -24,36 +24,80 @@
  | see the CiviCRM license FAQ at http://civicrm.org/licensing        |
  +--------------------------------------------------------------------+
 */
+class CRM_HRJob_Import_Field {
 
-/**
- *
- * @package CRM
- * @copyright CiviCRM LLC (c) 2004-2013
- * $Id$
- *
- */
-
-/**
- * This class gets the name of the file to upload
- */
-class CRM_HRJob_Import_Form_DataSource extends CRM_HRJob_Import_Form_DataSourceBaseClass {
-  public $_parser = 'CRM_HRJob_Import_Parser_Api';
-  protected $_enableContactOptions = FALSE;
-  protected $_userContext = 'civicrm/job/import';
-  protected $_mappingType = 'Import Job';
-  protected $_entity = array('HRJob', 'HRJobPay', 'HRJobHealth', 'HRJobPension', 'HRJobHour', 'HRJobLeave');
-  /**
-  * Include duplicate options
-  */
-  protected $isDuplicateOptions = FALSE;
-
-    /**
-   * Function to actually build the form - this appears to be entirely code that should be in a shared baseclass in core
-   *
-   * @return None
-   * @access public
+  /**#@+
+   * @access protected
+   * @var string
    */
-  public function buildQuickForm() {
-    parent::buildQuickForm();
+
+  /**
+   * name of the field
+   */
+  public $_name;
+
+  /**
+   * title of the field to be used in display
+   */
+  public $_title;
+
+  /**
+   * type of field
+   * @var enum
+   */
+  public $_type;
+
+  /**
+   * regexp to match the CSV header of this column/field
+   * @var string
+   */
+  public $_headerPattern;
+
+  /**
+   * regexp to match the pattern of data from various column/fields
+   * @var string
+   */
+  public $_dataPattern;
+
+  /**
+   * value of this field
+   * @var object
+   */
+  public $_value;
+  function __construct($name, $title, $type = CRM_Utils_Type::T_INT, $headerPattern = '//', $dataPattern = '//') {
+    $this->_name = $name;
+    $this->_title = $title;
+    $this->_type = $type;
+    $this->_headerPattern = $headerPattern;
+    $this->_dataPattern = $dataPattern;
+
+    $this->_value = NULL;
+  }
+
+  function resetValue() {
+    $this->_value = NULL;
+  }
+
+  /**
+   * the value is in string format. convert the value to the type of this field
+   * and set the field value with the appropriate type
+   */
+  function setValue($value) {
+    $this->_value = $value;
+  }
+
+  function validate() {
+    if (CRM_Utils_System::isNull($this->_value)) {
+      return TRUE;
+    }
+
+    switch ($this->_name) {
+      case 'contact_id':
+        // note: we validate extistence of the contact in API, upon
+        // insert (it would be too costlty to do a db call here)
+        return CRM_Utils_Rule::integer($this->_value);
+      default:
+        break;
+    }
   }
 }

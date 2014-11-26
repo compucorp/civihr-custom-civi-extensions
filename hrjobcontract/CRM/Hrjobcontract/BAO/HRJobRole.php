@@ -25,52 +25,25 @@
 +--------------------------------------------------------------------+
 */
 
-/**
- * HRJobPension.create API specification (optional)
- * This is used for documentation and validation.
- *
- * @param array $spec description of fields supported by this API call
- * @return void
- * @see http://wiki.civicrm.org/confluence/display/CRM/API+Architecture+Standards
- */
-function _civicrm_api3_h_r_job_pension_create_spec(&$spec) {
-  $spec['job_id']['api.required'] = 1;
-  $spec['job_id']['api.aliases'] = array('h_r_job_id');
-}
+class CRM_Hrjobcontract_BAO_HRJobRole extends CRM_Hrjobcontract_DAO_HRJobRole {
 
-/**
- * HRJobPension.create API
- *
- * @param array $params
- * @return array API result descriptor
- * @throws API_Exception
- */
-function civicrm_api3_h_r_job_pension_create($params) {
-  return _civicrm_api3_basic_create(_civicrm_api3_get_BAO(__FUNCTION__), $params);
-}
+  /**
+   * Create a new HRJobRole based on array-data
+   *
+   * @param array $params key-value pairs
+   * @return CRM_HRJob_DAO_HRJobRole|NULL
+   *
+  public static function create($params) {
+    $className = 'CRM_HRJob_DAO_HRJobRole';
+    $entityName = 'HRJobRole';
+    $hook = empty($params['id']) ? 'create' : 'edit';
 
-/**
- * HRJobPension.delete API
- *
- * @param array $params
- * @return array API result descriptor
- * @throws API_Exception
- */
-function civicrm_api3_h_r_job_pension_delete($params) {
-  return _civicrm_api3_basic_delete(_civicrm_api3_get_BAO(__FUNCTION__), $params);
-}
+    CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);
+    $instance = new $className();
+    $instance->copyValues($params);
+    $instance->save();
+    CRM_Utils_Hook::post($hook, $entityName, $instance->id, $instance);
 
-function _civicrm_api3_h_r_job_pension_get_spec(&$spec) {
-  $spec['job_id']['api.aliases'] = array('h_r_job_id');
-}
-
-/**
- * HRJobPension.get API
- *
- * @param array $params
- * @return array API result descriptor
- * @throws API_Exception
- */
-function civicrm_api3_h_r_job_pension_get($params) {
-  return _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params);
+    return $instance;
+  } */
 }

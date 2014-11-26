@@ -1,16 +1,16 @@
 <?php
 
-class CRM_HRJob_BAO_HRJobData extends CRM_HRJob_DAO_HRJobData {
+class CRM_Hrjobcontract_BAO_HRJobContractRevision extends CRM_Hrjobcontract_DAO_HRJobContractRevision {
 
   /**
-   * Create a new HRJobData based on array-data
+   * Create a new HRJobContractRevision based on array-data
    *
    * @param array $params key-value pairs
-   * @return CRM_HRJob_DAO_HRJobData|NULL
+   * @return CRM_HRJob_DAO_HRJobContractRevision|NULL
    *
   public static function create($params) {
-    $className = 'CRM_HRJob_DAO_HRJobData';
-    $entityName = 'HRJobData';
+    $className = 'CRM_HRJob_DAO_HRJobContractRevision';
+    $entityName = 'HRJobContractRevision';
     $hook = empty($params['id']) ? 'create' : 'edit';
 
     CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);

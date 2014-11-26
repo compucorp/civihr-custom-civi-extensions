@@ -33,27 +33,27 @@
  *
  */
 
-/**
- * This class gets the name of the file to upload
- */
-class CRM_HRJob_Import_Form_DataSource extends CRM_HRJob_Import_Form_DataSourceBaseClass {
-  public $_parser = 'CRM_HRJob_Import_Parser_Api';
-  protected $_enableContactOptions = FALSE;
-  protected $_userContext = 'civicrm/job/import';
-  protected $_mappingType = 'Import Job';
-  protected $_entity = array('HRJob', 'HRJobPay', 'HRJobHealth', 'HRJobPension', 'HRJobHour', 'HRJobLeave');
-  /**
-  * Include duplicate options
-  */
-  protected $isDuplicateOptions = FALSE;
+class CRM_HRJob_Import_ControllerBaseClass extends CRM_Core_Controller {
 
-    /**
-   * Function to actually build the form - this appears to be entirely code that should be in a shared baseclass in core
-   *
-   * @return None
-   * @access public
+  /**
+   * class constructor
    */
-  public function buildQuickForm() {
-    parent::buildQuickForm();
+  function __construct($title = NULL, $action = CRM_Core_Action::NONE, $modal = TRUE) {
+    parent::__construct($title, $modal);
+
+    // lets get around the time limit issue if possible, CRM-2113
+    if (!ini_get('safe_mode')) {
+      set_time_limit(0);
+    }
+
+    $this->_stateMachine = new CRM_Import_StateMachine($this, $action);
+
+    // create and instantiate the pages
+    $this->addPages($this->_stateMachine, $action);
+
+    // add all the actions
+    $config = CRM_Core_Config::singleton();
+    $this->addActions($config->uploadDir, array('uploadFile'));
   }
 }
+

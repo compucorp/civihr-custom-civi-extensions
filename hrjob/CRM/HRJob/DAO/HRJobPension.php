@@ -34,7 +34,7 @@
  */
 require_once 'CRM/Core/DAO.php';
 require_once 'CRM/Utils/Type.php';
-class CRM_HRJob_DAO_HRJobPension extends CRM_HRJob_DAO_Base
+class CRM_HRJob_DAO_HRJobPension extends CRM_Core_DAO
 {
   /**
    * static instance to hold the table name
@@ -136,12 +136,6 @@ class CRM_HRJob_DAO_HRJobPension extends CRM_HRJob_DAO_Base
    */
   public $ee_evidence_note;
   /**
-   * Contract revision id
-   * 
-   * @var int
-   */
-  public $contract_revision_id;
-  /**
    * class constructor
    *
    * @access public
@@ -164,7 +158,6 @@ class CRM_HRJob_DAO_HRJobPension extends CRM_HRJob_DAO_Base
     if (!self::$_links) {
       self::$_links = array(
         new CRM_Core_Reference_Basic(self::getTableName() , 'job_id', 'civicrm_hrjob', 'id') ,
-        new CRM_Core_Reference_Basic(self::getTableName() , 'contract_revision_id', 'civicrm_hrjob_contract_revision', 'id') ,
       );
     }
     return self::$_links;
@@ -256,13 +249,6 @@ class CRM_HRJob_DAO_HRJobPension extends CRM_HRJob_DAO_Base
           'import' => true,
           'size' => CRM_Utils_Type::HUGE,
         ) ,
-        'contract_revision_id' => array(
-          'name' => 'contract_revision_id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Contract Revision Id') ,
-          'required' => true,
-          'FKClassName' => 'CRM_HRJob_DAO_HRJobContractRevision',
-        ) ,
       );
     }
     return self::$_fields;
@@ -286,7 +272,6 @@ class CRM_HRJob_DAO_HRJobPension extends CRM_HRJob_DAO_Base
         'pension_type' => 'hrjob_pension_type',
         'ee_contrib_abs' => 'ee_contrib_abs',
         'ee_evidence_note' => 'ee_evidence_note',
-        'contract_revision_id' => 'contract_revision_id',
       );
     }
     return self::$_fieldKeys;

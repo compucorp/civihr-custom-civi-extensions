@@ -26,32 +26,32 @@
 */
 
 /**
- * HRJobHour.create API specification (optional)
+ * HRJobPay.create API specification (optional)
  * This is used for documentation and validation.
  *
  * @param array $spec description of fields supported by this API call
  * @return void
  * @see http://wiki.civicrm.org/confluence/display/CRM/API+Architecture+Standards
  */
-function _civicrm_api3_h_r_job_hour_create_spec(&$spec) {
-  $spec['job_id']['api.required'] = 1;
+function _civicrm_api3_h_r_job_pay_create_spec(&$spec) {
+  //$spec['job_id']['api.required'] = 1;
   $spec['job_id']['api.aliases'] = array('h_r_job_id');
 }
 
 /**
- * HRJobHour.create API
+ * HRJobPay.create API
  *
  * @param array $params
  * @return array API result descriptor
  * @throws API_Exception
  */
-function civicrm_api3_h_r_job_hour_create($params) {
+function civicrm_api3_h_r_job_pay_create($params) {
   $result = _civicrm_api3_basic_create(_civicrm_api3_get_BAO(__FUNCTION__), $params);
   if (empty($result['is_error'])) {
     if (empty($result['id'])) {
       throw new API_Exception("Cannot update estimates: missing job id");
     }
-    $job_id = CRM_Core_DAO::singleValueQuery('SELECT job_id FROM civicrm_hrjob_hour WHERE id = %1', array(
+    $job_id = CRM_Core_DAO::singleValueQuery('SELECT job_id FROM civicrm_hrjob_pay WHERE id = %1', array(
       1 => array($result['id'], 'Positive')
     ));
     CRM_HRJob_Estimator::updateEstimatesByJob($job_id);
@@ -60,27 +60,36 @@ function civicrm_api3_h_r_job_hour_create($params) {
 }
 
 /**
- * HRJobHour.delete API
+ * HRJobPay.delete API
  *
  * @param array $params
  * @return array API result descriptor
  * @throws API_Exception
  */
-function civicrm_api3_h_r_job_hour_delete($params) {
+function civicrm_api3_h_r_job_pay_delete($params) {
   return _civicrm_api3_basic_delete(_civicrm_api3_get_BAO(__FUNCTION__), $params);
 }
 
-function _civicrm_api3_h_r_job_hour_get_spec(&$spec) {
+/**
+ * HRJobPay.create API specification (optional)
+ * This is used for documentation and validation.
+ *
+ * @param array $spec description of fields supported by this API call
+ * @return void
+ * @see http://wiki.civicrm.org/confluence/display/CRM/API+Architecture+Standards
+ */
+function _civicrm_api3_h_r_job_pay_get_spec(&$spec) {
   $spec['job_id']['api.aliases'] = array('h_r_job_id');
 }
 
 /**
- * HRJobHour.get API
+ * HRJobPay.get API
  *
  * @param array $params
  * @return array API result descriptor
  * @throws API_Exception
  */
-function civicrm_api3_h_r_job_hour_get($params) {
+function civicrm_api3_h_r_job_pay_get($params) {
+  _civicrm_hrjobcontract_api3_set_current_revision($params, _civicrm_get_table_name(_civicrm_api3_get_BAO(__FUNCTION__)));
   return _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params);
 }

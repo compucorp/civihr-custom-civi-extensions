@@ -1,6 +1,6 @@
 <?php
 
-class CRM_HRJob_BAO_HRJobContract extends CRM_HRJob_DAO_HRJobContract {
+class CRM_Hrjobcontract_BAO_HRJobContract extends CRM_Hrjobcontract_DAO_HRJobContract {
     
     static $_importableFields = array();
 

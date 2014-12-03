@@ -45,13 +45,13 @@ class CRM_Hrjobcontract_BAO_HRJobHour extends CRM_Hrjobcontract_DAO_HRJobHour {
     // TODO: update for the new API, change 'update' API call to 'create'
     // as 'update' is deprecated.
     
-    return parent::create($params);
+    //return parent::create($params);
       
-    /*$className = 'CRM_HRJob_DAO_HRJobHour';
+    $className = 'CRM_HRJob_DAO_HRJobHour';
     $entityName = 'HRJobHour';
     $hook = empty($params['id']) ? 'create' : 'edit';
 
-    CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);
+    /*CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);
     $instance = new $className();
     $instance->copyValues($params);
     $instance->save();*/
@@ -61,13 +61,12 @@ class CRM_Hrjobcontract_BAO_HRJobHour extends CRM_Hrjobcontract_DAO_HRJobHour {
     if ($hook == 'create') {
       $result = civicrm_api3('HRJobRole', 'get', array(
         'sequential' => 1,
-        //'job_id' => $instance->job_id,
-        'job_contract_id' => $params['job_contract_id'],
+        'jobcontract_id' => $params['jobcontract_id'],
         'options' => array('limit' => 1),
       ));
       if (!empty($result['values'])) {
         $role = CRM_Utils_Array::first($result['values']);
-        civicrm_api3('HRJobRole', 'update', array('id' => $role['id'], 'job_id' => $role['job_id'], 'hours'=> $instance->hours_amount, 'role_hours_unit' => $instance->hours_unit));
+        civicrm_api3('HRJobRole', 'update', array('id' => $role['id'], 'hours' => $instance->hours_amount, 'role_hours_unit' => $instance->hours_unit));
       }
     }
 
@@ -113,7 +112,7 @@ class CRM_Hrjobcontract_BAO_HRJobHour extends CRM_Hrjobcontract_DAO_HRJobHour {
     $fields = CRM_Utils_Array::value($cacheKeyString, self::$_importableFields);
 
     if (!$fields) {
-      $fields = CRM_HRJob_DAO_HRJobHour::import();
+      $fields = CRM_Hrjobcontract_DAO_HRJobHour::import();
 
       $fields = array_merge($fields, CRM_HRJOB_DAO_HRJOBHour::import());
 

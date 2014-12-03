@@ -28,7 +28,7 @@ function _civicrm_get_table_name($className)
 }
 
 /**
- * Sets $params array to point valid revision of given $params['job_contract_id']
+ * Sets $params array to point at valid revision of given $params['jobcontract_id']
  * Job Contract.
  * 
  * @param array $params
@@ -36,10 +36,10 @@ function _civicrm_get_table_name($className)
  */
 function _civicrm_hrjobcontract_api3_set_current_revision(array &$params, $table)
 {
-    if (!empty($params['job_contract_id'])) {
-        $revisionId = _civicrm_hrjobcontract_api3_get_current_revision_id($params['job_contract_id'], $table);
+    if (!empty($params['jobcontract_id'])) {
+        $revisionId = _civicrm_hrjobcontract_api3_get_current_revision_id($params['jobcontract_id'], $table);
         if ($revisionId) {
-            $params['contract_revision_id'] = $revisionId['values'];
+            $params['jobcontract_revision_id'] = $revisionId['values'];
         }
     }
 }
@@ -56,7 +56,7 @@ function _civicrm_hrjobcontract_api3_create_revision($jobContractId)
     $currentRevision = _civicrm_hrjobcontract_api3_get_current_revision((int)$jobContractId);
     if (empty($currentRevision))
     {
-        $currentRevision = array('values' => array('job_contract_id' => $jobContractId));
+        $currentRevision = array('values' => array('jobcontract_id' => $jobContractId));
     }
     else
     {
@@ -73,7 +73,7 @@ function _civicrm_hrjobcontract_api3_get_current_revision($jobContractId)
     {
         $revision = civicrm_api3('HRJobContractRevision', 'get', array(
           'sequential' => 1,
-          'job_contract_id' => $jobContractId,
+          'jobcontract_id' => $jobContractId,
           'options' => array('sort' => 'id DESC', 'limit' => 1),
         ));
 

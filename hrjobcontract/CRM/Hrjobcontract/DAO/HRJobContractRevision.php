@@ -40,7 +40,7 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
    * @var string
    * @static
    */
-  static $_tableName = 'civicrm_hrjob_contract_revision';
+  static $_tableName = 'civicrm_hrjobcontract_revision';
   /**
    * static instance to hold the field values
    *
@@ -109,7 +109,7 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
    */
   function __construct()
   {
-    $this->__table = 'civicrm_hrjob_contract_revision';
+    $this->__table = 'civicrm_hrjobcontract_revision';
     parent::__construct();
   }
   /**
@@ -123,7 +123,7 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
   {
     if (!self::$_links) {
       self::$_links = array(
-        new CRM_Core_Reference_Basic(self::getTableName() , 'job_contract_id', 'civicrm_hrjob_contract', 'id') ,
+        new CRM_Core_Reference_Basic(self::getTableName() , 'jobcontract_id', 'civicrm_hrjobcontract', 'id') ,
       );
     }
     return self::$_links;
@@ -144,8 +144,8 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
           'title' => ts('Id') ,
           'required' => true,
         ) ,
-        'job_contract_id' => array(
-          'name' => 'job_contract_id',
+        'jobcontract_id' => array(
+          'name' => 'jobcontract_id',
           'type' => CRM_Utils_Type::T_INT,
           'title' => ts('Job Contract Id') ,
           'required' => true,
@@ -234,10 +234,17 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
     if (!(self::$_fieldKeys)) {
       self::$_fieldKeys = array(
         'id' => 'id',
-        'job_contract_id' => 'job_contract_id',
+        'jobcontract_id' => 'jobcontract_id',
         'created_date' => 'created_date',
         'modified_date' => 'modified_date',
         'status' => 'status',
+        'data_revision_id' => 'data_revision_id',
+        'health_revision_id' => 'health_revision_id',
+        'hour_revision_id' => 'hour_revision_id',
+        'leave_revision_id' => 'leave_revision_id',
+        'pay_revision_id' => 'pay_revision_id',
+        'pension_revision_id' => 'pension_revision_id',
+        'role_revision_id' => 'role_revision_id',
       );
     }
     return self::$_fieldKeys;
@@ -278,7 +285,7 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
       foreach($fields as $name => $field) {
         if (!empty($field['import'])) {
           if ($prefix) {
-            self::$_import['hrjob_contract_revision'] = & $fields[$name];
+            self::$_import['hrjobcontract_revision'] = & $fields[$name];
           } else {
             self::$_import[$name] = & $fields[$name];
           }
@@ -302,7 +309,7 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
       foreach($fields as $name => $field) {
         if (!empty($field['export'])) {
           if ($prefix) {
-            self::$_export['hrjob_contract_revision'] = & $fields[$name];
+            self::$_export['hrjobcontract_revision'] = & $fields[$name];
           } else {
             self::$_export[$name] = & $fields[$name];
           }

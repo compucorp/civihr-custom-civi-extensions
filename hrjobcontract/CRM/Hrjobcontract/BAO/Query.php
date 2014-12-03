@@ -50,15 +50,15 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
    */
   function &getFields() {
     if (!self::$_hrjobFields) {
-      self::$_hrjobFields = CRM_HRJob_BAO_HRJob::export();
+      self::$_hrjobFields = CRM_Hrjobcontract_BAO_HRJob::export();
       self::$_hrjobFields['hrjob_role_manager_contact'] =
         array(
           'name'  => 'manager_contact',
           'title' => 'Job Manager',
           'type'  => CRM_Utils_Type::T_STRING,
-          'where' => 'civicrm_hrjob_role_manager.display_name'
+          'where' => 'civicrm_hrjobcontract_role_manager.display_name'
         );
-      self::$_hrjobFields = array_merge(self::$_hrjobFields, CRM_HRJob_BAO_HRJobHour::export());
+      self::$_hrjobFields = array_merge(self::$_hrjobFields, CRM_Hrjobcontract_BAO_HRJobHour::export());
 
       // special case to check for existence of health record entry
       self::$_hrjobFields['hrjob_is_healthcare'] =
@@ -66,12 +66,12 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
           'name'  => 'is_healthcare',
           'title' => 'Is health care',
           'type'  => CRM_Utils_Type::T_BOOLEAN,
-          'where' => 'civicrm_hrjob_health.id'
+          'where' => 'civicrm_hrjobcontract_health.id'
         );
 
-      self::$_hrjobFields = array_merge(self::$_hrjobFields, CRM_HRJob_BAO_HRJobPension::export());
-      self::$_hrjobFields = array_merge(self::$_hrjobFields, CRM_HRJob_BAO_HRJobPay::export());
-      self::$_hrjobFields = array_merge(self::$_hrjobFields, CRM_HRJob_BAO_HRJobRole::export());
+      self::$_hrjobFields = array_merge(self::$_hrjobFields, CRM_Hrjobcontract_BAO_HRJobPension::export());
+      self::$_hrjobFields = array_merge(self::$_hrjobFields, CRM_Hrjobcontract_BAO_HRJobPay::export());
+      self::$_hrjobFields = array_merge(self::$_hrjobFields, CRM_Hrjobcontract_BAO_HRJobRole::export());
     }
     return self::$_hrjobFields;
   }
@@ -83,10 +83,10 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
         if (!empty($query->_returnProperties[$fldName])) {
           $query->_select[$fldName]  = "{$params['where']} as $fldName";
           if ($fldName == 'hrjob_role_manager_contact') {
-            $query->_select[$fldName]  = "GROUP_CONCAT(DISTINCT(civicrm_hrjob_role_manager.sort_name) SEPARATOR ' | ') as $fldName";
+            $query->_select[$fldName]  = "GROUP_CONCAT(DISTINCT(civicrm_hrjobcontract_role_manager.sort_name) SEPARATOR ' | ') as $fldName";
           }
           if ($fldName == 'hrjob_role_department') {
-            $query->_select[$fldName]  = "GROUP_CONCAT(DISTINCT(civicrm_hrjob_role.department) SEPARATOR ' | ') as $fldName";
+            $query->_select[$fldName]  = "GROUP_CONCAT(DISTINCT(civicrm_hrjobcontract_role.department) SEPARATOR ' | ') as $fldName";
           }
           $query->_element[$fldName] = 1;
           list($tableName, $dnc) = explode('.', $params['where'], 2);
@@ -143,26 +143,26 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
         $op = "IS NOT NULL";
         $query->_qill[$grouping][]  = ts('Healthcare is provided');
         $query->_where[$grouping][] = CRM_Contact_BAO_Query::buildClause("civicrm_hrjob_health.id", $op);
-        $query->_tables['civicrm_hrjob_health'] = $query->_whereTables['civicrm_hrjob_health'] = 1;
+        $query->_tables['civicrm_hrjobcontract_health'] = $query->_whereTables['civicrm_hrjobcontract_health'] = 1;
         return;
 
       case 'hrjob_is_enrolled':
         $query->_qill[$grouping][]  = $value ? ts('Is enrolled') : ts('Is not enrolled');
         $query->_where[$grouping][] = CRM_Contact_BAO_Query::buildClause("civicrm_hrjob_pension.is_enrolled", $op, $value, "Boolean");
-        $query->_tables['civicrm_hrjob_pension'] = $query->_whereTables['civicrm_hrjob_pension'] = 1;
+        $query->_tables['civicrm_hrjobcontract_pension'] = $query->_whereTables['civicrm_hrjobcontract_pension'] = 1;
         return;
 
       case 'hrjob_period_start_date_low':
       case 'hrjob_period_start_date_high':
         $query->dateQueryBuilder($values,
-          'civicrm_hrjob', 'hrjob_period_start_date', 'period_start_date', 'Period Start Date'
+          'civicrm_hrjobcontract_data', 'hrjob_period_start_date', 'period_start_date', 'Period Start Date'
         );
         return;
 
       case 'hrjob_period_end_date_low':
       case 'hrjob_period_end_date_high':
         $query->dateQueryBuilder($values,
-          'civicrm_hrjob', 'hrjob_period_end_date', 'period_end_date', 'Period End Date'
+          'civicrm_hrjobcontract_data', 'hrjob_period_end_date', 'period_end_date', 'Period End Date'
         );
         return;
 
@@ -171,7 +171,7 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
       case 'hrjob_hours_amount_high':
         // process min/max amount
         $query->numberRangeBuilder($values,
-          'civicrm_hrjob_hour', 'hrjob_hours_amount',
+          'civicrm_hrjobcontract_hour', 'hrjob_hours_amount',
           'hours_amount', 'Hours Amount',
           NULL
         );
@@ -182,7 +182,7 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
       case 'hrjob_hours_fte_high':
         // process min/max fte
         $query->numberRangeBuilder($values,
-          'civicrm_hrjob_hour', 'hrjob_hours_fte',
+          'civicrm_hrjobcontract_hour', 'hrjob_hours_fte',
           'hours_fte', 'Hours FTE',
           NULL
         );

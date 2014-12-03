@@ -11,7 +11,7 @@ require_once 'jobcontract_utils.php';
  * @see http://wiki.civicrm.org/confluence/display/CRM/API+Architecture+Standards
  */
 function _civicrm_api3_h_r_job_contract_revision_create_spec(&$spec) {
-  $spec['job_contract_id']['api.required'] = 1;
+  $spec['jobcontract_id']['api.required'] = 1;
 }
 
 /**
@@ -55,10 +55,10 @@ function civicrm_api3_h_r_job_contract_revision_get($params) {
  * @throws API_Exception
  */
 function civicrm_api3_h_r_job_contract_revision_getcurrentrevision($params) {
-    if (empty($params['job_contract_id']))
+    if (empty($params['jobcontract_id']))
     {
-        throw new API_Exception("Cannot create entity: missing job_contract_id value");
+        throw new API_Exception("Cannot get current revision: missing jobcontract_id value");
     }
-    return _civicrm_hrjobcontract_api3_get_current_revision((int)$params['job_contract_id']);
+    return _civicrm_hrjobcontract_api3_get_current_revision((int)$params['jobcontract_id']);
 }
 

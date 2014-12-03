@@ -42,7 +42,7 @@ class CRM_Hrjobcontract_DAO_HRJobLeave extends CRM_Hrjobcontract_DAO_Base
    * @var string
    * @static
    */
-  static $_tableName = 'civicrm_hrjob_leave';
+  static $_tableName = 'civicrm_hrjobcontract_leave';
   /**
    * static instance to hold the field values
    *
@@ -95,12 +95,6 @@ class CRM_Hrjobcontract_DAO_HRJobLeave extends CRM_Hrjobcontract_DAO_Base
    */
   public $id;
   /**
-   * FK to Job
-   *
-   * @var int unsigned
-   */
-  public $job_id;
-  /**
    * The purpose for which leave may be taken (sickness, vacation, etc)
    *
    * @var string
@@ -112,12 +106,7 @@ class CRM_Hrjobcontract_DAO_HRJobLeave extends CRM_Hrjobcontract_DAO_Base
    * @var int unsigned
    */
   public $leave_amount;
-  /**
-   * Contract revision id
-   * 
-   * @var int
-   */
-  public $contract_revision_id;
+
   /**
    * class constructor
    *
@@ -126,7 +115,7 @@ class CRM_Hrjobcontract_DAO_HRJobLeave extends CRM_Hrjobcontract_DAO_Base
    */
   function __construct()
   {
-    $this->__table = 'civicrm_hrjob_leave';
+    $this->__table = 'civicrm_hrjobcontract_leave';
     parent::__construct();
   }
   /**
@@ -140,8 +129,7 @@ class CRM_Hrjobcontract_DAO_HRJobLeave extends CRM_Hrjobcontract_DAO_Base
   {
     if (!self::$_links) {
       self::$_links = array(
-        new CRM_Core_Reference_Basic(self::getTableName() , 'job_id', 'civicrm_hrjob', 'id') ,
-        new CRM_Core_Reference_Basic(self::getTableName() , 'contract_revision_id', 'civicrm_hrjob_contract_revision', 'id') ,
+        new CRM_Core_Reference_Basic(self::getTableName() , 'jobcontract_revision_id', 'civicrm_hrjobcontract_revision', 'id') ,
       );
     }
     return self::$_links;
@@ -155,48 +143,36 @@ class CRM_Hrjobcontract_DAO_HRJobLeave extends CRM_Hrjobcontract_DAO_Base
   static function &fields()
   {
     if (!(self::$_fields)) {
-      self::$_fields = array(
-        'id' => array(
-          'name' => 'id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Leave Id') ,
-          'required' => true,
-        ) ,
-        'job_id' => array(
-          'name' => 'job_id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Id') ,
-          'required' => true,
-          'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJob',
-        ) ,
-        'leave_type' => array(
-          'name' => 'leave_type',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Leave Type') ,
-          'pseudoconstant' => array(
-            'table' => 'civicrm_hrabsence_type',
-            'keyColumn' => 'id',
-            'labelColumn' => 'name',
-          )
-        ) ,
-        'leave_amount' => array(
-          'name' => 'leave_amount',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Contract Leave Amount') ,
-          'import' => true,
-          'where' => 'civicrm_hrjob_leave.leave_amount',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'export' => true,
-        ) ,
-        'contract_revision_id' => array(
-          'name' => 'contract_revision_id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Contract Revision Id') ,
-          'required' => true,
-          'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJobContractRevision',
-        ) ,
-      );
+        self::$_fields = self::setFields(
+            array(
+              'id' => array(
+                'name' => 'id',
+                'type' => CRM_Utils_Type::T_INT,
+                'title' => ts('Leave Id') ,
+                'required' => true,
+              ) ,
+              'leave_type' => array(
+                'name' => 'leave_type',
+                'type' => CRM_Utils_Type::T_INT,
+                'title' => ts('Leave Type') ,
+                'pseudoconstant' => array(
+                  'table' => 'civicrm_hrabsence_type',
+                  'keyColumn' => 'id',
+                  'labelColumn' => 'name',
+                )
+              ) ,
+              'leave_amount' => array(
+                'name' => 'leave_amount',
+                'type' => CRM_Utils_Type::T_INT,
+                'title' => ts('Contract Leave Amount') ,
+                'import' => true,
+                'where' => 'civicrm_hrjobcontract_leave.leave_amount',
+                'headerPattern' => '',
+                'dataPattern' => '',
+                'export' => true,
+              ) ,
+            )
+        );
     }
     return self::$_fields;
   }
@@ -210,13 +186,13 @@ class CRM_Hrjobcontract_DAO_HRJobLeave extends CRM_Hrjobcontract_DAO_Base
   static function &fieldKeys()
   {
     if (!(self::$_fieldKeys)) {
-      self::$_fieldKeys = array(
-        'id' => 'id',
-        'job_id' => 'job_id',
-        'leave_type' => 'leave_type',
-        'leave_amount' => 'leave_amount',
-        'contract_revision_id' => 'contract_revision_id',
-      );
+        self::$_fieldKeys = self::setFieldKeys(
+            array(
+                'id' => 'id',
+                'leave_type' => 'leave_type',
+                'leave_amount' => 'leave_amount',
+            )
+        );
     }
     return self::$_fieldKeys;
   }
@@ -256,7 +232,7 @@ class CRM_Hrjobcontract_DAO_HRJobLeave extends CRM_Hrjobcontract_DAO_Base
       foreach($fields as $name => $field) {
         if (!empty($field['import'])) {
           if ($prefix) {
-            self::$_import['hrjob_leave'] = & $fields[$name];
+            self::$_import['hrjobcontract_leave'] = & $fields[$name];
           } else {
             self::$_import[$name] = & $fields[$name];
           }
@@ -280,7 +256,7 @@ class CRM_Hrjobcontract_DAO_HRJobLeave extends CRM_Hrjobcontract_DAO_Base
       foreach($fields as $name => $field) {
         if (!empty($field['export'])) {
           if ($prefix) {
-            self::$_export['hrjob_leave'] = & $fields[$name];
+            self::$_export['hrjobcontract_leave'] = & $fields[$name];
           } else {
             self::$_export[$name] = & $fields[$name];
           }

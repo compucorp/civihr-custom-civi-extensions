@@ -40,7 +40,7 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
    * @var string
    * @static
    */
-  static $_tableName = 'civicrm_hrjob_contract';
+  static $_tableName = 'civicrm_hrjobcontract';
   /**
    * static instance to hold the field values
    *
@@ -109,7 +109,7 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
    */
   function __construct()
   {
-    $this->__table = 'civicrm_hrjob_contract';
+    $this->__table = 'civicrm_hrjobcontract';
     parent::__construct();
   }
   /**

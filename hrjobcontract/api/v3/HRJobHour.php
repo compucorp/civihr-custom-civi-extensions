@@ -36,8 +36,6 @@
  * @see http://wiki.civicrm.org/confluence/display/CRM/API+Architecture+Standards
  */
 function _civicrm_api3_h_r_job_hour_create_spec(&$spec) {
-  //$spec['job_id']['api.required'] = 1;
-  $spec['job_id']['api.aliases'] = array('h_r_job_id');
 }
 
 /**
@@ -50,13 +48,23 @@ function _civicrm_api3_h_r_job_hour_create_spec(&$spec) {
 function civicrm_api3_h_r_job_hour_create($params) {
   $result = _civicrm_api3_basic_create(_civicrm_api3_get_BAO(__FUNCTION__), $params);
   if (empty($result['is_error'])) {
-    if (empty($result['id'])) {
+    $row = CRM_Utils_Array::first($result['values']);
+    $revision_id = $row['jobcontract_revision_id'];
+    
+    $revision = civicrm_api3('HRJobContractRevision', 'get', array(
+      'sequential' => 1,
+      'id' => $revision_id,
+      'options' => array('limit' => 1),
+    ));
+    
+    /*if (empty($result['id'])) {
       throw new API_Exception("Cannot update estimates: missing job id");
     }
-    $job_id = CRM_Core_DAO::singleValueQuery('SELECT job_id FROM civicrm_hrjob_hour WHERE id = %1', array(
+    $job_id = CRM_Core_DAO::singleValueQuery('SELECT job_id FROM civicrm_hrjobcontract_hour WHERE id = %1', array(
       1 => array($result['id'], 'Positive')
     ));
-    CRM_HRJob_Estimator::updateEstimatesByJob($job_id);
+    CRM_Hrjobcontract_Estimator::updateEstimatesByJob($job_id);*/
+    CRM_Hrjobcontract_Estimator::updateEstimatesByRevision($revision);
   }
   return $result;
 }

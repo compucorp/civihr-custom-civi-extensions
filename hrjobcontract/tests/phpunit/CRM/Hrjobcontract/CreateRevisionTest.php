@@ -8,17 +8,6 @@ require_once 'HRJobContractTestBase.php';
 class CRM_Hrjobcontract_CreateRevisionTest extends HRJobContractTestBase {
   function setUp() {
     parent::setUp();
-    $this->quickCleanup(array(
-        'civicrm_hrjobcontract_data',
-        'civicrm_hrjobcontract_health',
-        'civicrm_hrjobcontract_role',
-        'civicrm_hrjobcontract_hour',
-        'civicrm_hrjobcontract_pay',
-        'civicrm_hrjobcontract_leave',
-        'civicrm_hrjobcontract_pension',
-        'civicrm_hrjobcontract_revision',
-        'civicrm_hrjobcontract',
-    ));
   }
 
   function tearDown() {
@@ -53,4 +42,6 @@ class CRM_Hrjobcontract_CreateRevisionTest extends HRJobContractTestBase {
     
     $this->assertAPIArrayComparison($current_revision['values'], $expected);
   }
+  
+  function test
 }

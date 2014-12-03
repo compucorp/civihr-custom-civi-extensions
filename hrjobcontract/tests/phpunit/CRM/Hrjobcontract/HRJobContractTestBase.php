@@ -7,6 +7,18 @@ class HRJobContractTestBase extends CiviUnitTestCase {
         parent::setUp();
         
         $this->_createDBData();
+        
+        $this->quickCleanup(array(
+            'civicrm_hrjobcontract_data',
+            'civicrm_hrjobcontract_health',
+            'civicrm_hrjobcontract_role',
+            'civicrm_hrjobcontract_hour',
+            'civicrm_hrjobcontract_pay',
+            'civicrm_hrjobcontract_leave',
+            'civicrm_hrjobcontract_pension',
+            'civicrm_hrjobcontract_revision',
+            'civicrm_hrjobcontract',
+        ));
     }
     
     /**

@@ -15,37 +15,14 @@ class CRM_Hrjobcontract_BAO_HRJobContract extends CRM_Hrjobcontract_DAO_HRJobCon
     $className = 'CRM_HRJobContract_DAO_HRJobContract';
     $entityName = 'HRJobContract';
     $hook = empty($params['id']) ? 'create' : 'edit';
-
+    
     CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);
-    $instance = new $className();
+    $instance = new self();
     $instance->copyValues($params);
     $instance->save();
     CRM_Utils_Hook::post($hook, $entityName, $instance->id, $instance);
 
     return $instance;
-    
-    
-    
-    
-    /*$entityName = 'HRJob';
-    $hook = empty($params['id']) ? 'create' : 'edit';
-    if (is_numeric(CRM_Utils_Array::value('is_primary', $params)) || empty($params['id'])) {
-      CRM_Core_BAO_Block::handlePrimary($params, get_class());
-    }
-
-    CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);
-    $instance = new self();
-    $instance->copyValues($params);
-    $instance->save();
-    $resultRoleGet = civicrm_api3('HRJobRole', 'get', array('job_id' => $instance->id,'title' => $instance->title));
-    $duplicate = CRM_Utils_Array::value('action', $params, $hook);
-    if ($hook == 'create' && $resultRoleGet['count'] == 0 && $duplicate != 'duplicate') {
-      civicrm_api3('HRJobRole', 'create', array('job_id' => $instance->id,'title' => $instance->title, 'location'=> $instance->location, 'percent_pay_role' => 100));
-    }
-
-    CRM_Utils_Hook::post($hook, $entityName, $instance->id, $instance);
-
-    return $instance;*/
   }
   
   /**

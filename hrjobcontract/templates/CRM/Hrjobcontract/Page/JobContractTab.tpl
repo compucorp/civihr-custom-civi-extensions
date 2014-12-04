@@ -1542,7 +1542,7 @@
                                                     <label for="notice-employer" class="col-sm-4 control-label">Notice Period from Employer</label>
                                                     <div class="col-sm-8">
                                                         <div class="form-inline">
-                                                            <input type="text" class="form-control" id="notice-employer" value="3">
+                                                            <input type="text" class="form-control input-inline-sm" id="notice-employer" value="3">
                                                             <select id="notice-employer-unit" class="form-control">
                                                                 <option value="">- select -</option>
                                                                 <option value="Day">Day</option>
@@ -1557,7 +1557,7 @@
                                                     <label for="notice-employee" class="col-sm-4 control-label">Notice Period from Employee</label>
                                                     <div class="col-sm-8">
                                                         <div class="form-inline">
-                                                            <input type="text" class="form-control" id="notice-employee" value="3">
+                                                            <input type="text" class="form-control input-inline-sm" id="notice-employee" value="3">
                                                             <select id="notice-employee-unit" class="form-control">
                                                                 <option value="">- select -</option>
                                                                 <option value="Day">Day</option>
@@ -1603,24 +1603,25 @@
                                                     <label for="actual-hours" class="col-sm-4 control-label">Actual hours</label>
                                                     <div class="col-sm-8">
                                                         <div class="form-inline">
-                                                            <input type="text" class="form-control disabled" id="actual-hours" value="40" disabled>
+                                                            <input type="text" class="form-control input-inline-sm disabled" id="actual-hours" value="40" disabled>
                                                             per
-                                                            <input type="text" class="form-control disabled" value="Week" disabled>
+                                                            <input type="text" class="form-control input-inline-sm disabled" value="Week" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group required">
                                                     <label for="actual-hours" class="col-sm-4 control-label">FTE
-                                                        <a href="#" class="btn btn-sm"
+                                                        <a href="#"
                                                            data-toggle="tooltip"
                                                            data-placement="right"
                                                            data-html="true"
-                                                           title="<p>FTE stands for Full Time Equivalent.
-                                                           This is a useful measure for an organisation that has people
-                                                           working part-time. For a full-time person, FTE is always
-                                                           equal to 1.0, whereas for a part-time person, the FTE will
-                                                           represent the fraction of standard hours that the person
-                                                           works on a regular basis.<br>
+                                                           title="<strong>FTE</strong> stands for
+                                                           Full Time Equivalent. This is a useful measure for
+                                                           an organisation that has peopleworking part-time.
+                                                           For a full-time person, FTE is always equal to
+                                                           1.0, whereas for a part-time person, the FTE will represent
+                                                           the fraction of standard hours that the person works on a
+                                                           regular basis.<br>
                                                            E.g. if the standard working day at an organisation
                                                            comprises of 8 hours, then a person who regularly works for
                                                            8 hours each day would be considered to be full- time and
@@ -1637,14 +1638,14 @@
                                                            organisation that had a total of 10 full-time people, and 10
                                                            part-time people (each with an FTE of 0.5) the actual
                                                            headcount for the organisation would be 20 while the FTE
-                                                           headcount would be 15.</p>">
-                                                            <i class="fa fa-question-circle fa-lg"></i>
+                                                           headcount would be 15.">
+                                                            <i class="fa fa-question-circle"></i>
                                                         </a></label>
                                                     <div class="col-sm-8">
                                                         <div class="form-inline">
-                                                            <input type="text" class="form-control disabled" id="fte" value="1" disabled>
+                                                            <input type="text" class="form-control input-inline-sm disabled" id="fte" value="1" disabled>
                                                             per
-                                                            <input type="text" class="form-control disabled" value="1" disabled>
+                                                            <input type="text" class="form-control input-inline-sm disabled" value="1" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1689,32 +1690,32 @@
                                             <label for="pay-currency" class="col-sm-4 control-label">Pay</label>
                                             <div class="col-sm-8">
                                                 <div class="form-inline">
-                                                <select id="pay-currency" class="form-control">
-                                                    <option value="GBP">&pound;</option>
-                                                    <option value="USD">&dollar;</option>
-                                                    <option value="EUR">&euro;</option>
-                                                </select>
-                                                <input type="text" name="pay-value" class="form-control" value="1500">
-                                                per
-                                                <select name="pay-timeunit" class="form-control">
-                                                    <option value="">- select -</option>
-                                                    <option value="Day">Day</option>
-                                                    <option value="Week">Week</option>
-                                                    <option value="Month" selected>Month</option>
-                                                    <option value="Year">Year</option>
-                                                </select>
+                                                    <select id="pay-currency" class="form-control">
+                                                        <option value="GBP">&pound;</option>
+                                                        <option value="USD">&dollar;</option>
+                                                        <option value="EUR">&euro;</option>
+                                                    </select>
+                                                    <input type="text" name="pay-value" class="form-control input-inline-sm" value="1500">
+                                                    per
+                                                    <select name="pay-timeunit" class="form-control">
+                                                        <option value="">- select -</option>
+                                                        <option value="Day">Day</option>
+                                                        <option value="Week">Week</option>
+                                                        <option value="Month" selected>Month</option>
+                                                        <option value="Year">Year</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="pay-estimate-annual" class="col-sm-4 control-label control-label-line-2">Annual pay estimate before benefits and deductions</label>
-                                            <div class="col-sm-5">
+                                            <div class="col-sm-3">
                                                 <input type="text" id="pay-estimate-annual" class="form-control disabled"  value="18000" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="pay-cycle" class="col-sm-4 control-label">Pay cycle</label>
-                                            <div class="col-sm-5">
+                                            <div class="col-sm-3">
                                                 <select id="pay-cycle" class="form-control">
                                                     <option value="">- select -</option>
                                                     <option value="1">weekly</option>
@@ -1726,7 +1727,7 @@
                                             <div class="form-group">
                                                 <label for="pay-gross-cycle" class="col-sm-4 control-label control-label-line-2">Gross Pay per cycle<br />
                                                     <small>(before benefits and deductions)</small></label>
-                                                <div class="col-sm-5">
+                                                <div class="col-sm-3">
                                                     <input type="text" id="pay-gross-cycle" class="form-control disabled"  value="18000" disabled>
                                                 </div>
                                             </div>
@@ -1735,7 +1736,7 @@
                                     <div role="tabpanel" class="tab-pane" id="{$prefix}tab-leave">
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <h4>Hours</h4>
+                                                <h4>Leave</h4>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -1750,37 +1751,37 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="leave-sick" class="col-sm-4 control-label">Sick</label>
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-2">
                                                         <input type="text" id="leave-sick" name="leave-sick" class="form-control"  value="0" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="leave-vacation" class="col-sm-4 control-label">Vacation</label>
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-2">
                                                         <input type="text" id="leave-vacation" name="leave-vacation" class="form-control"  value="0" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="leave-maternity" class="col-sm-4 control-label">Maternity</label>
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-2">
                                                         <input type="text" id="leave-maternity" name="leave-maternity" class="form-control"  value="0" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="leave-paternity" class="col-sm-4 control-label">Paternity</label>
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-2">
                                                         <input type="text" id="leave-paternity" name="leave-paternity" class="form-control"  value="0" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="leave-toil" class="col-sm-4 control-label">TOIL</label>
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-2">
                                                         <input type="text" id="leave-toil" name="leave-toil" class="form-control"  value="0" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="leave-other" class="col-sm-4 control-label">Other</label>
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-2">
                                                         <input type="text" id="leave-other" name="leave-other" class="form-control"  value="0" >
                                                     </div>
                                                 </div>
@@ -1796,7 +1797,13 @@
                                         <div class="row">
                                             <div class="col-xs-12">
                                                 <div class="form-group">
-                                                    <label for="insurance-health-provider" class="col-sm-4 control-label">Provider</label>
+                                                    <label for="insurance-health-provider" class="col-sm-4 control-label">Provider
+                                                        <a href="#"
+                                                             data-toggle="tooltip"
+                                                             data-placement="right"
+                                                             title="The name of the health insurance company.">
+                                                            <i class="fa fa-question-circle fa-lg"></i>
+                                                        </a></label>
                                                     <div class="col-sm-8">
                                                         <input type="text" id="insurance-health-provider" name="insurance-health-provider" class="form-control">
                                                     </div>
@@ -1812,7 +1819,16 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="insurance-health-desc" class="col-sm-4 control-label">Description</label>
+                                                    <label for="insurance-health-desc" class="col-sm-4 control-label">Description
+                                                        <a href="#"
+                                                           data-toggle="tooltip"
+                                                           data-placement="right"
+                                                           title="For a family plan, please list
+                                                           the names of all dependents who are also covered, along
+                                                           with their relationships to the individual.">
+                                                            <i class="fa fa-question-circle"></i>
+                                                        </a>
+                                                    </label>
                                                     <div class="col-sm-8">
                                                         <textarea id="insurance-health-desc" name="insurance-health-desc" class="form-control" rows="3"></textarea>
                                                     </div>
@@ -1882,31 +1898,31 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="pension-contrib-emplr" class="col-sm-4 control-label">Employer Contribution (%)</label>
-                                                    <div class="col-sm-8">
+                                                    <div class="col-sm-3">
                                                         <input type="text" id="pension-contrib-emplr" name="pension-contrib-emplr" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="pension-contrib-emple" class="col-sm-4 control-label">Employee Contribution (%)</label>
-                                                    <div class="col-sm-8">
+                                                    <div class="col-sm-3">
                                                         <input type="text" id="pension-contrib-emple" name="pension-contrib-emple" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="pension-contrib-emple-abs" class="col-sm-4 control-label control-label-line-2">Employee Contribution (absolute amount)</label>
-                                                    <div class="col-sm-8">
+                                                    <div class="col-sm-3">
                                                         <input type="text" id="pension-contrib-emple-abs" name="pension-contrib-emple-abs" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="pension-evidence-file" class="col-sm-4 control-label">Evidence File</label>
-                                                    <div class="col-sm-8">
+                                                    <div class="col-sm-3">
                                                         <input type="file" id="pension-evidence-file" name="pension-evidence-file">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="pension-evidence-note" class="col-sm-4 control-label">Evidence Note</label>
-                                                    <div class="col-sm-8">
+                                                    <div class="col-sm-3">
                                                         <input type="text" id="pension-evidence-note" name="pension-evidence-note" class="form-control">
                                                     </div>
                                                 </div>

@@ -15,13 +15,26 @@
     }
   }
 
+  .tooltip-inner {
+    max-width: 350px;
+    width: 350px;
+  }
+
   h4 {
     margin-top: 0;
   }
 
   /** Wizard - Tab - General **/
-  input[id^="notice-employe"] {
+  .input-inline-xs {
+    max-width: 42px;
+  }
+
+  .input-inline-sm {
     max-width: 100px;
+  }
+
+  .input-inline-lg {
+    max-width: 420px;
   }
 
 }

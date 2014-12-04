@@ -122,9 +122,11 @@ function hrjobcontract_civicrm_pageRun($page) {
             'weight' => 1000
         ));
         CRM_Core_Resources::singleton()
-            ->addScriptFile('org.civicrm.hrjobcontract', 'js/bootstrap.js',1001);
+            ->addScriptFile('org.civicrm.hrjobcontract', 'js/lib/angular.js',1001);
         CRM_Core_Resources::singleton()
-            ->addScriptFile('org.civicrm.hrjobcontract', 'js/hrjobcontract.js',1002);
+            ->addScriptFile('org.civicrm.hrjobcontract', 'js/bootstrap.js',1002);
+        CRM_Core_Resources::singleton()
+            ->addScriptFile('org.civicrm.hrjobcontract', 'js/hrjobcontract.js',1003);
         CRM_Core_Resources::singleton()
             ->addStyleFile('org.civicrm.hrjobcontract', 'css/hrjobcontract.css');
     }

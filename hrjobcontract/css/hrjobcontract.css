@@ -9863,6 +9863,10 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
     margin: 60px auto;
   }
 }
+/* line 1, ../sass/partials/_tooltip.scss */
+#hrjob-contract .tooltip-inner {
+  text-align: left;
+}
 /* line 1, ../sass/partials/_wizard.scss */
 #hrjob-contract .hrjobcont-wizard {
   /** Wizard - Tab - General **/
@@ -9882,10 +9886,23 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
   padding: 15px;
 }
 /* line 18, ../sass/partials/_wizard.scss */
+#hrjob-contract .hrjobcont-wizard .tooltip-inner {
+  max-width: 350px;
+  width: 350px;
+}
+/* line 23, ../sass/partials/_wizard.scss */
 #hrjob-contract .hrjobcont-wizard h4 {
   margin-top: 0;
 }
-/* line 23, ../sass/partials/_wizard.scss */
-#hrjob-contract .hrjobcont-wizard input[id^="notice-employe"] {
+/* line 28, ../sass/partials/_wizard.scss */
+#hrjob-contract .hrjobcont-wizard .input-inline-xs {
+  max-width: 42px;
+}
+/* line 32, ../sass/partials/_wizard.scss */
+#hrjob-contract .hrjobcont-wizard .input-inline-sm {
   max-width: 100px;
+}
+/* line 36, ../sass/partials/_wizard.scss */
+#hrjob-contract .hrjobcont-wizard .input-inline-lg {
+  max-width: 420px;
 }

@@ -95,7 +95,7 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
    * 
    * @var int
    */
-  public $contract_revision_id;
+  public $jobcontract_revision_id;
   /**
    * class constructor
    *
@@ -117,11 +117,12 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
   {
     if (!self::$_links) {
       self::$_links = array(
-        new CRM_Core_Reference_Basic(self::getTableName() , 'contract_revision_id', 'civicrm_hrjob_contract_revision', 'id') ,
+        new CRM_Core_Reference_Basic(self::getTableName() , 'jobcontract_revision_id', 'civicrm_hrjobcontract_revision', 'id') ,
       );
     }
     return self::$_links;
   }
+  
   /**
    * returns all the column names of this table
    *
@@ -132,22 +133,24 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
   {
     if (!(self::$_fields)) {
       self::$_fields = array(
-        'contract_revision_id' => array(
-          'name' => 'contract_revision_id',
+        'jobcontract_revision_id' => array(
+          'name' => 'jobcontract_revision_id',
           'type' => CRM_Utils_Type::T_INT,
           'title' => ts('Job Contract Revision Id') ,
           'required' => true,
-          'FKClassName' => 'CRM_HRJob_DAO_HRJobContractRevision',
+          'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJobContractRevision',
         ) ,
       );
     }
     return self::$_fields;
   }
+  
   static function setFields(array $fields)
   {
       self::$_fields = array_merge($fields, self::fields());
       return self::$_fields;
   }
+  
   /**
    * Returns an array containing, for each field, the arary key used for that
    * field in self::$_fields.
@@ -159,11 +162,18 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
   {
     if (!(self::$_fieldKeys)) {
       self::$_fieldKeys = array(
-        'contract_revision_id' => 'contract_revision_id',
+        'jobcontract_revision_id' => 'jobcontract_revision_id',
       );
     }
     return self::$_fieldKeys;
   }
+  
+  static function setFieldKeys(array $fieldKeys)
+  {
+      self::$_fieldKeys = array_merge($fieldKeys, self::fieldKeys());
+      return self::$_fieldKeys;
+  }
+  
   /**
    * returns the names of this table
    *
@@ -243,20 +253,20 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
     
     if ($hook === 'create')
     {
-        if (empty($params['job_contract_id']) && empty($params['contract_revision_id']))
+        if (empty($params['jobcontract_id']) && empty($params['jobcontract_revision_id']))
         {
-            throw new API_Exception("Cannot create entity: please specify job_contract_id or contract_revision_id value");
+            throw new API_Exception("Cannot create entity: please specify jobcontract_id or jobcontract_revision_id value");
         }
         
-        if (empty($params['contract_revision_id']))
+        if (empty($params['jobcontract_revision_id']))
         {
             // Creating new entity and new revision:
-            $jobContractId = (int)$params['job_contract_id'];
+            $jobContractId = (int)$params['jobcontract_id'];
             
             // Creating new revision:
             $newRevision = _civicrm_hrjobcontract_api3_create_revision($jobContractId);
-            $params['contract_revision_id'] = $newRevision['id'];
-
+            $params['jobcontract_revision_id'] = $newRevision['id'];
+            
             // Updating currently saved revision with its 'id' as {table}_revision_id:
             $table = _civicrm_get_table_name($className);
             $updatedRevision = civicrm_api3('HRJobContractRevision', 'create', array(
@@ -266,9 +276,6 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
             ));
         }
     }
-    
-    $params['job_id'] = 0; // TODO: It's temporary. Finally it has to be removed
-    // and `job_id` columns have to be removed from entity tables.
     
     CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);
     $instance = new $className();

@@ -40,7 +40,7 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
    * @var string
    * @static
    */
-  static $_tableName = 'civicrm_hrjob_data';
+  static $_tableName = 'civicrm_hrjobcontract_data';
   /**
    * static instance to hold the field values
    *
@@ -178,7 +178,7 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
    */
   function __construct()
   {
-    $this->__table = 'civicrm_hrjob_data';
+    $this->__table = 'civicrm_hrjobcontract_data';
     parent::__construct();
   }
   /**
@@ -190,10 +190,9 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
    */
   static function getReferenceColumns()
   {
-      //TODO!
     if (!self::$_links) {
       self::$_links = array(
-        new CRM_Core_Reference_Basic(self::getTableName() , 'contract_revision_id', 'civicrm_hrjob_contract_revision', 'id') ,
+        new CRM_Core_Reference_Basic(self::getTableName() , 'jobcontract_revision_id', 'civicrm_hrjobcontract_revision', 'id') ,
       );
     }
     return self::$_links;
@@ -207,170 +206,172 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
   static function &fields()
   {
     if (!(self::$_fields)) {
-        self::$_fields = self::setFields(array(
-        'id' => array(
-          'name' => 'id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Id') ,
-          'required' => true,
-        ) ,
-        'position' => array(
-          'name' => 'position',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Job Contract Position') ,
-          'maxlength' => 127,
-          'size' => CRM_Utils_Type::HUGE,
-          'export' => true,
-          'import' => true,
-          'where' => 'civicrm_hrjob.position',
-          'headerPattern' => '',
-          'dataPattern' => '',
-        ) ,
-        'title' => array(
-          'name' => 'title',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Job Contract Title') ,
-          'maxlength' => 127,
-          'size' => CRM_Utils_Type::HUGE,
-          'export' => true,
-          'import' => true,
-          'where' => 'civicrm_hrjob.title',
-          'headerPattern' => '',
-          'dataPattern' => '',
-        ) ,
-        'funding_notes' => array(
-          'name' => 'funding_notes',
-          'type' => CRM_Utils_Type::T_TEXT,
-          'title' => ts('Funding Notes') ,
-          'export' => true,
-          'import' => true,
-        ) ,
-        'contract_type' => array(
-          'name' => 'contract_type',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Job Contract Type') ,
-          'maxlength' => 63,
-          'size' => CRM_Utils_Type::BIG,
-          'export' => true,
-          'import' => true,
-          'where' => 'civicrm_hrjob.contract_type',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'pseudoconstant' => array(
-            'optionGroupName' => 'hrjob_contract_type',
-          )
-        ) ,
-        'period_type' => array(
-          'name' => 'period_type',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Job Contract Duration') ,
-          'export' => true,
-          'maxlength' => 63,
-          'size' => CRM_Utils_Type::BIG,
-          'import' => true,
-          'where' => 'civicrm_hrjob.period_type',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'pseudoconstant' => array(
-            'callback' => 'CRM_Hrjobcontract_SelectValues::periodType',
-          )
-        ) ,
-        'period_start_date' => array(
-          'name' => 'period_start_date',
-          'type' => CRM_Utils_Type::T_DATE,
-          'title' => ts('Job Contract Start Date') ,
-          'export' => true,
-          'import' => true,
-          'where' => 'civicrm_hrjob.period_start_date',
-          'headerPattern' => '',
-          'dataPattern' => '',
-        ) ,
-        'period_end_date' => array(
-          'name' => 'period_end_date',
-          'type' => CRM_Utils_Type::T_DATE,
-          'title' => ts('Job Contract End Date') ,
-          'export' => true,
-          'import' => true,
-          'where' => 'civicrm_hrjob.period_end_date',
-          'headerPattern' => '',
-          'dataPattern' => '',
-        ) ,
-        'notice_amount' => array(
-          'name' => 'notice_amount',
-          'type' => CRM_Utils_Type::T_FLOAT,
-          'title' => ts('Notice Period from Employer (Amount)') ,
-          'export' => true,
-          'import' => true,
-          'where' => 'civicrm_hrjob.notice_amount',
-          'headerPattern' => '',
-          'dataPattern' => '',
-        ) ,
-        'notice_unit' => array(
-          'name' => 'notice_unit',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Notice Period from Employer (Unit)') ,
-          'export' => true,
-          'maxlength' => 63,
-          'size' => CRM_Utils_Type::BIG,
-          'import' => true,
-          'where' => 'civicrm_hrjob.notice_unit',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'pseudoconstant' => array(
-            'callback' => 'CRM_Hrjobcontract_SelectValues::commonUnit',
-          )
-        ) ,
-        'notice_amount_employee' => array(
-          'name' => 'notice_amount_employee',
-          'type' => CRM_Utils_Type::T_FLOAT,
-          'title' => ts('Notice Period from Employee (Amount)') ,
-          'import' => true,
-          'where' => 'civicrm_hrjob.notice_amount_employee',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'export' => true,
-        ) ,
-        'notice_unit_employee' => array(
-          'name' => 'notice_unit_employee',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Notice Period from Employee (Unit)') ,
-          'maxlength' => 63,
-          'size' => CRM_Utils_Type::BIG,
-          'import' => true,
-          'where' => 'civicrm_hrjob.notice_unit_employee',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'export' => true,
-          'pseudoconstant' => array(
-            'callback' => 'CRM_Hrjobcontract_SelectValues::commonUnit',
-          )
-        ) ,
-        'location' => array(
-          'name' => 'location',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Job Contract Normal Place of Work') ,
-          'maxlength' => 127,
-          'size' => CRM_Utils_Type::HUGE,
-          'export' => true,
-          'import' => true,
-          'where' => 'civicrm_hrjob.location',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'pseudoconstant' => array(
-            'optionGroupName' => 'hrjob_location',
-          )
-        ) ,
-        'is_primary' => array(
-          'name' => 'is_primary',
-          'type' => CRM_Utils_Type::T_BOOLEAN,
-          'title' => ts('Job Contract Is Primary') ,
-          'export' => true,
-          'import' => true,
-          'where' => 'civicrm_hrjob.is_primary',
-          'headerPattern' => '',
-          'dataPattern' => '',
-        ) ,
-      ));
+        self::$_fields = self::setFields(
+            array(
+                'id' => array(
+                  'name' => 'id',
+                  'type' => CRM_Utils_Type::T_INT,
+                  'title' => ts('Id') ,
+                  'required' => true,
+                ) ,
+                'position' => array(
+                  'name' => 'position',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Job Contract Position') ,
+                  'maxlength' => 127,
+                  'size' => CRM_Utils_Type::HUGE,
+                  'export' => true,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_data.position',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                ) ,
+                'title' => array(
+                  'name' => 'title',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Job Contract Title') ,
+                  'maxlength' => 127,
+                  'size' => CRM_Utils_Type::HUGE,
+                  'export' => true,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_data.title',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                ) ,
+                'funding_notes' => array(
+                  'name' => 'funding_notes',
+                  'type' => CRM_Utils_Type::T_TEXT,
+                  'title' => ts('Funding Notes') ,
+                  'export' => true,
+                  'import' => true,
+                ) ,
+                'contract_type' => array(
+                  'name' => 'contract_type',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Job Contract Type') ,
+                  'maxlength' => 63,
+                  'size' => CRM_Utils_Type::BIG,
+                  'export' => true,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_data.contract_type',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                  'pseudoconstant' => array(
+                    'optionGroupName' => 'hrjobcontract_type',
+                  )
+                ) ,
+                'period_type' => array(
+                  'name' => 'period_type',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Job Contract Duration') ,
+                  'export' => true,
+                  'maxlength' => 63,
+                  'size' => CRM_Utils_Type::BIG,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_data.period_type',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                  'pseudoconstant' => array(
+                    'callback' => 'CRM_Hrjobcontract_SelectValues::periodType',
+                  )
+                ) ,
+                'period_start_date' => array(
+                  'name' => 'period_start_date',
+                  'type' => CRM_Utils_Type::T_DATE,
+                  'title' => ts('Job Contract Start Date') ,
+                  'export' => true,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_data.period_start_date',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                ) ,
+                'period_end_date' => array(
+                  'name' => 'period_end_date',
+                  'type' => CRM_Utils_Type::T_DATE,
+                  'title' => ts('Job Contract End Date') ,
+                  'export' => true,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_data.period_end_date',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                ) ,
+                'notice_amount' => array(
+                  'name' => 'notice_amount',
+                  'type' => CRM_Utils_Type::T_FLOAT,
+                  'title' => ts('Notice Period from Employer (Amount)') ,
+                  'export' => true,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_data.notice_amount',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                ) ,
+                'notice_unit' => array(
+                  'name' => 'notice_unit',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Notice Period from Employer (Unit)') ,
+                  'export' => true,
+                  'maxlength' => 63,
+                  'size' => CRM_Utils_Type::BIG,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_data.notice_unit',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                  'pseudoconstant' => array(
+                    'callback' => 'CRM_Hrjobcontract_SelectValues::commonUnit',
+                  )
+                ) ,
+                'notice_amount_employee' => array(
+                  'name' => 'notice_amount_employee',
+                  'type' => CRM_Utils_Type::T_FLOAT,
+                  'title' => ts('Notice Period from Employee (Amount)') ,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_data.notice_amount_employee',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                  'export' => true,
+                ) ,
+                'notice_unit_employee' => array(
+                  'name' => 'notice_unit_employee',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Notice Period from Employee (Unit)') ,
+                  'maxlength' => 63,
+                  'size' => CRM_Utils_Type::BIG,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_data.notice_unit_employee',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                  'export' => true,
+                  'pseudoconstant' => array(
+                    'callback' => 'CRM_Hrjobcontract_SelectValues::commonUnit',
+                  )
+                ) ,
+                'location' => array(
+                  'name' => 'location',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Job Contract Normal Place of Work') ,
+                  'maxlength' => 127,
+                  'size' => CRM_Utils_Type::HUGE,
+                  'export' => true,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_data.location',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                  'pseudoconstant' => array(
+                    'optionGroupName' => 'hrjobcontract_location',
+                  )
+                ) ,
+                'is_primary' => array(
+                  'name' => 'is_primary',
+                  'type' => CRM_Utils_Type::T_BOOLEAN,
+                  'title' => ts('Job Contract Is Primary') ,
+                  'export' => true,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_data.is_primary',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                ) ,
+              )
+        );
     }
     return self::$_fields;
   }
@@ -384,22 +385,24 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
   static function &fieldKeys()
   {
     if (!(self::$_fieldKeys)) {
-      self::$_fieldKeys = array(
-        'id' => 'id',
-        'position' => 'position',
-        'title' => 'title',
-        'funding_notes' => 'funding_notes',
-        'contract_type' => 'contract_type',
-        'period_type' => 'period_type',
-        'period_start_date' => 'period_start_date',
-        'period_end_date' => 'period_end_date',
-        'notice_amount' => 'notice_amount',
-        'notice_unit' => 'notice_unit',
-        'notice_amount_employee' => 'notice_amount_employee',
-        'notice_unit_employee' => 'notice_unit_employee',
-        'location' => 'location',
-        'is_primary' => 'is_primary',
-      );
+        self::$_fieldKeys = self::setFieldKeys(
+            array(
+                'id' => 'id',
+                'position' => 'position',
+                'title' => 'title',
+                'funding_notes' => 'funding_notes',
+                'contract_type' => 'contract_type',
+                'period_type' => 'period_type',
+                'period_start_date' => 'period_start_date',
+                'period_end_date' => 'period_end_date',
+                'notice_amount' => 'notice_amount',
+                'notice_unit' => 'notice_unit',
+                'notice_amount_employee' => 'notice_amount_employee',
+                'notice_unit_employee' => 'notice_unit_employee',
+                'location' => 'location',
+                'is_primary' => 'is_primary',
+            )
+        );
     }
     return self::$_fieldKeys;
   }
@@ -439,7 +442,7 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
       foreach($fields as $name => $field) {
         if (!empty($field['import'])) {
           if ($prefix) {
-            self::$_import['hrjob_data'] = & $fields[$name];
+            self::$_import['hrjobcontract_data'] = & $fields[$name];
           } else {
             self::$_import[$name] = & $fields[$name];
           }
@@ -463,7 +466,7 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
       foreach($fields as $name => $field) {
         if (!empty($field['export'])) {
           if ($prefix) {
-            self::$_export['hrjob_data'] = & $fields[$name];
+            self::$_export['hrjobcontract_data'] = & $fields[$name];
           } else {
             self::$_export[$name] = & $fields[$name];
           }

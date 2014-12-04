@@ -42,7 +42,7 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
    * @var string
    * @static
    */
-  static $_tableName = 'civicrm_hrjob_health';
+  static $_tableName = 'civicrm_hrjobcontract_health';
   /**
    * static instance to hold the field values
    *
@@ -95,12 +95,6 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
    */
   public $id;
   /**
-   * FK to Job
-   *
-   * @var int unsigned
-   */
-  public $job_id;
-  /**
    * FK to Contact ID for the organization or company which manages healthcare service
    *
    * @var int unsigned
@@ -144,12 +138,7 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
    * @var text
    */
   public $dependents_life_insurance;
-  /**
-   * Contract revision id
-   * 
-   * @var int
-   */
-  public $contract_revision_id;
+
   /**
    * class constructor
    *
@@ -158,7 +147,7 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
    */
   function __construct()
   {
-    $this->__table = 'civicrm_hrjob_health';
+    $this->__table = 'civicrm_hrjobcontract_health';
     parent::__construct();
   }
   /**
@@ -172,10 +161,9 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
   {
     if (!self::$_links) {
       self::$_links = array(
-        new CRM_Core_Reference_Basic(self::getTableName() , 'job_id', 'civicrm_hrjob', 'id') ,
         new CRM_Core_Reference_Basic(self::getTableName() , 'provider', 'civicrm_contact', 'id') ,
         new CRM_Core_Reference_Basic(self::getTableName() , 'provider_life_insurance', 'civicrm_contact', 'id') ,
-        new CRM_Core_Reference_Basic(self::getTableName() , 'contract_revision_id', 'civicrm_hrjob_contract_revision', 'id') ,
+        new CRM_Core_Reference_Basic(self::getTableName() , 'jobcontract_revision_id', 'civicrm_hrjobcontract_revision', 'id') ,
       );
     }
     return self::$_links;
@@ -189,104 +177,92 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
   static function &fields()
   {
     if (!(self::$_fields)) {
-      self::$_fields = array(
-        'id' => array(
-          'name' => 'id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Health Id') ,
-          'required' => true,
-        ) ,
-        'job_id' => array(
-          'name' => 'job_id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Id') ,
-          'required' => true,
-          'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJob',
-        ) ,
-        'hrjob_health_provider' => array(
-          'name' => 'provider',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Healthcare Provider') ,
-          'export' => true,
-          'import' => true,
-          'where' => 'civicrm_hrjob_health.provider',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'FKClassName' => 'CRM_Contact_DAO_Contact',
-        ) ,
-        'hrjob_health_plan_type' => array(
-          'name' => 'plan_type',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Healthcare Plan Type') ,
-          'export' => true,
-          'maxlength' => 63,
-          'size' => CRM_Utils_Type::BIG,
-          'import' => true,
-          'where' => 'civicrm_hrjob_health.plan_type',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'pseudoconstant' => array(
-            'callback' => 'CRM_Hrjobcontract_SelectValues::planType',
-          )
-        ) ,
-        'description' => array(
-          'name' => 'description',
-          'type' => CRM_Utils_Type::T_TEXT,
-          'title' => ts('Description Health Insurance') ,
-        ) ,
-        'dependents' => array(
-          'name' => 'dependents',
-          'type' => CRM_Utils_Type::T_TEXT,
-          'title' => ts('Healthcare Dependents') ,
-          'export' => true,
-          'import' => true,
-        ) ,
-        'hrjob_health_provider_life_insurance' => array(
-          'name' => 'provider_life_insurance',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Life insurance Provider') ,
-          'export' => true,
-          'import' => true,
-          'where' => 'civicrm_hrjob_health.provider_life_insurance',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'FKClassName' => 'CRM_Contact_DAO_Contact',
-        ) ,
-        'hrjob_life_insurance_plan_type' => array(
-          'name' => 'plan_type_life_insurance',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Life insurance Plan Type') ,
-          'export' => true,
-          'maxlength' => 63,
-          'size' => CRM_Utils_Type::BIG,
-          'import' => true,
-          'where' => 'civicrm_hrjob_health.plan_type_life_insurance',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'pseudoconstant' => array(
-            'callback' => 'CRM_Hrjobcontract_SelectValues::planTypeLifeInsurance',
-          )
-        ) ,
-        'description_life_insurance' => array(
-          'name' => 'description_life_insurance',
-          'type' => CRM_Utils_Type::T_TEXT,
-          'title' => ts('Description Life Insurance') ,
-        ) ,
-        'dependents_life_insurance' => array(
-          'name' => 'dependents_life_insurance',
-          'type' => CRM_Utils_Type::T_TEXT,
-          'title' => ts('Life Insurance Dependents') ,
-          'export' => true,
-          'import' => true,
-        ) ,
-        'contract_revision_id' => array(
-          'name' => 'contract_revision_id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Contract Revision Id') ,
-          'required' => true,
-          'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJobContractRevision',
-        ) ,
-      );
+        self::$_fields = self::setFields(
+            array(
+              'id' => array(
+                'name' => 'id',
+                'type' => CRM_Utils_Type::T_INT,
+                'title' => ts('Job Contract Health Id') ,
+                'required' => true,
+              ) ,
+              'hrjob_health_provider' => array(
+                'name' => 'provider',
+                'type' => CRM_Utils_Type::T_INT,
+                'title' => ts('Healthcare Provider') ,
+                'export' => true,
+                'import' => true,
+                'where' => 'civicrm_hrjobcontract_health.provider',
+                'headerPattern' => '',
+                'dataPattern' => '',
+                'FKClassName' => 'CRM_Contact_DAO_Contact',
+              ) ,
+              'hrjob_health_plan_type' => array(
+                'name' => 'plan_type',
+                'type' => CRM_Utils_Type::T_STRING,
+                'title' => ts('Healthcare Plan Type') ,
+                'export' => true,
+                'maxlength' => 63,
+                'size' => CRM_Utils_Type::BIG,
+                'import' => true,
+                'where' => 'civicrm_hrjobcontract_health.plan_type',
+                'headerPattern' => '',
+                'dataPattern' => '',
+                'pseudoconstant' => array(
+                  'callback' => 'CRM_Hrjobcontract_SelectValues::planType',
+                )
+              ) ,
+              'description' => array(
+                'name' => 'description',
+                'type' => CRM_Utils_Type::T_TEXT,
+                'title' => ts('Description Health Insurance') ,
+              ) ,
+              'dependents' => array(
+                'name' => 'dependents',
+                'type' => CRM_Utils_Type::T_TEXT,
+                'title' => ts('Healthcare Dependents') ,
+                'export' => true,
+                'import' => true,
+              ) ,
+              'hrjob_health_provider_life_insurance' => array(
+                'name' => 'provider_life_insurance',
+                'type' => CRM_Utils_Type::T_INT,
+                'title' => ts('Life insurance Provider') ,
+                'export' => true,
+                'import' => true,
+                'where' => 'civicrm_hrjobcontract_health.provider_life_insurance',
+                'headerPattern' => '',
+                'dataPattern' => '',
+                'FKClassName' => 'CRM_Contact_DAO_Contact',
+              ) ,
+              'hrjob_life_insurance_plan_type' => array(
+                'name' => 'plan_type_life_insurance',
+                'type' => CRM_Utils_Type::T_STRING,
+                'title' => ts('Life insurance Plan Type') ,
+                'export' => true,
+                'maxlength' => 63,
+                'size' => CRM_Utils_Type::BIG,
+                'import' => true,
+                'where' => 'civicrm_hrjobcontract_health.plan_type_life_insurance',
+                'headerPattern' => '',
+                'dataPattern' => '',
+                'pseudoconstant' => array(
+                  'callback' => 'CRM_Hrjobcontract_SelectValues::planTypeLifeInsurance',
+                )
+              ) ,
+              'description_life_insurance' => array(
+                'name' => 'description_life_insurance',
+                'type' => CRM_Utils_Type::T_TEXT,
+                'title' => ts('Description Life Insurance') ,
+              ) ,
+              'dependents_life_insurance' => array(
+                'name' => 'dependents_life_insurance',
+                'type' => CRM_Utils_Type::T_TEXT,
+                'title' => ts('Life Insurance Dependents') ,
+                'export' => true,
+                'import' => true,
+              ) ,
+            )
+        );
     }
     return self::$_fields;
   }
@@ -300,19 +276,19 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
   static function &fieldKeys()
   {
     if (!(self::$_fieldKeys)) {
-      self::$_fieldKeys = array(
-        'id' => 'id',
-        'job_id' => 'job_id',
-        'provider' => 'hrjob_health_provider',
-        'plan_type' => 'hrjob_health_plan_type',
-        'description' => 'description',
-        'dependents' => 'dependents',
-        'provider_life_insurance' => 'hrjob_health_provider_life_insurance',
-        'plan_type_life_insurance' => 'hrjob_life_insurance_plan_type',
-        'description_life_insurance' => 'description_life_insurance',
-        'dependents_life_insurance' => 'dependents_life_insurance',
-        'contract_revision_id' => 'contract_revision_id',
-      );
+        self::$_fieldKeys = self::setFieldKeys(
+            array(
+                'id' => 'id',
+                'provider' => 'hrjob_health_provider',
+                'plan_type' => 'hrjob_health_plan_type',
+                'description' => 'description',
+                'dependents' => 'dependents',
+                'provider_life_insurance' => 'hrjob_health_provider_life_insurance',
+                'plan_type_life_insurance' => 'hrjob_life_insurance_plan_type',
+                'description_life_insurance' => 'description_life_insurance',
+                'dependents_life_insurance' => 'dependents_life_insurance',
+            )
+        );
     }
     return self::$_fieldKeys;
   }
@@ -352,7 +328,7 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
       foreach($fields as $name => $field) {
         if (!empty($field['import'])) {
           if ($prefix) {
-            self::$_import['hrjob_health'] = & $fields[$name];
+            self::$_import['hrjobcontract_health'] = & $fields[$name];
           } else {
             self::$_import[$name] = & $fields[$name];
           }
@@ -376,7 +352,7 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
       foreach($fields as $name => $field) {
         if (!empty($field['export'])) {
           if ($prefix) {
-            self::$_export['hrjob_health'] = & $fields[$name];
+            self::$_export['hrjobcontract_health'] = & $fields[$name];
           } else {
             self::$_export[$name] = & $fields[$name];
           }

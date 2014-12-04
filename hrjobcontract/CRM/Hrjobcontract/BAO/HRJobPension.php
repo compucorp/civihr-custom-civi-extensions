@@ -91,7 +91,7 @@ class CRM_Hrjobcontract_BAO_HRJobPension extends CRM_Hrjobcontract_DAO_HRJobPens
     $fields = CRM_Utils_Array::value($cacheKeyString, self::$_importableFields);
 
     if (!$fields) {
-      $fields = CRM_HRJob_DAO_HRJobPension::import();
+      $fields = CRM_Hrjobcontract_DAO_HRJobPension::import();
 
       $fields = array_merge($fields, CRM_HRJOB_DAO_HRJOBPENSION::import());
 

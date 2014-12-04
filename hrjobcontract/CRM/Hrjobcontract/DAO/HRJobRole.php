@@ -42,7 +42,7 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
    * @var string
    * @static
    */
-  static $_tableName = 'civicrm_hrjob_role';
+  static $_tableName = 'civicrm_hrjobcontract_role';
   /**
    * static instance to hold the field values
    *
@@ -94,12 +94,6 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
    * @var int unsigned
    */
   public $id;
-  /**
-   * FK to Job
-   *
-   * @var int unsigned
-   */
-  public $job_id;
   /**
    * Negotiated name for the role
    *
@@ -185,12 +179,7 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
    * @var string
    */
   public $location;
-  /**
-   * Contract revision id
-   * 
-   * @var int
-   */
-  public $contract_revision_id;
+
   /**
    * class constructor
    *
@@ -199,7 +188,7 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
    */
   function __construct()
   {
-    $this->__table = 'civicrm_hrjob_role';
+    $this->__table = 'civicrm_hrjobcontract_role';
     parent::__construct();
   }
   /**
@@ -213,9 +202,8 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
   {
     if (!self::$_links) {
       self::$_links = array(
-        new CRM_Core_Reference_Basic(self::getTableName() , 'job_id', 'civicrm_hrjob', 'id') ,
         new CRM_Core_Reference_Basic(self::getTableName() , 'manager_contact_id', 'civicrm_contact', 'id') ,
-        new CRM_Core_Reference_Basic(self::getTableName() , 'contract_revision_id', 'civicrm_hrjob_contract_revision', 'id') ,
+        new CRM_Core_Reference_Basic(self::getTableName() , 'jobcontract_revision_id', 'civicrm_hrjobcontract_revision', 'id') ,
       );
     }
     return self::$_links;
@@ -229,175 +217,163 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
   static function &fields()
   {
     if (!(self::$_fields)) {
-      self::$_fields = array(
-        'id' => array(
-          'name' => 'id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Role Id') ,
-          'required' => true,
-        ) ,
-        'job_id' => array(
-          'name' => 'job_id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Id') ,
-          'required' => true,
-          'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJob',
-        ) ,
-        'title' => array(
-          'name' => 'title',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Title') ,
-          'maxlength' => 127,
-          'size' => CRM_Utils_Type::HUGE,
-        ) ,
-        'description' => array(
-          'name' => 'description',
-          'type' => CRM_Utils_Type::T_TEXT,
-          'title' => ts('Description') ,
-        ) ,
-        'hrjob_role_hours' => array(
-          'name' => 'hours',
-          'type' => CRM_Utils_Type::T_FLOAT,
-          'title' => ts('Amount') ,
-        ) ,
-        'hrjob_role_unit' => array(
-          'name' => 'role_hours_unit',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Hours Unit') ,
-          'maxlength' => 63,
-          'size' => CRM_Utils_Type::BIG,
-          'import' => true,
-          'where' => 'civicrm_hrjob_role.role_hours_unit',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'export' => true,
-          'pseudoconstant' => array(
-            'callback' => 'CRM_Hrjobcontract_SelectValues::commonUnit',
-          )
-        ) ,
-        'hrjob_region' => array(
-          'name' => 'region',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Region') ,
-          'maxlength' => 127,
-          'size' => CRM_Utils_Type::HUGE,
-          'import' => true,
-          'where' => 'civicrm_hrjob_role.region',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'export' => true,
-          'pseudoconstant' => array(
-            'optionGroupName' => 'hrjob_region',
-          )
-        ) ,
-        'hrjob_role_department' => array(
-          'name' => 'department',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Department') ,
-          'maxlength' => 127,
-          'size' => CRM_Utils_Type::HUGE,
-          'export' => true,
-          'where' => 'civicrm_hrjob_role.department',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'pseudoconstant' => array(
-            'optionGroupName' => 'hrjob_department',
-          )
-        ) ,
-        'hrjob_role_level_type' => array(
-          'name' => 'level_type',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Level') ,
-          'maxlength' => 63,
-          'size' => CRM_Utils_Type::BIG,
-          'import' => true,
-          'where' => 'civicrm_hrjob_role.level_type',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'export' => true,
-          'pseudoconstant' => array(
-            'optionGroupName' => 'hrjob_level_type',
-          )
-        ) ,
-        'manager_contact_id' => array(
-          'name' => 'manager_contact_id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Manager Contact Id') ,
-          'FKClassName' => 'CRM_Contact_DAO_Contact',
-        ) ,
-        'functional_area' => array(
-          'name' => 'functional_area',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Functional Area') ,
-          'maxlength' => 127,
-          'size' => CRM_Utils_Type::HUGE,
-        ) ,
-        'organization' => array(
-          'name' => 'organization',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Organization') ,
-          'maxlength' => 127,
-          'size' => CRM_Utils_Type::HUGE,
-        ) ,
-        'cost_center' => array(
-          'name' => 'cost_center',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Cost Center') ,
-          'maxlength' => 127,
-          'size' => CRM_Utils_Type::HUGE,
-        ) ,
-        'hrjob_funder' => array(
-          'name' => 'funder',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Funder') ,
-          'maxlength' => 127,
-          'size' => CRM_Utils_Type::HUGE,
-          'import' => true,
-          'where' => 'civicrm_hrjob_role.funder',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'export' => true,
-        ) ,
-        'hrjob_role_percent_pay_funder' => array(
-          'name' => 'percent_pay_funder',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Percent of Pay Assigned to this funder') ,
-          'maxlength' => 127,
-          'size' => CRM_Utils_Type::HUGE,
-          'import' => true,
-          'where' => 'civicrm_hrjob_role.percent_pay_funder',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'export' => true,
-        ) ,
-        'hrjob_role_percent_pay_role' => array(
-          'name' => 'percent_pay_role',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Percent of Pay Assigned to this Role') ,
-          'import' => true,
-          'where' => 'civicrm_hrjob_role.percent_pay_role',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'export' => true,
-        ) ,
-        'location' => array(
-          'name' => 'location',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Location') ,
-          'maxlength' => 127,
-          'size' => CRM_Utils_Type::HUGE,
-          'pseudoconstant' => array(
-            'optionGroupName' => 'hrjob_location',
-          )
-        ) ,
-        'contract_revision_id' => array(
-          'name' => 'contract_revision_id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Contract Revision Id') ,
-          'required' => true,
-          'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJobContractRevision',
-        ) ,
-      );
+        self::$_fields = self::setFields(
+            array(
+                'id' => array(
+                  'name' => 'id',
+                  'type' => CRM_Utils_Type::T_INT,
+                  'title' => ts('Job Role Id') ,
+                  'required' => true,
+                ) ,
+                'title' => array(
+                  'name' => 'title',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Title') ,
+                  'maxlength' => 127,
+                  'size' => CRM_Utils_Type::HUGE,
+                ) ,
+                'description' => array(
+                  'name' => 'description',
+                  'type' => CRM_Utils_Type::T_TEXT,
+                  'title' => ts('Description') ,
+                ) ,
+                'hrjob_role_hours' => array(
+                  'name' => 'hours',
+                  'type' => CRM_Utils_Type::T_FLOAT,
+                  'title' => ts('Amount') ,
+                ) ,
+                'hrjob_role_unit' => array(
+                  'name' => 'role_hours_unit',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Hours Unit') ,
+                  'maxlength' => 63,
+                  'size' => CRM_Utils_Type::BIG,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_role.role_hours_unit',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                  'export' => true,
+                  'pseudoconstant' => array(
+                    'callback' => 'CRM_Hrjobcontract_SelectValues::commonUnit',
+                  )
+                ) ,
+                'hrjob_region' => array(
+                  'name' => 'region',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Region') ,
+                  'maxlength' => 127,
+                  'size' => CRM_Utils_Type::HUGE,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_role.region',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                  'export' => true,
+                  'pseudoconstant' => array(
+                    'optionGroupName' => 'hrjobcontract_region',
+                  )
+                ) ,
+                'hrjob_role_department' => array(
+                  'name' => 'department',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Department') ,
+                  'maxlength' => 127,
+                  'size' => CRM_Utils_Type::HUGE,
+                  'export' => true,
+                  'where' => 'civicrm_hrjobcontract_role.department',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                  'pseudoconstant' => array(
+                    'optionGroupName' => 'hrjobcontract_department',
+                  )
+                ) ,
+                'hrjob_role_level_type' => array(
+                  'name' => 'level_type',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Level') ,
+                  'maxlength' => 63,
+                  'size' => CRM_Utils_Type::BIG,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_role.level_type',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                  'export' => true,
+                  'pseudoconstant' => array(
+                    'optionGroupName' => 'hrjobcontract_level_type',
+                  )
+                ) ,
+                'manager_contact_id' => array(
+                  'name' => 'manager_contact_id',
+                  'type' => CRM_Utils_Type::T_INT,
+                  'title' => ts('Manager Contact Id') ,
+                  'FKClassName' => 'CRM_Contact_DAO_Contact',
+                ) ,
+                'functional_area' => array(
+                  'name' => 'functional_area',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Functional Area') ,
+                  'maxlength' => 127,
+                  'size' => CRM_Utils_Type::HUGE,
+                ) ,
+                'organization' => array(
+                  'name' => 'organization',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Organization') ,
+                  'maxlength' => 127,
+                  'size' => CRM_Utils_Type::HUGE,
+                ) ,
+                'cost_center' => array(
+                  'name' => 'cost_center',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Cost Center') ,
+                  'maxlength' => 127,
+                  'size' => CRM_Utils_Type::HUGE,
+                ) ,
+                'hrjob_funder' => array(
+                  'name' => 'funder',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Funder') ,
+                  'maxlength' => 127,
+                  'size' => CRM_Utils_Type::HUGE,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_role.funder',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                  'export' => true,
+                ) ,
+                'hrjob_role_percent_pay_funder' => array(
+                  'name' => 'percent_pay_funder',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Percent of Pay Assigned to this funder') ,
+                  'maxlength' => 127,
+                  'size' => CRM_Utils_Type::HUGE,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_role.percent_pay_funder',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                  'export' => true,
+                ) ,
+                'hrjob_role_percent_pay_role' => array(
+                  'name' => 'percent_pay_role',
+                  'type' => CRM_Utils_Type::T_INT,
+                  'title' => ts('Percent of Pay Assigned to this Role') ,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_role.percent_pay_role',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                  'export' => true,
+                ) ,
+                'location' => array(
+                  'name' => 'location',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Location') ,
+                  'maxlength' => 127,
+                  'size' => CRM_Utils_Type::HUGE,
+                  'pseudoconstant' => array(
+                    'optionGroupName' => 'hrjobcontract_location',
+                  )
+                ) ,
+            )
+        );
     }
     return self::$_fields;
   }
@@ -411,26 +387,26 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
   static function &fieldKeys()
   {
     if (!(self::$_fieldKeys)) {
-      self::$_fieldKeys = array(
-        'id' => 'id',
-        'job_id' => 'job_id',
-        'title' => 'title',
-        'description' => 'description',
-        'hours' => 'hrjob_role_hours',
-        'role_hours_unit' => 'hrjob_role_unit',
-        'region' => 'hrjob_region',
-        'department' => 'hrjob_role_department',
-        'level_type' => 'hrjob_role_level_type',
-        'manager_contact_id' => 'manager_contact_id',
-        'functional_area' => 'functional_area',
-        'organization' => 'organization',
-        'cost_center' => 'cost_center',
-        'funder' => 'hrjob_funder',
-        'percent_pay_funder' => 'hrjob_role_percent_pay_funder',
-        'percent_pay_role' => 'hrjob_role_percent_pay_role',
-        'location' => 'location',
-        'contract_revision_id' => 'contract_revision_id',
-      );
+        self::$_fieldKeys = self::setFieldKeys(
+            array(
+              'id' => 'id',
+              'title' => 'title',
+              'description' => 'description',
+              'hours' => 'hrjob_role_hours',
+              'role_hours_unit' => 'hrjob_role_unit',
+              'region' => 'hrjob_region',
+              'department' => 'hrjob_role_department',
+              'level_type' => 'hrjob_role_level_type',
+              'manager_contact_id' => 'manager_contact_id',
+              'functional_area' => 'functional_area',
+              'organization' => 'organization',
+              'cost_center' => 'cost_center',
+              'funder' => 'hrjob_funder',
+              'percent_pay_funder' => 'hrjob_role_percent_pay_funder',
+              'percent_pay_role' => 'hrjob_role_percent_pay_role',
+              'location' => 'location',
+            )
+        );
     }
     return self::$_fieldKeys;
   }
@@ -470,7 +446,7 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
       foreach($fields as $name => $field) {
         if (!empty($field['import'])) {
           if ($prefix) {
-            self::$_import['hrjob_role'] = & $fields[$name];
+            self::$_import['hrjobcontract_role'] = & $fields[$name];
           } else {
             self::$_import[$name] = & $fields[$name];
           }
@@ -494,7 +470,7 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
       foreach($fields as $name => $field) {
         if (!empty($field['export'])) {
           if ($prefix) {
-            self::$_export['hrjob_role'] = & $fields[$name];
+            self::$_export['hrjobcontract_role'] = & $fields[$name];
           } else {
             self::$_export[$name] = & $fields[$name];
           }

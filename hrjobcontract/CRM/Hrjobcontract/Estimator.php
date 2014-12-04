@@ -59,10 +59,10 @@ class CRM_HRJobcontract_Estimator {
       throw new CRM_Core_Exception("Failed to determine setting name for unit [$unit]");
     }
     switch ($unit) {
-      case Day:
+      case 'Day':
         $setVal = $settings['work_days_per_month'] * 12;
         break;
-      case Hour:
+      case 'Hour':
         $setVal = $settings['work_days_per_month'];
         break;
       default:
@@ -159,5 +159,89 @@ class CRM_HRJobcontract_Estimator {
         4 => array($hour, 'Integer'),
       )
     );
+  }
+  
+  /**
+   * Update estimates for a single job
+   *
+   * @param int $job_id
+   */
+  public static function updateEstimatesByRevision($revisionArr)
+  {
+        $revision = CRM_Utils_Array::first($revisionArr['values']);
+        
+        $revision['pay_revision_id'] = isset($revision['pay_revision_id']) ? $revision['pay_revision_id'] : null;
+        $revision['hour_revision_id'] = isset($revision['hour_revision_id']) ? $revision['hour_revision_id'] : null;
+        
+        $unit = CRM_Core_DAO::singleValueQuery('SELECT pay_unit FROM civicrm_hrjobcontract_pay WHERE jobcontract_revision_id = %1',
+          array(
+            1 => array((int)$revision['pay_revision_id'], 'Integer')
+          )
+        );
+        if (empty($unit)) {
+          //echo '111';
+          CRM_Core_DAO::executeQuery('UPDATE civicrm_hrjobcontract_pay SET pay_unit = NULL WHERE jobcontract_revision_id = %1', array(
+            1 => array((int)$revision['pay_revision_id'], 'Integer')
+          ));
+          //echo '222';
+          return;
+        }
+        //echo '333';
+        //echo 'unit:' . $unit . "\n";
+        if ($unit == self::YEAR_UNIT) {
+          $multiplier = 1;
+          //echo '444';
+        }
+        else {
+            //echo '555';
+            //echo 'unitSettingMap:';
+            //var_dump(self::$unitSettingMap);
+            //echo 'array_keys:';
+            //var_dump(array_keys(self::$unitSettingMap));
+            $settings = civicrm_api3('Setting', 'getsingle', array(
+                'sequential' => 1,
+                //'debug' => 1,
+                'entity' => 'Setting',
+                'return' => array_keys(self::$unitSettingMap),
+            ));
+          //echo '666';
+          //echo 'settings:';
+          //var_dump($settings);
+          $multiplier = self::getEstimateValue($unit, $settings);
+        }
+        //echo '777';
+        $optionGroup = civicrm_api3('OptionGroup', 'getsingle', array(
+          'sequential' => 1,
+          'name' => "hrjob_hours_type",
+        ));
+        //echo 'optionGroup:';
+        //var_dump($optionGroup);
+        $result = civicrm_api3('OptionValue', 'getsingle', array(
+          'sequential' => 1,
+          'option_group_id' => $optionGroup['id'],
+          'name' => "Full_Time",
+        ));
+        //echo '888';
+        $hour = $result['value'] ? $result['value'] : $settings['work_hour_per_day'];
+
+        // See also: CRM_HRJob_Estimator::updateEstimatesByUnit (plural)
+        CRM_Core_DAO::executeQuery("
+          UPDATE civicrm_hrjobcontract_pay p, civicrm_hrjobcontract_hour h
+          SET p.pay_annualized_est = CASE p.pay_unit
+          WHEN 'Hour' THEN %1 * IFNULL(h.hours_amount, %4) * h.fte_num * p.pay_amount / h.fte_denom
+          ELSE %1 * h.fte_num * p.pay_amount / h.fte_denom END
+          WHERE p.jobcontract_revision_id = %3
+          AND h.jobcontract_revision_id = %5
+          AND p.pay_unit = %2
+          AND p.pay_is_auto_est = 1
+        ", array(
+            1 => array($multiplier, 'Float'),
+            2 => array($unit, 'String'),
+            3 => array((int)$revision['pay_revision_id'], 'Integer'),
+            4 => array($hour, 'Integer'),
+            5 => array((int)$revision['hour_revision_id'], 'Integer'),
+          )
+        );
+        //echo '999';
   }
 }

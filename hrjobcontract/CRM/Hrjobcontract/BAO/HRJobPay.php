@@ -91,9 +91,9 @@ class CRM_Hrjobcontract_BAO_HRJobPay extends CRM_Hrjobcontract_DAO_HRJobPay {
     $fields = CRM_Utils_Array::value($cacheKeyString, self::$_importableFields);
 
     if (!$fields) {
-      $fields = CRM_HRJob_DAO_HRJobPay::import();
+      $fields = CRM_Hrjobcontract_DAO_HRJobPay::import();
 
-      $fields = array_merge($fields, CRM_HRJOB_DAO_HRJOBPAY::import());
+      $fields = array_merge($fields, CRM_Hrjobcontract_DAO_HRJobPay::import());
 
       //Sorting fields in alphabetical order(CRM-1507)
       $fields = CRM_Utils_Array::crmArraySortByField($fields, 'title');

@@ -151,53 +151,48 @@ function hrjobcontract_civicrm_tabs(&$tabs) {
  */
 function hrjobcontract_civicrm_entityTypes(&$entityTypes) {
   $entityTypes[] = array(
-    'name' => 'HRJob',
-    'class' => 'CRM_Hrjobcontract_DAO_HRJob',
-    'table' => 'civicrm_hrjob',
-  );
-  $entityTypes[] = array(
-    'name' => 'HRJobPay',
-    'class' => 'CRM_Hrjobcontract_DAO_HRJobPay',
-    'table' => 'civicrm_hrjob_pay',
-  );
-  $entityTypes[] = array(
-    'name' => 'HRJobHealth',
-    'class' => 'CRM_Hrjobcontract_DAO_HRJobHealth',
-    'table' => 'civicrm_hrjob_health',
-  );
-  $entityTypes[] = array(
-    'name' => 'HRJobHour',
-    'class' => 'CRM_Hrjobcontract_DAO_HRJobHour',
-    'table' => 'civicrm_hrjob_hour',
-  );
-  $entityTypes[] = array(
-    'name' => 'HRJobLeave',
-    'class' => 'CRM_Hrjobcontract_DAO_HRJobLeave',
-    'table' => 'civicrm_hrjob_leave',
-  );
-  $entityTypes[] = array(
-    'name' => 'HRJobPension',
-    'class' => 'CRM_Hrjobcontract_DAO_HRJobPension',
-    'table' => 'civicrm_hrjob_pension',
-  );
-  $entityTypes[] = array(
-    'name' => 'HRJobRole',
-    'class' => 'CRM_Hrjobcontract_DAO_HRJobRole',
-    'table' => 'civicrm_hrjob_role',
-  );
-  $entityTypes[] = array(
     'name' => 'HRJobContract',
     'class' => 'CRM_Hrjobcontract_DAO_HRJobContract',
-    'table' => 'civicrm_hrjob_contract',
+    'table' => 'civicrm_hrjobcontract',
   );
   $entityTypes[] = array(
     'name' => 'HRJobContractRevision',
     'class' => 'CRM_Hrjobcontract_DAO_HRJobContractRevision',
-    'table' => 'civicrm_hrjob_contract_revision',
+    'table' => 'civicrm_hrjobcontract_revision',
   );
   $entityTypes[] = array(
     'name' => 'HRJobData',
     'class' => 'CRM_Hrjobcontract_DAO_HRJobData',
-    'table' => 'civicrm_hrjob_data',
+    'table' => 'civicrm_hrjobcontract_data',
+  );
+  $entityTypes[] = array(
+    'name' => 'HRJobPay',
+    'class' => 'CRM_Hrjobcontract_DAO_HRJobPay',
+    'table' => 'civicrm_hrjobcontract_pay',
+  );
+  $entityTypes[] = array(
+    'name' => 'HRJobHealth',
+    'class' => 'CRM_Hrjobcontract_DAO_HRJobHealth',
+    'table' => 'civicrm_hrjobcontract_health',
+  );
+  $entityTypes[] = array(
+    'name' => 'HRJobHour',
+    'class' => 'CRM_Hrjobcontract_DAO_HRJobHour',
+    'table' => 'civicrm_hrjobcontract_hour',
+  );
+  $entityTypes[] = array(
+    'name' => 'HRJobLeave',
+    'class' => 'CRM_Hrjobcontract_DAO_HRJobLeave',
+    'table' => 'civicrm_hrjobcontract_leave',
+  );
+  $entityTypes[] = array(
+    'name' => 'HRJobPension',
+    'class' => 'CRM_Hrjobcontract_DAO_HRJobPension',
+    'table' => 'civicrm_hrjobcontract_pension',
+  );
+  $entityTypes[] = array(
+    'name' => 'HRJobRole',
+    'class' => 'CRM_Hrjobcontract_DAO_HRJobRole',
+    'table' => 'civicrm_hrjobcontract_role',
   );
 }

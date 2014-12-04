@@ -91,7 +91,7 @@ class CRM_Hrjobcontract_BAO_HRJobHealth extends CRM_Hrjobcontract_DAO_HRJobHealt
     $fields = CRM_Utils_Array::value($cacheKeyString, self::$_importableFields);
 
     if (!$fields) {
-      $fields = CRM_HRJob_DAO_HRJobHealth::import();
+      $fields = CRM_Hrjobcontract_DAO_HRJobHealth::import();
 
       $fields = array_merge($fields, CRM_HRJOB_DAO_HRJOBHealth::import());
 

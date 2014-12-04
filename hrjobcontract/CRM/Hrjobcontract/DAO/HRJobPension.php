@@ -42,7 +42,7 @@ class CRM_Hrjobcontract_DAO_HRJobPension extends CRM_Hrjobcontract_DAO_Base
    * @var string
    * @static
    */
-  static $_tableName = 'civicrm_hrjob_pension';
+  static $_tableName = 'civicrm_hrjobcontract_pension';
   /**
    * static instance to hold the field values
    *
@@ -95,12 +95,6 @@ class CRM_Hrjobcontract_DAO_HRJobPension extends CRM_Hrjobcontract_DAO_Base
    */
   public $id;
   /**
-   * FK to Job
-   *
-   * @var int unsigned
-   */
-  public $job_id;
-  /**
    *
    * @var boolean
    */
@@ -135,12 +129,7 @@ class CRM_Hrjobcontract_DAO_HRJobPension extends CRM_Hrjobcontract_DAO_Base
    * @var string
    */
   public $ee_evidence_note;
-  /**
-   * Contract revision id
-   * 
-   * @var int
-   */
-  public $contract_revision_id;
+
   /**
    * class constructor
    *
@@ -149,7 +138,7 @@ class CRM_Hrjobcontract_DAO_HRJobPension extends CRM_Hrjobcontract_DAO_Base
    */
   function __construct()
   {
-    $this->__table = 'civicrm_hrjob_pension';
+    $this->__table = 'civicrm_hrjobcontract_pension';
     parent::__construct();
   }
   /**
@@ -163,8 +152,7 @@ class CRM_Hrjobcontract_DAO_HRJobPension extends CRM_Hrjobcontract_DAO_Base
   {
     if (!self::$_links) {
       self::$_links = array(
-        new CRM_Core_Reference_Basic(self::getTableName() , 'job_id', 'civicrm_hrjob', 'id') ,
-        new CRM_Core_Reference_Basic(self::getTableName() , 'contract_revision_id', 'civicrm_hrjob_contract_revision', 'id') ,
+        new CRM_Core_Reference_Basic(self::getTableName() , 'jobcontract_revision_id', 'civicrm_hrjobcontract_revision', 'id') ,
       );
     }
     return self::$_links;
@@ -178,92 +166,80 @@ class CRM_Hrjobcontract_DAO_HRJobPension extends CRM_Hrjobcontract_DAO_Base
   static function &fields()
   {
     if (!(self::$_fields)) {
-      self::$_fields = array(
-        'id' => array(
-          'name' => 'id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Pension Id') ,
-          'required' => true,
-        ) ,
-        'job_id' => array(
-          'name' => 'job_id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Id') ,
-          'required' => true,
-          'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJob',
-        ) ,
-        'hrjob_is_enrolled' => array(
-          'name' => 'is_enrolled',
-          'type' => CRM_Utils_Type::T_BOOLEAN,
-          'title' => ts('Pension: Is Enrolled') ,
-          'export' => true,
-          'import' => true,
-          'where' => 'civicrm_hrjob_pension.is_enrolled',
-          'headerPattern' => '',
-          'dataPattern' => '',
-        ) ,
-        'ee_contrib_pct' => array(
-          'name' => 'ee_contrib_pct',
-          'type' => CRM_Utils_Type::T_FLOAT,
-          'title' => ts('Employee Contribution Percentage') ,
-          'export' => true,
-          'import' => true,
-          'where' => 'civicrm_hrjob_pension.ee_contrib_pct',
-          'headerPattern' => '',
-          'dataPattern' => '',
-        ) ,
-        'er_contrib_pct' => array(
-          'name' => 'er_contrib_pct',
-          'type' => CRM_Utils_Type::T_FLOAT,
-          'title' => ts('Employer Contribution Percentage') ,
-          'export' => true,
-          'import' => true,
-          'where' => 'civicrm_hrjob_pension.er_contrib_pct',
-          'headerPattern' => '',
-          'dataPattern' => '',
-        ) ,
-        'hrjob_pension_type' => array(
-          'name' => 'pension_type',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Pension Provider') ,
-          'maxlength' => 63,
-          'size' => CRM_Utils_Type::BIG,
-          'export' => true,
-          'import' => true,
-          'where' => 'civicrm_hrjob_pension.pension_type',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'pseudoconstant' => array(
-            'optionGroupName' => 'hrjob_pension_type',
-          )
-        ) ,
-        'ee_contrib_abs' => array(
-          'name' => 'ee_contrib_abs',
-          'type' => CRM_Utils_Type::T_FLOAT,
-          'title' => ts('Employee Contribution Absolute Amount') ,
-          'export' => true,
-          'import' => true,
-          'where' => 'civicrm_hrjob_pension.ee_contrib_abs',
-          'headerPattern' => '',
-          'dataPattern' => '',
-        ) ,
-        'ee_evidence_note' => array(
-          'name' => 'ee_evidence_note',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Pension Evidence Note') ,
-          'maxlength' => 127,
-          'export' => true,
-          'import' => true,
-          'size' => CRM_Utils_Type::HUGE,
-        ) ,
-        'contract_revision_id' => array(
-          'name' => 'contract_revision_id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Contract Revision Id') ,
-          'required' => true,
-          'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJobContractRevision',
-        ) ,
-      );
+        self::$_fields = self::setFields(
+            array(
+                'id' => array(
+                  'name' => 'id',
+                  'type' => CRM_Utils_Type::T_INT,
+                  'title' => ts('Pension Id') ,
+                  'required' => true,
+                ) ,
+                'hrjob_is_enrolled' => array(
+                  'name' => 'is_enrolled',
+                  'type' => CRM_Utils_Type::T_BOOLEAN,
+                  'title' => ts('Pension: Is Enrolled') ,
+                  'export' => true,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_pension.is_enrolled',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                ) ,
+                'ee_contrib_pct' => array(
+                  'name' => 'ee_contrib_pct',
+                  'type' => CRM_Utils_Type::T_FLOAT,
+                  'title' => ts('Employee Contribution Percentage') ,
+                  'export' => true,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_pension.ee_contrib_pct',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                ) ,
+                'er_contrib_pct' => array(
+                  'name' => 'er_contrib_pct',
+                  'type' => CRM_Utils_Type::T_FLOAT,
+                  'title' => ts('Employer Contribution Percentage') ,
+                  'export' => true,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_pension.er_contrib_pct',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                ) ,
+                'hrjob_pension_type' => array(
+                  'name' => 'pension_type',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Pension Provider') ,
+                  'maxlength' => 63,
+                  'size' => CRM_Utils_Type::BIG,
+                  'export' => true,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_pension.pension_type',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                  'pseudoconstant' => array(
+                    'optionGroupName' => 'hrjob_pension_type',
+                  )
+                ) ,
+                'ee_contrib_abs' => array(
+                  'name' => 'ee_contrib_abs',
+                  'type' => CRM_Utils_Type::T_FLOAT,
+                  'title' => ts('Employee Contribution Absolute Amount') ,
+                  'export' => true,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_pension.ee_contrib_abs',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                ) ,
+                'ee_evidence_note' => array(
+                  'name' => 'ee_evidence_note',
+                  'type' => CRM_Utils_Type::T_STRING,
+                  'title' => ts('Pension Evidence Note') ,
+                  'maxlength' => 127,
+                  'export' => true,
+                  'import' => true,
+                  'size' => CRM_Utils_Type::HUGE,
+                ) ,
+            )
+        );
     }
     return self::$_fields;
   }
@@ -277,17 +253,17 @@ class CRM_Hrjobcontract_DAO_HRJobPension extends CRM_Hrjobcontract_DAO_Base
   static function &fieldKeys()
   {
     if (!(self::$_fieldKeys)) {
-      self::$_fieldKeys = array(
-        'id' => 'id',
-        'job_id' => 'job_id',
-        'is_enrolled' => 'hrjob_is_enrolled',
-        'ee_contrib_pct' => 'ee_contrib_pct',
-        'er_contrib_pct' => 'er_contrib_pct',
-        'pension_type' => 'hrjob_pension_type',
-        'ee_contrib_abs' => 'ee_contrib_abs',
-        'ee_evidence_note' => 'ee_evidence_note',
-        'contract_revision_id' => 'contract_revision_id',
-      );
+        self::$_fieldKeys = self::setFieldKeys(
+            array(
+                'id' => 'id',
+                'is_enrolled' => 'hrjob_is_enrolled',
+                'ee_contrib_pct' => 'ee_contrib_pct',
+                'er_contrib_pct' => 'er_contrib_pct',
+                'pension_type' => 'hrjob_pension_type',
+                'ee_contrib_abs' => 'ee_contrib_abs',
+                'ee_evidence_note' => 'ee_evidence_note',
+            )
+        );
     }
     return self::$_fieldKeys;
   }
@@ -327,7 +303,7 @@ class CRM_Hrjobcontract_DAO_HRJobPension extends CRM_Hrjobcontract_DAO_Base
       foreach($fields as $name => $field) {
         if (!empty($field['import'])) {
           if ($prefix) {
-            self::$_import['hrjob_pension'] = & $fields[$name];
+            self::$_import['hrjobcontract_pension'] = & $fields[$name];
           } else {
             self::$_import[$name] = & $fields[$name];
           }
@@ -351,7 +327,7 @@ class CRM_Hrjobcontract_DAO_HRJobPension extends CRM_Hrjobcontract_DAO_Base
       foreach($fields as $name => $field) {
         if (!empty($field['export'])) {
           if ($prefix) {
-            self::$_export['hrjob_pension'] = & $fields[$name];
+            self::$_export['hrjobcontract_pension'] = & $fields[$name];
           } else {
             self::$_export[$name] = & $fields[$name];
           }

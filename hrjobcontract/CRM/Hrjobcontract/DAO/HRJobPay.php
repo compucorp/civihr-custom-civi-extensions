@@ -42,7 +42,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
    * @var string
    * @static
    */
-  static $_tableName = 'civicrm_hrjob_pay';
+  static $_tableName = 'civicrm_hrjobcontract_pay';
   /**
    * static instance to hold the field values
    *
@@ -95,12 +95,6 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
    */
   public $id;
   /**
-   * FK to Job
-   *
-   * @var int unsigned
-   */
-  public $job_id;
-  /**
    * NJC pay scale, JNC pay scale, Soulbury Pay Agreement
    *
    * @var string
@@ -142,12 +136,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
    * @var boolean
    */
   public $pay_is_auto_est;
-  /**
-   * Contract revision id
-   * 
-   * @var int
-   */
-  public $contract_revision_id;
+
   /**
    * class constructor
    *
@@ -156,7 +145,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
    */
   function __construct()
   {
-    $this->__table = 'civicrm_hrjob_pay';
+    $this->__table = 'civicrm_hrjobcontract_pay';
     parent::__construct();
   }
   /**
@@ -170,8 +159,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
   {
     if (!self::$_links) {
       self::$_links = array(
-        new CRM_Core_Reference_Basic(self::getTableName() , 'job_id', 'civicrm_hrjob', 'id') ,
-        new CRM_Core_Reference_Basic(self::getTableName() , 'contract_revision_id', 'civicrm_hrjob_contract_revision', 'id') ,
+        new CRM_Core_Reference_Basic(self::getTableName() , 'jobcontract_revision_id', 'civicrm_hrjobcontract_revision', 'id') ,
       );
     }
     return self::$_links;
@@ -185,113 +173,101 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
   static function &fields()
   {
     if (!(self::$_fields)) {
-      self::$_fields = array(
-        'id' => array(
-          'name' => 'id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Pay Id') ,
-          'required' => true,
-        ) ,
-        'job_id' => array(
-          'name' => 'job_id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Id') ,
-          'required' => true,
-          'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJob',
-        ) ,
-        'hrjob_pay_scale' => array(
-          'name' => 'pay_scale',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Pay Scale') ,
-          'maxlength' => 63,
-          'size' => CRM_Utils_Type::BIG,
-          'import' => true,
-          'where' => 'civicrm_hrjob_pay.pay_scale',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'export' => true,
-          'pseudoconstant' => array(
-            'optionGroupName' => 'hrjob_pay_scale',
-          )
-        ) ,
-        'hrjob_is_paid' => array(
-          'name' => 'is_paid',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Paid / Unpaid') ,
-          'maxlength' => 63,
-          'size' => CRM_Utils_Type::BIG,
-          'import' => true,
-          'where' => 'civicrm_hrjob_pay.is_paid',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'export' => true,
-          'pseudoconstant' => array(
-            'optionGroupName' => 'hrjob_pay_grade',
-          )
-        ) ,
-        'hrjob_pay_amount' => array(
-          'name' => 'pay_amount',
-          'type' => CRM_Utils_Type::T_MONEY,
-          'title' => ts('Pay Amount') ,
-          'import' => true,
-          'where' => 'civicrm_hrjob_pay.pay_amount',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'export' => true,
-        ) ,
-        'hrjob_pay_unit' => array(
-          'name' => 'pay_unit',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Pay Unit') ,
-          'maxlength' => 63,
-          'size' => CRM_Utils_Type::BIG,
-          'import' => true,
-          'where' => 'civicrm_hrjob_pay.pay_unit',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'export' => true,
-          'pseudoconstant' => array(
-            'callback' => 'CRM_Hrjobcontract_SelectValues::payUnit',
-          )
-        ) ,
-        'hrjob_pay_currency' => array(
-          'name' => 'pay_currency',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Pay Currency') ,
-          'maxlength' => 63,
-          'size' => CRM_Utils_Type::BIG,
-          'import' => true,
-          'where' => 'civicrm_hrjob_pay.pay_currency',
-          'headerPattern' => '',
-          'dataPattern' => '',
-          'export' => true,
-          'pseudoconstant' => array(
-            'optionGroupName' => 'currencies_enabled',
-          )
-        ) ,
-        'hrjob_pay_annualized_est' => array(
-          'name' => 'pay_annualized_est',
-          'type' => CRM_Utils_Type::T_MONEY,
-          'title' => ts('Estimated Annual Pay') ,
-          'export' => true,
-          'where' => 'civicrm_hrjob_pay.pay_annualized_est',
-          'headerPattern' => '',
-          'dataPattern' => '',
-        ) ,
-        'pay_is_auto_est' => array(
-          'name' => 'pay_is_auto_est',
-          'type' => CRM_Utils_Type::T_BOOLEAN,
-          'title' => ts('Estimated Auto Pay') ,
-          'default' => '1',
-        ) ,
-        'contract_revision_id' => array(
-          'name' => 'contract_revision_id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Contract Revision Id') ,
-          'required' => true,
-          'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJobContractRevision',
-        ) ,
-      );
+        self::$_fields = self::setFields(
+            array(
+              'id' => array(
+                'name' => 'id',
+                'type' => CRM_Utils_Type::T_INT,
+                'title' => ts('Job Pay Id') ,
+                'required' => true,
+              ) ,
+              'hrjob_pay_scale' => array(
+                'name' => 'pay_scale',
+                'type' => CRM_Utils_Type::T_STRING,
+                'title' => ts('Pay Scale') ,
+                'maxlength' => 63,
+                'size' => CRM_Utils_Type::BIG,
+                'import' => true,
+                'where' => 'civicrm_hrjobcontract_pay.pay_scale',
+                'headerPattern' => '',
+                'dataPattern' => '',
+                'export' => true,
+                'pseudoconstant' => array(
+                  'optionGroupName' => 'hrjob_pay_scale',
+                )
+              ) ,
+              'hrjob_is_paid' => array(
+                'name' => 'is_paid',
+                'type' => CRM_Utils_Type::T_INT,
+                'title' => ts('Paid / Unpaid') ,
+                'maxlength' => 63,
+                'size' => CRM_Utils_Type::BIG,
+                'import' => true,
+                'where' => 'civicrm_hrjobcontract_pay.is_paid',
+                'headerPattern' => '',
+                'dataPattern' => '',
+                'export' => true,
+                'pseudoconstant' => array(
+                  'optionGroupName' => 'hrjob_pay_grade',
+                )
+              ) ,
+              'hrjob_pay_amount' => array(
+                'name' => 'pay_amount',
+                'type' => CRM_Utils_Type::T_MONEY,
+                'title' => ts('Pay Amount') ,
+                'import' => true,
+                'where' => 'civicrm_hrjobcontract_pay.pay_amount',
+                'headerPattern' => '',
+                'dataPattern' => '',
+                'export' => true,
+              ) ,
+              'hrjob_pay_unit' => array(
+                'name' => 'pay_unit',
+                'type' => CRM_Utils_Type::T_STRING,
+                'title' => ts('Pay Unit') ,
+                'maxlength' => 63,
+                'size' => CRM_Utils_Type::BIG,
+                'import' => true,
+                'where' => 'civicrm_hrjobcontract_pay.pay_unit',
+                'headerPattern' => '',
+                'dataPattern' => '',
+                'export' => true,
+                'pseudoconstant' => array(
+                  'callback' => 'CRM_Hrjobcontract_SelectValues::payUnit',
+                )
+              ) ,
+              'hrjob_pay_currency' => array(
+                'name' => 'pay_currency',
+                'type' => CRM_Utils_Type::T_STRING,
+                'title' => ts('Pay Currency') ,
+                'maxlength' => 63,
+                'size' => CRM_Utils_Type::BIG,
+                'import' => true,
+                'where' => 'civicrm_hrjobcontract_pay.pay_currency',
+                'headerPattern' => '',
+                'dataPattern' => '',
+                'export' => true,
+                'pseudoconstant' => array(
+                  'optionGroupName' => 'hrjobcontract_pension_type',
+                )
+              ) ,
+              'hrjob_pay_annualized_est' => array(
+                'name' => 'pay_annualized_est',
+                'type' => CRM_Utils_Type::T_MONEY,
+                'title' => ts('Estimated Annual Pay') ,
+                'export' => true,
+                'where' => 'civicrm_hrjobcontract_pay.pay_annualized_est',
+                'headerPattern' => '',
+                'dataPattern' => '',
+              ) ,
+              'pay_is_auto_est' => array(
+                'name' => 'pay_is_auto_est',
+                'type' => CRM_Utils_Type::T_BOOLEAN,
+                'title' => ts('Estimated Auto Pay') ,
+                'default' => '1',
+              ) ,
+            )
+        );
     }
     return self::$_fields;
   }
@@ -305,18 +281,18 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
   static function &fieldKeys()
   {
     if (!(self::$_fieldKeys)) {
-      self::$_fieldKeys = array(
-        'id' => 'id',
-        'job_id' => 'job_id',
-        'pay_scale' => 'hrjob_pay_scale',
-        'is_paid' => 'hrjob_is_paid',
-        'pay_amount' => 'hrjob_pay_amount',
-        'pay_unit' => 'hrjob_pay_unit',
-        'pay_currency' => 'hrjob_pay_currency',
-        'pay_annualized_est' => 'hrjob_pay_annualized_est',
-        'pay_is_auto_est' => 'pay_is_auto_est',
-        'contract_revision_id' => 'contract_revision_id',
-      );
+        self::$_fieldKeys = self::setFieldKeys(
+            array(
+                'id' => 'id',
+                'pay_scale' => 'hrjob_pay_scale',
+                'is_paid' => 'hrjob_is_paid',
+                'pay_amount' => 'hrjob_pay_amount',
+                'pay_unit' => 'hrjob_pay_unit',
+                'pay_currency' => 'hrjob_pay_currency',
+                'pay_annualized_est' => 'hrjob_pay_annualized_est',
+                'pay_is_auto_est' => 'pay_is_auto_est',
+            )
+        );
     }
     return self::$_fieldKeys;
   }
@@ -356,7 +332,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
       foreach($fields as $name => $field) {
         if (CRM_Utils_Array::value('import', $field)) {
           if ($prefix) {
-            self::$_import['hrjob_pay'] = & $fields[$name];
+            self::$_import['hrjobcontract_pay'] = & $fields[$name];
           } else {
             self::$_import[$name] = & $fields[$name];
           }
@@ -380,7 +356,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
       foreach($fields as $name => $field) {
         if (CRM_Utils_Array::value('export', $field)) {
           if ($prefix) {
-            self::$_export['hrjob_pay'] = & $fields[$name];
+            self::$_export['hrjobcontract_pay'] = & $fields[$name];
           } else {
             self::$_export[$name] = & $fields[$name];
           }

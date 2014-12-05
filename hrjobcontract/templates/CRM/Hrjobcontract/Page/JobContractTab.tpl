@@ -102,7 +102,7 @@
                                 <div class="tab-content">
                                     <div ng-controller="SummaryController" role="tabpanel" class="tab-pane {$prefix}summary active" id="{$prefix}summary-id-1234">
                                         <div class="panel panel-default">
-                                            <div class="panel-heading"><strong>Apprentice: General Manager</strong></div>
+                                            <div class="panel-heading"><strong>{literal}{{details.contract_type}}{/literal}: {literal}{{details.position}}{/literal}</strong></div>
                                             <div class="panel-body">
                                                 <form class="form-horizontal" role="form">
                                                     <div class="row">

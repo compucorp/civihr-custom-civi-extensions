@@ -1,5 +1,6 @@
 console.log('hrjc-main');
 require.config({
+    urlArgs: "bust=" + (new Date()).getTime(),
     paths: {
         'angular': 'vendor/angular/angular.min',
         'bootstrap': 'vendor/bootstrap',
@@ -25,10 +26,20 @@ require.config({
 require([
     'angular',
     'app',
-    'jquery',
-    'mock'
-],function(angular, app, $, mock){
+    'mock',
+    'controllers/summary'
+],function(angular, app, mock){
     'use strict';
+
+    /*
+    app.config(['$routeProvider',
+        function($routeProvider){
+            $routeProvider.when('/'), {
+
+            }
+        }
+    ]);
+    */
 
     //TODO
     document.addEventListener('hrjcLoad', function(){

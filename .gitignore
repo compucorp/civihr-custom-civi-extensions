@@ -11,3 +11,5 @@ bin/setup.conf
 hrabsence/build
 .idea/
 .sass-cache/
+*.sass-cache*
+

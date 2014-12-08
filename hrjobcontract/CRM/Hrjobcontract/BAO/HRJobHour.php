@@ -42,36 +42,33 @@ class CRM_Hrjobcontract_BAO_HRJobHour extends CRM_Hrjobcontract_DAO_HRJobHour {
    *
    */
   public static function create($params) {
-    // TODO: update for the new API, change 'update' API call to 'create'
-    // as 'update' is deprecated.
-    
-    //return parent::create($params);
-      
-    $className = 'CRM_HRJob_DAO_HRJobHour';
-    $entityName = 'HRJobHour';
     $hook = empty($params['id']) ? 'create' : 'edit';
-
-    /*CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);
-    $instance = new $className();
-    $instance->copyValues($params);
-    $instance->save();*/
-      
     $instance = parent::create($params);
     
-    if ($hook == 'create') {
-      $result = civicrm_api3('HRJobRole', 'get', array(
+    $currentInstanceResult = civicrm_api3('HRJobHour', 'get', array(
         'sequential' => 1,
-        'jobcontract_id' => $params['jobcontract_id'],
-        'options' => array('limit' => 1),
-      ));
-      if (!empty($result['values'])) {
-        $role = CRM_Utils_Array::first($result['values']);
-        civicrm_api3('HRJobRole', 'update', array('id' => $role['id'], 'hours' => $instance->hours_amount, 'role_hours_unit' => $instance->hours_unit));
-      }
+        'id' => $instance->id,
+    ));
+    
+    $currentInstance = CRM_Utils_Array::first($currentInstanceResult['values']);
+    $revisionResult = civicrm_api3('HRJobContractRevision', 'get', array(
+        'sequential' => 1,
+        'id' => $currentInstance['jobcontract_revision_id'],
+    ));
+    $revision = CRM_Utils_Array::first($revisionResult['values']);
+    
+    if ($hook == 'create') {
+        $result = civicrm_api3('HRJobRole', 'get', array(
+          'sequential' => 1,
+          'jobcontract_revision_id' => $revision['role_revision_id'],
+          'options' => array('limit' => 1),
+        ));
+        if (!empty($result['values'])) {
+            $role = CRM_Utils_Array::first($result['values']);
+            civicrm_api3('HRJobRole', 'create', array('id' => $role['id'], 'hours' => $instance->hours_amount, 'role_hours_unit' => $instance->hours_unit));
+        }
     }
-
-    //CRM_Utils_Hook::post($hook, $entityName, $instance->id, $instance);
-
+    
     return $instance;
   }
 

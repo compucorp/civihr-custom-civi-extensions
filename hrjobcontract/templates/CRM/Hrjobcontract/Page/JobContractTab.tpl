@@ -100,9 +100,9 @@
                                 </ul>
                                 <!-- Tab panes -->
                                 <div class="tab-content">
-                                    <div role="tabpanel" class="tab-pane {$prefix}summary active" id="{$prefix}summary-id-1234">
+                                    <div ng-controller="SummaryController" role="tabpanel" class="tab-pane {$prefix}summary active" id="{$prefix}summary-id-1234">
                                         <div class="panel panel-default">
-                                            <div class="panel-heading"><strong>Apprentice: General Manager</strong></div>
+                                            <div class="panel-heading"><strong>{literal}{{details.contract_type}}{/literal}: {literal}{{details.position}}{/literal}</strong></div>
                                             <div class="panel-body">
                                                 <form class="form-horizontal" role="form">
                                                     <div class="row">
@@ -2101,13 +2101,13 @@
         </div>
     </div>
 </div>
-
 <script type="text/javascript">
     /**
      * TEMPORARY JS FOR MOCKUP USE ONLY - START
+     * TODO
      */
-
-    HR.$.event.trigger('HRLoaded');
-
-
+    document.dispatchEvent(new Event('hrjcLoad'));
+    /**
+     * TEMPORARY JS FOR MOCKUP USE ONLY - END
+     */
 </script>

@@ -20,15 +20,15 @@ class CRM_Hrjobcontract_AddRevisionTest extends HRJobContractTestBase {
   function testAddRevision() {
     
     $expected = array(
-        "id" => "10",
+        "id" => "11",
         "jobcontract_id" => "1",
-        "data_revision_id" => "10",
-        "health_revision_id" => "2",
-        "role_revision_id" => "3",
-        "hour_revision_id" => "4",
-        "pay_revision_id" => "9",
-        "leave_revision_id" => "6",
-        "pension_revision_id" => "7",
+        "data_revision_id" => "11",
+        "health_revision_id" => "3",
+        "role_revision_id" => "4",
+        "hour_revision_id" => "5",
+        "pay_revision_id" => "10",
+        "leave_revision_id" => "7",
+        "pension_revision_id" => "8",
     );
     
     

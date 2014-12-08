@@ -9,6 +9,7 @@ define(['jquery','bootstrap'],function($){
              * TEMPORARY JS FOR MOCKUP USE ONLY - START
              */
 
+
             var $collapse = $('.collapse'), $this;
 
             $('#'+prefix+'modal-wizard').on('show.bs.modal', function (event) {

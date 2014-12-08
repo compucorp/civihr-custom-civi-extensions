@@ -2,23 +2,27 @@ console.log('hrjc-main');
 require.config({
     urlArgs: "bust=" + (new Date()).getTime(),
     paths: {
-        'angular': 'vendor/angular/angular.min',
-        'bootstrap': 'vendor/bootstrap',
-        'jquery': 'vendor/jquery/jquery.min',
-        'jquery-private': 'vendor/jquery/jquery-private',
-        'mock': 'hrjc-mock'
+        angular: 'vendor/angular/angular.min',
+        angularRoute: 'vendor/angular/angular-route.min',
+        bootstrap: 'vendor/bootstrap',
+        jquery: 'vendor/jquery/jquery.min',
+        jqueryPrivate: 'vendor/jquery/jquery-private',
+        mock: 'hrjc-mock'
     },
     map: {
         '*': {
-            'jquery': 'jquery-private'
+            jquery: 'jqueryPrivate'
         },
-        'jquery-private': {
-            'jquery': 'jquery'
+        jqueryPrivate: {
+            jquery: 'jquery'
         }
     },
     shim: {
         angular: {
             exports: 'angular'
+        },
+        angularRoute: {
+            deps: ['angular']
         }
     }
 });
@@ -26,25 +30,29 @@ require.config({
 require([
     'angular',
     'app',
-    'mock',
-    'controllers/summary'
-],function(angular, app, mock){
+    'controllers/root',
+    'controllers/contractList'
+],function(angular, app){
     'use strict';
 
-    /*
-    app.config(['$routeProvider',
-        function($routeProvider){
-            $routeProvider.when('/'), {
+    app.constant('settings', {
+        templatePath: '/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract'
+    });
 
-            }
+    app.config(['settings','$routeProvider',
+        function(settings, $routeProvider){
+            $routeProvider.
+                when('/', {
+                    controller: 'ContractListCtrl',
+                    templateUrl: settings.templatePath+'/views/listContract.html'
+                }
+            );
         }
     ]);
-    */
 
     //TODO
     document.addEventListener('hrjcLoad', function(){
         angular.bootstrap(document.getElementById('hrjob-contract'), ['hrjc']);
-        mock.init();
     });
 
 })

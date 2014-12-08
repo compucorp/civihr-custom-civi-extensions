@@ -4,6 +4,5 @@ define(['controllers/controllers','services/contractList'], function(controllers
         function($scope, ContractListService){
             var data = ContractListService.query();
             $scope.currentContract = data.values;
-            console.log($scope.currentContract);
         }]);
 });

@@ -76,15 +76,12 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <a class="btn btn-sm"
-                   data-toggle="collapse"
-                   data-target="#{{prefix}}id-1234"
-                   aria-expanded="true"
-                   aria-controls="{{prefix}}id-1234">
-                    <i class="fa fa-caret-down"></i> <span>Hide details</span></a>
+                <a class="btn btn-sm" ng-click="isCollapsed = !isCollapsed">
+                    <i ng-class="{fa: true, 'fa-caret-down': !isCollapsed, 'fa-caret-right': isCollapsed }"></i> {{isCollapsed ? 'More details' : 'Hide details'}}
+                </a>
             </div>
         </div>
-        <div class="collapse in" id="{{prefix}}id-1234">
+        <div collapse="isCollapsed">
             <div class="{{prefix}}contract-details">
                 <div class="row">
                     <div class="col-xs-12">

@@ -48,7 +48,7 @@ class HRJobContractTestBase extends CiviUnitTestCase {
           'notice_unit' => "Week",
           'notice_amount_employee' => 4,
           'notice_unit_employee' => "Month",
-          'location' => "",
+          //'location' => "Headquarters",
           'is_primary' => 1,
           'jobcontract_id' => $jobcontract_id,
         ));

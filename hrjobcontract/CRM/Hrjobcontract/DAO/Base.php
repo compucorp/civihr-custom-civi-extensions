@@ -138,7 +138,7 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
           'type' => CRM_Utils_Type::T_INT,
           'title' => ts('Job Contract Revision Id') ,
           'required' => true,
-          'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJobContractRevision',
+          //'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJobContractRevision',
         ) ,
       );
     }
@@ -246,10 +246,11 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
   
   public static function create($params)
   {
-    $caller = get_called_class();
-    $className = $caller;
-    $entityName = _civicrm_get_entity_name($caller);
+    $className = get_called_class();
+    $entityName = _civicrm_get_entity_name($className);
+    $tableName = _civicrm_get_table_name($className);
     $hook = empty($params['id']) ? 'create' : 'edit';
+    $entitiesToCopy = array();
     
     if ($hook === 'create')
     {
@@ -260,20 +261,69 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
         
         if (empty($params['jobcontract_revision_id']))
         {
-            // Creating new entity and new revision:
             $jobContractId = (int)$params['jobcontract_id'];
+            
+            // Handling entity with multiple values (such as HRJobRole):
+            if (!empty($params['multiple_id']))
+            {
+                $multipleId = (int)$params['multiple_id'];
+                //echo 'multiple_id: ' . $multipleId . "\n";
+                // getting current revision:
+                /*$revision = _civicrm_hrjobcontract_api3_get_current_revision($params['jobcontract_id']);
+                if (!empty($revision['values'])) {
+                    $currentEntityRevisionId = $revision['values'][$tableName . '_revision_id'];
+                    echo $tableName . '_revision_id: ' . $currentEntityRevisionId . "\n";
+                }
+                
+                // getting all current entities:
+                $entities = civicrm_api3($entityName, 'get', array(
+                    'sequential' => 1,
+                    'jobcontract_revision_id' => $currentEntityRevisionId,
+                ));*/
+                
+                $entities = civicrm_api3($entityName, 'get', array(
+                    'sequential' => 1,
+                    'jobcontract_id' => $jobContractId,
+                ));
+                //echo 'current  entities:';
+                //var_dump($entities['values']);
+                
+                if (!empty($entities['values']))
+                {
+                    // Copying all the values of current entity revision:
+                    foreach ($entities['values'] as $entity) {
+                        //echo 'entity[id]: ' . (int)$entity['id'] . ', multipleId: ' . $multipleId . "\n";
+                        if ((int)$entity['id'] !== $multipleId) {
+                            unset($entity['id']);
+                            $instance = new $className();
+                            $instance->copyValues($entity);
+                            //echo 'EQUAL!' . "\n";
+                            $entitiesToCopy[] = $instance;
+                        }
+                    }
+                }
+            }
             
             // Creating new revision:
             $newRevision = _civicrm_hrjobcontract_api3_create_revision($jobContractId);
             $params['jobcontract_revision_id'] = $newRevision['id'];
             
             // Updating currently saved revision with its 'id' as {table}_revision_id:
-            $table = _civicrm_get_table_name($className);
             $updatedRevision = civicrm_api3('HRJobContractRevision', 'create', array(
                 'sequential' => 1,
                 'id' => $newRevision['id'],
-                $table . '_revision_id' => $newRevision['id'],
+                $tableName . '_revision_id' => $newRevision['id'],
             ));
+        }
+        
+        // Copying all the values (if any) of previous entity revision:
+        //echo 'copying previous multi-values' . "\n";
+        foreach ($entitiesToCopy as $entityToCopy)
+        {
+            //echo 'saving... ';
+            $entityToCopy->jobcontract_revision_id = $params['jobcontract_revision_id'];
+            $entityToCopy->save();
+            //echo 'OK.' . "\n";
         }
     }
     

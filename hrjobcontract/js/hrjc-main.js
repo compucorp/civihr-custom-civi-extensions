@@ -3,6 +3,7 @@ require.config({
     urlArgs: "bust=" + (new Date()).getTime(),
     paths: {
         angular: 'vendor/angular/angular.min',
+        angularBootstrap: 'vendor/angular/ui-bootstrap-tpls',
         angularRoute: 'vendor/angular/angular-route.min',
         bootstrap: 'vendor/bootstrap',
         jquery: 'vendor/jquery/jquery.min',
@@ -23,6 +24,9 @@ require.config({
         },
         angularRoute: {
             deps: ['angular']
+        },
+        angularBootstrap: {
+            deps: ['angular']
         }
     }
 });
@@ -36,6 +40,7 @@ require([
     'use strict';
 
     app.constant('settings', {
+        classNamePrefix: 'hrjobcont-',
         templatePath: '/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract'
     });
 
@@ -44,9 +49,9 @@ require([
             $routeProvider.
                 when('/', {
                     controller: 'ContractListCtrl',
-                    templateUrl: settings.templatePath+'/views/listContract.html'
+                    templateUrl: settings.templatePath+'/views/listContract.html?v='+(new Date()).getTime()
                 }
-            );
+            ).otherwise({redirectTo:'/'});
         }
     ]);
 

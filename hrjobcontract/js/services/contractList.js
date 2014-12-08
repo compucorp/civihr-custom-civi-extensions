@@ -40,7 +40,7 @@ define(['services/services'], function (services) {
                     "notice_unit_employee": "",
                     "location": "Headquarters",
                     "is_primary": "0",
-                    "jobcontract_revision_id": "92"
+                    "jobcontract_revision_id": "91"
                 },{
                     "id": "10",
                     "position": "Back-end Developer",
@@ -56,7 +56,7 @@ define(['services/services'], function (services) {
                     "notice_unit_employee": "",
                     "location": "Headquarters",
                     "is_primary": "0",
-                    "jobcontract_revision_id": "92"
+                    "jobcontract_revision_id": "90"
                 }]
             };
         };

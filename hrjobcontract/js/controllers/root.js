@@ -1,8 +1,7 @@
 console.log('RootController');
-define(['controllers/controllers'], function(controllers){
-    controllers.controller('RootController',['$scope',
-        function($scope, DetailsService){
-            //TODO move to the app config, change to hrjc;
-            $scope.prefix = 'hrjobcont-';
+define(['controllers/controllers','mock'], function(controllers,mock){
+    controllers.controller('RootController',['$scope','settings',
+        function($scope, settings){
+            $scope.prefix = settings.classNamePrefix;
         }]);
 });

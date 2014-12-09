@@ -1,5 +1,5 @@
 <ul class="{{prefix}}list-contract">
-    <li ng-repeat="contract in currentContract">
+    <li ng-repeat="contract in currentContract" ng-controller="ContractCtrl">
         <div class="panel panel-default {{prefix}}panel-action">
             <div class="panel-body form-horizontal">
                 <div class="row">
@@ -7,13 +7,13 @@
                         <div class="form-group">
                             <label class="col-sm-5 control-label">Position:</label>
                             <div class="col-sm-7">
-                                <p class="form-control-static">General Manager</p>
+                                <p class="form-control-static">{{contract.position}}</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-5 control-label">Contact type:</label>
                             <div class="col-sm-7">
-                                <p class="form-control-static">Apprentice</p>
+                                <p class="form-control-static">{{contract.contract_type}}</p>
                             </div>
                         </div>
                     </div>
@@ -21,13 +21,13 @@
                         <div class="form-group">
                             <label class="col-sm-5 control-label">Dates:</label>
                             <div class="col-sm-7">
-                                <p class="form-control-static">13/4/2014 - 13/7/2014</p>
+                                <p class="form-control-static">{{contract.period_start_date | formatPeriod}} - {{contract.period_end_date | formatPeriod}}</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-5 control-label">Is primary?</label>
                             <div class="col-sm-7">
-                                <input type="checkbox" name="primary" disabled checked>
+                                <input type="checkbox" name="primary" ng-model="contract.is_primary" disabled>
                             </div>
                         </div>
                     </div>
@@ -55,11 +55,9 @@
                            data-target="#{{prefix}}modal-wizard">
                             <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Change contract terms
                         </a>
-                        <a href="#" class="btn btn-sm"
-                           data-toggle="tooltip"
-                           data-placement="left"
-                           data-html="true"
-                           title="<p class='text-left'><strong>Change Contract Terms:</strong><br>
+                        <a class="btn btn-sm"
+                           tooltip-placement="left"
+                           tooltip-html-unsafe="<p class='text-left'><strong>Change Contract Terms:</strong><br>
                                                When an employeees job or role changes, i.e. promotion, secondment or move,
                                                you can use this wizard to update the details of the contract and record a new
                                                revision of the contract. A contract history is kept so you can always see the
@@ -76,7 +74,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <a class="btn btn-sm" ng-click="isCollapsed = !isCollapsed">
+                <a class="btn btn-sm btn-collapse" ng-click="isCollapsed = !isCollapsed">
                     <i ng-class="{fa: true, 'fa-caret-down': !isCollapsed, 'fa-caret-right': isCollapsed }"></i> {{isCollapsed ? 'More details' : 'Hide details'}}
                 </a>
             </div>

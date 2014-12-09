@@ -37,13 +37,14 @@ require([
     'controllers/root',
     'controllers/contractList',
     'controllers/contract',
+    'controllers/modalForm',
     'filters/formatPeriod'
 ],function(angular, app){
     'use strict';
 
     app.constant('settings', {
         classNamePrefix: 'hrjobcont-',
-        templatePath: '/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract'
+        templatePath: '/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract/views'
     });
 
     app.config(['settings','$routeProvider',
@@ -51,7 +52,7 @@ require([
             $routeProvider.
                 when('/', {
                     controller: 'ContractListCtrl',
-                    templateUrl: settings.templatePath+'/views/listContract.html?v='+(new Date()).getTime()
+                    templateUrl: settings.templatePath+'/listContract.html?v='+(new Date()).getTime()
                 }
             ).otherwise({redirectTo:'/'});
         }

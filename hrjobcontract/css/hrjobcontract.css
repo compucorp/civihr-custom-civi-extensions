@@ -9661,19 +9661,19 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
   content: "\f20c";
 }
 /* line 1, ../sass/partials/_collapse.scss */
-#hrjob-contract a.collapsed,
-#hrjob-contract a[data-toggle="collapse"] {
+#hrjob-contract a.btn-collapse {
   background: none;
   padding: 0;
   cursor: pointer;
+  margin-bottom: 8px;
+  line-height: 1.4;
 }
-/* line 7, ../sass/partials/_collapse.scss */
-#hrjob-contract a.collapsed:active,
-#hrjob-contract a[data-toggle="collapse"]:active {
+/* line 8, ../sass/partials/_collapse.scss */
+#hrjob-contract a.btn-collapse:active {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-/* line 13, ../sass/partials/_collapse.scss */
+/* line 14, ../sass/partials/_collapse.scss */
 #hrjob-contract .collapse .hrjobcont-contract-details {
   margin-bottom: 20px;
 }

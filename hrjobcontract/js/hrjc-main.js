@@ -36,7 +36,8 @@ require([
     'app',
     'controllers/root',
     'controllers/contractList',
-    'controllers/contract'
+    'controllers/contract',
+    'filters/formatPeriod'
 ],function(angular, app){
     'use strict';
 

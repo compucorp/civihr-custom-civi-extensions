@@ -7,13 +7,13 @@
                         <div class="form-group">
                             <label class="col-sm-5 control-label">Position:</label>
                             <div class="col-sm-7">
-                                <p class="form-control-static">{{contract.position}}</p>
+                                <p class="form-control-static">{{details.position}}</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-5 control-label">Contact type:</label>
                             <div class="col-sm-7">
-                                <p class="form-control-static">{{contract.contract_type}}</p>
+                                <p class="form-control-static">{{details.contract_type}}</p>
                             </div>
                         </div>
                     </div>
@@ -21,7 +21,7 @@
                         <div class="form-group">
                             <label class="col-sm-5 control-label">Dates:</label>
                             <div class="col-sm-7">
-                                <p class="form-control-static">{{contract.period_start_date | formatPeriod}} - {{contract.period_end_date | formatPeriod}}</p>
+                                <p class="form-control-static">{{details.period_start_date | formatPeriod}} - {{details.period_end_date | formatPeriod}}</p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -87,7 +87,7 @@
                             <tab heading="Summary">
                                 <div ng-class="{{prefix}}summary">
                                     <div class="panel panel-default">
-                                        <div class="panel-heading"><strong>{{contract.contract_type}}: {{contract.position}}</strong></div>
+                                        <div class="panel-heading"><strong>{{details.contract_type}}: {{details.position}}</strong></div>
                                         <div class="panel-body">
                                             <form class="form-horizontal" role="form">
                                                 <div class="row">

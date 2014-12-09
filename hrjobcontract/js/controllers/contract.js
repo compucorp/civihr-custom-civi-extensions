@@ -1,8 +1,9 @@
 console.log('ContractCtrl');
-define(['controllers/controllers'], function(controllers){
-    controllers.controller('ContractCtrl',['$scope',
-        function($scope){
+define(['controllers/controllers','services/contractDetails'], function(controllers){
+    controllers.controller('ContractCtrl',['$scope', 'ContractDetailsService',
+        function($scope, ContractDetailsService){
             $scope.isCollapsed = $scope.$index;
-            $scope.contract.is_primary = Boolean(parseInt($scope.contract.is_primary));
+            $scope.details = ContractDetailsService.query($scope.contract.id);
+            $scope.details.is_primary = Boolean(+$scope.details.is_primary);
         }]);
 });

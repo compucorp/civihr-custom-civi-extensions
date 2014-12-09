@@ -59,8 +59,6 @@ define(['services/services','filters/getObjByContractId'], function (services) {
                 }]
             }
 
-            console.log(typeof id !== 'undefined');
-
             return typeof id !== 'undefined' ? $filter('getObjByContractId')(response.values, id) || response.values : response.values;
         };
         return items;

@@ -5,10 +5,6 @@ define(['services/services'], function (services) {
 
         items.query = function () {
             return {
-                "is_error": 0,
-                "version": 3,
-                "count": 1,
-                "id": 26,
                 "values": [{
                     "id": "12",
                     "position": "General Manager",

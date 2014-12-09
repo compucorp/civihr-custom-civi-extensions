@@ -6723,7 +6723,7 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 }
 /* line 24, ../../../../../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.0.1/assets/stylesheets/bootstrap/_tooltip.scss */
 #hrjob-contract .tooltip-inner {
-  max-width: 300px;
+  max-width: 350px;
   padding: 3px 8px;
   color: #fff;
   text-align: center;
@@ -9866,6 +9866,7 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 /* line 1, ../sass/partials/_tooltip.scss */
 #hrjob-contract .tooltip-inner {
   text-align: left;
+  width: 350px;
 }
 /* line 1, ../sass/partials/_wizard.scss */
 #hrjob-contract .hrjobcont-wizard {

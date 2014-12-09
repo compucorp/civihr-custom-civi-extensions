@@ -2033,7 +2033,7 @@ angular.module('ui.bootstrap.modal', ['ui.bootstrap.transition'])
           keyboard: modal.keyboard
         });
 
-        var body = $document.find('body').eq(0),
+        var parentNode = (modal.parentNode || $document.find('body').eq(0)),
             currBackdropIndex = backdropIndex();
 
         if (currBackdropIndex >= 0 && !backdropDomEl) {
@@ -2042,7 +2042,7 @@ angular.module('ui.bootstrap.modal', ['ui.bootstrap.transition'])
           var angularBackgroundDomEl = angular.element('<div modal-backdrop></div>');
           angularBackgroundDomEl.attr('backdrop-class', modal.backdropClass);
           backdropDomEl = $compile(angularBackgroundDomEl)(backdropScope);
-          body.append(backdropDomEl);
+          parentNode.append(backdropDomEl);
         }
 
         var angularDomEl = angular.element('<div modal-window></div>');
@@ -2056,8 +2056,8 @@ angular.module('ui.bootstrap.modal', ['ui.bootstrap.transition'])
 
         var modalDomEl = $compile(angularDomEl)(modal.scope);
         openedWindows.top().value.modalDomEl = modalDomEl;
-        body.append(modalDomEl);
-        body.addClass(OPENED_MODAL_CLASS);
+        parentNode.append(modalDomEl);
+        parentNode.addClass(OPENED_MODAL_CLASS);
       };
 
       $modalStack.close = function (modalInstance, result) {
@@ -2181,6 +2181,7 @@ angular.module('ui.bootstrap.modal', ['ui.bootstrap.transition'])
                 backdrop: modalOptions.backdrop,
                 keyboard: modalOptions.keyboard,
                 backdropClass: modalOptions.backdropClass,
+                parentNode: modalOptions.parentNode,
                 windowClass: modalOptions.windowClass,
                 windowTemplateUrl: modalOptions.windowTemplateUrl,
                 size: modalOptions.size

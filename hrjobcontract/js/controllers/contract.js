@@ -1,4 +1,4 @@
-console.log('ContractCtrl');
+console.log('Controller: ContractCtrl');
 define(['controllers/controllers','services/contractDetails'], function(controllers){
     controllers.controller('ContractCtrl',['$scope', 'ContractDetailsService',
         function($scope, ContractDetailsService){

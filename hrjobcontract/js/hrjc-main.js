@@ -1,4 +1,4 @@
-console.log('hrjc-main');
+console.log('Init: hrjc-main');
 require.config({
     urlArgs: "bust=" + (new Date()).getTime(),
     paths: {

@@ -1,4 +1,4 @@
-console.log('ModalFormCtrl');
+console.log('Controller: ModalFormCtrl');
 define(['controllers/controllers'], function(controllers){
     controllers.controller('ModalFormCtrl',['$scope','$rootElement','$modal','settings',
         function($scope, $rootElement, $modal, settings){

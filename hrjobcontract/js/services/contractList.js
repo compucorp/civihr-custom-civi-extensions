@@ -1,4 +1,4 @@
-console.log('ContractListService');
+console.log('Service: ContractListService');
 define(['services/services'], function (services) {
     services.factory('ContractListService', function () {
         var items = {};

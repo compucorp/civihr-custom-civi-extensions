@@ -2025,8 +2025,7 @@ angular.module('ui.bootstrap.modal', ['ui.bootstrap.transition'])
       });
 
       $modalStack.open = function (modalInstance, modal) {
-          console.log(targetDomEl);
-          console.log(backdropDomEl);
+
         openedWindows.add(modalInstance, {
           deferred: modal.deferred,
           modalScope: modal.scope,

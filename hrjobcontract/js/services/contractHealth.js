@@ -1,4 +1,4 @@
-console.log('ContractHealthService');
+console.log('Service: ContractHealthService');
 define(['services/services','filters/getObjByContractId'], function (services) {
     services.factory('ContractHealthService', function ($filter) {
         var items = {};

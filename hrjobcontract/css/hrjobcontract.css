@@ -9853,12 +9853,8 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 #hrjob-contract .hrjobcont-summary .form-group {
   margin-bottom: 10px;
 }
-/* line 3, ../sass/partials/_modals.scss */
-.modal-open {
-  overflow: scroll;
-}
 @media (min-width: 768px) {
-  /* line 9, ../sass/partials/_modals.scss */
+  /* line 2, ../sass/partials/_modals.scss */
   #hrjob-contract .modal-dialog {
     margin: 60px auto;
   }

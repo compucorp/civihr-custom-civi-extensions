@@ -9,28 +9,29 @@ define(['controllers/controllers','services/contractDetails'], function(controll
             $scope.details.is_primary = Boolean(+$scope.details.is_primary);
 
             $scope.modal = function(type, action) {
-                var modalInstance = null,
-                    targetDomEl = $rootElement.find('div').eq(0);
 
-                if (type == 'form') {
-                    modalInstance = $modal.open({
-                        controller: 'ModalFormCtrl',
-                        size: 'lg',
-                        targetDomEl: targetDomEl,
-                        templateUrl: settings.templatePath+'/modalForm.html'
-                    });
+                var options = {
+                    targetDomEl: $rootElement.find('div').eq(0),
+                    size: 'lg'
+                },
+                optionsExt = {};
+
+                switch (type) {
+                    case 'form':
+                        optionsExt = {
+                            controller: 'ModalFormCtrl',
+                            templateUrl: settings.templatePath+'/modalForm.html'
+                        }
+                        break;
+                    case 'revision':
+                        optionsExt = {
+                            controller: 'ModalRevisionCtrl',
+                            templateUrl: settings.templatePath+'/modalRevision.html'
+                        }
+                        break;
                 }
 
-                if (type == 'revision') {
-                    modalInstance = $modal.open({
-                        controller: 'ModalRevisionCtrl',
-                        size: 'lg',
-                        targetDomEl: targetDomEl,
-                        templateUrl: settings.templatePath+'/modalRevision.html'
-                    });
-                }
-
-                return modalInstance;
+                return $modal.open(angular.extend(options,optionsExt));
             }
 
         }]);

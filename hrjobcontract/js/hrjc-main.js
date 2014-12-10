@@ -37,7 +37,7 @@ require([
     'controllers/contractList',
     'controllers/contract',
     'controllers/modalForm',
-    'controllers/modalFormInstance',
+    'controllers/modalRevision',
     'filters/formatPeriod'
 ],function(angular, app){
     'use strict';

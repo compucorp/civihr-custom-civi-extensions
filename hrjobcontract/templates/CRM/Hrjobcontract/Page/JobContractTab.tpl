@@ -1,7 +1,7 @@
 {assign var="module" value="hrjob-contract" }
 {assign var="prefix" value="hrjobcont-" }
 
-<div id="{$module}" ng-controller="RootCtrl">
+<div id="{$module}">
     <div class="container" ng-view>
     </div>
 </div>

@@ -59,6 +59,12 @@ require([
         }
     ]);
 
+    app.run(['settings','$rootScope',
+        function(settings, $rootScope){
+            $rootScope.prefix = settings.classNamePrefix;
+        }
+    ]);
+
     //TODO
     document.addEventListener('hrjcLoad', function(){
         angular.bootstrap(document.getElementById('hrjob-contract'), ['hrjc']);

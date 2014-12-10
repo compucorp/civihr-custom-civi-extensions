@@ -34,7 +34,6 @@ require.config({
 require([
     'angular',
     'app',
-    'controllers/root',
     'controllers/contractList',
     'controllers/contract',
     'controllers/modalForm',

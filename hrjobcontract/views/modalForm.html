@@ -18,14 +18,14 @@
                         <label for="position" class="col-sm-4 control-label">Position</label>
 
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="position" value="General Manager">
+                            <input type="text" class="form-control" id="position" ng-model="details.position">
                         </div>
                     </div>
                     <div class="form-group required">
                         <label for="title" class="col-sm-4 control-label">Title</label>
 
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="title" value="General Manager">
+                            <input type="text" class="form-control" id="title" ng-model="details.title">
                         </div>
                     </div>
                     <div class="form-group">
@@ -59,14 +59,14 @@
                         <label for="date-start" class="col-sm-4 control-label">Contract Start Date</label>
 
                         <div class="col-sm-4">
-                            <input type="date" class="form-control" id="date-start" value="2014-08-26">
+                            <input type="date" class="form-control" id="date-start" ng-model="details.period_start_date">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="date-end" class="col-sm-4 control-label">Contract End Date</label>
 
                         <div class="col-sm-4">
-                            <input type="date" class="form-control" id="date-end">
+                            <input type="date" class="form-control" id="date-end" ng-model="details.period_end_date">
                         </div>
                     </div>
                     <div class="form-group">
@@ -81,7 +81,7 @@
 
                         <div class="col-sm-8">
                             <div class="form-inline">
-                                <input type="text" class="form-control input-inline-sm" id="notice-employer" value="3">
+                                <input type="text" class="form-control input-inline-sm" id="notice-employer" ng-model="details.notice_amount">
                                 <select id="notice-employer-unit" class="form-control">
                                     <option value="">- select -</option>
                                     <option value="Day">Day</option>
@@ -97,7 +97,7 @@
 
                         <div class="col-sm-8">
                             <div class="form-inline">
-                                <input type="text" class="form-control input-inline-sm" id="notice-employee" value="3">
+                                <input type="text" class="form-control input-inline-sm" id="notice-employee" ng-model="details.notice_amount_employee">
                                 <select id="notice-employee-unit" class="form-control">
                                     <option value="">- select -</option>
                                     <option value="Day">Day</option>

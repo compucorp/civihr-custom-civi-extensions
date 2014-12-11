@@ -4,6 +4,7 @@ require.config({
     paths: {
         angular: 'vendor/angular/angular.min',
         angularBootstrap: 'vendor/angular/ui-bootstrap-tpls',
+        angularResource: 'vendor/angular/angular-resource.min',
         angularRoute: 'vendor/angular/angular-route.min',
         bootstrap: 'vendor/bootstrap',
         jquery: 'vendor/jquery/jquery.min',
@@ -22,10 +23,13 @@ require.config({
         angular: {
             exports: 'angular'
         },
-        angularRoute: {
+        angularBootstrap: {
             deps: ['angular']
         },
-        angularBootstrap: {
+        angularResource: {
+            deps: ['angular']
+        },
+        angularRoute: {
             deps: ['angular']
         }
     }
@@ -34,6 +38,7 @@ require.config({
 require([
     'angular',
     'app',
+    'services/contract',
     'controllers/contractList',
     'controllers/contract',
     'controllers/modalForm',
@@ -44,17 +49,29 @@ require([
 
     app.constant('settings', {
         classNamePrefix: 'hrjobcont-',
-        templatePath: '/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract/views'
+        contactId: '239',
+        keyApi: 'd3m04p1k3y',
+        key: 'CJrFwwNZ1YhA24SK',
+        pathApp: '/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract',
+        pathRest: '/sites/all/modules/civicrm/extern/rest.php'
     });
 
-    app.config(['settings','$routeProvider',
-        function(settings, $routeProvider){
+    app.config(['settings','$routeProvider','$resourceProvider',
+        function(settings, $routeProvider, $resourceProvider){
+
             $routeProvider.
                 when('/', {
                     controller: 'ContractListCtrl',
-                    templateUrl: settings.templatePath+'/listContract.html?v='+(new Date()).getTime()
+                    templateUrl: settings.pathApp+'/views/listContract.html?v='+(new Date()).getTime(),
+                    resolve: {
+                        contractList: function(ContractService){
+                            return ContractService.getContract()
+                        }
+                    }
                 }
             ).otherwise({redirectTo:'/'});
+
+            $resourceProvider.defaults.stripTrailingSlashes = false;
         }
     ]);
 

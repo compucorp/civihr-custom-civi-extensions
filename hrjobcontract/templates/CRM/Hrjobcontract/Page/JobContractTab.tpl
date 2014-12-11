@@ -7,11 +7,10 @@
 </div>
 <script type="text/javascript">
     /**
-     * TEMPORARY JS FOR MOCKUP USE ONLY - START
      * TODO
      */
     document.dispatchEvent(new Event('hrjcLoad'));
     /**
-     * TEMPORARY JS FOR MOCKUP USE ONLY - END
+     *
      */
 </script>

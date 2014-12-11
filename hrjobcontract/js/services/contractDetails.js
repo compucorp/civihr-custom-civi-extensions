@@ -4,6 +4,7 @@ define(['services/services','filters/getObjByContractId'], function (services) {
         var items = {};
 
         items.query = function (id) {
+            console.log('ContractDetailsService.query('+id+')');
             var response = {
                 "values": [{
                     "contract_id": "1",

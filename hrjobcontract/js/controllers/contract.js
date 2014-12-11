@@ -20,13 +20,18 @@ define(['controllers/controllers','services/contractDetails'], function(controll
                     case 'form':
                         optionsExt = {
                             controller: 'ModalFormCtrl',
-                            templateUrl: settings.templatePath+'/modalForm.html?v='+(new Date()).getTime()
+                            templateUrl: settings.pathApp+'/views/modalForm.html?v='+(new Date()).getTime(),
+                            resolve: {
+                                details: function(){
+                                    return $scope.details
+                                }
+                            }
                         }
                         break;
                     case 'revision':
                         optionsExt = {
                             controller: 'ModalRevisionCtrl',
-                            templateUrl: settings.templatePath+'/modalRevision.html?v='+(new Date()).getTime()
+                            templateUrl: settings.pathApp+'/views/modalRevision.html?v='+(new Date()).getTime()
                         }
                         break;
                 }

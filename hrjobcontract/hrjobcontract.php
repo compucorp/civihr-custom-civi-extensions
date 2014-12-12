@@ -28,7 +28,64 @@ function hrjobcontract_civicrm_xmlMenu(&$files) {
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_install
  */
 function hrjobcontract_civicrm_install() {
-  _hrjobcontract_civix_civicrm_install();
+  $cType = CRM_Contact_BAO_ContactType::basicTypePairs(false,'id');
+  $org_id = array_search('Organization',$cType);
+  $sub_type_name = array('Health Insurance Provider','Life Insurance Provider');
+  $orgSubType = CRM_Contact_BAO_ContactType::subTypes('Organization', true);
+  $orgSubType = CRM_Contact_BAO_ContactType::subTypeInfo('Organization');
+  $params['parent_id'] = $org_id;
+  $params['is_active'] = 1;
+
+  if ($org_id) {
+    foreach($sub_type_name as $sub_type_name) {
+      $subTypeName = ucfirst(CRM_Utils_String::munge($sub_type_name));
+      $subID = array_key_exists( $subTypeName, $orgSubType );
+      if (!$subID) {
+        $params['name'] = $subTypeName;
+        $params['label'] = $sub_type_name;
+        CRM_Contact_BAO_ContactType::add($params);
+      }
+      elseif ($subID && $orgSubType[$subTypeName]['is_active']==0) {
+        CRM_Contact_BAO_ContactType::setIsActive($orgSubType[$subTypeName]['id'], 1);
+      }
+    }
+  }
+
+  //Add job import navigation menu
+  $weight = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'Import Contacts', 'weight', 'name');
+  $contactNavId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'Contacts', 'id', 'name');
+  $administerNavId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'Dropdown Options', 'id', 'name');
+
+  $importJobNavigation = new CRM_Core_DAO_Navigation();
+  $params = array (
+    'domain_id'  => CRM_Core_Config::domainID(),
+    'label'      => ts('Import Jobs'),
+    'name'       => 'jobImport',
+    'url'        => null,
+    'parent_id'  => $contactNavId,
+    'weight'     => $weight+1,
+    'permission' => 'access HRJobs',
+    'separator'  => 1,
+    'is_active'  => 1
+  );
+  $importJobNavigation->copyValues($params);
+  $importJobNavigation->save();
+  $importJobMenuTree = array(
+    array(
+      'label'      => ts('Hours Types'),
+      'name'       => 'hoursType',
+      'url'        => 'civicrm/hour/editoption',
+      'permission' => 'administer CiviCRM',
+      'parent_id'  => $administerNavId,
+    ),
+  );
+  foreach ($importJobMenuTree as $key => $menuItems) {
+    $menuItems['is_active'] = 1;
+    CRM_Core_BAO_Navigation::add($menuItems);
+  }
+  CRM_Core_BAO_Navigation::resetNavigation();
+    
+  return _hrjobcontract_civix_civicrm_install();
 }
 
 /**
@@ -37,7 +94,28 @@ function hrjobcontract_civicrm_install() {
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_uninstall
  */
 function hrjobcontract_civicrm_uninstall() {
-  _hrjobcontract_civix_civicrm_uninstall();
+  $subTypeInfo = CRM_Contact_BAO_ContactType::subTypeInfo('Organization');
+  $sub_type_name = array('Health Insurance Provider','Life Insurance Provider');
+  foreach($sub_type_name as $sub_type_name) {
+    $subTypeName = ucfirst(CRM_Utils_String::munge($sub_type_name));
+    $orid = array_key_exists($subTypeName, $subTypeInfo);
+    if($orid) {
+      $id = $subTypeInfo[$subTypeName]['id'];
+      CRM_Contact_BAO_ContactType::del($id);
+    }
+  }
+  //delete job import navigation menu
+  CRM_Core_DAO::executeQuery("DELETE FROM civicrm_navigation WHERE name IN ('jobImport','hoursType')");
+  CRM_Core_BAO_Navigation::resetNavigation();
+
+  //delete custom groups and field
+  $customGroup = civicrm_api3('CustomGroup', 'getsingle', array('return' => "id",'name' => "HRJob_Summary",));
+  civicrm_api3('CustomGroup', 'delete', array('id' => $customGroup['id']));
+
+  //delete all option group and values
+  CRM_Core_DAO::executeQuery("DELETE FROM civicrm_option_group WHERE name IN ('hrjob_contract_type', 'hrjob_level_type', 'hrjob_department', 'hrjob_hours_type', 'hrjob_pay_grade', 'hrjob_health_provider', 'hrjob_life_provider', 'hrjob_location', 'hrjob_pension_type', 'hrjob_region', 'hrjob_pay_scale')");
+
+  return _hrjobcontract_civix_civicrm_uninstall();
 }
 
 /**
@@ -46,7 +124,8 @@ function hrjobcontract_civicrm_uninstall() {
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_enable
  */
 function hrjobcontract_civicrm_enable() {
-  _hrjobcontract_civix_civicrm_enable();
+  _hrjobcontract_setActiveFields(1);
+  return _hrjobcontract_civix_civicrm_enable();
 }
 
 /**
@@ -55,7 +134,24 @@ function hrjobcontract_civicrm_enable() {
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_disable
  */
 function hrjobcontract_civicrm_disable() {
-  _hrjobcontract_civix_civicrm_disable();
+  _hrjobcontract_setActiveFields(0);
+  return _hrjobcontract_civix_civicrm_disable();
+}
+
+function _hrjobcontract_setActiveFields($setActive) {
+  $sql = "UPDATE civicrm_navigation SET is_active= {$setActive} WHERE name IN ('jobs','jobImport','hoursType')";
+  CRM_Core_DAO::executeQuery($sql);
+  CRM_Core_BAO_Navigation::resetNavigation();
+
+  //disable/enable customgroup and customvalue
+  $sql = "UPDATE civicrm_custom_field JOIN civicrm_custom_group ON civicrm_custom_group.id = civicrm_custom_field.custom_group_id SET civicrm_custom_field.is_active = {$setActive} WHERE civicrm_custom_group.name = 'HRJob_Summary'";
+  CRM_Core_DAO::executeQuery($sql);
+  CRM_Core_DAO::executeQuery("UPDATE civicrm_custom_group SET is_active = {$setActive} WHERE name = 'HRJob_Summary'");
+
+  //disable/enable optionGroup and optionValue
+  $query = "UPDATE civicrm_option_value JOIN civicrm_option_group ON civicrm_option_group.id = civicrm_option_value.option_group_id SET civicrm_option_value.is_active = {$setActive} WHERE civicrm_option_group.name IN ('hrjob_contract_type', 'hrjob_level_type', 'hrjob_department', 'hrjob_hours_type', 'hrjob_pay_grade', 'hrjob_health_provider', 'hrjob_life_provider', 'hrjob_location', 'hrjob_pension_type', 'hrjob_region', 'hrjob_pay_scale')";
+  CRM_Core_DAO::executeQuery($query);
+  CRM_Core_DAO::executeQuery("UPDATE civicrm_option_group SET is_active = {$setActive} WHERE name IN ('hrjob_contract_type', 'hrjob_level_type', 'hrjob_department', 'hrjob_hours_type', 'hrjob_pay_grade', 'hrjob_health_provider', 'hrjob_life_provider', 'hrjob_location', 'hrjob_pension_type',  'hrjob_region', 'hrjob_pay_scale')");
 }
 
 /**
@@ -128,6 +224,22 @@ function hrjobcontract_civicrm_pageRun($page) {
     }
 }
 
+/**
+ * Implementation of hook_civicrm_buildForm
+ *
+ * @params string $formName - the name of the form
+ *         object $form - reference to the form object
+ * @return void
+ */
+function hrjobcontract_civicrm_buildForm($formName, &$form) {
+  if ($formName == 'CRM_Export_Form_Select') {
+    $_POST['unchange_export_selected_column'] = TRUE;
+    if (!empty($form->_submitValues) && $form->_submitValues['exportOption'] == CRM_Export_Form_Select::EXPORT_SELECTED) {
+      $_POST['unchange_export_selected_column'] = FALSE;
+    }
+  }
+}
+
 
 /**
  * Implementation of hook_civicrm_tabs
@@ -191,4 +303,149 @@ function hrjobcontract_civicrm_entityTypes(&$entityTypes) {
     'class' => 'CRM_Hrjobcontract_DAO_HRJobRole',
     'table' => 'civicrm_hrjobcontract_role',
   );
+}
+
+/**
+ * Implementaiton of hook_civicrm_alterAPIPermissions
+ *
+ * @param $entity
+ * @param $action
+ * @param $params
+ * @param $permissions
+ * @return void
+ */
+function hrjobcontract_civicrm_alterAPIPermissions_($entity, $action, &$params, &$permissions) {
+  $session = CRM_Core_Session::singleton();
+  $cid = $session->get('userID');
+
+  if (substr($entity, 0, 7) == 'h_r_job' && $cid == $params['contact_id'] && $action == 'get') {
+    $permissions[$entity]['get'] = array('access CiviCRM', array('access own HRJobs', 'access HRJobs'));
+   } elseif (substr($entity, 0, 7) == 'h_r_job' && $action == 'get') {
+    $permissions[$entity]['get'] = array('access CiviCRM', 'access HRJobs');
+  }
+  if (substr($entity, 0, 7) == 'h_r_job') {
+    $permissions[$entity]['create'] = array('access CiviCRM', 'edit HRJobs');
+    $permissions[$entity]['update'] = array('access CiviCRM', 'edit HRJobs');
+    $permissions[$entity]['replace'] = array('access CiviCRM', 'edit HRJobs');
+    $permissions[$entity]['duplicate'] = array('access CiviCRM', 'edit HRJobs');
+    $permissions[$entity]['delete'] = array('access CiviCRM', 'delete HRJobs');
+  }
+  $permissions['CiviHRJobContract'] = $permissions['h_r_job'];
+}
+
+/**
+ * @return array list fields keyed by stable name; each field has:
+ *   - id: int
+ *   - name: string
+ *   - column_name: string
+ *   - field: string, eg "custom_123"
+ */
+function hrjobcontract_getSummaryFields($fresh = FALSE) {
+  static $cache = NULL;
+  if ($cache === NULL || $fresh) {
+    $sql =
+      "SELECT ccf.id, ccf.name, ccf.column_name, concat('custom_', ccf.id) as field
+      FROM civicrm_custom_group ccg
+      INNER JOIN civicrm_custom_field ccf ON ccf.custom_group_id = ccg.id
+      WHERE ccg.name = 'HRJob_Summary'
+    ";
+    $dao = CRM_Core_DAO::executeQuery($sql);
+    $cache = array();
+    while ($dao->fetch()) {
+      $cache[$dao->name] = $dao->toArray();
+    }
+  }
+  return $cache;
+}
+
+/**
+ * Implementation of hook_civicrm_queryObjects
+ */
+function hrjobcontract_civicrm_queryObjects(&$queryObjects, $type) {
+  if ($type == 'Contact') {
+    $queryObjects[] = new CRM_Hrjobcontract_BAO_Query();
+  }
+  elseif ($type == 'Report') {
+    $queryObjects[] = new CRM_Hrjobcontract_BAO_ReportHook();
+  }
+}
+
+/**
+ * Implementation of hook_civicrm_permission
+ *
+ * @param array $permissions
+ * @return void
+ */
+function hrjobcontract_civicrm_permission(&$permissions) {
+  $prefix = 'CiviHRJobContract' . ': ';
+  $permissions += array(
+    'access HRJobs' => $prefix . ts('access HRJobs'),
+    'edit HRJobs' => $prefix . ts('edit HRJobs'),
+    'delete HRJobs' => $prefix . ts('delete HRJobs'),
+    'access own HRJobs' => $prefix . ts('access own HRJobs'),
+  );
+}
+
+/**
+ * Helper function to load data into DB between iterations of the unit-test
+ */
+function _hrjobcontract_phpunit_populateDB() {
+  $import = new CRM_Utils_Migrate_Import();
+  $import->run(
+    CRM_Extension_System::singleton()->getMapper()->keyToBasePath('org.civicrm.hrjobcontract')
+      . '/xml/option_group_install.xml'
+  );
+  $import->run(
+    CRM_Extension_System::singleton()->getMapper()->keyToBasePath('org.civicrm.hrjobcontract')
+      . '/xml/job_summary_install.xml'
+  );
+
+  //create option value for option group region
+  $result = civicrm_api3('OptionGroup', 'get', array(
+    'name' => "hrjob_region",
+  ));
+  $regionVal = array(
+    'Asia' => ts('Asia'),
+    'Europe' => ts('Europe'),
+  );
+
+  foreach ($regionVal as $name => $label) {
+    $regionParam = array(
+      'option_group_id' => $result['id'],
+      'label' => $label,
+      'name' => $name,
+      'value' => $name,
+      'is_active' => 1,
+    );
+    civicrm_api3('OptionValue', 'create', $regionParam);
+  }
+}
+
+function hrjobcontract_civicrm_export( $exportTempTable, $headerRows, $sqlColumns, $exportMode ) {
+  if ($exportMode == CRM_Export_Form_Select::EXPORT_ALL && !empty($_POST['unchange_export_selected_column'])) {
+    //drop column from table -- HR-379
+    $col = array('do_not_trade', 'do_not_email');
+    if ($_POST['unchange_export_selected_column']) {
+      $sql = "ALTER TABLE ".$exportTempTable." ";
+      $sql .= "DROP COLUMN do_not_email ";
+      $sql .= ",DROP COLUMN do_not_trade ";
+      CRM_Core_DAO::singleValueQuery($sql);
+
+      $i = 0;
+      foreach($sqlColumns as $key => $val){
+        if (in_array($key, $col)){
+          //unset column from sqlColumn and headerRow
+          unset($sqlColumns[$key]);
+          unset($headerRows[$i]);
+        }
+        $i++;
+      }
+      CRM_Export_BAO_Export::writeCSVFromTable($exportTempTable, $headerRows, $sqlColumns, $exportMode);
+
+      // delete the export temp table
+      $sql = "DROP TABLE IF EXISTS {$exportTempTable}";
+      CRM_Core_DAO::executeQuery($sql);
+      CRM_Utils_System::civiExit();
+    }
+  }
 }

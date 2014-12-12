@@ -10,132 +10,226 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
     $this->executeSqlFile('sql/install.sql');
   }
   
-  public function upgrade_t1() {
-    $this->ctx->log->info('Applying update 1');
-    // this path is relative to the extension base dir
-    $this->executeSqlFile('sql/upgrade1.sql');
-    return TRUE;
+  public function upgrade_u0010() {
+      $this->ctx->log->info('Applying update 0010');
+      CRM_Core_DAO::executeQuery("
+        INSERT INTO `civicrm_contact` (`contact_type`, `contact_sub_type`, `do_not_email`, `do_not_phone`, `do_not_mail`, `do_not_sms`, `do_not_trade`, `is_opt_out`, `legal_identifier`, `external_identifier`, `sort_name`, `display_name`, `nick_name`, `legal_name`, `image_URL`, `preferred_communication_method`, `preferred_language`, `preferred_mail_format`, `hash`, `api_key`, `source`, `first_name`, `middle_name`, `last_name`, `prefix_id`, `suffix_id`, `formal_title`, `communication_style_id`, `email_greeting_id`, `email_greeting_custom`, `email_greeting_display`, `postal_greeting_id`, `postal_greeting_custom`, `postal_greeting_display`, `addressee_id`, `addressee_custom`, `addressee_display`, `job_title`, `gender_id`, `birth_date`, `is_deceased`, `deceased_date`, `household_name`, `primary_contact_id`, `organization_name`, `sic_code`, `user_unique_id`, `employer_id`, `is_deleted`, `created_date`, `modified_date`) VALUES
+        ('Individual', NULL, 0, 0, 0, 0, 0, 0, NULL, NULL, 'apiclient', 'apiclient@compucorp.co.uk', NULL, NULL, NULL, NULL, 'en_US', 'Both', '', 'demoapikey', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 'Dear', 1, NULL, 'Dear', 1, NULL, '', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2014-12-01 13:59:51', '2014-12-11 15:51:50');
+      ");
+      return TRUE;
   }
   
-  public function upgrade_t2() {
-    $this->ctx->log->info('Applying update 1');
-    // this path is relative to the extension base dir
-    $this->executeSqlFile('sql/upgrade2.sql');
+  public function upgrade_u0999() {
+    $this->ctx->log->info('Applying update 0999');
+    $this->executeCustomDataFile('xml/option_group_install.xml');
     return TRUE;
   }
-  
-  /*public function upgrade_4201() {
-    $this->ctx->log->info('Applying update 1');
-    // this path is relative to the extension base dir
-    $this->executeSqlFile('sql/upgrade1.sql');
+
+  public function upgrade_u1101() {
+    $this->ctx->log->info('Applying update 1101');
+    $this->executeCustomDataFile('xml/1101_departments.xml');
     return TRUE;
-  }*/
+  }
+
+  public function upgrade_u1103() {
+    $this->ctx->log->info('Applying update 1103');
     
-  // By convention, functions that look like "function upgrade_NNNN()" are
-  // upgrade tasks. They are executed in order (like Drupal's hook_update_N).
-
-  /**
-   * Example: Run an external SQL script when the module is installed
-   *
-  public function install() {
-    $this->executeSqlFile('sql/myinstall.sql');
-  }
-
-  /**
-   * Example: Run an external SQL script when the module is uninstalled
-   *
-  public function uninstall() {
-   $this->executeSqlFile('sql/myuninstall.sql');
-  }
-
-  /**
-   * Example: Run a simple query when a module is enabled
-   *
-  public function enable() {
-    CRM_Core_DAO::executeQuery('UPDATE foo SET is_active = 1 WHERE bar = "whiz"');
-  }
-
-  /**
-   * Example: Run a simple query when a module is disabled
-   *
-  public function disable() {
-    CRM_Core_DAO::executeQuery('UPDATE foo SET is_active = 0 WHERE bar = "whiz"');
-  }
-
-  /**
-   * Example: Run a couple simple queries
-   *
-   * @return TRUE on success
-   * @throws Exception
-   *
-  public function upgrade_4200() {
-    $this->ctx->log->info('Applying update 4200');
-    CRM_Core_DAO::executeQuery('UPDATE foo SET bar = "whiz"');
-    CRM_Core_DAO::executeQuery('DELETE FROM bang WHERE willy = wonka(2)');
-    return TRUE;
-  } // */
-
-
-  /**
-   * Example: Run an external SQL script
-   *
-   * @return TRUE on success
-   * @throws Exception
-  public function upgrade_4201() {
-    $this->ctx->log->info('Applying update 4201');
-    // this path is relative to the extension base dir
-    $this->executeSqlFile('sql/upgrade_4201.sql');
-    return TRUE;
-  } // */
-
-
-  /**
-   * Example: Run a slow upgrade process by breaking it up into smaller chunk
-   *
-   * @return TRUE on success
-   * @throws Exception
-  public function upgrade_4202() {
-    $this->ctx->log->info('Planning update 4202'); // PEAR Log interface
-
-    $this->addTask(ts('Process first step'), 'processPart1', $arg1, $arg2);
-    $this->addTask(ts('Process second step'), 'processPart2', $arg3, $arg4);
-    $this->addTask(ts('Process second step'), 'processPart3', $arg5);
-    return TRUE;
-  }
-  public function processPart1($arg1, $arg2) { sleep(10); return TRUE; }
-  public function processPart2($arg3, $arg4) { sleep(10); return TRUE; }
-  public function processPart3($arg5) { sleep(10); return TRUE; }
-  // */
-
-
-  /**
-   * Example: Run an upgrade with a query that touches many (potentially
-   * millions) of records by breaking it up into smaller chunks.
-   *
-   * @return TRUE on success
-   * @throws Exception
-  public function upgrade_4203() {
-    $this->ctx->log->info('Planning update 4203'); // PEAR Log interface
-
-    $minId = CRM_Core_DAO::singleValueQuery('SELECT coalesce(min(id),0) FROM civicrm_contribution');
-    $maxId = CRM_Core_DAO::singleValueQuery('SELECT coalesce(max(id),0) FROM civicrm_contribution');
-    for ($startId = $minId; $startId <= $maxId; $startId += self::BATCH_SIZE) {
-      $endId = $startId + self::BATCH_SIZE - 1;
-      $title = ts('Upgrade Batch (%1 => %2)', array(
-        1 => $startId,
-        2 => $endId,
-      ));
-      $sql = '
-        UPDATE civicrm_contribution SET foobar = whiz(wonky()+wanker)
-        WHERE id BETWEEN %1 and %2
-      ';
-      $params = array(
-        1 => array($startId, 'Integer'),
-        2 => array($endId, 'Integer'),
-      );
-      $this->addTask($title, 'executeSql', $sql, $params);
+    if (!CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup','hrjob_life_provider', 'name')) {
+      $this->executeCustomDataFile('xml/1103_life_provider.xml');
     }
     return TRUE;
-  } // */
+  }
+  public function upgrade_u1105() {
+    $this->ctx->log->info('Applying update 1105');
+    
+    if (!CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup','hrjob_pension_type', 'name')) {
+      $this->executeCustomDataFile('xml/1105_pension_type.xml');
+    }
+    return TRUE;
+  }
+
+  public function upgrade_u1201() {
+    $this->ctx->log->info('Applying update 1201');
+
+    //get all fields of Custom Group "HRJob_Summary"
+    $params = array(
+      'custom_group_id' => 'HRJob_Summary',
+    );
+    $results = civicrm_api3('CustomField', 'get', $params);
+
+    foreach ($results['values'] as $result) {
+      $result['is_view'] = 0; // make the field editable
+      civicrm_api3('CustomField', 'create', $result);
+    }
+
+    //disable trigger
+    CRM_Core_DAO::triggerRebuild();
+
+    return TRUE;
+  }
+
+  public function upgrade_u1202() {
+    $this->ctx->log->info('Applying update 1202');
+
+    //Add job import navigation menu
+    $weight = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'Import Contacts', 'weight', 'name');
+    $contactNavId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'Contacts', 'id', 'name');
+    $importJobNavigation = new CRM_Core_DAO_Navigation();
+    $params = array (
+      'domain_id'  => CRM_Core_Config::domainID(),
+      'label'      => ts('Import Jobs'),
+      'name'       => 'jobImport',
+      'url'        => null,
+      'parent_id'  => $contactNavId,
+      'weight'     => $weight+1,
+      'permission' => 'access HRJobs',
+      'separator'  => 1,
+      'is_active'  => 1
+    );
+    $importJobNavigation->copyValues($params);
+    $importJobNavigation->save();
+    return TRUE;
+  }
+
+  public function upgrade_u1400() {
+    $this->ctx->log->info('Applying update 1400');
+
+    $optionGroupID = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjob_pay_scale', 'id', 'name');
+    if (!$optionGroupID) {
+        $params = array(
+          'name' => 'hrjob_pay_scale',
+          'title' => 'Pay Scale',
+          'is_active' => 1,
+          'is_reserved' => 1,
+        );
+        civicrm_api3('OptionGroup', 'create', $params);
+        $optionsValue = array('NJC pay scale', 'JNC pay scale', 'Soulbury Pay Agreement');
+        foreach ($optionsValue as $key => $value) {
+          $opValueParams = array(
+            'option_group_id' => 'hrjob_pay_scale',
+            'name' => $value,
+            'label' => $value,
+            'value' => $value,
+          );
+          civicrm_api3('OptionValue', 'create', $opValueParams);
+        }
+    }
+
+    $i = 4;
+    $params = array(
+      'option_group_id' => 'hrjob_contract_type',
+      'name' => 'Employee_Permanent',
+      'weight' => $i,
+      'label' => 'Employee - Permanent',
+      'value' => 'Employee - Permanent',
+    );
+    
+    civicrm_api3('OptionValue', 'create',$params);
+    $empoption_id = civicrm_api3('OptionValue', 'getsingle', array('return' => "id",'option_group_id' => 'hrjob_contract_type', 'name' => "Employee"));
+    civicrm_api3('OptionValue', 'create',array('id' => $empoption_id['id'],'name' => "Employee_Temporary",'label' => 'Employee - Temporary', 'value' => 'Employee - Temporary'));
+    $optionGroupID = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjob_contract_type', 'id', 'name');
+
+    foreach (array('Intern','Trustee','Volunteer') as $opName) {
+      $i++;
+      CRM_Core_DAO::executeQuery("UPDATE civicrm_option_value SET weight = {$i} WHERE name = '{$opName}' and option_group_id = {$optionGroupID}");
+    }
+
+    $optionGroupId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjob_hours_type', 'id', 'name');
+
+    //change value of stored hours type
+    CRM_Core_DAO::executeQuery("UPDATE civicrm_hrjobcontract_hour SET hours_type = CASE hours_type WHEN 'full' THEN 8 WHEN 'part' THEN 4 WHEN 'casual' THEN 0 ELSE NULL END");
+    return TRUE;
+  }
+
+  public function upgrade_u1401() {
+    $this->ctx->log->info('Applying update 1401');
+    $administerNavId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'Dropdown Options', 'id', 'name');
+    $params = array(
+      'label'      => ts('Hours Types'),
+      'name'       => 'hoursType',
+      'url'        => 'civicrm/hour/editoption',
+      'permission' => 'administer CiviCRM',
+      'parent_id'  => $administerNavId,
+      'is_active' => 1,
+    );
+    CRM_Core_BAO_Navigation::add($params);
+    CRM_Core_BAO_Navigation::resetNavigation();
+    return TRUE;
+  }
+
+  public function upgrade_u1402() {
+    $this->ctx->log->info('Applying update 1402');
+    //Upgrade for HR-394 and HR-395
+    $optionGroupID = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjob_region', 'id', 'name');
+    if (!$optionGroupID) {
+      $params = array(
+        'name' => 'hrjob_region',
+        'title' => 'Region',
+        'is_active' => 1,
+      );
+      civicrm_api3('OptionGroup', 'create', $params);
+    }
+
+    return TRUE;
+  }
+
+  public function upgrade_u1403() {
+    $this->ctx->log->info('Applying update 1403');
+
+    $result = civicrm_api3('HRJobHour', 'get');
+    foreach ($result['values'] as $key => $value) {
+      $fteFraction = CRM_Hrjobcontract_Upgrader::decToFraction($value['hours_fte']);
+      CRM_Core_DAO::executeQuery("update civicrm_hrjobcontract_hour set fte_num={$fteFraction[0]} , fte_denom={$fteFraction[1]} where id = {$value['id']}");
+    }
+    return TRUE;
+  }
+
+  public function upgrade_u1404() {
+    $this->ctx->log->info('Applying update 1404');
+
+    $optionGroupId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjob_pay_grade', 'id', 'name');
+    $sql = "UPDATE civicrm_option_value SET civicrm_option_value.value = CASE civicrm_option_value.label WHEN 'Paid' THEN 1 WHEN 'Unpaid' THEN 0 END WHERE option_group_id = $optionGroupId";
+    CRM_Core_DAO::executeQuery($sql);
+
+    CRM_Core_DAO::triggerRebuild();
+    return TRUE;
+  }
+
+  function decToFraction($fte) {
+    $fteDecimalPart = explode('.', $fte);
+    $array  = str_split($fteDecimalPart[1]);
+    $numerators = array(0, 1);
+    $denominators = array(1, 0);
+    $tempFte = $fte;
+    $result= '';
+    //check whether same value is repeating  in decimal like 3 is repeating in 0.33333 0.33 and have value in decimal more than 1
+    if(count(array_unique($array)) == 1 && count($array) != 1) {
+      $repeatNum = array_unique($array);
+      $num = $repeatNum[0];
+      $denom = 9;
+      $gcd = CRM_Hrjobcontract_Upgrader::commonDivisor($num,$denom);
+      $val = array($num/$gcd, $denom/$gcd);
+      return $val;
+    }
+    else {
+      for ($i = 2; $i < 1000; $i++) {
+        $floorFte = floor($tempFte);
+        $numerators[$i] = $floorFte * $numerators[$i-1] + $numerators[$i-2];
+        $denominators[$i] = $floorFte * $denominators[$i-1] + $denominators[$i-2];
+        $result = $numerators[$i] / $denominators[$i];
+        if ((string)$result == (string)$fte) {
+          $num = $numerators[$i];
+          $denom = $denominators[$i];
+          $val = array($num, $denom);
+          return $val;
+        }
+        $tempFte = 1/($tempFte-$floorFte);
+      }
+    }
+  }
+
+  function commonDivisor($a,$b) {
+    return ($a % $b) ? CRM_Hrjobcontract_Upgrader::commonDivisor($b,$a % $b) : $b;
+  }
 
 }

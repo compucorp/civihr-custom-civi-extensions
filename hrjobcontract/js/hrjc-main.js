@@ -1,9 +1,10 @@
-console.log('hrjc-main');
+console.log('Init: hrjc-main');
 require.config({
     urlArgs: "bust=" + (new Date()).getTime(),
     paths: {
         angular: 'vendor/angular/angular.min',
         angularBootstrap: 'vendor/angular/ui-bootstrap-tpls',
+        angularResource: 'vendor/angular/angular-resource.min',
         angularRoute: 'vendor/angular/angular-route.min',
         bootstrap: 'vendor/bootstrap',
         jquery: 'vendor/jquery/jquery.min',
@@ -22,10 +23,13 @@ require.config({
         angular: {
             exports: 'angular'
         },
-        angularRoute: {
+        angularBootstrap: {
             deps: ['angular']
         },
-        angularBootstrap: {
+        angularResource: {
+            deps: ['angular']
+        },
+        angularRoute: {
             deps: ['angular']
         }
     }
@@ -34,26 +38,46 @@ require.config({
 require([
     'angular',
     'app',
-    'controllers/root',
+    'services/contract',
     'controllers/contractList',
     'controllers/contract',
+    'controllers/modalForm',
+    'controllers/modalRevision',
     'filters/formatPeriod'
 ],function(angular, app){
     'use strict';
 
     app.constant('settings', {
         classNamePrefix: 'hrjobcont-',
-        templatePath: '/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract'
+        contactId: decodeURIComponent((new RegExp('[?|&]cid=([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null,
+        keyApi: 'd3m04p1k3y',
+        key: 'CJrFwwNZ1YhA24SK',
+        pathApp: '/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract',
+        pathRest: '/sites/all/modules/civicrm/extern/rest.php'
     });
 
-    app.config(['settings','$routeProvider',
-        function(settings, $routeProvider){
+    app.config(['settings','$routeProvider','$resourceProvider',
+        function(settings, $routeProvider, $resourceProvider){
+
             $routeProvider.
                 when('/', {
                     controller: 'ContractListCtrl',
-                    templateUrl: settings.templatePath+'/views/listContract.html?v='+(new Date()).getTime()
+                    templateUrl: settings.pathApp+'/views/listContract.html?v='+(new Date()).getTime(),
+                    resolve: {
+                        contractList: function(ContractService){
+                            return ContractService.get()
+                        }
+                    }
                 }
             ).otherwise({redirectTo:'/'});
+
+            $resourceProvider.defaults.stripTrailingSlashes = false;
+        }
+    ]);
+
+    app.run(['settings','$rootScope',
+        function(settings, $rootScope){
+            $rootScope.prefix = settings.classNamePrefix;
         }
     ]);
 

@@ -10,8 +10,22 @@
   font-size: 13px;
   margin-bottom: 10px;
 
-  .btn {
-    margin-top: 5px;
+  .btn-default {
+    line-height: 1.4;
+    padding-left: 33px;
+    margin: {
+      bottom: -2px;
+      top: -2px;
+    };
+    position: relative;
+    text-align: left;
+
+    .glyphicon {
+      font-size: 14px;
+      position: absolute;
+      left: 10px;
+      top: 14px;
+    }
   }
 
   .form-control-static {

@@ -1,8 +1,7 @@
-console.log('SummaryController');
-define(['controllers/controllers','services/contractList'], function(controllers){
-    controllers.controller('ContractListCtrl',['$scope','ContractListService',
-        function($scope, ContractListService){
-            var data = ContractListService.query();
-            $scope.currentContract = data.values;
+console.log('Controller: ContractListCtrl');
+define(['controllers/controllers'], function(controllers){
+    controllers.controller('ContractListCtrl',['$scope','contractList',
+        function($scope, contractList){
+            $scope.currentContract = contractList;
         }]);
 });

@@ -214,7 +214,7 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
                   'title' => ts('Id') ,
                   'required' => true,
                 ) ,
-                'position' => array(
+                'hrjob_position' => array(
                   'name' => 'position',
                   'type' => CRM_Utils_Type::T_STRING,
                   'title' => ts('Job Contract Position') ,
@@ -226,7 +226,7 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
                   'headerPattern' => '',
                   'dataPattern' => '',
                 ) ,
-                'title' => array(
+                'hrjob_title' => array(
                   'name' => 'title',
                   'type' => CRM_Utils_Type::T_STRING,
                   'title' => ts('Job Contract Title') ,
@@ -245,7 +245,7 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
                   'export' => true,
                   'import' => true,
                 ) ,
-                'contract_type' => array(
+                'hrjob_contract_type' => array(
                   'name' => 'contract_type',
                   'type' => CRM_Utils_Type::T_STRING,
                   'title' => ts('Job Contract Type') ,
@@ -257,7 +257,7 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
                   'headerPattern' => '',
                   'dataPattern' => '',
                   'pseudoconstant' => array(
-                    'optionGroupName' => 'hrjobcontract_type',
+                    'optionGroupName' => 'hrjob_contract_type',
                   )
                 ) ,
                 'period_type' => array(
@@ -275,7 +275,7 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
                     'callback' => 'CRM_Hrjobcontract_SelectValues::periodType',
                   )
                 ) ,
-                'period_start_date' => array(
+                'hrjob_period_start_date' => array(
                   'name' => 'period_start_date',
                   'type' => CRM_Utils_Type::T_DATE,
                   'title' => ts('Job Contract Start Date') ,
@@ -285,7 +285,7 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
                   'headerPattern' => '',
                   'dataPattern' => '',
                 ) ,
-                'period_end_date' => array(
+                'hrjob_period_end_date' => array(
                   'name' => 'period_end_date',
                   'type' => CRM_Utils_Type::T_DATE,
                   'title' => ts('Job Contract End Date') ,
@@ -295,7 +295,7 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
                   'headerPattern' => '',
                   'dataPattern' => '',
                 ) ,
-                'notice_amount' => array(
+                'hrjob_notice_amount' => array(
                   'name' => 'notice_amount',
                   'type' => CRM_Utils_Type::T_FLOAT,
                   'title' => ts('Notice Period from Employer (Amount)') ,
@@ -305,7 +305,7 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
                   'headerPattern' => '',
                   'dataPattern' => '',
                 ) ,
-                'notice_unit' => array(
+                'hrjob_notice_unit' => array(
                   'name' => 'notice_unit',
                   'type' => CRM_Utils_Type::T_STRING,
                   'title' => ts('Notice Period from Employer (Unit)') ,
@@ -320,7 +320,7 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
                     'callback' => 'CRM_Hrjobcontract_SelectValues::commonUnit',
                   )
                 ) ,
-                'notice_amount_employee' => array(
+                'hrjob_notice_amount_employee' => array(
                   'name' => 'notice_amount_employee',
                   'type' => CRM_Utils_Type::T_FLOAT,
                   'title' => ts('Notice Period from Employee (Amount)') ,
@@ -330,7 +330,7 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
                   'dataPattern' => '',
                   'export' => true,
                 ) ,
-                'notice_unit_employee' => array(
+                'hrjob_notice_unit_employee' => array(
                   'name' => 'notice_unit_employee',
                   'type' => CRM_Utils_Type::T_STRING,
                   'title' => ts('Notice Period from Employee (Unit)') ,
@@ -345,7 +345,7 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
                     'callback' => 'CRM_Hrjobcontract_SelectValues::commonUnit',
                   )
                 ) ,
-                'location' => array(
+                'hrjob_location' => array(
                   'name' => 'location',
                   'type' => CRM_Utils_Type::T_STRING,
                   'title' => ts('Job Contract Normal Place of Work') ,
@@ -357,10 +357,10 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
                   'headerPattern' => '',
                   'dataPattern' => '',
                   'pseudoconstant' => array(
-                    'optionGroupName' => 'hrjobcontract_location',
+                    'optionGroupName' => 'hrjob_location',
                   )
                 ) ,
-                'is_primary' => array(
+                'hrjob_is_primary' => array(
                   'name' => 'is_primary',
                   'type' => CRM_Utils_Type::T_BOOLEAN,
                   'title' => ts('Job Contract Is Primary') ,

@@ -86,7 +86,7 @@
                                                         <div class="form-group">
                                                             <label class="col-sm-4 control-label">Position</label>
                                                             <div class="col-sm-6">
-                                                                <p class="form-control-static">General Manager</p>
+                                                                <p class="form-control-static">{{details.position}}</p>
                                                             </div>
                                                             <div class="col-sm-2">
                                                                 <a class="btn" role="button" ng-click="modal('revision')">
@@ -97,7 +97,7 @@
                                                         <div class="form-group">
                                                             <label for="title" class="col-sm-4 control-label">Title</label>
                                                             <div class="col-sm-6">
-                                                                <p class="form-control-static">General Manager</p>
+                                                                <p class="form-control-static">{{details.title}}</p>
                                                             </div>
                                                             <div class="col-sm-2">
                                                                 <a class="btn" role="button" ng-click="modal('revision')">
@@ -131,8 +131,8 @@
                                                             <label class="col-sm-4 control-label">Time Period</label>
                                                             <div class="col-sm-6">
                                                                 <p class="form-control-static">
-                                                                    (2014-08-26 to Unspecified)<br />
-                                                                    <strong>Notice:</strong> 3 Month
+                                                                    ({{details.period_start_date | formatPeriod}} - {{details.period_end_date | formatPeriod}})<br />
+                                                                    <strong>Notice:</strong> {{details.notice_amount}} {{details.notice_unit}}
                                                                 </p>
                                                             </div>
                                                             <div class="col-sm-2">
@@ -148,7 +148,7 @@
                                                                     <strong>Tied to funding</strong><br />
                                                                     <strong>Funding organization:</strong> <a href="#">Jackson
                                                                     Wellness Partnership</a><br />
-                                                                    <strong>Notes:</strong> Notes
+                                                                    <strong>Notes:</strong> {{details.funding_notes}}
                                                                 </p>
                                                             </div>
                                                             <div class="col-sm-2">

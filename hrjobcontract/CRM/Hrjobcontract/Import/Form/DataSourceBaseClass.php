@@ -36,7 +36,7 @@
 /**
  * This class gets the name of the file to upload
  */
-class CRM_HRJob_Import_Form_DataSourceBaseClass extends CRM_Core_Form {
+class CRM_Hrjobcontract_Import_Form_DataSourceBaseClass extends CRM_Core_Form {
   protected $_enableContactOptions = TRUE;
   /**
    * This gets pushed into user context which ?? preserves the url?

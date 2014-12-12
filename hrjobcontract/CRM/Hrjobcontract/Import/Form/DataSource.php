@@ -36,12 +36,12 @@
 /**
  * This class gets the name of the file to upload
  */
-class CRM_HRJob_Import_Form_DataSource extends CRM_HRJob_Import_Form_DataSourceBaseClass {
-  public $_parser = 'CRM_HRJob_Import_Parser_Api';
+class CRM_Hrjobcontract_Import_Form_DataSource extends CRM_HRJob_Import_Form_DataSourceBaseClass {
+  public $_parser = 'CRM_Hrjobcontract_Import_Parser_Api';
   protected $_enableContactOptions = FALSE;
   protected $_userContext = 'civicrm/job/import';
   protected $_mappingType = 'Import Job';
-  protected $_entity = array('HRJob', 'HRJobContract', 'HRJobData', 'HRJobRevision', 'HRJobPay', 'HRJobHealth', 'HRJobPension', 'HRJobHour', 'HRJobLeave');
+  protected $_entity = array('HRJobContract', 'HRJobData', 'HRJobRevision', 'HRJobPay', 'HRJobHealth', 'HRJobPension', 'HRJobHour', 'HRJobLeave');
   /**
   * Include duplicate options
   */

@@ -37,7 +37,7 @@
  * This class previews the uploaded file and returns summary
  * statistics
  */
-class CRM_HRJob_Import_Form_Previewbaseclass extends CRM_Import_Form_Preview {
+class CRM_Hrjobcontract_Import_Form_Previewbaseclass extends CRM_Import_Form_Preview {
   /**
    * This is used in error urls
    * although this code specifies the Event import parser it is a completely generic function that could live anywhere (& probably does in C&P
@@ -141,7 +141,7 @@ class CRM_HRJob_Import_Form_Previewbaseclass extends CRM_Import_Form_Preview {
         $mapperLocTypes[$key] = NULL;
       }
     }
-    $leaveType = CRM_Core_PseudoConstant::get('CRM_HRJob_DAO_HRJobLeave', 'leave_type');
+    $leaveType = CRM_Core_PseudoConstant::get('CRM_Hrjobcontract_DAO_HRJobLeave', 'leave_type');
     $parser = new $this->_parser($mapperKeys,$mapperLocTypes);
     $parser->setEntity($entity);
 

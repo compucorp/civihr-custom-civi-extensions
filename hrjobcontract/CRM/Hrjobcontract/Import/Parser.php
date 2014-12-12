@@ -34,7 +34,7 @@
  */
 
 
-abstract class CRM_HRJob_Import_Parser extends CRM_Import_Parser {
+abstract class CRM_Hrjobcontract_Import_Parser extends CRM_Import_Parser {
 
   protected $_fileName;
 
@@ -278,7 +278,7 @@ abstract class CRM_HRJob_Import_Parser extends CRM_Import_Parser {
     $this->_activeFieldCount = count($fieldKeys);
     foreach ($fieldKeys as $key) {
       if (empty($this->_fields[$key]) || $key == "do_not_import") {
-        $this->_activeFields[] = new CRM_HRJob_Import_Field('', ts('- do not import -'));
+        $this->_activeFields[] = new CRM_Hrjobcontract_Import_Field('', ts('- do not import -'));
       }
       else {
         $this->_activeFields[] = clone($this->_fields[$key]);
@@ -288,14 +288,14 @@ abstract class CRM_HRJob_Import_Parser extends CRM_Import_Parser {
 
   function addField($name, $title, $type = CRM_Utils_Type::T_INT, $headerPattern = '//', $dataPattern = '//') {
     if (empty($name) || $name == "do_not_import") {
-      $this->_fields['doNotImport'] = new CRM_HRJob_Import_Field($name, $title, $type, $headerPattern, $dataPattern);
+      $this->_fields['doNotImport'] = new CRM_Hrjobcontract_Import_Field($name, $title, $type, $headerPattern, $dataPattern);
     }
     else {
       foreach($this->_entity as $entity) {
-        $entityName = "CRM_HRJob_BAO_{$entity}";
+        $entityName = "CRM_Hrjobcontract_BAO_{$entity}";
         $tempField = $entityName::importableFields($entity, NULL);
         if (array_key_exists("$name", $tempField)) {
-          $this->_fields[$name] = new CRM_HRJob_Import_Field($name, $title, $type, $headerPattern, $dataPattern);
+          $this->_fields[$name] = new CRM_Hrjobcontract_Import_Field($name, $title, $type, $headerPattern, $dataPattern);
           $this->_activeEntityFields[$entity][$name] = $this->_fields[$name];
         }
       }

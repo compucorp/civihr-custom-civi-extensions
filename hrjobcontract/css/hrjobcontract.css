@@ -9822,29 +9822,41 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
   margin-bottom: 10px;
 }
 /* line 13, ../sass/partials/_panels.scss */
-#hrjob-contract .hrjobcont-panel-action .btn {
-  margin-top: 5px;
+#hrjob-contract .hrjobcont-panel-action .btn-default {
+  line-height: 1.4;
+  padding-left: 33px;
+  margin-bottom: -2px;
+  margin-top: -2px;
+  position: relative;
+  text-align: left;
 }
-/* line 17, ../sass/partials/_panels.scss */
+/* line 23, ../sass/partials/_panels.scss */
+#hrjob-contract .hrjobcont-panel-action .btn-default .glyphicon {
+  font-size: 14px;
+  position: absolute;
+  left: 10px;
+  top: 14px;
+}
+/* line 31, ../sass/partials/_panels.scss */
 #hrjob-contract .hrjobcont-panel-action .form-control-static {
   padding: 0;
 }
-/* line 21, ../sass/partials/_panels.scss */
+/* line 35, ../sass/partials/_panels.scss */
 #hrjob-contract .hrjobcont-panel-action .form-group {
   margin-bottom: 0;
 }
-/* line 24, ../sass/partials/_panels.scss */
+/* line 38, ../sass/partials/_panels.scss */
 #hrjob-contract .hrjobcont-panel-action .form-group:first-child {
   margin-bottom: 4px;
 }
-/* line 29, ../sass/partials/_panels.scss */
+/* line 43, ../sass/partials/_panels.scss */
 #hrjob-contract .hrjobcont-panel-action input[type="checkbox"] {
   margin-top: 0;
   position: relative;
   top: 4px;
 }
 @media (min-width: 768px) {
-  /* line 37, ../sass/partials/_panels.scss */
+  /* line 51, ../sass/partials/_panels.scss */
   #hrjob-contract .hrjobcont-panel-action .form-horizontal .control-label {
     padding-top: 0;
   }

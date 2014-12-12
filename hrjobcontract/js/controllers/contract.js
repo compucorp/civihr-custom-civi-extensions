@@ -4,10 +4,10 @@ define(['controllers/controllers','services/contractDetails'], function(controll
         function($scope, ContractDetailsService, $modal, $rootElement, settings){
 
             $scope.isCollapsed = !!$scope.$index;
-
-            var promiseContractDetails = ContractDetailsService.getContractDetails($scope.contract.id);
+            //var promiseContractDetails = ContractDetailsService.getContractDetails();
+            var promiseContractDetails = ContractDetailsService.getOne($scope.contract.id);
             promiseContractDetails.then(function(contractDetails){
-                $scope.details = contractDetails[0];
+                $scope.details = contractDetails;
                 $scope.details.is_primary = Boolean(+$scope.details.is_primary);
             },function(reason){
                 console.log('Failed: ' + reason);

@@ -11,19 +11,22 @@ define(['services/services'], function (services) {
         });
 
         return {
-            getContractDetails: function(contractId) {
-                console.log('getContractDetails:' + contractId);
-                var deffered = $q.defer(),
-                    params = {
-                        sequential: 1
-                    }
+            getOne: function(contractId) {
 
-                if (contractId && typeof +contractId === 'number') {
-                    params.jobcontract_id = contractId;
+                if (!contractId || typeof +contractId !== 'number') {
+                    return null;
                 }
 
+                var deffered = $q.defer(),
+                    params = {
+                        sequential: 1,
+                        jobcontract_id: contractId
+                    },
+                    val;
+
                 ContractDetails.get({json: params}, function(data){
-                    deffered.resolve(data.values);
+                    val = data.values;
+                    deffered.resolve(val.length == 1 ? val[0] : null);
                 },function(){
                     deffered.reject('Unable to fetch contract details');
                 });

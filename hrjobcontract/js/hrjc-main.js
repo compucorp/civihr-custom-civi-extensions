@@ -65,7 +65,7 @@ require([
                     templateUrl: settings.pathApp+'/views/listContract.html?v='+(new Date()).getTime(),
                     resolve: {
                         contractList: function(ContractService){
-                            return ContractService.getContract()
+                            return ContractService.get()
                         }
                     }
                 }

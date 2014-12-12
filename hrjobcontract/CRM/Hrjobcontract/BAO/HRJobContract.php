@@ -32,7 +32,7 @@ class CRM_Hrjobcontract_BAO_HRJobContract extends CRM_Hrjobcontract_DAO_HRJobCon
    * @return int
    */
   public static function getRecordCount($params) {
-    $dao = new CRM_HRJob_DAO_HRJobContract();
+    $dao = new CRM_Hrjobcontract_DAO_HRJobContract();
     $dao->copyValues($params);
     return $dao->count();
   }
@@ -73,9 +73,9 @@ class CRM_Hrjobcontract_BAO_HRJobContract extends CRM_Hrjobcontract_DAO_HRJobCon
     $fields = CRM_Utils_Array::value($cacheKeyString, self::$_importableFields);
 
     if (!$fields) {
-      $fields = CRM_HRJob_DAO_HRJobContract::import();
+      $fields = CRM_Hrjobcontract_DAO_HRJobContract::import();
 
-      $fields = array_merge($fields, CRM_HRJob_DAO_HRJobContract::import());
+      $fields = array_merge($fields, CRM_Hrjobcontract_DAO_HRJobContract::import());
 
       //Sorting fields in alphabetical order(CRM-1507)
       $fields = CRM_Utils_Array::crmArraySortByField($fields, 'title');

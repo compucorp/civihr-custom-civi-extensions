@@ -5,8 +5,13 @@ define(['controllers/controllers','services/contractDetails'], function(controll
 
             $scope.isCollapsed = !!$scope.$index;
 
-            $scope.details = ContractDetailsService.query($scope.contract.id);
-            $scope.details.is_primary = Boolean(+$scope.details.is_primary);
+            var promiseContractDetails = ContractDetailsService.getContractDetails($scope.contract.id);
+            promiseContractDetails.then(function(contractDetails){
+                $scope.details = contractDetails[0];
+                $scope.details.is_primary = Boolean(+$scope.details.is_primary);
+            },function(reason){
+                console.log('Failed: ' + reason);
+            });
 
             $scope.modal = function(type, action) {
 
@@ -23,7 +28,7 @@ define(['controllers/controllers','services/contractDetails'], function(controll
                             templateUrl: settings.pathApp+'/views/modalForm.html?v='+(new Date()).getTime(),
                             resolve: {
                                 details: function(){
-                                    return $scope.details
+                                    return promiseContractDetails
                                 }
                             }
                         }

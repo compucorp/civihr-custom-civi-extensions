@@ -4,7 +4,7 @@ define(['controllers/controllers'], function(controllers){
         function($scope, $modalInstance, details){
 
             $scope.details = {};
-            angular.copy(details,$scope.details);
+            angular.copy(details[0],$scope.details);
 
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');

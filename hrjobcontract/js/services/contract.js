@@ -6,9 +6,7 @@ define(['services/services'], function (services) {
         return $resource(settings.pathRest,{
                 action: 'get',
                 entity: 'HRJobContract',
-                json: {
-                    contact_id: settings.contactId
-                },
+                json: {},
                 api_key: settings.keyApi,
                 key: settings.key
             })
@@ -18,18 +16,17 @@ define(['services/services'], function (services) {
         return {
             getContract: function(contractId) {
                 var deffered = $q.defer();
-                var params = {};
-                if (contractId) {
-                    params = {
-                        json: {
-                            contact_id: settings.contactId,
-                            id: contractId
-                        }
-                    }
+                var params = {
+                    sequential: 1,
+                    contact_id: settings.contactId
+                };
+
+                if (contractId && typeof +contractId === 'number') {
+                    params.id = contractId;
                 }
 
-                Contract.get(params, function(contractList){
-                    deffered.resolve(contractList);
+                Contract.get({json: params}, function(data){
+                    deffered.resolve(data.values);
                 },function(){
                     deffered.reject('Unable to fetch contract list');
                 });

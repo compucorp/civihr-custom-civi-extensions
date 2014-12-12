@@ -49,7 +49,7 @@ require([
 
     app.constant('settings', {
         classNamePrefix: 'hrjobcont-',
-        contactId: '239',
+        contactId: decodeURIComponent((new RegExp('[?|&]cid=([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null,
         keyApi: 'd3m04p1k3y',
         key: 'CJrFwwNZ1YhA24SK',
         pathApp: '/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract',

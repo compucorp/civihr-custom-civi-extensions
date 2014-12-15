@@ -32,6 +32,33 @@ define(['services/services'], function (services) {
                 });
 
                 return deffered.promise;
+            },
+            save: function(contractDetails){
+
+                if (!contractDetails || typeof contractDetails !== 'object') {
+                    return null;
+                }
+
+                if (!contractDetails.id || typeof +contractDetails.id !== 'number') {
+                    return null;
+                }
+
+                var deffered = $q.defer(),
+                    params = angular.extend({
+                        sequential: 1
+                    },contractDetails),
+                    val;
+
+                ContractDetails.save({
+                    action: 'create',
+                    json: params
+                }, null, function(){
+                    deffered.resolve(contractDetails);
+                },function(){
+                    deffered.reject('Unable to fetch contract details');
+                });
+
+                return deffered.promise;
             }
         }
 

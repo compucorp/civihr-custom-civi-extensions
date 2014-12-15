@@ -1,10 +1,10 @@
 console.log('Controller: ContractCtrl');
 define(['controllers/controllers','services/contractDetails'], function(controllers){
-    controllers.controller('ContractCtrl',['$scope', 'ContractDetailsService', '$modal', '$rootElement', 'settings',
-        function($scope, ContractDetailsService, $modal, $rootElement, settings){
+    controllers.controller('ContractCtrl',['$scope', '$modal', '$rootElement', 'ContractDetailsService', 'settings',
+        function($scope, $modal, $rootElement, ContractDetailsService, settings){
 
             $scope.isCollapsed = !!$scope.$index;
-            //var promiseContractDetails = ContractDetailsService.getContractDetails();
+
             var promiseContractDetails = ContractDetailsService.getOne($scope.contract.id);
             promiseContractDetails.then(function(contractDetails){
                 $scope.details = contractDetails;
@@ -13,35 +13,57 @@ define(['controllers/controllers','services/contractDetails'], function(controll
                 console.log('Failed: ' + reason);
             });
 
-            $scope.modal = function(type, action) {
+            $scope.modalContract = function(action){
 
-                var options = {
+                if (!action) {
+                    return null;
+                }
+
+                var modalInstance,
+                    options = {
                     targetDomEl: $rootElement.find('div').eq(0),
-                    size: 'lg'
-                },
-                optionsExt = {};
+                    templateUrl: settings.pathApp+'/views/modalForm.html?v='+(new Date()).getTime(),
+                    size: 'lg',
+                    resolve: {
+                        details: function(){
+                            return promiseContractDetails
+                        }
+                    }
+                }
 
-                switch (type) {
-                    case 'form':
-                        optionsExt = {
-                            controller: 'ModalFormCtrl',
-                            templateUrl: settings.pathApp+'/views/modalForm.html?v='+(new Date()).getTime(),
-                            resolve: {
-                                details: function(){
-                                    return promiseContractDetails
-                                }
-                            }
-                        }
+                switch(action){
+                    case 'view':
+                        options.controller = 'ModalContractViewCtrl'
                         break;
-                    case 'revision':
-                        optionsExt = {
-                            controller: 'ModalRevisionCtrl',
-                            templateUrl: settings.pathApp+'/views/modalRevision.html?v='+(new Date()).getTime()
-                        }
+                    case 'edit':
+                        options.controller = 'ModalContractEditCtrl'
+                        break;
+                    case 'change':
+                        options.controller = 'ModalContractChangeCtrl'
                         break;
                 }
 
-                return $modal.open(angular.extend(options,optionsExt));
+                modalInstance = $modal.open(options);
+
+                modalInstance.result.then(function(details){
+                    $scope.details = details;
+                });
+            }
+
+            $scope.modalRevision = function(entity){
+
+                if (!entity) {
+                    return null;
+                }
+
+                var options = {
+                    targetDomEl: $rootElement.find('div').eq(0),
+                    size: 'lg',
+                    controller: 'ModalRevisionCtrl',
+                    templateUrl: settings.pathApp+'/views/modalRevision.html?v='+(new Date()).getTime()
+                }
+
+                return $modal.open(options);
             }
 
         }]);

@@ -41,7 +41,9 @@ require([
     'services/contract',
     'controllers/contractList',
     'controllers/contract',
-    'controllers/modalForm',
+    'controllers/modalContractChange',
+    'controllers/modalContractEdit',
+    'controllers/modalContractView',
     'controllers/modalRevision',
     'filters/formatPeriod'
 ],function(angular, app){

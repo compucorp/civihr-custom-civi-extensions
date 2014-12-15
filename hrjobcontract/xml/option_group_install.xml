@@ -3,7 +3,7 @@
 <CustomData>
   <OptionGroups>
     <OptionGroup>
-      <name>hrjob_type</name>
+      <name>hrjob_contract_type</name>
       <title>Contract Type</title>
       <is_reserved>1</is_reserved>
       <is_active>1</is_active>
@@ -79,7 +79,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_type</option_group_name>
+      <option_group_name>hrjob_contract_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Employee - Permanent</label>
@@ -90,7 +90,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_type</option_group_name>
+      <option_group_name>hrjob_contract_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Contractor</label>
@@ -101,7 +101,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_type</option_group_name>
+      <option_group_name>hrjob_contract_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Volunteer</label>
@@ -112,7 +112,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_type</option_group_name>
+      <option_group_name>hrjob_contract_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Trustee</label>
@@ -123,7 +123,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_type</option_group_name>
+      <option_group_name>hrjob_contract_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Intern</label>
@@ -134,7 +134,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_type</option_group_name>
+      <option_group_name>hrjob_contract_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Apprentice</label>
@@ -145,7 +145,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_type</option_group_name>
+      <option_group_name>hrjob_contract_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Senior Manager</label>

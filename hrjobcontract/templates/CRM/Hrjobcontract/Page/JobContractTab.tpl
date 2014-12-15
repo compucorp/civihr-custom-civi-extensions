@@ -9,6 +9,10 @@
     /**
      * TODO
      */
+    
+    var appKey = '{$smarty.const.CIVICRM_SITE_KEY}';
+    var userKey = 'demoapikey';
+    
     document.dispatchEvent(new Event('hrjcLoad'));
     /**
      *

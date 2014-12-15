@@ -36,7 +36,7 @@
 /**
  * class to parse csv files
  */
-class CRM_HRJob_Import_Parser_BaseClass extends CRM_HRJob_Import_Parser {
+class CRM_Hrjobcontract_Import_Parser_BaseClass extends CRM_Hrjobcontract_Import_Parser {
   protected $_mapperKeys;
 
   private $_contactIdIndex;

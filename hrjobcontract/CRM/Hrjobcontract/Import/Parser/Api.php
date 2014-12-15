@@ -1,5 +1,5 @@
 <?php
-class CRM_HRJob_Import_Parser_Api extends CRM_HRJob_Import_Parser_BaseClass {
+class CRM_Hrjobcontract_Import_Parser_Api extends CRM_Hrjobcontract_Import_Parser_BaseClass {
   protected $_entity;
   protected $_fields = array();
   protected $_requiredFields = array();
@@ -48,7 +48,7 @@ class CRM_HRJob_Import_Parser_Api extends CRM_HRJob_Import_Parser_BaseClass {
    * @return boolean      the result of this processing
    * It is called from both the preview & the import actions
    * (non-PHPdoc)
-   * @see CRM_HRjob_Import_Parser_BaseClass::summary()
+   * @see CRM_Hrjobcontract_Import_Parser_BaseClass::summary()
    */
   function summary(&$values) {
     $erroneousField = NULL;

@@ -1,7 +1,6 @@
-<?php
-/*
+{*
  +--------------------------------------------------------------------+
- | CiviHR version 1.4                                                |
+ | CiviHR version 1.4                                                 |
  +--------------------------------------------------------------------+
  | Copyright CiviCRM LLC (c) 2004-2014                                |
  +--------------------------------------------------------------------+
@@ -23,37 +22,32 @@
  | GNU Affero General Public License or the licensing of CiviCRM,     |
  | see the CiviCRM license FAQ at http://civicrm.org/licensing        |
  +--------------------------------------------------------------------+
-*/
-
-/**
- *
- * @package CRM
- * @copyright CiviCRM LLC (c) 2004-2013
- * $Id$
- *
- */
-
-/**
- * This class gets the name of the file to upload
- */
-class CRM_Hrjobcontract_Import_Form_DataSource extends CRM_HRJob_Import_Form_DataSourceBaseClass {
-  public $_parser = 'CRM_Hrjobcontract_Import_Parser_Api';
-  protected $_enableContactOptions = FALSE;
-  protected $_userContext = 'civicrm/job/import';
-  protected $_mappingType = 'Import Job';
-  protected $_entity = array('HRJobContract', 'HRJobData', 'HRJobRevision', 'HRJobPay', 'HRJobHealth', 'HRJobPension', 'HRJobHour', 'HRJobLeave');
-  /**
-  * Include duplicate options
-  */
-  protected $isDuplicateOptions = FALSE;
-
-    /**
-   * Function to actually build the form - this appears to be entirely code that should be in a shared baseclass in core
-   *
-   * @return None
-   * @access public
-   */
-  public function buildQuickForm() {
-    parent::buildQuickForm();
-  }
-}
+*}
+<div id="notes-search" class="form-item">
+    <table class="form-layout">
+        <tr>
+            <td>
+                {$form.hrjob_hours_type.label}<br />
+                {$form.hrjob_hours_type.html}
+            </td>
+            <td>
+                {$form.hrjob_hours_unit.label}<br />
+                {$form.hrjob_hours_unit.html}
+            </td>
+        </tr>
+        <tr>
+            <td><label>{ts}Hours Amount{/ts}</label> <br />
+                {$form.hrjob_hours_amount_low.label}
+                {$form.hrjob_hours_amount_low.html} &nbsp;&nbsp;
+                {$form.hrjob_hours_amount_high.label}
+                {$form.hrjob_hours_amount_high.html} 
+            </td>
+            <td><label>{ts}Hours FTE{/ts}</label> <br />
+                {$form.hrjob_hours_fte_low.label}
+                {$form.hrjob_hours_fte_low.html} &nbsp;&nbsp;
+                {$form.hrjob_hours_fte_high.label}
+                {$form.hrjob_hours_fte_high.html} 
+            </td>
+        </tr>
+    </table>
+</div>

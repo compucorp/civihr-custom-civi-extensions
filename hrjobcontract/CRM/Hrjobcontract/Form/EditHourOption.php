@@ -33,7 +33,7 @@
  * $Id$
  *
  */
-class CRM_HRJob_Form_EditHourOption extends CRM_Core_Form {
+class CRM_HRJobcontract_Form_EditHourOption extends CRM_Core_Form {
   public $_optionValue = array();
   public $_id = array();
 
@@ -76,7 +76,7 @@ class CRM_HRJob_Form_EditHourOption extends CRM_Core_Form {
     $this->assign('optionGroupIds', $optionGroupIds);
     $this->addElement('select', 'hour_type_select', ts('Select Hour Type'), array('' => ts('- select -')) + $this->_optionValue);
     $this->add('text', 'hour_value', ts('Value'));
-    $this->addFormRule(array('CRM_HRJob_Form_EditHourOption', 'formRule'), $this);
+    $this->addFormRule(array('CRM_Hrjobcontract_Form_EditHourOption', 'formRule'), $this);
   }
 
  static function formRule($fields, $files, $self) {

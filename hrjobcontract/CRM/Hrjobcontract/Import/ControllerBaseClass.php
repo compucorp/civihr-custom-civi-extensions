@@ -33,7 +33,7 @@
  *
  */
 
-class CRM_HRJob_Import_ControllerBaseClass extends CRM_Core_Controller {
+class CRM_Hrjobcontract_Import_ControllerBaseClass extends CRM_Core_Controller {
 
   /**
    * class constructor

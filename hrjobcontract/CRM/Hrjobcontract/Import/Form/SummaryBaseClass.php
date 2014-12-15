@@ -36,7 +36,7 @@
 /**
  * This class summarizes the import results
  */
-class CRM_HRJob_Import_Form_SummaryBaseClass extends CRM_Import_Form_Summary {
+class CRM_Hrjobcontract_Import_Form_SummaryBaseClass extends CRM_Import_Form_Summary {
   /**
    * This is used in error urls
    * although this code specifies the Event import parser it is a completely generic function that could live anywhere (& probably does in C&P

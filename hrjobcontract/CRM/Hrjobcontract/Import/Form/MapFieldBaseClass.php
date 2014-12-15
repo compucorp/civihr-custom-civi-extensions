@@ -36,7 +36,7 @@
 /**
  * This class gets the name of the file to upload
  */
-class CRM_HRJob_Import_Form_MapFieldBaseClass extends CRM_Import_Form_MapField {
+class CRM_Hrjobcontract_Import_Form_MapFieldBaseClass extends CRM_Import_Form_MapField {
   protected $_highlightedFields = array();
   /**
    * Fields to remove from the field mapping if 'On Duplicate Update is selected
@@ -159,10 +159,10 @@ class CRM_HRJob_Import_Form_MapFieldBaseClass extends CRM_Import_Form_MapField {
     }
 
     $this->addElement('checkbox', 'saveMapping', $saveDetailsName, NULL, array('onclick' => "showSaveDetails(this)"));
-    $this->addFormRule(array('CRM_HRJob_Import_Form_MapFieldBaseClass', 'formRule'), $this);
+    $this->addFormRule(array('CRM_Hrjobcontract_Import_Form_MapFieldBaseClass', 'formRule'), $this);
     //-------- end of saved mapping stuff ---------
 
-    $this->_leaveType = CRM_Core_PseudoConstant::get('CRM_HRJob_DAO_HRJobLeave', 'leave_type');
+    $this->_leaveType = CRM_Core_PseudoConstant::get('CRM_Hrjobcontract_DAO_HRJobLeave', 'leave_type');
 
     $defaults         = array();
     $mapperKeys       = array_keys($this->_mapperFields);
@@ -377,7 +377,7 @@ class CRM_HRJob_Import_Form_MapFieldBaseClass extends CRM_Import_Form_MapField {
     $mapperKeys     = $this->controller->exportValue($this->_name, 'mapper');
     $mapperKeysMain = array();
     $subMapper = array();
-    $leaveType = CRM_Core_PseudoConstant::get('CRM_HRJob_DAO_HRJobLeave', 'leave_type');
+    $leaveType = CRM_Core_PseudoConstant::get('CRM_Hrjobcontract_DAO_HRJobLeave', 'leave_type');
     for ($i = 0; $i < $this->_columnCount; $i++) {
       $selOne             = CRM_Utils_Array::value(1, $mapperKeys[$i]);
       if ($selOne && is_numeric($selOne)) {
@@ -395,7 +395,7 @@ class CRM_HRJob_Import_Form_MapFieldBaseClass extends CRM_Import_Form_MapField {
 
     //Updating Mapping Records
     if (CRM_Utils_Array::value('updateMapping', $params)) {
-      $leaveType = CRM_Core_PseudoConstant::get('CRM_HRJob_DAO_HRJobLeave', 'leave_type');
+      $leaveType = CRM_Core_PseudoConstant::get('CRM_Hrjobcontract_DAO_HRJobLeave', 'leave_type');
       $mappingFields = new CRM_Core_DAO_MappingField();
       $mappingFields->mapping_id = $params['mappingId'];
       $mappingFields->find();
@@ -438,7 +438,7 @@ class CRM_HRJob_Import_Form_MapFieldBaseClass extends CRM_Import_Form_MapField {
         ),
       );
       $saveMapping = CRM_Core_BAO_Mapping::add($mappingParams);
-      $leaveType = CRM_Core_PseudoConstant::get('CRM_HRJob_DAO_HRJobLeave', 'leave_type');
+      $leaveType = CRM_Core_PseudoConstant::get('CRM_Hrjobcontract_DAO_HRJobLeave', 'leave_type');
       for ($i = 0; $i < $this->_columnCount; $i++) {
         $saveMappingFields = new CRM_Core_DAO_MappingField();
         $saveMappingFields->mapping_id = $saveMapping->id;

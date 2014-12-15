@@ -43,20 +43,20 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
   static $_hrjobFields = array();
 
   /**
-   * Function get the import/export fields for hrjob
+   * Function get the import/export fields for hrjobcontract
    *
-   * @return array self::$_hrjobFields  associative array of hrjob fields
+   * @return array self::$_hrjobFields  associative array of hrjobcontract fields
    * @static
    */
   function &getFields() {
     if (!self::$_hrjobFields) {
-      self::$_hrjobFields = CRM_Hrjobcontract_BAO_HRJob::export();
+      self::$_hrjobFields = CRM_Hrjobcontract_BAO_HRJobData::export();
       self::$_hrjobFields['hrjob_role_manager_contact'] =
         array(
           'name'  => 'manager_contact',
           'title' => 'Job Manager',
           'type'  => CRM_Utils_Type::T_STRING,
-          'where' => 'civicrm_hrjobcontract_role_manager.display_name'
+          'where' => 'civicrm_hrjob_role_manager.display_name'
         );
       self::$_hrjobFields = array_merge(self::$_hrjobFields, CRM_Hrjobcontract_BAO_HRJobHour::export());
 
@@ -83,7 +83,7 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
         if (!empty($query->_returnProperties[$fldName])) {
           $query->_select[$fldName]  = "{$params['where']} as $fldName";
           if ($fldName == 'hrjob_role_manager_contact') {
-            $query->_select[$fldName]  = "GROUP_CONCAT(DISTINCT(civicrm_hrjobcontract_role_manager.sort_name) SEPARATOR ' | ') as $fldName";
+            $query->_select[$fldName]  = "GROUP_CONCAT(DISTINCT(civicrm_hrjob_role_manager.sort_name) SEPARATOR ' | ') as $fldName";
           }
           if ($fldName == 'hrjob_role_department') {
             $query->_select[$fldName]  = "GROUP_CONCAT(DISTINCT(civicrm_hrjobcontract_role.department) SEPARATOR ' | ') as $fldName";
@@ -142,13 +142,13 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
       case 'hrjob_is_healthcare':
         $op = "IS NOT NULL";
         $query->_qill[$grouping][]  = ts('Healthcare is provided');
-        $query->_where[$grouping][] = CRM_Contact_BAO_Query::buildClause("civicrm_hrjob_health.id", $op);
+        $query->_where[$grouping][] = CRM_Contact_BAO_Query::buildClause("civicrm_hrjobcontract_health.id", $op);
         $query->_tables['civicrm_hrjobcontract_health'] = $query->_whereTables['civicrm_hrjobcontract_health'] = 1;
         return;
 
       case 'hrjob_is_enrolled':
         $query->_qill[$grouping][]  = $value ? ts('Is enrolled') : ts('Is not enrolled');
-        $query->_where[$grouping][] = CRM_Contact_BAO_Query::buildClause("civicrm_hrjob_pension.is_enrolled", $op, $value, "Boolean");
+        $query->_where[$grouping][] = CRM_Contact_BAO_Query::buildClause("civicrm_hrjobcontract_pension.is_enrolled", $op, $value, "Boolean");
         $query->_tables['civicrm_hrjobcontract_pension'] = $query->_whereTables['civicrm_hrjobcontract_pension'] = 1;
         return;
 
@@ -222,75 +222,86 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
         $from = " $side JOIN civicrm_hrjob ON civicrm_hrjob.contact_id = contact_a.id AND civicrm_hrjob.is_primary = 1";
         break;
       case 'civicrm_hrjob_role_manager':
-        $from = " $side JOIN civicrm_hrjob_role civicrm_hrjob_role_manager_contact ON civicrm_hrjob.id = civicrm_hrjob_role_manager_contact.job_id $side JOIN civicrm_contact civicrm_hrjob_role_manager ON civicrm_hrjob_role_manager_contact.manager_contact_id = civicrm_hrjob_role_manager.id";
+        $from = "
+         $side JOIN civicrm_hrjobcontract hrjobcontract ON hrjobcontract.contact_id = contact_a.id
+         $side JOIN civicrm_hrjobcontract_revision rev ON rev.jobcontract_id = hrjobcontract.id AND rev.status = 1
+         $side JOIN civicrm_hrjobcontract_role civicrm_hrjob_role_manager_contact ON civicrm_hrjob_role_manager_contact.jobcontract_revision_id = rev.role_revision_id
+         $side JOIN civicrm_contact civicrm_hrjob_role_manager ON civicrm_hrjob_role_manager_contact.manager_contact_id = civicrm_hrjob_role_manager.id
+        ";
         break;
-      case 'civicrm_hrjob_hour':
-        $from = " $side JOIN civicrm_hrjob_hour ON civicrm_hrjob.id = civicrm_hrjob_hour.job_id ";
+      case 'civicrm_hrjobcontract_data':
+          $from = " $side JOIN civicrm_hrjobcontract_data ON rev.data_revision_id = civicrm_hrjobcontract_data.jobcontract_revision_id ";
         break;
-      case 'civicrm_hrjob_health':
-        $from = " $side JOIN civicrm_hrjob_health ON civicrm_hrjob.id = civicrm_hrjob_health.job_id ";
+      case 'civicrm_hrjobcontract_hour':
+        $from = " $side JOIN civicrm_hrjobcontract_hour ON rev.hour_revision_id = civicrm_hrjobcontract_hour.jobcontract_revision_id ";
         break;
-      case 'civicrm_hrjob_pension':
-        $from = " $side JOIN civicrm_hrjob_pension ON civicrm_hrjob.id = civicrm_hrjob_pension.job_id ";
+      case 'civicrm_hrjobcontract_health':
+        $from = " $side JOIN civicrm_hrjobcontract_health ON rev.health_revision_id = civicrm_hrjobcontract_health.jobcontract_revision_id ";
         break;
-      case 'civicrm_hrjob_pay':
-        $from = " $side JOIN civicrm_hrjob_pay ON civicrm_hrjob.id = civicrm_hrjob_pay.job_id ";
+      case 'civicrm_hrjobcontract_pension':
+        $from = " $side JOIN civicrm_hrjobcontract_pension ON rev.pension_revision_id = civicrm_hrjobcontract_pension.jobcontract_revision_id ";
         break;
-    case 'civicrm_hrjob_role':
-      $from = " $side JOIN civicrm_hrjob_role ON civicrm_hrjob.id = civicrm_hrjob_role.job_id ";
-      break;
+      case 'civicrm_hrjobcontract_pay':
+        $from = " $side JOIN civicrm_hrjobcontract_pay ON rev.pay_revision_id = civicrm_hrjobcontract_pay.jobcontract_revision_id ";
+        break;
+      case 'civicrm_hrjob_role':
+        $from = " $side JOIN civicrm_hrjob_role ON civicrm_hrjob.id = civicrm_hrjob_role.job_id ";
+        break;
+      case 'civicrm_hrjobcontract_role':
+        $from = " $side JOIN civicrm_hrjobcontract_role ON rev.role_revision_id = civicrm_hrjobcontract_role.jobcontract_revision_id ";
+        break;
     }
     return $from;
   }
 
   function setTableDependency(&$tables) {
-    if (!empty($tables['civicrm_hrjob_hour']) || !empty($tables['civicrm_hrjob_health']) || !empty($tables['civicrm_hrjob_pension'])|| !empty($tables['civicrm_hrjob_pay'])) {
-      $tables = array_merge(array('civicrm_hrjob' => 1), $tables);
+    if (!empty($tables['civicrm_hrjobcontract_hour']) || !empty($tables['civicrm_hrjobcontract_health']) || !empty($tables['civicrm_hrjobcontract_pension'])|| !empty($tables['civicrm_hrjobcontract_pay'])) {
+      $tables = array_merge(array('civicrm_hrjobcontract' => 1), $tables);
     }
   }
 
   public function registerAdvancedSearchPane(&$panes) {
-    if (!CRM_Core_Permission::check('access HRJobs')) return;
-    $panes['Job'] = 'hrjob';
-    $panes['Job: Hour']  = 'hrjob_hour';
-    $panes['Job: Health']  = 'hrjob_health';
-    $panes['Job: Pension'] = 'hrjob_pension';
-    $panes['Job: Pay']  = 'hrjob_pay';
+    //if (!CRM_Core_Permission::check('access HRJobs')) { echo 'not accessible'; return; }
+    $panes['Job Contract'] = 'hrjobcontract';
+    $panes['Job Contract: Hour']  = 'hrjobcontract_hour';
+    $panes['Job Contract: Health']  = 'hrjobcontract_health';
+    $panes['Job Contract: Pension'] = 'hrjobcontract_pension';
+    $panes['Job Contract: Pay']  = 'hrjobcontract_pay';
   }
 
   public function getPanesMapper(&$panes) {
-    if (!CRM_Core_Permission::check('access HRJobs')) return;
-    $panes['Job']          = 'civicrm_hrjob';
-    $panes['Job: Hour']    = 'civicrm_hrjob_hour';
-    $panes['Job: Health']  = 'civicrm_hrjob_health';
-    $panes['Job: Pension'] = 'civicrm_hrjob_pension';
-    $panes['Job: Pay']     = 'civicrm_hrjob_pay';
+    //if (!CRM_Core_Permission::check('access HRJobs')) { echo 'not accessible'; return; }
+    $panes['Job Contract']          = 'civicrm_hrjobcontract';
+    $panes['Job Contract: Hour']    = 'civicrm_hrjobcontract_hour';
+    $panes['Job Contract: Health']  = 'civicrm_hrjobcontract_health';
+    $panes['Job Contract: Pension'] = 'civicrm_hrjobcontract_pension';
+    $panes['Job Contract: Pay']     = 'civicrm_hrjobcontract_pay';
   }
 
   public function buildAdvancedSearchPaneForm(&$form, $type) {
-    if (!CRM_Core_Permission::check('access HRJobs')) return;
-    if ($type  == 'hrjob') {
-      $form->add('hidden', 'hidden_hrjob', 1);
-      $form->addElement('text', 'hrjob_position', ts('Position'), CRM_Core_DAO::getAttribute('CRM_HRJob_DAO_HRJob', 'position'));
-      $form->addElement('text', 'hrjob_title', ts('Title'), CRM_Core_DAO::getAttribute('CRM_HRJob_DAO_HRJob', 'title'));
+    //if (!CRM_Core_Permission::check('access HRJobs')) { echo 'not accessible'; return; }
+    if ($type  == 'hrjobcontract') {
+      $form->add('hidden', 'hidden_hrjobcontract', 1);
+      $form->addElement('text', 'hrjob_position', ts('Position'), CRM_Core_DAO::getAttribute('CRM_Hrjobcontract_DAO_HRJobContract', 'position'));
+      $form->addElement('text', 'hrjob_title', ts('Title'), CRM_Core_DAO::getAttribute('CRM_Hrjobcontract_DAO_HRJobContract', 'title'));
       $form->add('select', 'hrjob_role_level_type', ts('Level'),
-        CRM_Core_PseudoConstant::get('CRM_HRJob_DAO_HRJobRole', 'level_type'), FALSE,
-        array('id' => 'hrjob_level_type', 'multiple' => 'multiple', 'title' => ts('- select -'))
+        CRM_Core_PseudoConstant::get('CRM_Hrjobcontract_DAO_HRJobRole', 'hrjob_role_level_type'), FALSE,
+        array('id' => 'hrjob_role_level_type', 'multiple' => 'multiple', 'title' => ts('- select -'))
       );
       $form->add('select', 'hrjob_contract_type', ts('Contract Type'),
-        CRM_Core_PseudoConstant::get('CRM_HRJob_DAO_HRJob', 'contract_type'), FALSE,
+        CRM_Core_PseudoConstant::get('CRM_Hrjobcontract_DAO_HRJobData', 'hrjob_contract_type'), FALSE,
         array('id' => 'hrjob_contract_type', 'multiple' => 'multiple', 'title' => ts('- select -'))
       );
       CRM_Core_Form_Date::buildDateRange($form, 'hrjob_period_start_date', 1, '_low', '_high', ts('From:'), FALSE, FALSE);
       CRM_Core_Form_Date::buildDateRange($form, 'hrjob_period_end_date', 1, '_low', '_high', ts('From:'), FALSE, FALSE);
     }
-    if ($type  == 'hrjob_health') {
-      $form->add('hidden', 'hidden_hrjob_health', 1);
+    if ($type  == 'hrjobcontract_health') {
+      $form->add('hidden', 'hidden_hrjobcontract_health', 1);
       $form->add('checkbox', 'hrjob_is_healthcare', ts('Is healthcare provided?'));
     }
-    if ($type  == 'hrjob_hour') {
-      $form->add('hidden', 'hidden_hrjob_hour', 1);
-      $hoursType = CRM_Core_PseudoConstant::get('CRM_HRJob_DAO_HRJobHour', 'hours_type');
+    if ($type  == 'hrjobcontract_hour') {
+      $form->add('hidden', 'hidden_hrjobcontract_hour', 1);
+      $hoursType = CRM_Core_PseudoConstant::get('CRM_Hrjobcontract_DAO_HRJobHour', 'hrjob_hours_type');
       $form->add('select', 'hrjob_hours_type', ts('Hours Types'), $hoursType, FALSE,
         array('id' => 'hrjob_hours_type', 'multiple' => 'multiple', 'title' => ts('- select -'))
       );
@@ -310,35 +321,35 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
       $form->add('text', 'hrjob_hours_fte_high', ts('To'), array('size' => 8, 'maxlength' => 8));
       $form->addRule('hrjob_hours_fte_high', ts('Please enter a valid decimal value (e.g. %1).', array(1 => CRM_Utils_Money::format('99.99', ' '))), 'money');
     }
-    if ($type  == 'hrjob_pension') {
-      $form->add('hidden', 'hidden_hrjob_pension', 1);
+    if ($type  == 'hrjobcontract_pension') {
+      $form->add('hidden', 'hidden_hrjobcontract_pension', 1);
       $form->addYesNo( 'hrjob_is_enrolled', ts('Is enrolled?'));
     }
-    if ($type  == 'hrjob_pay') {
-      $form->add('hidden', 'hidden_hrjob_pay', 1);
-      $form->add('select', 'hrjob_pay_grade', ts('Paid / Unpaid'),
-        CRM_Core_PseudoConstant::get('CRM_HRJob_DAO_HRJobPay', 'is_paid'), FALSE,
-        array('id' => 'hrjob_pay_grade', 'multiple' => 'multiple', 'title' => ts('- select -'))
+    if ($type  == 'hrjobcontract_pay') {
+      $form->add('hidden', 'hidden_hrjobcontract_pay', 1);
+      $form->add('select', 'hrjob_is_paid', ts('Paid / Unpaid'),
+        CRM_Core_PseudoConstant::get('CRM_Hrjobcontract_DAO_HRJobPay', 'is_paid'), FALSE,
+        array('id' => 'hrjob_is_paid', 'multiple' => 'multiple', 'title' => ts('- select -'))
       );
     }
   }
 
   public function setAdvancedSearchPaneTemplatePath(&$paneTemplatePathArray, $type) {
-    if (!CRM_Core_Permission::check('access HRJobs')) return;
-    if ($type  == 'hrjob') {
-      $paneTemplatePathArray['hrjob'] = 'CRM/HRJob/Form/Search/Criteria/Job.tpl';
+    //if (!CRM_Core_Permission::check('access HRJobs')) { echo 'not accessible'; return; }
+    if ($type  == 'hrjobcontract') {
+      $paneTemplatePathArray['hrjobcontract'] = 'CRM/Hrjobcontract/Form/Search/Criteria/JobContract.tpl';
     }
-    if ($type  == 'hrjob_hour') {
-      $paneTemplatePathArray['hrjob_hour'] = 'CRM/HRJob/Form/Search/Criteria/Hour.tpl';
+    if ($type  == 'hrjobcontract_hour') {
+      $paneTemplatePathArray['hrjobcontract_hour'] = 'CRM/Hrjobcontract/Form/Search/Criteria/Hour.tpl';
     }
-    if ($type  == 'hrjob_health') {
-      $paneTemplatePathArray['hrjob_health'] = 'CRM/HRJob/Form/Search/Criteria/Health.tpl';
+    if ($type  == 'hrjobcontract_health') {
+      $paneTemplatePathArray['hrjobcontract_health'] = 'CRM/Hrjobcontract/Form/Search/Criteria/Health.tpl';
     }
-    if ($type  == 'hrjob_pension') {
-      $paneTemplatePathArray['hrjob_pension'] = 'CRM/HRJob/Form/Search/Criteria/Pension.tpl';
+    if ($type  == 'hrjobcontract_pension') {
+      $paneTemplatePathArray['hrjobcontract_pension'] = 'CRM/Hrjobcontract/Form/Search/Criteria/Pension.tpl';
     }
-    if ($type  == 'hrjob_pay') {
-      $paneTemplatePathArray['hrjob_pay'] = 'CRM/HRJob/Form/Search/Criteria/Pay.tpl';
+    if ($type  == 'hrjobcontract_pay') {
+      $paneTemplatePathArray['hrjobcontract_pay'] = 'CRM/Hrjobcontract/Form/Search/Criteria/Pay.tpl';
     }
   }
 
@@ -356,9 +367,11 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
    * @void
    */
   public function alterSearchBuilderOptions(&$apiEntities, &$fieldOptions) {
-    if (!CRM_Core_Permission::check('access HRJobs')) return;
+    //if (!CRM_Core_Permission::check('access HRJobs')) { echo 'not accessible'; return; }
     $apiEntities = array_merge($apiEntities, array(
-      'HRJob',
+      //'HRJob',
+      'HRJobContract',
+      'HRJobData',
       'HRJobHealth',
       'HRJobHour',
       'HRJobPay',

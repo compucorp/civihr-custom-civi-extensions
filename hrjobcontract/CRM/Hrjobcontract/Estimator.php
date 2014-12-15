@@ -179,49 +179,32 @@ class CRM_HRJobcontract_Estimator {
           )
         );
         if (empty($unit)) {
-          //echo '111';
           CRM_Core_DAO::executeQuery('UPDATE civicrm_hrjobcontract_pay SET pay_unit = NULL WHERE jobcontract_revision_id = %1', array(
             1 => array((int)$revision['pay_revision_id'], 'Integer')
           ));
-          //echo '222';
           return;
         }
-        //echo '333';
-        //echo 'unit:' . $unit . "\n";
         if ($unit == self::YEAR_UNIT) {
           $multiplier = 1;
-          //echo '444';
         }
         else {
-            //echo '555';
-            //echo 'unitSettingMap:';
-            //var_dump(self::$unitSettingMap);
-            //echo 'array_keys:';
-            //var_dump(array_keys(self::$unitSettingMap));
             $settings = civicrm_api3('Setting', 'getsingle', array(
                 'sequential' => 1,
                 //'debug' => 1,
                 'entity' => 'Setting',
                 'return' => array_keys(self::$unitSettingMap),
             ));
-          //echo '666';
-          //echo 'settings:';
-          //var_dump($settings);
           $multiplier = self::getEstimateValue($unit, $settings);
         }
-        //echo '777';
         $optionGroup = civicrm_api3('OptionGroup', 'getsingle', array(
           'sequential' => 1,
           'name' => "hrjob_hours_type",
         ));
-        //echo 'optionGroup:';
-        //var_dump($optionGroup);
         $result = civicrm_api3('OptionValue', 'getsingle', array(
           'sequential' => 1,
           'option_group_id' => $optionGroup['id'],
           'name' => "Full_Time",
         ));
-        //echo '888';
         $hour = $result['value'] ? $result['value'] : $settings['work_hour_per_day'];
 
         // See also: CRM_HRJob_Estimator::updateEstimatesByUnit (plural)
@@ -242,6 +225,5 @@ class CRM_HRJobcontract_Estimator {
             5 => array((int)$revision['hour_revision_id'], 'Integer'),
           )
         );
-        //echo '999';
   }
 }

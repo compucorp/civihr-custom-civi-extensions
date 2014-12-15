@@ -1,7 +1,6 @@
-<?php
-/*
+{*
  +--------------------------------------------------------------------+
- | CiviHR version 1.4                                                |
+ | CiviHR version 1.4                                                 |
  +--------------------------------------------------------------------+
  | Copyright CiviCRM LLC (c) 2004-2014                                |
  +--------------------------------------------------------------------+
@@ -23,37 +22,44 @@
  | GNU Affero General Public License or the licensing of CiviCRM,     |
  | see the CiviCRM license FAQ at http://civicrm.org/licensing        |
  +--------------------------------------------------------------------+
-*/
+*}
+<h3>{ts}Edit Hour Type Option{/ts}</h3>
+  <div class="crm-block crm-form-block crm-edit-hour-option-form-block">
+    <table class="form-layout" style="height:100px; width:50%;">
+      <tr>
+        <thead class="sticky">
+          <th>Label</th>
+          <th>Value</th>
+        </thead>
+      </tr>
+      {foreach from=$optionGroupIds item=row}
+      <tr id="HRJob-EditOption-{$row.id}" class="crm-entity {cycle values="odd-row,even-row"}">
+        <td >{$row.label}</td>
+        <td >{$row.value}</td>
+      </tr>
+      {/foreach}
+    </table>
+    </br><hr></br>
+    <div class="crm-submit-buttons">{include file="CRM/common/formButtons.tpl" location="top"}</div></br>
+    <table class="form-layout">
+      <tr>
+        <td class="label">{$form.hour_type_select.label}</td>
+        <td class="html-adjust">{$form.hour_type_select.html}</td>
+      </tr>
+      <tr>
+        <td class="label">{$form.hour_value.label}</td>
+        <td class="html-adjust">{$form.hour_value.html}</td>
+      </tr>
+    </table></br>
+    <div class="crm-submit-buttons">{include file="CRM/common/formButtons.tpl" location="bottom"}</div>
+  </div>
 
-/**
- *
- * @package CRM
- * @copyright CiviCRM LLC (c) 2004-2013
- * $Id$
- *
- */
-
-/**
- * This class gets the name of the file to upload
- */
-class CRM_Hrjobcontract_Import_Form_DataSource extends CRM_HRJob_Import_Form_DataSourceBaseClass {
-  public $_parser = 'CRM_Hrjobcontract_Import_Parser_Api';
-  protected $_enableContactOptions = FALSE;
-  protected $_userContext = 'civicrm/job/import';
-  protected $_mappingType = 'Import Job';
-  protected $_entity = array('HRJobContract', 'HRJobData', 'HRJobRevision', 'HRJobPay', 'HRJobHealth', 'HRJobPension', 'HRJobHour', 'HRJobLeave');
-  /**
-  * Include duplicate options
-  */
-  protected $isDuplicateOptions = FALSE;
-
-    /**
-   * Function to actually build the form - this appears to be entirely code that should be in a shared baseclass in core
-   *
-   * @return None
-   * @access public
-   */
-  public function buildQuickForm() {
-    parent::buildQuickForm();
-  }
-}
+{literal}
+<script type="text/javascript" >
+  CRM.$(function($) {
+  $('#hour_type_select').change(function() {
+    $('#hour_value').val($(this).val());
+    });
+  });
+</script>
+{/literal}

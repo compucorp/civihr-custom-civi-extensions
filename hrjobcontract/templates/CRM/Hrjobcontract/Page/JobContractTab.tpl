@@ -5,16 +5,20 @@
     <div class="container" ng-view>
     </div>
 </div>
+{literal}
 <script type="text/javascript">
     /**
      * TODO
      */
-    
-    var appKey = '{$smarty.const.CIVICRM_SITE_KEY}';
-    var userKey = 'demoapikey';
-    
-    document.dispatchEvent(new Event('hrjcLoad'));
+
+    document.dispatchEvent(new CustomEvent('hrjcLoad', {
+        detail: {
+            keyApi: "demoapikey",
+            key: "{/literal}{$smarty.const.CIVICRM_SITE_KEY}{literal}"
+        }
+    }));
     /**
      *
      */
 </script>
+{/literal}

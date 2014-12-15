@@ -59,18 +59,6 @@ define(['services/services'], function (services) {
                 });
 
                 return deffered.promise;
-            },
-            saveContract: function(){
-                var deffered = $q.defer();
-
-                deffered.resolve({
-                    "status": "ok"
-                });
-
-                return deffered.promise;
-            },
-            createContract: function(){
-
             }
         }
 

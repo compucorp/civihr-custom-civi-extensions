@@ -1,6 +1,6 @@
-console.log('Controller: ModalFormCtrl');
+console.log('Controller: ModalContractChangeCtrl');
 define(['controllers/controllers'], function(controllers){
-    controllers.controller('ModalFormCtrl',['$scope','$modalInstance','details',
+    controllers.controller('ModalContractChangeCtrl',['$scope','$modalInstance','details',
         function($scope, $modalInstance, details){
 
             $scope.details = {};

@@ -49,18 +49,8 @@ require([
 ],function(angular, app){
     'use strict';
 
-    app.constant('settings', {
-        classNamePrefix: 'hrjobcont-',
-        contactId: decodeURIComponent((new RegExp('[?|&]cid=([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null,
-        keyApi: 'd3m04p1k3y',
-        key: 'CJrFwwNZ1YhA24SK',
-        pathApp: '/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract',
-        pathRest: '/sites/all/modules/civicrm/extern/rest.php'
-    });
-
     app.config(['settings','$routeProvider','$resourceProvider',
         function(settings, $routeProvider, $resourceProvider){
-
             $routeProvider.
                 when('/', {
                     controller: 'ContractListCtrl',
@@ -84,8 +74,19 @@ require([
     ]);
 
     //TODO
-    document.addEventListener('hrjcLoad', function(){
+    document.addEventListener('hrjcLoad', function(e){
+
+        app.constant('settings', {
+            classNamePrefix: 'hrjobcont-',
+            contactId: decodeURIComponent((new RegExp('[?|&]cid=([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null,
+            pathApp: '/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract',
+            keyApi: e.detail.keyApi,
+            key: e.detail.key,
+            pathRest: '/sites/all/modules/civicrm/extern/rest.php'
+        });
+
         angular.bootstrap(document.getElementById('hrjob-contract'), ['hrjc']);
+
     });
 
 })

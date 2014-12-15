@@ -388,19 +388,19 @@ class CRM_Hrjobcontract_DAO_HRJobData extends CRM_Hrjobcontract_DAO_Base
         self::$_fieldKeys = self::setFieldKeys(
             array(
                 'id' => 'id',
-                'position' => 'position',
-                'title' => 'title',
+                'position' => 'hrjob_position',
+                'title' => 'hrjob_title',
                 'funding_notes' => 'funding_notes',
-                'contract_type' => 'contract_type',
-                'period_type' => 'period_type',
+                'contract_type' => 'hrjob_contract_type',
+                'period_type' => 'hrjob_period_start_date',
                 'period_start_date' => 'period_start_date',
-                'period_end_date' => 'period_end_date',
-                'notice_amount' => 'notice_amount',
-                'notice_unit' => 'notice_unit',
-                'notice_amount_employee' => 'notice_amount_employee',
-                'notice_unit_employee' => 'notice_unit_employee',
-                'location' => 'location',
-                'is_primary' => 'is_primary',
+                'period_end_date' => 'hrjob_period_end_date',
+                'notice_amount' => 'hrjob_notice_amount',
+                'notice_unit' => 'hrjob_notice_unit',
+                'notice_amount_employee' => 'hrjob_notice_amount_employee',
+                'notice_unit_employee' => 'hrjob_notice_unit_employee',
+                'location' => 'hrjob_location',
+                'is_primary' => 'hrjob_is_primary',
             )
         );
     }

@@ -42,7 +42,26 @@ function civicrm_api3_h_r_job_contract_delete($params) {
  * @throws API_Exception
  */
 function civicrm_api3_h_r_job_contract_get($params) {
-    return _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params);
+    $contracts = _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params);
+    foreach ($contracts['values'] as $key => $contract)
+    {
+        $isCurrent = true;
+        $contractData = civicrm_api3('HRJobData', 'get', array(
+            'sequential' => 1,
+            'jobcontract_id' => $contract['id'],
+        ));
+        $data = CRM_Utils_Array::first($contractData['values']);
+        if (!empty($data['period_end_date']))
+        {
+            if ($data['period_end_date'] < date('Y-m-d'))
+            {
+                $isCurrent = false;
+            }
+        }
+        $contracts['values'][$key]['is_current'] = (int)$isCurrent;
+    }
+    
+    return $contracts;
 }
 
 /*

@@ -10,7 +10,6 @@
     /**
      * TODO
      */
-
     document.dispatchEvent(new CustomEvent('hrjcLoad', {
         detail: {
             keyApi: "demoapikey",

@@ -8,16 +8,21 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
   public function install() {
     // $this->executeCustomDataFile('xml/customdata.xml');
     $this->executeSqlFile('sql/install.sql');
+    
+    CRM_Core_DAO::executeQuery("
+      INSERT INTO `civicrm_contact` (`contact_type`, `contact_sub_type`, `do_not_email`, `do_not_phone`, `do_not_mail`, `do_not_sms`, `do_not_trade`, `is_opt_out`, `legal_identifier`, `external_identifier`, `sort_name`, `display_name`, `nick_name`, `legal_name`, `image_URL`, `preferred_communication_method`, `preferred_language`, `preferred_mail_format`, `hash`, `api_key`, `source`, `first_name`, `middle_name`, `last_name`, `prefix_id`, `suffix_id`, `formal_title`, `communication_style_id`, `email_greeting_id`, `email_greeting_custom`, `email_greeting_display`, `postal_greeting_id`, `postal_greeting_custom`, `postal_greeting_display`, `addressee_id`, `addressee_custom`, `addressee_display`, `job_title`, `gender_id`, `birth_date`, `is_deceased`, `deceased_date`, `household_name`, `primary_contact_id`, `organization_name`, `sic_code`, `user_unique_id`, `employer_id`, `is_deleted`, `created_date`, `modified_date`) VALUES
+      ('Individual', NULL, 0, 0, 0, 0, 0, 0, NULL, NULL, 'apiclient', 'apiclient@compucorp.co.uk', NULL, NULL, NULL, NULL, 'en_US', 'Both', '', 'demoapikey', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 'Dear', 1, NULL, 'Dear', 1, NULL, '', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2014-12-01 13:59:51', '2014-12-11 15:51:50');
+    ");
   }
   
-  public function upgrade_u0010() {
+/*  public function upgrade_u0010() {
       $this->ctx->log->info('Applying update 0010');
       CRM_Core_DAO::executeQuery("
         INSERT INTO `civicrm_contact` (`contact_type`, `contact_sub_type`, `do_not_email`, `do_not_phone`, `do_not_mail`, `do_not_sms`, `do_not_trade`, `is_opt_out`, `legal_identifier`, `external_identifier`, `sort_name`, `display_name`, `nick_name`, `legal_name`, `image_URL`, `preferred_communication_method`, `preferred_language`, `preferred_mail_format`, `hash`, `api_key`, `source`, `first_name`, `middle_name`, `last_name`, `prefix_id`, `suffix_id`, `formal_title`, `communication_style_id`, `email_greeting_id`, `email_greeting_custom`, `email_greeting_display`, `postal_greeting_id`, `postal_greeting_custom`, `postal_greeting_display`, `addressee_id`, `addressee_custom`, `addressee_display`, `job_title`, `gender_id`, `birth_date`, `is_deceased`, `deceased_date`, `household_name`, `primary_contact_id`, `organization_name`, `sic_code`, `user_unique_id`, `employer_id`, `is_deleted`, `created_date`, `modified_date`) VALUES
         ('Individual', NULL, 0, 0, 0, 0, 0, 0, NULL, NULL, 'apiclient', 'apiclient@compucorp.co.uk', NULL, NULL, NULL, NULL, 'en_US', 'Both', '', 'demoapikey', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 'Dear', 1, NULL, 'Dear', 1, NULL, '', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2014-12-01 13:59:51', '2014-12-11 15:51:50');
       ");
       return TRUE;
-  }
+  }*/
   
   public function upgrade_u0999() {
     $this->ctx->log->info('Applying update 0999');

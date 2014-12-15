@@ -2,15 +2,16 @@
     <li ng-repeat="contract in contractCurrent" ng-controller="ContractCtrl" ng-include src="'contract.html'"></li>
 </ul>
 
-<h3>Past Job Contracts:</h3>
+<h3 ng-show="contractPast.length">Past Job Contracts:</h3>
 <ul class="{{prefix}}list-contract">
     <li ng-repeat="contract in contractPast" ng-controller="ContractCtrl" ng-include src="'contract.html'"></li>
 </ul>
 <p>
-    <a href="#" class="btn btn-default btn-sm btn-primary" role="button">
+    <button class="btn btn-default btn-sm btn-primary" ng-click="modalContract('new')">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Job Contract
-    </a>
+    </button>
 </p>
+
 
 <script type="text/ng-template" id="contract.html">
     <div class="panel panel-default {{prefix}}panel-action">
@@ -103,7 +104,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="title" class="col-sm-4 control-label">Title</label>
+                                                        <label class="col-sm-4 control-label">Title</label>
                                                         <div class="col-sm-6">
                                                             <p class="form-control-static">{{details.title}}</p>
                                                         </div>

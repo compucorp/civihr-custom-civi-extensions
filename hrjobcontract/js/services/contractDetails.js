@@ -39,15 +39,10 @@ define(['services/services'], function (services) {
                     return null;
                 }
 
-                if (!contractDetails.id || typeof +contractDetails.id !== 'number') {
-                    return null;
-                }
-
                 var deffered = $q.defer(),
                     params = angular.extend({
                         sequential: 1
-                    },contractDetails),
-                    val;
+                    },contractDetails);
 
                 ContractDetails.save({
                     action: 'create',

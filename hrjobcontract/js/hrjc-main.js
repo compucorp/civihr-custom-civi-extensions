@@ -43,6 +43,7 @@ require([
     'controllers/contract',
     'controllers/modalContractChange',
     'controllers/modalContractEdit',
+    'controllers/modalContractNew',
     'controllers/modalContractView',
     'controllers/modalRevision',
     'filters/formatPeriod'
@@ -54,7 +55,7 @@ require([
             $routeProvider.
                 when('/', {
                     controller: 'ContractListCtrl',
-                    templateUrl: settings.pathApp+'/views/listContract.html?v='+(new Date()).getTime(),
+                    templateUrl: settings.pathApp+'/views/contractList.html?v='+(new Date()).getTime(),
                     resolve: {
                         contractList: function(ContractService){
                             return ContractService.get()

@@ -3,7 +3,8 @@ define(['controllers/controllers','services/contractDetails'], function(controll
     controllers.controller('ContractCtrl',['$scope', '$modal', '$rootElement', 'ContractDetailsService', 'settings',
         function($scope, $modal, $rootElement, ContractDetailsService, settings){
 
-            $scope.isCollapsed = !!$scope.$index;
+            //$scope.isCollapsed = !!$scope.$index;
+            $scope.isCollapsed = true;
 
             var promiseContractDetails = ContractDetailsService.getOne($scope.contract.id);
             promiseContractDetails.then(function(contractDetails){

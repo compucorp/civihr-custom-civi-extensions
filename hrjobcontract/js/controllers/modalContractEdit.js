@@ -11,7 +11,7 @@ define(['controllers/controllers','services/contractDetails'], function(controll
             angular.copy(details,$scope.details);
 
             $scope.cancel = function () {
-                $modalInstance.dismiss();
+                $modalInstance.dismiss('cancel');
             };
 
             $scope.save = function () {

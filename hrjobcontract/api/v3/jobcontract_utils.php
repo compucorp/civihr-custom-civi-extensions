@@ -53,6 +53,20 @@ function _civicrm_hrjobcontract_api3_set_current_revision(array &$params, $table
  */
 function _civicrm_hrjobcontract_api3_create_revision($jobContractId)
 {
+    // Setting status of current revision:
+    $pastRevisions = civicrm_api3('HRJobContractRevision', 'get', array(
+      'sequential' => 1,
+      'jobcontract_id' => $jobContractId,
+      'status' => 1,
+    ));
+    foreach ($pastRevisions['values'] as $pastRevision)
+    {
+        civicrm_api3('HRJobContractRevision', 'create', array(
+            'id' => $pastRevision['id'],
+            'status' => 0,
+        ));
+    }
+    
     $currentRevision = _civicrm_hrjobcontract_api3_get_current_revision((int)$jobContractId);
     if (empty($currentRevision))
     {
@@ -62,6 +76,7 @@ function _civicrm_hrjobcontract_api3_create_revision($jobContractId)
     {
         unset($currentRevision['values']['id']);
     }
+    $currentRevision['values']['status'] = 1;
     $result = civicrm_api3('HRJobContractRevision', 'create', $currentRevision['values']);
     
     return $result;

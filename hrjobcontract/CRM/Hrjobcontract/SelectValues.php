@@ -35,7 +35,7 @@
  * $Id$
  *
  */
-class CRM_HRJobcontract_SelectValues {
+class CRM_Hrjobcontract_SelectValues {
 
   /**CRM/HRJob/SelectValues.php
    * different types of plan

@@ -8,8 +8,7 @@ require.config({
         angularRoute: 'vendor/angular/angular-route.min',
         bootstrap: 'vendor/bootstrap',
         jquery: 'vendor/jquery/jquery.min',
-        jqueryPrivate: 'vendor/jquery/jquery-private',
-        mock: 'hrjc-mock'
+        jqueryPrivate: 'vendor/jquery/jquery-private'
     },
     map: {
         '*': {

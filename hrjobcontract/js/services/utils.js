@@ -33,6 +33,8 @@ define(['services/services'], function (services) {
 
                 AbsenceType.get(function(data){
                     deffered.resolve(data)
+                },function(){
+                    deffered.reject('Unable to fetch absence types');
                 });
 
                 return derrefed.promise;

@@ -1,12 +1,12 @@
 <?php
 
-class CRM_Hrjobcontract_BAO_HRJobData extends CRM_Hrjobcontract_DAO_HRJobData {
+class CRM_Hrjobcontract_BAO_HRJobDetails extends CRM_Hrjobcontract_DAO_HRJobDetails {
 
     /**
-     * Create a new HRJobData based on array-data
+     * Create a new HRJobDetails based on array-data
      *
      * @param array $params key-value pairs
-     * @return CRM_HRJob_DAO_HRJobData|NULL
+     * @return CRM_HRJob_DAO_HRJobDetails|NULL
      *
      */
     public static function create($params) {
@@ -17,7 +17,7 @@ class CRM_Hrjobcontract_BAO_HRJobData extends CRM_Hrjobcontract_DAO_HRJobData {
             CRM_Core_BAO_Block::handlePrimary($params, get_class());
         }
         
-        $currentInstanceResult = civicrm_api3('HRJobData', 'get', array(
+        $currentInstanceResult = civicrm_api3('HRJobDetails', 'get', array(
             'sequential' => 1,
             'id' => $instance->id,
         ));
@@ -44,7 +44,7 @@ class CRM_Hrjobcontract_BAO_HRJobData extends CRM_Hrjobcontract_DAO_HRJobData {
    * @return int
    */
   public static function getRecordCount($params) {
-    $dao = new CRM_Hrjobcontract_DAO_HRJobData();
+    $dao = new CRM_Hrjobcontract_DAO_HRJobDetails();
     $dao->copyValues($params);
     return $dao->count();
   }
@@ -65,7 +65,7 @@ class CRM_Hrjobcontract_BAO_HRJobData extends CRM_Hrjobcontract_DAO_HRJobData {
    * @access public
    * @static
    */
-  static function importableFields($contactType = 'HRJobData',
+  static function importableFields($contactType = 'HRJobDetails',
     $status          = FALSE,
     $showAll         = FALSE,
     $isProfile       = FALSE,
@@ -73,7 +73,7 @@ class CRM_Hrjobcontract_BAO_HRJobData extends CRM_Hrjobcontract_DAO_HRJobData {
     $withMultiCustomFields = FALSE
   ) {
     if (empty($contactType)) {
-      $contactType = 'HRJobData';
+      $contactType = 'HRJobDetails';
     }
 
     $cacheKeyString = "";
@@ -86,9 +86,9 @@ class CRM_Hrjobcontract_BAO_HRJobData extends CRM_Hrjobcontract_DAO_HRJobData {
     $fields = null;
 
     if (!$fields) {
-      $fields = CRM_Hrjobcontract_DAO_HRJobData::import();
+      $fields = CRM_Hrjobcontract_DAO_HRJobDetails::import();
 
-      $fields = array_merge($fields, CRM_Hrjobcontract_DAO_HRJobData::import());
+      $fields = array_merge($fields, CRM_Hrjobcontract_DAO_HRJobDetails::import());
 
       //Sorting fields in alphabetical order(CRM-1507)
       $fields = CRM_Utils_Array::crmArraySortByField($fields, 'title');

@@ -33,7 +33,7 @@
  * $Id$
  *
  */
-class CRM_HRJobcontract_Form_EditHourOption extends CRM_Core_Form {
+class CRM_Hrjobcontract_Form_EditHourOption extends CRM_Core_Form {
   public $_optionValue = array();
   public $_id = array();
 
@@ -67,7 +67,7 @@ class CRM_HRJobcontract_Form_EditHourOption extends CRM_Core_Form {
         ),
       )
     );
-    $optionGroupId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjob_hours_type', 'id', 'name');
+    $optionGroupId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjc_hours_type', 'id', 'name');
     $optionGroupIds = CRM_Core_BAO_OptionValue::getOptionValuesArray($optionGroupId);
     foreach($optionGroupIds as $key => $value) {
       $this->_optionValue[$value['value']] = $value['label'];

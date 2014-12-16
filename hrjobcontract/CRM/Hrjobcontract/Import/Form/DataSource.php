@@ -41,7 +41,7 @@ class CRM_Hrjobcontract_Import_Form_DataSource extends CRM_HRJob_Import_Form_Dat
   protected $_enableContactOptions = FALSE;
   protected $_userContext = 'civicrm/job/import';
   protected $_mappingType = 'Import Job';
-  protected $_entity = array('HRJobContract', 'HRJobData', 'HRJobRevision', 'HRJobPay', 'HRJobHealth', 'HRJobPension', 'HRJobHour', 'HRJobLeave');
+  protected $_entity = array('HRJobContract', 'HRJobDetails', 'HRJobRevision', 'HRJobPay', 'HRJobHealth', 'HRJobPension', 'HRJobHour', 'HRJobLeave');
   /**
   * Include duplicate options
   */

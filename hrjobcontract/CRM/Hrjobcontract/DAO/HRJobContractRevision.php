@@ -169,12 +169,12 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
           'title' => ts('Status') ,
           'required' => false,
         ) ,
-        'data_revision_id' => array(
-          'name' => 'data_revision_id',
+        'details_revision_id' => array(
+          'name' => 'details_revision_id',
           'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Data Revision Id'),
+          'title' => ts('Details Revision Id'),
           'required' => false,
-          'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJobData',
+          'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJobDetails',
         ) ,
         'health_revision_id' => array(
           'name' => 'health_revision_id',
@@ -238,7 +238,7 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
         'created_date' => 'created_date',
         'modified_date' => 'modified_date',
         'status' => 'status',
-        'data_revision_id' => 'data_revision_id',
+        'details_revision_id' => 'details_revision_id',
         'health_revision_id' => 'health_revision_id',
         'hour_revision_id' => 'hour_revision_id',
         'leave_revision_id' => 'leave_revision_id',

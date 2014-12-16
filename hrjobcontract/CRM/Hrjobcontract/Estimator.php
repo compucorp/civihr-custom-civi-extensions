@@ -88,7 +88,7 @@ class CRM_HRJobcontract_Estimator {
     // After HR-1.2.0 ships, don't make changes to the logic of upgrade_1202.
     $result = civicrm_api3('OptionValue', 'getsingle', array(
       'sequential' => 1,
-      'option_group_id' => 'hrjob_hours_type',
+      'option_group_id' => 'hrjc_hours_type',
       'name' => "Full_Time",
     ));
     $hour = $result['value'] ? $result['value'] : $settings['work_hour_per_day'];
@@ -137,7 +137,7 @@ class CRM_HRJobcontract_Estimator {
     }
     $result = civicrm_api3('OptionValue', 'getsingle', array(
       'sequential' => 1,
-      'option_group_id' => 'hrjob_hours_type',
+      'option_group_id' => 'hrjc_hours_type',
       'name' => "Full_Time",
     ));
     $hour = $result['value'] ? $result['value'] : $settings['work_hour_per_day'];
@@ -198,7 +198,7 @@ class CRM_HRJobcontract_Estimator {
         }
         $optionGroup = civicrm_api3('OptionGroup', 'getsingle', array(
           'sequential' => 1,
-          'name' => "hrjob_hours_type",
+          'name' => "hrjc_hours_type",
         ));
         $result = civicrm_api3('OptionValue', 'getsingle', array(
           'sequential' => 1,

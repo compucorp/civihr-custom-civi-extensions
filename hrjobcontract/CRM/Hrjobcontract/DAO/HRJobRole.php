@@ -269,7 +269,7 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
                   'dataPattern' => '',
                   'export' => true,
                   'pseudoconstant' => array(
-                    'optionGroupName' => 'hrjob_region',
+                    'optionGroupName' => 'hrjc_region',
                   )
                 ) ,
                 'hrjob_role_department' => array(
@@ -283,7 +283,7 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
                   'headerPattern' => '',
                   'dataPattern' => '',
                   'pseudoconstant' => array(
-                    'optionGroupName' => 'hrjob_department',
+                    'optionGroupName' => 'hrjc_department',
                   )
                 ) ,
                 'hrjob_role_level_type' => array(
@@ -298,7 +298,7 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
                   'dataPattern' => '',
                   'export' => true,
                   'pseudoconstant' => array(
-                    'optionGroupName' => 'hrjob_level_type',
+                    'optionGroupName' => 'hrjc_level_type',
                   )
                 ) ,
                 'manager_contact_id' => array(
@@ -369,7 +369,7 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
                   'maxlength' => 127,
                   'size' => CRM_Utils_Type::HUGE,
                   'pseudoconstant' => array(
-                    'optionGroupName' => 'hrjob_location',
+                    'optionGroupName' => 'hrjc_location',
                   )
                 ) ,
             )

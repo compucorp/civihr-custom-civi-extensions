@@ -187,7 +187,7 @@ class CRM_Hrjobcontract_DAO_HRJobHour extends CRM_Hrjobcontract_DAO_Base
                   'headerPattern' => '',
                   'dataPattern' => '',
                   'pseudoconstant' => array(
-                    'optionGroupName' => 'hrjob_hours_type',
+                    'optionGroupName' => 'hrjc_hours_type',
                   )
                 ) ,
                 'hrjob_hours_amount' => array(

@@ -2,7 +2,7 @@
 <CustomData>
   <OptionGroups>
     <OptionGroup>
-      <name>hrjob_pension_type</name>
+      <name>hrjc_pension_type</name>
       <title>Pension Type</title>
       <is_reserved>1</is_reserved>
       <is_active>1</is_active>
@@ -18,7 +18,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_pension_type</option_group_name>
+      <option_group_name>hrjc_pension_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Personal Pension</label>
@@ -29,7 +29,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_pension_type</option_group_name>
+      <option_group_name>hrjc_pension_type</option_group_name>
     </OptionValue>
   </OptionValues>
 </CustomData>

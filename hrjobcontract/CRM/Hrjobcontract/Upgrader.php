@@ -179,7 +179,7 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
         
         // Updating Revision:
         $updateRevisionQuery = 'UPDATE civicrm_hrjobcontract_revision SET '
-            . 'data_revision_id = %1,'
+            . 'details_revision_id = %1,'
             . 'health_revision_id = %2,'
             . 'hour_revision_id = %3,'
             . 'leave_revision_id = %4,'

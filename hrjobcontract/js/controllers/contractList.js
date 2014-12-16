@@ -8,7 +8,6 @@ define(['controllers/controllers'], function(controllers){
 
 
             $scope.modalContract = function(action){
-
                 if (!action || action !== 'new') {
                     return null;
                 }

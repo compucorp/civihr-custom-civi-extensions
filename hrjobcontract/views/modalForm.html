@@ -1,4 +1,4 @@
-<form class="form-horizontal {{prefix}}wizard" role="form">
+<form novalidate class="form-horizontal {{prefix}}wizard" role="form">
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span
             class="sr-only">Close</span></button>
@@ -15,24 +15,24 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="form-group required">
-                        <label for="position" class="col-sm-4 control-label">Position {{test}}</label>
+                        <label for="{{prefix}}position" class="col-sm-4 control-label">Position {{test}}</label>
 
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="position" ng-model="details.position" ng-disabled="isDisabled">
+                            <input type="text" class="form-control" id="{{prefix}}position" ng-model="details.position" ng-disabled="isDisabled" required>
                         </div>
                     </div>
                     <div class="form-group required">
-                        <label for="title" class="col-sm-4 control-label">Title</label>
+                        <label for="{{prefix}}title" class="col-sm-4 control-label">Title</label>
 
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="title" ng-model="details.title" ng-disabled="isDisabled">
+                            <input type="text" class="form-control" id="{{prefix}}title" ng-model="details.title" ng-disabled="isDisabled" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="contract-type" class="col-sm-4 control-label">Contract type</label>
+                        <label for="{{prefix}}contract-type" class="col-sm-4 control-label">Contract type</label>
 
                         <div class="col-sm-5">
-                            <select id="contract-type" class="form-control" ng-disabled="isDisabled">
+                            <select id="{{prefix}}contract-type" class="form-control" ng-model="details.contract_type" ng-disabled="isDisabled">
                                 <option value="">- select -</option>
                                 <option value="Apprentice" selected>Apprentice</option>
                                 <option value="Contractor">Contractor</option>
@@ -45,10 +45,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="place-of-work" class="col-sm-4 control-label">Normal Place of Work</label>
+                        <label for="{{prefix}}location" class="col-sm-4 control-label">Normal Place of Work</label>
 
                         <div class="col-sm-5">
-                            <select id="place-of-work" class="form-control" ng-disabled="isDisabled">
+                            <select id="{{prefix}}location" class="form-control" ng-model="details.location" ng-disabled="isDisabled">
                                 <option value="">- select -</option>
                                 <option value="Headquarters" selected>Headquarters</option>
                                 <option value="Home or Home-Office">Home or Home-Office</option>
@@ -56,17 +56,17 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="date-start" class="col-sm-4 control-label">Contract Start Date</label>
+                        <label for="{{prefix}}period-start-date" class="col-sm-4 control-label">Contract Start Date</label>
 
                         <div class="col-sm-4">
-                            <input type="date" class="form-control" id="date-start" ng-model="details.period_start_date" ng-disabled="isDisabled">
+                            <input type="date" class="form-control" id="{{prefix}}period-start-date" ng-model="details.period_start_date" ng-disabled="isDisabled">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="date-end" class="col-sm-4 control-label">Contract End Date</label>
+                        <label for="{{prefix}}period-end-date" class="col-sm-4 control-label">Contract End Date</label>
 
                         <div class="col-sm-4">
-                            <input type="date" class="form-control" id="date-end" ng-model="details.period_end_date" ng-disabled="isDisabled">
+                            <input type="date" class="form-control" id="{{prefix}}period-end-date" ng-model="details.period_end_date" ng-disabled="isDisabled">
                         </div>
                     </div>
                     <div class="form-group">
@@ -77,12 +77,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="notice-employer" class="col-sm-4 control-label">Notice Period from Employer</label>
+                        <label for="{{prefix}}notice-amount" class="col-sm-4 control-label">Notice Period from Employer</label>
 
                         <div class="col-sm-8">
                             <div class="form-inline">
-                                <input type="text" class="form-control input-inline-sm" id="notice-employer" ng-model="details.notice_amount" ng-disabled="isDisabled">
-                                <select id="notice-employer-unit" class="form-control" ng-disabled="isDisabled">
+                                <input type="text" class="form-control input-inline-sm" id="{{prefix}}notice-amount" ng-model="details.notice_amount" ng-disabled="isDisabled">
+                                <select id="{{prefix}}notice-unit" class="form-control" ng-model="details.notice_unit" ng-disabled="isDisabled">
                                     <option value="">- select -</option>
                                     <option value="Day">Day</option>
                                     <option value="Week" selected>Week</option>
@@ -93,12 +93,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="notice-employee" class="col-sm-4 control-label">Notice Period from Employee</label>
+                        <label for="{{prefix}}notice-amount-employee" class="col-sm-4 control-label">Notice Period from Employee</label>
 
                         <div class="col-sm-8">
                             <div class="form-inline">
-                                <input type="text" class="form-control input-inline-sm" id="notice-employee" ng-model="details.notice_amount_employee" ng-disabled="isDisabled">
-                                <select id="notice-employee-unit" class="form-control" ng-disabled="isDisabled">
+                                <input type="text" class="form-control input-inline-sm" id="{{prefix}}notice-amount-employee" ng-model="details.notice_amount_employee" ng-disabled="isDisabled">
+                                <select id="{{prefix}}notice-unit-employee" class="form-control" ng-model="details.notice_unit_employee" ng-disabled="isDisabled">
                                     <option value="">- select -</option>
                                     <option value="Day">Day</option>
                                     <option value="Week">Week</option>

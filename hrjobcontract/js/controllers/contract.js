@@ -1,15 +1,25 @@
 console.log('Controller: ContractCtrl');
-define(['controllers/controllers','services/contractDetails'], function(controllers){
-    controllers.controller('ContractCtrl',['$scope', '$modal', '$rootElement', 'ContractDetailsService', 'settings',
-        function($scope, $modal, $rootElement, ContractDetailsService, settings){
+define(['controllers/controllers','services/contractDetails','services/contractLeave'], function(controllers){
+    controllers.controller('ContractCtrl',['$scope', '$modal', '$rootElement', 'settings', 'ContractDetailsService',
+        'ContractLeaveService',
+        function($scope, $modal, $rootElement, settings, ContractDetailsService, ContractLeaveService){
 
             $scope.isCollapsed = !!$scope.$index;
-            //$scope.isCollapsed = true;
 
-            var promiseContractDetails = ContractDetailsService.getOne($scope.contract.id);
+            var contractId = $scope.contract.id;
+            var promiseContractDetails = ContractDetailsService.getOne(contractId),
+                promiseContractLeave = ContractLeaveService.get({ contractId: contractId});
+
+
             promiseContractDetails.then(function(contractDetails){
                 $scope.details = contractDetails;
                 $scope.details.is_primary = Boolean(+$scope.details.is_primary);
+            },function(reason){
+                console.log('Failed: ' + reason);
+            });
+
+            promiseContractLeave.then(function(contractLeave){
+                $scope.leave = contractLeave;
             },function(reason){
                 console.log('Failed: ' + reason);
             });
@@ -26,8 +36,12 @@ define(['controllers/controllers','services/contractDetails'], function(controll
                     templateUrl: settings.pathApp+'/views/modalForm.html?v='+(new Date()).getTime(),
                     size: 'lg',
                     resolve: {
-                        details: function(){
-                            return $scope.details
+                        contract: function(){
+                            console.log()
+                            return {
+                                details: $scope.details,
+                                leave: $scope.leave
+                            }
                         }
                     }
                 }

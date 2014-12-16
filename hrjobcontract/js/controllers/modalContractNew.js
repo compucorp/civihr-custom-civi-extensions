@@ -3,7 +3,7 @@ define(['controllers/controllers','services/contract','services/contract','servi
     controllers.controller('ModalContractNewCtrl',['$scope','$modalInstance','$log', 'Contract','ContractDetailsService','settings',
         function($scope, $modalInstance, $log, Contract, ContractDetailsService, settings){
 
-            $scope.details = {};
+            $scope.contract = {};
             $scope.title = 'Add New Job Contract';
             $scope.allowSave = true;
             $scope.isDisabled = false;
@@ -21,7 +21,7 @@ define(['controllers/controllers','services/contract','services/contract','servi
                         contact_id: settings.contactId
                     }
                 },function(data){
-                    var contractDetails = $scope.details;
+                    var contractDetails = $scope.contract.details;
                         contractDetails.jobcontract_id = data.values[0].id;
                         contractDetails.is_primary = 0;
 

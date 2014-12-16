@@ -1,10 +1,10 @@
 console.log('Controller: ModalContractChangeCtrl');
 define(['controllers/controllers'], function(controllers){
-    controllers.controller('ModalContractChangeCtrl',['$scope','$modalInstance','details',
-        function($scope, $modalInstance, details){
+    controllers.controller('ModalContractChangeCtrl',['$scope','$modalInstance','contract',
+        function($scope, $modalInstance, contract){
 
-            $scope.details = {};
-            angular.copy(details,$scope.details);
+            $scope.contract = {};
+            angular.copy(contract,$scope.contract);
 
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');

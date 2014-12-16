@@ -4,6 +4,7 @@ define(['controllers/controllers','services/contractDetails'], function(controll
         function($scope, $modal, $rootElement, ContractDetailsService, settings){
 
             $scope.isCollapsed = !!$scope.$index;
+            //$scope.isCollapsed = true;
 
             var promiseContractDetails = ContractDetailsService.getOne($scope.contract.id);
             promiseContractDetails.then(function(contractDetails){
@@ -26,7 +27,7 @@ define(['controllers/controllers','services/contractDetails'], function(controll
                     size: 'lg',
                     resolve: {
                         details: function(){
-                            return promiseContractDetails
+                            return $scope.details
                         }
                     }
                 }

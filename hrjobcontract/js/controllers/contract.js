@@ -4,7 +4,7 @@ define(['controllers/controllers','services/contractDetails','services/contractL
         'ContractLeaveService',
         function($scope, $modal, $rootElement, $q, settings, ContractDetailsService, ContractLeaveService){
 
-            $scope.isCollapsed = !!$scope.$index;
+            $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
 
             var contractId = $scope.contract.id,
                 promiseContractDetails = ContractDetailsService.getOne(contractId),
@@ -15,9 +15,8 @@ define(['controllers/controllers','services/contractDetails','services/contractL
                 leave: promiseContractLeave
             }).then(function(results){
                 $scope.details = results.details;
-                $scope.details.is_primary = Boolean(+$scope.details.is_primary);
+                $scope.details.is_primary = !!+$scope.details.is_primary;
 
-                console.log(results.leave);
                 $scope.leave = results.leave;
             });
 

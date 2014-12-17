@@ -3,11 +3,15 @@ define(['controllers/controllers', 'services/utils'], function(controllers){
     controllers.controller('ContractListCtrl',['$scope','$rootElement','$modal','contractList','UtilsService','settings',
         function($scope, $rootElement, $modal, contractList, UtilsService, settings){
 
-            $scope.contractCurrent = contractList;
+            $scope.contractCurrent = [];
             $scope.contractPast = [];
             $scope.utils = {
                 absenceType: {}
             };
+
+            angular.forEach(contractList,function(contract){
+                +contract.is_current ? $scope.contractCurrent.push(contract) : $scope.contractPast.push(contract);
+            });
 
             var promiseAbsenceType = UtilsService.getAbsenceType();
             promiseAbsenceType.then(function(absenceType){
@@ -39,7 +43,7 @@ define(['controllers/controllers', 'services/utils'], function(controllers){
                 modalInstance = $modal.open(options);
 
                 modalInstance.result.then(function(contract){
-                    $scope.contractCurrent.push(contract);
+                    +contract.is_current ? $scope.contractCurrent.push(contract) : $scope.contractPast.push(contract);
                 });
             }
 

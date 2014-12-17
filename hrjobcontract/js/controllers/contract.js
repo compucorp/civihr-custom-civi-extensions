@@ -1,8 +1,8 @@
 console.log('Controller: ContractCtrl');
 define(['controllers/controllers','services/contractDetails','services/contractLeave'], function(controllers){
-    controllers.controller('ContractCtrl',['$scope', '$modal', '$rootElement', '$q', 'settings', 'ContractDetailsService',
+    controllers.controller('ContractCtrl',['$scope','$route','$modal', '$rootElement', '$q', 'settings', 'ContractDetailsService',
         'ContractLeaveService',
-        function($scope, $modal, $rootElement, $q, settings, ContractDetailsService, ContractLeaveService){
+        function($scope, $route, $modal, $rootElement, $q, settings, ContractDetailsService, ContractLeaveService){
 
             $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
 
@@ -62,6 +62,11 @@ define(['controllers/controllers','services/contractDetails','services/contractL
                 modalInstance.result.then(function(results){
                     $scope.details = results.details;
                     $scope.leave = results.leave;
+
+                    if (results.requireReload) {
+                        $route.reload();
+                    }
+
                 });
             }
 

@@ -27,6 +27,7 @@ define(['controllers/controllers',
                     details: promiseContractDetails,
                     leave: promiseContractLeave
                 }).then(function(results){
+                    results.requireReload = contract.details.period_end_date !== results.details.period_end_date;
                     $modalInstance.close(results);
                 });
 

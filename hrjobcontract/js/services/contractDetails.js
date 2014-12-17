@@ -4,7 +4,7 @@ define(['services/services'], function (services) {
     services.factory('ContractDetailsService', ['$resource', 'settings', '$q', function ($resource, settings, $q) {
         var ContractDetails = $resource(settings.pathRest, {
             action: 'get',
-            entity: 'HRJobData',
+            entity: 'HRJobDetails',
             json: {},
             api_key: settings.keyApi,
             key: settings.key

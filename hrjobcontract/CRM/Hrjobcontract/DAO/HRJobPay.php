@@ -193,7 +193,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'dataPattern' => '',
                 'export' => true,
                 'pseudoconstant' => array(
-                  'optionGroupName' => 'hrjob_pay_scale',
+                  'optionGroupName' => 'hrjc_pay_scale',
                 )
               ) ,
               'hrjob_is_paid' => array(
@@ -208,7 +208,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'dataPattern' => '',
                 'export' => true,
                 'pseudoconstant' => array(
-                  'optionGroupName' => 'hrjob_pay_grade',
+                  'optionGroupName' => 'hrjc_pay_grade',
                 )
               ) ,
               'hrjob_pay_amount' => array(

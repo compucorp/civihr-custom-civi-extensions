@@ -46,14 +46,14 @@ function civicrm_api3_h_r_job_contract_get($params) {
     foreach ($contracts['values'] as $key => $contract)
     {
         $isCurrent = true;
-        $contractData = civicrm_api3('HRJobData', 'get', array(
+        $contractDetails = civicrm_api3('HRJobDetails', 'get', array(
             'sequential' => 1,
             'jobcontract_id' => $contract['id'],
         ));
-        $data = CRM_Utils_Array::first($contractData['values']);
-        if (!empty($data['period_end_date']))
+        $details = CRM_Utils_Array::first($contractDetails['values']);
+        if (!empty($details['period_end_date']))
         {
-            if ($data['period_end_date'] < date('Y-m-d'))
+            if ($details['period_end_date'] < date('Y-m-d'))
             {
                 $isCurrent = false;
             }

@@ -9,7 +9,7 @@ class HRJobContractTestBase extends CiviUnitTestCase {
         $this->_createDBData();
         
         $this->quickCleanup(array(
-            'civicrm_hrjobcontract_data',
+            'civicrm_hrjobcontract_details',
             'civicrm_hrjobcontract_health',
             'civicrm_hrjobcontract_role',
             'civicrm_hrjobcontract_hour',
@@ -34,8 +34,8 @@ class HRJobContractTestBase extends CiviUnitTestCase {
     }
     
     public function createJobContractEntities($jobcontract_id = 1) {
-        // creating Data entity:
-        civicrm_api3('HRJobData', 'create', array(
+        // creating Details entity:
+        civicrm_api3('HRJobDetails', 'create', array(
           'sequential' => 1,
           'position' => "some position",
           'title' => "some title",
@@ -153,17 +153,17 @@ class HRJobContractTestBase extends CiviUnitTestCase {
         //Creating civicrm options:
         CRM_Core_DAO::executeQuery(
             "INSERT IGNORE INTO `civicrm_option_group` (`id`, `name`, `title`, `description`, `is_reserved`, `is_active`, `is_locked`) VALUES
-            (100, 'hrjob_contract_type', 'Contract Type', NULL, 1, 1, NULL),
-            (101, 'hrjob_level_type', 'Level', NULL, 1, 1, NULL),
-            (102, 'hrjob_department', 'Department', NULL, 1, 1, NULL),
-            (103, 'hrjob_hours_type', 'Hours Type', NULL, 1, 1, NULL),
-            (104, 'hrjob_pay_scale', 'Pay Scale', NULL, 1, 1, NULL),
-            (105, 'hrjob_pay_grade', 'Pay Grade', NULL, 1, 1, NULL),
-            (106, 'hrjob_health_provider', 'Healthcare Provider', NULL, 1, 1, NULL),
-            (107, 'hrjob_life_provider', 'Life Provider', NULL, 1, 1, NULL),
-            (108, 'hrjob_location', 'Work Location', NULL, 1, 1, NULL),
-            (109, 'hrjob_pension_type', 'Pension Type', NULL, 1, 1, NULL),
-            (110, 'hrjob_region', 'Region', NULL, 1, 1, NULL)"
+            (100, 'hrjc_contract_type', 'Contract Type', NULL, 1, 1, NULL),
+            (101, 'hrjc_level_type', 'Level', NULL, 1, 1, NULL),
+            (102, 'hrjc_department', 'Department', NULL, 1, 1, NULL),
+            (103, 'hrjc_hours_type', 'Hours Type', NULL, 1, 1, NULL),
+            (104, 'hrjc_pay_scale', 'Pay Scale', NULL, 1, 1, NULL),
+            (105, 'hrjc_pay_grade', 'Pay Grade', NULL, 1, 1, NULL),
+            (106, 'hrjc_health_provider', 'Healthcare Provider', NULL, 1, 1, NULL),
+            (107, 'hrjc_life_provider', 'Life Provider', NULL, 1, 1, NULL),
+            (108, 'hrjc_location', 'Work Location', NULL, 1, 1, NULL),
+            (109, 'hrjc_pension_type', 'Pension Type', NULL, 1, 1, NULL),
+            (110, 'hrjc_region', 'Region', NULL, 1, 1, NULL)"
         );
         CRM_CORE_DAO::executeQuery(
             "INSERT IGNORE INTO `civicrm_option_value` (`id`, `option_group_id`, `label`, `value`, `name`, `grouping`, `filter`, `is_default`, `weight`, `description`, `is_optgroup`, `is_reserved`, `is_active`, `component_id`, `domain_id`, `visibility_id`) VALUES

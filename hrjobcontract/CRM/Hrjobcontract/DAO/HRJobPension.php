@@ -216,7 +216,7 @@ class CRM_Hrjobcontract_DAO_HRJobPension extends CRM_Hrjobcontract_DAO_Base
                   'headerPattern' => '',
                   'dataPattern' => '',
                   'pseudoconstant' => array(
-                    'optionGroupName' => 'hrjob_pension_type',
+                    'optionGroupName' => 'hrjc_pension_type',
                   )
                 ) ,
                 'ee_contrib_abs' => array(

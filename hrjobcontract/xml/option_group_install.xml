@@ -3,67 +3,67 @@
 <CustomData>
   <OptionGroups>
     <OptionGroup>
-      <name>hrjob_contract_type</name>
+      <name>hrjc_contract_type</name>
       <title>Contract Type</title>
       <is_reserved>1</is_reserved>
       <is_active>1</is_active>
     </OptionGroup>
     <OptionGroup>
-      <name>hrjob_level_type</name>
+      <name>hrjc_level_type</name>
       <title>Level</title>
       <is_reserved>1</is_reserved>
       <is_active>1</is_active>
     </OptionGroup>
     <OptionGroup>
-      <name>hrjob_department</name>
+      <name>hrjc_department</name>
       <title>Department</title>
       <is_reserved>1</is_reserved>
       <is_active>1</is_active>
     </OptionGroup>
     <OptionGroup>
-      <name>hrjob_hours_type</name>
+      <name>hrjc_hours_type</name>
       <title>Hours Type</title>
       <is_reserved>1</is_reserved>
       <is_active>1</is_active>
     </OptionGroup>
     <OptionGroup>
-      <name>hrjob_pay_scale</name>
+      <name>hrjc_pay_scale</name>
       <title>Pay Scale</title>
       <is_reserved>1</is_reserved>
       <is_active>1</is_active>
     </OptionGroup>
     <OptionGroup>
-      <name>hrjob_pay_grade</name>
+      <name>hrjc_pay_grade</name>
       <title>Pay Grade</title>
       <is_reserved>1</is_reserved>
       <is_active>1</is_active>
     </OptionGroup>
     <OptionGroup>
-      <name>hrjob_health_provider</name>
+      <name>hrjc_health_provider</name>
       <title>Healthcare Provider</title>
       <is_reserved>1</is_reserved>
       <is_active>1</is_active>
     </OptionGroup>
     <OptionGroup>
-      <name>hrjob_life_provider</name>
+      <name>hrjc_life_provider</name>
       <title>Life Provider</title>
       <is_reserved>1</is_reserved>
       <is_active>1</is_active>
     </OptionGroup>
     <OptionGroup>
-      <name>hrjob_location</name>
+      <name>hrjc_location</name>
       <title>Work Location</title>
       <is_reserved>1</is_reserved>
       <is_active>1</is_active>
     </OptionGroup>
     <OptionGroup>
-      <name>hrjob_pension_type</name>
+      <name>hrjc_pension_type</name>
       <title>Pension Type</title>
       <is_reserved>1</is_reserved>
       <is_active>1</is_active>
     </OptionGroup>
     <OptionGroup>
-      <name>hrjob_region</name>
+      <name>hrjc_region</name>
       <title>Region</title>
       <is_reserved>1</is_reserved>
       <is_active>1</is_active>
@@ -79,7 +79,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_contract_type</option_group_name>
+      <option_group_name>hrjc_contract_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Employee - Permanent</label>
@@ -90,7 +90,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_contract_type</option_group_name>
+      <option_group_name>hrjc_contract_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Contractor</label>
@@ -101,7 +101,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_contract_type</option_group_name>
+      <option_group_name>hrjc_contract_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Volunteer</label>
@@ -112,7 +112,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_contract_type</option_group_name>
+      <option_group_name>hrjc_contract_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Trustee</label>
@@ -123,7 +123,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_contract_type</option_group_name>
+      <option_group_name>hrjc_contract_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Intern</label>
@@ -134,7 +134,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_contract_type</option_group_name>
+      <option_group_name>hrjc_contract_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Apprentice</label>
@@ -145,7 +145,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_contract_type</option_group_name>
+      <option_group_name>hrjc_contract_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Senior Manager</label>
@@ -156,7 +156,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_level_type</option_group_name>
+      <option_group_name>hrjc_level_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Junior Manager</label>
@@ -167,7 +167,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_level_type</option_group_name>
+      <option_group_name>hrjc_level_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Senior Staff</label>
@@ -178,7 +178,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_level_type</option_group_name>
+      <option_group_name>hrjc_level_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Junior Staff</label>
@@ -189,7 +189,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_level_type</option_group_name>
+      <option_group_name>hrjc_level_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Full Time</label>
@@ -200,7 +200,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_hours_type</option_group_name>
+      <option_group_name>hrjc_hours_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Part Time</label>
@@ -211,7 +211,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_hours_type</option_group_name>
+      <option_group_name>hrjc_hours_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Casual</label>
@@ -222,7 +222,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_hours_type</option_group_name>
+      <option_group_name>hrjc_hours_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>NJC pay scale</label>
@@ -233,7 +233,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_pay_scale</option_group_name>
+      <option_group_name>hrjc_pay_scale</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>JNC pay scale</label>
@@ -244,7 +244,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_pay_scale</option_group_name>
+      <option_group_name>hrjc_pay_scale</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Soulbury Pay Agreement</label>
@@ -255,7 +255,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_pay_scale</option_group_name>
+      <option_group_name>hrjc_pay_scale</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Unpaid</label>
@@ -266,7 +266,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_pay_grade</option_group_name>
+      <option_group_name>hrjc_pay_grade</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Paid</label>
@@ -277,7 +277,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_pay_grade</option_group_name>
+      <option_group_name>hrjc_pay_grade</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Unknown</label>
@@ -288,7 +288,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_health_provider</option_group_name>
+      <option_group_name>hrjc_health_provider</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Unknown</label>
@@ -299,7 +299,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_life_provider</option_group_name>
+      <option_group_name>hrjc_life_provider</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Headquarters</label>
@@ -310,7 +310,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_location</option_group_name>
+      <option_group_name>hrjc_location</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Home or Home-Office</label>
@@ -321,7 +321,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_location</option_group_name>
+      <option_group_name>hrjc_location</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Finance</label>
@@ -332,7 +332,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_department</option_group_name>
+      <option_group_name>hrjc_department</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>HR</label>
@@ -343,7 +343,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_department</option_group_name>
+      <option_group_name>hrjc_department</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>IT</label>
@@ -354,7 +354,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_department</option_group_name>
+      <option_group_name>hrjc_department</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Fundraising</label>
@@ -365,7 +365,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_department</option_group_name>
+      <option_group_name>hrjc_department</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Marketing</label>
@@ -376,7 +376,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_department</option_group_name>
+      <option_group_name>hrjc_department</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Employer Pension</label>
@@ -387,7 +387,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_pension_type</option_group_name>
+      <option_group_name>hrjc_pension_type</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Personal Pension</label>
@@ -398,7 +398,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_pension_type</option_group_name>
+      <option_group_name>hrjc_pension_type</option_group_name>
     </OptionValue>
   </OptionValues>
 </CustomData>

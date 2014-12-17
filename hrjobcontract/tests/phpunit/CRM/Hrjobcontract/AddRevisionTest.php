@@ -22,7 +22,7 @@ class CRM_Hrjobcontract_AddRevisionTest extends HRJobContractTestBase {
     $expected = array(
         "id" => "11",
         "jobcontract_id" => "1",
-        "data_revision_id" => "11",
+        "details_revision_id" => "11",
         "health_revision_id" => "3",
         "role_revision_id" => "4",
         "hour_revision_id" => "5",
@@ -35,8 +35,8 @@ class CRM_Hrjobcontract_AddRevisionTest extends HRJobContractTestBase {
     $this->createJobContract();
     $this->createJobContractEntities(1);
     
-    // Adding jobcontract_data entity:
-    civicrm_api3('HRJobData', 'create', array(
+    // Adding jobcontract_details entity:
+    civicrm_api3('HRJobDetails', 'create', array(
       'title' => "new title",
       'jobcontract_id' => 1,
     ));
@@ -48,8 +48,8 @@ class CRM_Hrjobcontract_AddRevisionTest extends HRJobContractTestBase {
       'jobcontract_id' => 1,
     ));
     
-    // Adding jobcontract_data entity again:
-    civicrm_api3('HRJobData', 'create', array(
+    // Adding jobcontract_details entity again:
+    civicrm_api3('HRJobDetails', 'create', array(
       'title' => "newest title",
       'jobcontract_id' => 1,
     ));

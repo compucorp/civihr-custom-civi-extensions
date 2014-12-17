@@ -50,7 +50,7 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
    */
   function &getFields() {
     if (!self::$_hrjobFields) {
-      self::$_hrjobFields = CRM_Hrjobcontract_BAO_HRJobData::export();
+      self::$_hrjobFields = CRM_Hrjobcontract_BAO_HRJobDetails::export();
       self::$_hrjobFields['hrjob_role_manager_contact'] =
         array(
           'name'  => 'manager_contact',
@@ -155,14 +155,14 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
       case 'hrjob_period_start_date_low':
       case 'hrjob_period_start_date_high':
         $query->dateQueryBuilder($values,
-          'civicrm_hrjobcontract_data', 'hrjob_period_start_date', 'period_start_date', 'Period Start Date'
+          'civicrm_hrjobcontract_details', 'hrjob_period_start_date', 'period_start_date', 'Period Start Date'
         );
         return;
 
       case 'hrjob_period_end_date_low':
       case 'hrjob_period_end_date_high':
         $query->dateQueryBuilder($values,
-          'civicrm_hrjobcontract_data', 'hrjob_period_end_date', 'period_end_date', 'Period End Date'
+          'civicrm_hrjobcontract_details', 'hrjob_period_end_date', 'period_end_date', 'Period End Date'
         );
         return;
 
@@ -229,8 +229,8 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
          $side JOIN civicrm_contact civicrm_hrjob_role_manager ON civicrm_hrjob_role_manager_contact.manager_contact_id = civicrm_hrjob_role_manager.id
         ";
         break;
-      case 'civicrm_hrjobcontract_data':
-          $from = " $side JOIN civicrm_hrjobcontract_data ON rev.data_revision_id = civicrm_hrjobcontract_data.jobcontract_revision_id ";
+      case 'civicrm_hrjobcontract_details':
+          $from = " $side JOIN civicrm_hrjobcontract_details ON rev.details_revision_id = civicrm_hrjobcontract_details.jobcontract_revision_id ";
         break;
       case 'civicrm_hrjobcontract_hour':
         $from = " $side JOIN civicrm_hrjobcontract_hour ON rev.hour_revision_id = civicrm_hrjobcontract_hour.jobcontract_revision_id ";
@@ -289,7 +289,7 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
         array('id' => 'hrjob_role_level_type', 'multiple' => 'multiple', 'title' => ts('- select -'))
       );
       $form->add('select', 'hrjob_contract_type', ts('Contract Type'),
-        CRM_Core_PseudoConstant::get('CRM_Hrjobcontract_DAO_HRJobData', 'hrjob_contract_type'), FALSE,
+        CRM_Core_PseudoConstant::get('CRM_Hrjobcontract_DAO_HRJobDetails', 'hrjob_contract_type'), FALSE,
         array('id' => 'hrjob_contract_type', 'multiple' => 'multiple', 'title' => ts('- select -'))
       );
       CRM_Core_Form_Date::buildDateRange($form, 'hrjob_period_start_date', 1, '_low', '_high', ts('From:'), FALSE, FALSE);
@@ -371,7 +371,7 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
     $apiEntities = array_merge($apiEntities, array(
       //'HRJob',
       'HRJobContract',
-      'HRJobData',
+      'HRJobDetails',
       'HRJobHealth',
       'HRJobHour',
       'HRJobPay',

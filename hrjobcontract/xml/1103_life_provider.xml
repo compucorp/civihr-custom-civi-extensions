@@ -2,7 +2,7 @@
 <CustomData>
   <OptionGroups>
     <OptionGroup>
-      <name>hrjob_life_provider</name>
+      <name>hrjc_life_provider</name>
       <title>Life Provider</title>
       <is_reserved>1</is_reserved>
       <is_active>1</is_active>
@@ -18,7 +18,7 @@
       <is_optgroup>0</is_optgroup>
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
-      <option_group_name>hrjob_life_provider</option_group_name>
+      <option_group_name>hrjc_life_provider</option_group_name>
     </OptionValue>
   </OptionValues>
 </CustomData> 

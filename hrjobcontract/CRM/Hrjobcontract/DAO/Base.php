@@ -249,59 +249,24 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
     $className = get_called_class();
     $entityName = _civicrm_get_entity_name($className);
     $tableName = _civicrm_get_table_name($className);
-    $hook = empty($params['id']) ? 'create' : 'edit';
-    $entitiesToCopy = array();
     
+    $hook = empty($params['id']) ? 'create' : 'edit';
+
     if ($hook === 'create')
     {
-        if (empty($params['jobcontract_id']) && empty($params['jobcontract_revision_id']))
+        if (empty($params['jobcontract_id']))
         {
-            throw new API_Exception("Cannot create entity: please specify jobcontract_id or id value");
+            throw new API_Exception("Cannot create entity: please specify jobcontract_id value");
         }
-        
+
         if (empty($params['jobcontract_revision_id']))
         {
             $jobContractId = (int)$params['jobcontract_id'];
-            
-            // Handling entity with multiple values (such as HRJobRole):
-            if (!empty($params['multiple_id']))
-            {
-                $multipleId = (int)$params['multiple_id'];
-                // getting current revision:
-                /*$revision = _civicrm_hrjobcontract_api3_get_current_revision($params['jobcontract_id']);
-                if (!empty($revision['values'])) {
-                    $currentEntityRevisionId = $revision['values'][$tableName . '_revision_id'];
-                }
-                
-                // getting all current entities:
-                $entities = civicrm_api3($entityName, 'get', array(
-                    'sequential' => 1,
-                    'jobcontract_revision_id' => $currentEntityRevisionId,
-                ));*/
-                
-                $entities = civicrm_api3($entityName, 'get', array(
-                    'sequential' => 1,
-                    'jobcontract_id' => $jobContractId,
-                ));
-                
-                if (!empty($entities['values']))
-                {
-                    // Copying all the values of current entity revision:
-                    foreach ($entities['values'] as $entity) {
-                        if ((int)$entity['id'] !== $multipleId) {
-                            unset($entity['id']);
-                            $instance = new $className();
-                            $instance->copyValues($entity);
-                            $entitiesToCopy[] = $instance;
-                        }
-                    }
-                }
-            }
-            
+
             // Creating new revision:
             $newRevision = _civicrm_hrjobcontract_api3_create_revision($jobContractId);
             $params['jobcontract_revision_id'] = $newRevision['id'];
-            
+
             // Updating currently saved revision with its 'id' as {table}_revision_id:
             $updatedRevision = civicrm_api3('HRJobContractRevision', 'create', array(
                 'sequential' => 1,
@@ -309,15 +274,8 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
                 $tableName . '_revision_id' => $newRevision['id'],
             ));
         }
-        
-        // Copying all the values (if any) of previous entity revision:
-        foreach ($entitiesToCopy as $entityToCopy)
-        {
-            $entityToCopy->jobcontract_revision_id = $params['jobcontract_revision_id'];
-            $entityToCopy->save();
-        }
     }
-    
+
     CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);
     $instance = new $className();
     $instance->copyValues($params);

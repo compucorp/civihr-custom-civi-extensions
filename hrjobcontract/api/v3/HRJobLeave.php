@@ -47,6 +47,7 @@ function _civicrm_api3_h_r_job_leave_create_spec(&$spec) {
  */
 function civicrm_api3_h_r_job_leave_create($params) {
   return _civicrm_api3_basic_create(_civicrm_api3_get_BAO(__FUNCTION__), $params);
+  //return _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params);
 }
 
 /**
@@ -61,7 +62,6 @@ function civicrm_api3_h_r_job_leave_delete($params) {
 }
 
 function _civicrm_api3_h_r_job_leave_get_spec(&$spec) {
-  $spec['job_id']['api.aliases'] = array('h_r_job_id');
 }
 
 /**
@@ -74,4 +74,15 @@ function _civicrm_api3_h_r_job_leave_get_spec(&$spec) {
 function civicrm_api3_h_r_job_leave_get($params) {
   _civicrm_hrjobcontract_api3_set_current_revision($params, _civicrm_get_table_name(_civicrm_api3_get_BAO(__FUNCTION__)));
   return _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params);
+}
+
+/**
+ * HRJobLeave.get API
+ *
+ * @param array $params
+ * @return array API result descriptor
+ * @throws API_Exception
+ */
+function civicrm_api3_h_r_job_leave_replace($params) {
+    return _civicrm_hrjobcontract_api3_replace(_civicrm_get_entity_name(_civicrm_api3_get_BAO(__FUNCTION__)), $params);
 }

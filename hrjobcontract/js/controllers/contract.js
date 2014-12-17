@@ -8,7 +8,7 @@ define(['controllers/controllers','services/contractDetails','services/contractL
 
             var contractId = $scope.contract.id,
                 promiseContractDetails = ContractDetailsService.getOne(contractId),
-                promiseContractLeave = ContractLeaveService.get({ contractId: contractId});
+                promiseContractLeave = ContractLeaveService.get({ jobcontract_id: contractId});
 
             $q.all({
                 details: promiseContractDetails,
@@ -17,6 +17,7 @@ define(['controllers/controllers','services/contractDetails','services/contractL
                 $scope.details = results.details;
                 $scope.details.is_primary = Boolean(+$scope.details.is_primary);
 
+                console.log(results.leave);
                 $scope.leave = results.leave;
             });
 

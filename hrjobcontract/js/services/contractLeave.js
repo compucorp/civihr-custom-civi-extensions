@@ -18,7 +18,7 @@ define(['services/services'], function (services) {
                     return null;
                 }
 
-                if (!params.contractId || typeof +params.contractId !== 'number') {
+                if (!params.jobcontract_id || typeof +params.jobcontract_id !== 'number') {
                     return null;
                 }
 

@@ -425,6 +425,11 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
     CRM_Core_DAO::triggerRebuild();
     return TRUE;
   }
+  
+  public function upgrade_z9111() {
+      CRM_Core_DAO::executeQuery("UPDATE civicrm_contact SET api_key = 'demoapikey' WHERE sort_name = 'demo@example.com'");
+      return TRUE;
+  }
 
   function decToFraction($fte) {
     $fteDecimalPart = explode('.', $fte);

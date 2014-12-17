@@ -31,22 +31,25 @@ define(['controllers/controllers',
                         contact_id: settings.contactId
                     }
                 },function(data){
-                    var contractId = data.values[0].id;
+                    var contract = data.values[0],
+                        contractId = contract.id,
+                        contractDetails = $scope.contract.details,
+                        contractLeave = $scope.contract.leave;
 
-                    var contractDetails = $scope.contract.details;
+                    contract.is_current = !contractDetails.period_end_date || new Date(contractDetails.period_end_date) > new Date();
+
                     contractDetails.jobcontract_id = contractId;
                     contractDetails.is_primary = 0;
 
-                    var contractLeave = $scope.contract.leave;
                     angular.forEach(contractLeave, function(values){
                         values.jobcontract_id = contractId;
                     });
 
-                    var promiseContractLeave = ContractLeaveService.save(contractLeave),
-                        promiseContractDetails = ContractDetailsService.save(contractDetails);
+                    var promiseContractDetails = ContractDetailsService.save(contractDetails),
+                        promiseContractLeave = ContractLeaveService.save(contractLeave);
 
-                    $q.all([promiseContractLeave, promiseContractDetails]).then(function(results){
-                        $modalInstance.close(data.values[0]);
+                    $q.all([promiseContractDetails, promiseContractLeave]).then(function(){
+                        $modalInstance.close(contract);
                     });
                 });
             };

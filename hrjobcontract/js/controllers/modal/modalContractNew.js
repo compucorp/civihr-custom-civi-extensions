@@ -46,7 +46,6 @@ define(['controllers/controllers',
                         promiseContractDetails = ContractDetailsService.save(contractDetails);
 
                     $q.all([promiseContractLeave, promiseContractDetails]).then(function(results){
-                        console.log(results);
                         $modalInstance.close(data.values[0]);
                     });
                 });

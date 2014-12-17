@@ -1,7 +1,8 @@
 console.log('Controller: ModalContractEditCtrl');
-define(['controllers/controllers','services/contractDetails'], function(controllers){
-    controllers.controller('ModalContractEditCtrl',['$scope','$modalInstance','$log', 'ContractDetailsService','contract','utils',
-        function($scope, $modalInstance, $log, ContractDetailsService, contract, utils){
+define(['controllers/controllers','services/contractDetails','services/contractLeave'], function(controllers){
+    controllers.controller('ModalContractEditCtrl',['$scope','$modalInstance','$q', 'ContractDetailsService',
+        'ContractLeaveService','contract','utils',
+        function($scope, $modalInstance, $q, ContractDetailsService, ContractLeaveService, contract, utils){
 
             $scope.allowSave = true;
             $scope.contract = {};
@@ -16,13 +17,16 @@ define(['controllers/controllers','services/contractDetails'], function(controll
             };
 
             $scope.save = function () {
-                var promiseContractDetails = ContractDetailsService.save($scope.contract.details);
+                var promiseContractDetails = ContractDetailsService.save($scope.contract.details),
+                    promiseContractLeave = ContractLeaveService.save($scope.contract.leave);
 
-                promiseContractDetails.then(function(contractDetails){
-                    $modalInstance.close(contractDetails);
-                },function(reason){
-                    $log.error('Failed: ' + reason);
+                $q.all({
+                    details: promiseContractDetails,
+                    leave: promiseContractLeave
+                }).then(function(results){
+                    $modalInstance.close(results);
                 });
+
             };
 
         }]);

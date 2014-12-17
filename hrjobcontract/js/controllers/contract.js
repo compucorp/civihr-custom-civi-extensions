@@ -1,28 +1,25 @@
 console.log('Controller: ContractCtrl');
 define(['controllers/controllers','services/contractDetails','services/contractLeave'], function(controllers){
-    controllers.controller('ContractCtrl',['$scope', '$modal', '$rootElement', 'settings', 'ContractDetailsService',
+    controllers.controller('ContractCtrl',['$scope', '$modal', '$rootElement', '$q', 'settings', 'ContractDetailsService',
         'ContractLeaveService',
-        function($scope, $modal, $rootElement, settings, ContractDetailsService, ContractLeaveService){
+        function($scope, $modal, $rootElement, $q, settings, ContractDetailsService, ContractLeaveService){
 
             $scope.isCollapsed = !!$scope.$index;
 
-            var contractId = $scope.contract.id;
-            var promiseContractDetails = ContractDetailsService.getOne(contractId),
+            var contractId = $scope.contract.id,
+                promiseContractDetails = ContractDetailsService.getOne(contractId),
                 promiseContractLeave = ContractLeaveService.get({ contractId: contractId});
 
-            promiseContractDetails.then(function(contractDetails){
-                $scope.details = contractDetails;
+            $q.all({
+                details: promiseContractDetails,
+                leave: promiseContractLeave
+            }).then(function(results){
+                $scope.details = results.details;
                 $scope.details.is_primary = Boolean(+$scope.details.is_primary);
-            },function(reason){
-                console.log('Failed: ' + reason);
+
+                $scope.leave = results.leave;
             });
 
-            promiseContractLeave.then(function(contractLeave){
-                $scope.leave = contractLeave;
-                console.log($scope.leave);
-            },function(reason){
-                console.log('Failed: ' + reason);
-            });
 
             $scope.modalContract = function(action){
 
@@ -62,8 +59,9 @@ define(['controllers/controllers','services/contractDetails','services/contractL
 
                 modalInstance = $modal.open(options);
 
-                modalInstance.result.then(function(details){
-                    $scope.details = details;
+                modalInstance.result.then(function(results){
+                    $scope.details = results.details;
+                    $scope.leave = results.leave;
                 });
             }
 

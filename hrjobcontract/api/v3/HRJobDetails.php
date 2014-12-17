@@ -9,7 +9,6 @@
  * @see http://wiki.civicrm.org/confluence/display/CRM/API+Architecture+Standards
  */
 function _civicrm_api3_h_r_job_details_create_spec(&$spec) {
-  // $spec['some_parameter']['api.required'] = 1;
 }
 
 /**

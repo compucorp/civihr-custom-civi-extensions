@@ -57,13 +57,6 @@ function civicrm_api3_h_r_job_hour_create($params) {
       'options' => array('limit' => 1),
     ));
     
-    /*if (empty($result['id'])) {
-      throw new API_Exception("Cannot update estimates: missing job id");
-    }
-    $job_id = CRM_Core_DAO::singleValueQuery('SELECT job_id FROM civicrm_hrjobcontract_hour WHERE id = %1', array(
-      1 => array($result['id'], 'Positive')
-    ));
-    CRM_Hrjobcontract_Estimator::updateEstimatesByJob($job_id);*/
     CRM_Hrjobcontract_Estimator::updateEstimatesByRevision($revision);
   }
   return $result;
@@ -81,7 +74,6 @@ function civicrm_api3_h_r_job_hour_delete($params) {
 }
 
 function _civicrm_api3_h_r_job_hour_get_spec(&$spec) {
-  $spec['job_id']['api.aliases'] = array('h_r_job_id');
 }
 
 /**

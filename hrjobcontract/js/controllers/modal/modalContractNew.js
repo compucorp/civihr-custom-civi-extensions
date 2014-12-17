@@ -2,11 +2,13 @@ console.log('Controller: ModalContractNewCtrl');
 define(['controllers/controllers',
         'services/contract',
         'services/contractDetails',
-        'services/contractLeave'], function(controllers){
+        'services/contractLeave',
+        'services/contractPension'], function(controllers){
 
     controllers.controller('ModalContractNewCtrl', ['$scope','$modalInstance','$q', 'Contract',
-        'ContractDetailsService','ContractLeaveService','utils','settings',
-        function($scope, $modalInstance, $q, Contract, ContractDetailsService, ContractLeaveService, utils, settings){
+        'ContractDetailsService','ContractLeaveService','ContractPensionService','utils','settings',
+        function($scope, $modalInstance, $q, Contract, ContractDetailsService, ContractLeaveService,
+                 ContractPensionService, utils, settings){
 
             $scope.allowSave = true;
             $scope.isDisabled = false;
@@ -15,7 +17,8 @@ define(['controllers/controllers',
 
             $scope.contract = {
                 details: {},
-                leave: ContractLeaveService.model($scope.utils.absenceType)
+                leave: ContractLeaveService.model($scope.utils.absenceType),
+                pension: {}
             };
 
             $scope.cancel = function () {
@@ -34,7 +37,8 @@ define(['controllers/controllers',
                     var contract = data.values[0],
                         contractId = contract.id,
                         contractDetails = $scope.contract.details,
-                        contractLeave = $scope.contract.leave;
+                        contractLeave = $scope.contract.leave,
+                        contractPension = $scope.contract.pension;
 
                     contract.is_current = !contractDetails.period_end_date || new Date(contractDetails.period_end_date) > new Date();
 
@@ -45,10 +49,13 @@ define(['controllers/controllers',
                         values.jobcontract_id = contractId;
                     });
 
-                    var promiseContractDetails = ContractDetailsService.save(contractDetails),
-                        promiseContractLeave = ContractLeaveService.save(contractLeave);
+                    contractPension.jobcontract_id = contractId;
 
-                    $q.all([promiseContractDetails, promiseContractLeave]).then(function(){
+                    var promiseContractDetails = ContractDetailsService.save(contractDetails),
+                        promiseContractLeave = ContractLeaveService.save(contractLeave),
+                        promiseContractPension = ContractPensionService.save(contractPension);
+
+                    $q.all([promiseContractDetails, promiseContractLeave, promiseContractPension]).then(function(){
                         $modalInstance.close(contract);
                     });
                 });

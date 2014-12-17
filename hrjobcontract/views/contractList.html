@@ -229,12 +229,11 @@
                                                         <label class="col-sm-4 control-label">Pension</label>
                                                         <div class="col-sm-6">
                                                             <p class="form-control-static">
-                                                                Enrolled<br />
-                                                                <strong>Pension Type:</strong> Employer Pension<br />
-                                                                <strong>Employer Contribution (%):</strong> 4<br />
-                                                                <strong>Employer Contribution (%):</strong> 4<br />
-                                                                <strong>Employer Contribution (absolute amount):</strong>
-                                                                10000.00
+                                                                {{pension.is_enrolled}}<br />
+                                                                <strong>Pension Type:</strong> {{pension.pension_type}}<br />
+                                                                <strong>Employer Contribution (%):</strong> {{pension.er_contrib_pct}}<br />
+                                                                <strong>Employee Contribution (%):</strong> {{pension.ee_contrib_pct}}<br />
+                                                                <strong>Employee Contribution (absolute amount):</strong> {{pension.ee_contrib_abs}}
                                                             </p>
                                                         </div>
                                                         <div class="col-sm-2">

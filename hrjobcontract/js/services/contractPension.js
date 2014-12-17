@@ -1,42 +1,62 @@
 console.log('Service: ContractPensionService');
-define(['services/services','filters/getObjByContractId'], function (services) {
-    services.factory('ContractPensionService', function ($filter) {
-        var items = {};
+define(['services/services'], function (services) {
 
-        items.query = function (id) {
-            var response = {
-                "values":[{
-                    "contract_id":"1",
-                    "id":"1",
-                    "is_enrolled":"0",
-                    "ee_contrib_pct":"2",
-                    "er_contrib_pct":"10",
-                    "pension_type":"Employer Pension",
-                    "ee_contrib_abs":"0.00",
-                    "jobcontract_revision_id": "23"
-                },{
-                    "contract_id":"2",
-                    "id":"2",
-                    "is_enrolled":"0",
-                    "ee_contrib_pct":"2",
-                    "er_contrib_pct":"10",
-                    "pension_type":"Employer Pension",
-                    "ee_contrib_abs":"0.00",
-                    "jobcontract_revision_id": "24"
-                },{
-                    "contract_id":"3",
-                    "id":"3",
-                    "is_enrolled":"0",
-                    "ee_contrib_pct":"2",
-                    "er_contrib_pct":"10",
-                    "pension_type":"Employer Pension",
-                    "ee_contrib_abs":"0.00",
-                    "jobcontract_revision_id": "25"
-                }]
+    services.factory('ContractPensionService', ['$resource', 'settings', '$q', function ($resource, settings, $q) {
+        var ContractDetails = $resource(settings.pathRest, {
+            action: 'get',
+            entity: 'HRJobPension',
+            json: {},
+            api_key: settings.keyApi,
+            key: settings.key
+        });
+
+        return {
+            getOne: function(contractId) {
+
+                if (!contractId || typeof +contractId !== 'number') {
+                    return null;
+                }
+
+                var deffered = $q.defer(),
+                    params = {
+                        sequential: 1,
+                        jobcontract_id: contractId
+                    },
+                    val;
+
+                ContractDetails.get({json: params}, function(data){
+                    val = data.values;
+                    deffered.resolve(val.length == 1 ? val[0] : null);
+                },function(){
+                    deffered.reject('Unable to fetch contract pension');
+                });
+
+                return deffered.promise;
+            },
+            save: function(contractPension){
+
+                if (!contractPension || typeof contractPension !== 'object') {
+                    return null;
+                }
+
+                var deffered = $q.defer(),
+                    params = angular.extend({
+                        sequential: 1
+                    },contractPension);
+
+                ContractDetails.save({
+                    action: 'create',
+                    json: params
+                }, null, function(){
+                    deffered.resolve(contractPension);
+                },function(){
+                    deffered.reject('Unable to fetch contract pension');
+                });
+
+                return deffered.promise;
             }
+        }
 
-            return typeof id !== 'undefined' ? $filter('getObjByContractId')(response.values, id) || response.values : response.values;
-        };
-        return items;
-    });
+    }]);
+
 });

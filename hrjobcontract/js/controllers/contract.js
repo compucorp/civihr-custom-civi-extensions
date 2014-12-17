@@ -1,23 +1,27 @@
 console.log('Controller: ContractCtrl');
 define(['controllers/controllers','services/contractDetails','services/contractLeave'], function(controllers){
     controllers.controller('ContractCtrl',['$scope','$route','$modal', '$rootElement', '$q', 'settings', 'ContractDetailsService',
-        'ContractLeaveService',
-        function($scope, $route, $modal, $rootElement, $q, settings, ContractDetailsService, ContractLeaveService){
+        'ContractLeaveService','ContractPensionService',
+        function($scope, $route, $modal, $rootElement, $q, settings, ContractDetailsService, ContractLeaveService, ContractPensionService){
 
             $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
 
             var contractId = $scope.contract.id,
                 promiseContractDetails = ContractDetailsService.getOne(contractId),
-                promiseContractLeave = ContractLeaveService.get({ jobcontract_id: contractId});
+                promiseContractLeave = ContractLeaveService.get({ jobcontract_id: contractId}),
+                promiseContractPension = ContractPensionService.getOne(contractId);
 
             $q.all({
                 details: promiseContractDetails,
-                leave: promiseContractLeave
+                leave: promiseContractLeave,
+                pension: promiseContractPension
             }).then(function(results){
                 $scope.details = results.details;
                 $scope.details.is_primary = !!+$scope.details.is_primary;
 
                 $scope.leave = results.leave;
+
+                $scope.pension = results.pension;
             });
 
 
@@ -36,7 +40,8 @@ define(['controllers/controllers','services/contractDetails','services/contractL
                         contract: function(){
                             return {
                                 details: $scope.details,
-                                leave: $scope.leave
+                                leave: $scope.leave,
+                                pension: $scope.pension
                             }
                         },
                         utils: function(){
@@ -61,7 +66,8 @@ define(['controllers/controllers','services/contractDetails','services/contractL
 
                 modalInstance.result.then(function(results){
                     $scope.details = results.details;
-                    $scope.leave = results.leave;
+                    $scope.leave = results.leave,
+                    $scope.pension = results.pension;
 
                     if (results.requireReload) {
                         $route.reload();

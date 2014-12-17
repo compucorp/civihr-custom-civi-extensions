@@ -1,18 +1,25 @@
 console.log('Controller: ContractCtrl');
-define(['controllers/controllers','services/contractDetails'], function(controllers){
-    controllers.controller('ContractCtrl',['$scope', '$modal', '$rootElement', 'ContractDetailsService', 'settings',
-        function($scope, $modal, $rootElement, ContractDetailsService, settings){
+define(['controllers/controllers','services/contractDetails','services/contractLeave'], function(controllers){
+    controllers.controller('ContractCtrl',['$scope', '$modal', '$rootElement', '$q', 'settings', 'ContractDetailsService',
+        'ContractLeaveService',
+        function($scope, $modal, $rootElement, $q, settings, ContractDetailsService, ContractLeaveService){
 
-            $scope.isCollapsed = !!$scope.$index;
-            //$scope.isCollapsed = true;
+            $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
 
-            var promiseContractDetails = ContractDetailsService.getOne($scope.contract.id);
-            promiseContractDetails.then(function(contractDetails){
-                $scope.details = contractDetails;
-                $scope.details.is_primary = Boolean(+$scope.details.is_primary);
-            },function(reason){
-                console.log('Failed: ' + reason);
+            var contractId = $scope.contract.id,
+                promiseContractDetails = ContractDetailsService.getOne(contractId),
+                promiseContractLeave = ContractLeaveService.get({ jobcontract_id: contractId});
+
+            $q.all({
+                details: promiseContractDetails,
+                leave: promiseContractLeave
+            }).then(function(results){
+                $scope.details = results.details;
+                $scope.details.is_primary = !!+$scope.details.is_primary;
+
+                $scope.leave = results.leave;
             });
+
 
             $scope.modalContract = function(action){
 
@@ -26,8 +33,14 @@ define(['controllers/controllers','services/contractDetails'], function(controll
                     templateUrl: settings.pathApp+'/views/modalForm.html?v='+(new Date()).getTime(),
                     size: 'lg',
                     resolve: {
-                        details: function(){
-                            return $scope.details
+                        contract: function(){
+                            return {
+                                details: $scope.details,
+                                leave: $scope.leave
+                            }
+                        },
+                        utils: function(){
+                            return $scope.utils
                         }
                     }
                 }
@@ -46,8 +59,9 @@ define(['controllers/controllers','services/contractDetails'], function(controll
 
                 modalInstance = $modal.open(options);
 
-                modalInstance.result.then(function(details){
-                    $scope.details = details;
+                modalInstance.result.then(function(results){
+                    $scope.details = results.details;
+                    $scope.leave = results.leave;
                 });
             }
 

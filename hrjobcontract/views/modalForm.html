@@ -1,4 +1,4 @@
-<form novalidate class="form-horizontal {{prefix}}wizard" role="form">
+<form novalidate class="form-horizontal {{prefix}}wizard" name="contractForm" role="form" ng-submit="save()">
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span
             class="sr-only">Close</span></button>
@@ -15,24 +15,24 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="form-group required">
-                        <label for="{{prefix}}position" class="col-sm-4 control-label">Position {{test}}</label>
+                        <label for="{{prefix}}position" class="col-sm-4 control-label">Position</label>
 
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="{{prefix}}position" ng-model="details.position" ng-disabled="isDisabled" required>
+                            <input type="text" class="form-control" id="{{prefix}}position" ng-model="contract.details.position" ng-disabled="isDisabled" required>
                         </div>
                     </div>
                     <div class="form-group required">
                         <label for="{{prefix}}title" class="col-sm-4 control-label">Title</label>
 
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="{{prefix}}title" ng-model="details.title" ng-disabled="isDisabled" required>
+                            <input type="text" class="form-control" id="{{prefix}}title" ng-model="contract.details.title" ng-disabled="isDisabled" required>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group required">
                         <label for="{{prefix}}contract-type" class="col-sm-4 control-label">Contract type</label>
 
                         <div class="col-sm-5">
-                            <select id="{{prefix}}contract-type" class="form-control" ng-model="details.contract_type" ng-disabled="isDisabled">
+                            <select id="{{prefix}}contract-type" class="form-control" ng-model="contract.details.contract_type" ng-disabled="isDisabled" required>
                                 <option value="">- select -</option>
                                 <option value="Apprentice" selected>Apprentice</option>
                                 <option value="Contractor">Contractor</option>
@@ -48,10 +48,10 @@
                         <label for="{{prefix}}location" class="col-sm-4 control-label">Normal Place of Work</label>
 
                         <div class="col-sm-5">
-                            <select id="{{prefix}}location" class="form-control" ng-model="details.location" ng-disabled="isDisabled">
+                            <select id="{{prefix}}location" class="form-control" ng-model="contract.details.location" ng-disabled="isDisabled">
                                 <option value="">- select -</option>
                                 <option value="Headquarters" selected>Headquarters</option>
-                                <option value="Home or Home-Office">Home or Home-Office</option>
+                                <option value="Home">Home or Home-Office</option>
                             </select>
                         </div>
                     </div>
@@ -59,14 +59,14 @@
                         <label for="{{prefix}}period-start-date" class="col-sm-4 control-label">Contract Start Date</label>
 
                         <div class="col-sm-4">
-                            <input type="date" class="form-control" id="{{prefix}}period-start-date" ng-model="details.period_start_date" ng-disabled="isDisabled">
+                            <input type="date" class="form-control" id="{{prefix}}period-start-date" ng-model="contract.details.period_start_date" ng-disabled="isDisabled">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="{{prefix}}period-end-date" class="col-sm-4 control-label">Contract End Date</label>
 
                         <div class="col-sm-4">
-                            <input type="date" class="form-control" id="{{prefix}}period-end-date" ng-model="details.period_end_date" ng-disabled="isDisabled">
+                            <input type="date" class="form-control" id="{{prefix}}period-end-date" ng-model="contract.details.period_end_date" ng-disabled="isDisabled">
                         </div>
                     </div>
                     <div class="form-group">
@@ -81,8 +81,8 @@
 
                         <div class="col-sm-8">
                             <div class="form-inline">
-                                <input type="text" class="form-control input-inline-sm" id="{{prefix}}notice-amount" ng-model="details.notice_amount" ng-disabled="isDisabled">
-                                <select id="{{prefix}}notice-unit" class="form-control" ng-model="details.notice_unit" ng-disabled="isDisabled">
+                                <input type="text" class="form-control input-inline-sm" id="{{prefix}}notice-amount" ng-model="contract.details.notice_amount" ng-disabled="isDisabled">
+                                <select id="{{prefix}}notice-unit" class="form-control" ng-model="contract.details.notice_unit" ng-disabled="isDisabled">
                                     <option value="">- select -</option>
                                     <option value="Day">Day</option>
                                     <option value="Week" selected>Week</option>
@@ -97,8 +97,8 @@
 
                         <div class="col-sm-8">
                             <div class="form-inline">
-                                <input type="text" class="form-control input-inline-sm" id="{{prefix}}notice-amount-employee" ng-model="details.notice_amount_employee" ng-disabled="isDisabled">
-                                <select id="{{prefix}}notice-unit-employee" class="form-control" ng-model="details.notice_unit_employee" ng-disabled="isDisabled">
+                                <input type="text" class="form-control input-inline-sm" id="{{prefix}}notice-amount-employee" ng-model="contract.details.notice_amount_employee" ng-disabled="isDisabled">
+                                <select id="{{prefix}}notice-unit-employee" class="form-control" ng-model="contract.details.notice_unit_employee" ng-disabled="isDisabled">
                                     <option value="">- select -</option>
                                     <option value="Day">Day</option>
                                     <option value="Week">Week</option>
@@ -297,46 +297,11 @@
                             Days per year
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="leave-sick" class="col-sm-4 control-label">Sick</label>
+                    <div class="form-group" ng-repeat="leaveEntry in contract.leave">
+                        <label for="leave-{{leaveEntry.leave_type}}" class="col-sm-4 control-label">{{utils.absenceType[leaveEntry.leave_type].title}}</label>
 
                         <div class="col-sm-2">
-                            <input type="text" id="leave-sick" name="leave-sick" class="form-control" value="0" ng-disabled="isDisabled || true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="leave-vacation" class="col-sm-4 control-label">Vacation</label>
-
-                        <div class="col-sm-2">
-                            <input type="text" id="leave-vacation" name="leave-vacation" class="form-control" value="0" ng-disabled="isDisabled">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="leave-maternity" class="col-sm-4 control-label">Maternity</label>
-
-                        <div class="col-sm-2">
-                            <input type="text" id="leave-maternity" name="leave-maternity" class="form-control" value="0" ng-disabled="isDisabled">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="leave-paternity" class="col-sm-4 control-label">Paternity</label>
-
-                        <div class="col-sm-2">
-                            <input type="text" id="leave-paternity" name="leave-paternity" class="form-control" value="0" ng-disabled="isDisabled">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="leave-toil" class="col-sm-4 control-label">TOIL</label>
-
-                        <div class="col-sm-2">
-                            <input type="text" id="leave-toil" name="leave-toil" class="form-control" value="0" ng-disabled="isDisabled">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="leave-other" class="col-sm-4 control-label">Other</label>
-
-                        <div class="col-sm-2">
-                            <input type="text" id="leave-other" name="leave-other" class="form-control" value="0" ng-disabled="isDisabled">
+                            <input type="text" id="leave-{{leaveEntry.leave_type}}" name="leave-{{leaveEntry.leave_type}}" class="form-control" ng-model="leaveEntry.leave_amount" ng-disabled="isDisabled">
                         </div>
                     </div>
                 </div>
@@ -508,7 +473,7 @@
                         <label for="pension-funding-notes" class="col-sm-4 control-label">Funding Notes</label>
                         <div class="col-sm-8">
                             <textarea id="pension-funding-notes" name="pension-funding-notes" class="form-control"
-                                      rows="3" ng-model="details.funding_notes" ng-disabled="isDisabled"></textarea>
+                                      rows="3" ng-model="contract.details.funding_notes" ng-disabled="isDisabled"></textarea>
                         </div>
                     </div>
                 </div>
@@ -518,6 +483,6 @@
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
-    <button type="button" class="btn btn-primary btn-save"  ng-click="save()" ng-show="allowSave">Save changes</button>
+    <button type="submit" class="btn btn-primary btn-save" ng-show="allowSave" ng-disabled="!contractForm.$valid">Save changes</button>
 </div>
 </form>

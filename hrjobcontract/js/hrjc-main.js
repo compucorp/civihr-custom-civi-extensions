@@ -8,8 +8,7 @@ require.config({
         angularRoute: 'vendor/angular/angular-route.min',
         bootstrap: 'vendor/bootstrap',
         jquery: 'vendor/jquery/jquery.min',
-        jqueryPrivate: 'vendor/jquery/jquery-private',
-        mock: 'hrjc-mock'
+        jqueryPrivate: 'vendor/jquery/jquery-private'
     },
     map: {
         '*': {
@@ -41,11 +40,11 @@ require([
     'services/contract',
     'controllers/contractList',
     'controllers/contract',
-    'controllers/modalContractChange',
-    'controllers/modalContractEdit',
-    'controllers/modalContractNew',
-    'controllers/modalContractView',
-    'controllers/modalRevision',
+    'controllers/modal/modalContractChange',
+    'controllers/modal/modalContractEdit',
+    'controllers/modal/modalContractNew',
+    'controllers/modal/modalContractView',
+    'controllers/modal/modalRevision',
     'filters/formatPeriod'
 ],function(angular, app){
     'use strict';

@@ -1,5 +1,8 @@
 console.log('Controller: ModalContractEditCtrl');
-define(['controllers/controllers','services/contractDetails','services/contractLeave'], function(controllers){
+define(['controllers/controllers',
+        'services/contractDetails',
+        'services/contractLeave'], function(controllers){
+
     controllers.controller('ModalContractEditCtrl',['$scope','$modalInstance','$q', 'ContractDetailsService',
         'ContractLeaveService','contract','utils',
         function($scope, $modalInstance, $q, ContractDetailsService, ContractLeaveService, contract, utils){

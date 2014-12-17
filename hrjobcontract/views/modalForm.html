@@ -297,46 +297,11 @@
                             Days per year
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="leave-sick" class="col-sm-4 control-label">Sick</label>
+                    <div class="form-group" ng-repeat="leaveEntry in contract.leave">
+                        <label for="leave-{{leaveEntry.leave_type}}" class="col-sm-4 control-label">{{utils.absenceType[leaveEntry.leave_type].title}}</label>
 
                         <div class="col-sm-2">
-                            <input type="text" id="leave-sick" name="leave-sick" class="form-control" value="0" ng-disabled="isDisabled">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="leave-vacation" class="col-sm-4 control-label">Vacation</label>
-
-                        <div class="col-sm-2">
-                            <input type="text" id="leave-vacation" name="leave-vacation" class="form-control" value="0" ng-disabled="isDisabled">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="leave-maternity" class="col-sm-4 control-label">Maternity</label>
-
-                        <div class="col-sm-2">
-                            <input type="text" id="leave-maternity" name="leave-maternity" class="form-control" value="0" ng-disabled="isDisabled">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="leave-paternity" class="col-sm-4 control-label">Paternity</label>
-
-                        <div class="col-sm-2">
-                            <input type="text" id="leave-paternity" name="leave-paternity" class="form-control" value="0" ng-disabled="isDisabled">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="leave-toil" class="col-sm-4 control-label">TOIL</label>
-
-                        <div class="col-sm-2">
-                            <input type="text" id="leave-toil" name="leave-toil" class="form-control" value="0" ng-disabled="isDisabled">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="leave-other" class="col-sm-4 control-label">Other</label>
-
-                        <div class="col-sm-2">
-                            <input type="text" id="leave-other" name="leave-other" class="form-control" value="0" ng-disabled="isDisabled">
+                            <input type="text" id="leave-{{leaveEntry.leave_type}}" name="leave-{{leaveEntry.leave_type}}" class="form-control" ng-model="leaveEntry.leave_amount" ng-disabled="isDisabled">
                         </div>
                     </div>
                 </div>

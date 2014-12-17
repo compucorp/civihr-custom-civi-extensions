@@ -1,7 +1,7 @@
 console.log('Service: UtilsService');
 define(['services/services'], function (services) {
 
-    services.factory('API', ['$resource','settings', function (settings) {
+    services.factory('API', ['$resource','settings', function ($resource, settings) {
         return {
             resource: function(entity, action, json) {
 
@@ -22,22 +22,20 @@ define(['services/services'], function (services) {
         }
     }]);
 
-    services.factory('UtilsService', ['API','settings','$q', function (settings) {
+    services.factory('UtilsService', ['API','settings','$q', function (API, settings, $q) {
         return {
             getAbsenceType: function(){
-                var deffered = $q.defer(),
+                var deffered = $q.defer();
 
-                AbsenceType = API.resource('HRAbsenceType','get', {
-                    "sequential": 1
-                });
-
-                AbsenceType.get(function(data){
-                    deffered.resolve(data)
+                API.resource('HRAbsenceType','get', {
+                    "return": "id,name,title"
+                }).get(function(data){
+                    deffered.resolve(data.values);
                 },function(){
                     deffered.reject('Unable to fetch absence types');
                 });
 
-                return derrefed.promise;
+                return deffered.promise;
             }
         }
     }]);

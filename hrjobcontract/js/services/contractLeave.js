@@ -11,39 +11,8 @@ define(['services/services'], function (services) {
             key: settings.key
         });
 
-        var resp = {
-            "version": 3,
-            "values": [
-                {
-                    "id": "2",
-                    "leave_type": "1",
-                    "leave_amount": "10",
-                    "jobcontract_revision_id":"22"
-                }, {
-                    "jobcontract_id": "14",
-                    "leave_type": "2",
-                    "leave_amount": "5"
-                }, {
-                    "jobcontract_id": "14",
-                    "leave_type": "3",
-                    "leave_amount": 0
-                }, {
-                    "jobcontract_id": "14",
-                    "leave_type": "4",
-                    "leave_amount": 0
-                }, {
-                    "jobcontract_id": "14",
-                    "leave_type": "5",
-                    "leave_amount": 0
-                }, {
-                    "jobcontract_id": "14",
-                    "leave_type": "6",
-                    "leave_amount": 0
-                }]
-        }
-
         return {
-            get: function(params){
+            get: function (params) {
 
                 if (!params || typeof params !== 'object') {
                     return null;
@@ -58,13 +27,60 @@ define(['services/services'], function (services) {
                     return null;
                 }
 
+                params.sequential = 1;
+
                 var deffered = $q.defer();
 
-                setTimeout(function(){
-                    deffered.resolve(resp.values);
-                },0);
+                ContractLeave.get({json: params}, function(data){
+                    deffered.resolve(data.values);
+                },function(){
+                    deffered.reject('Unable to fetch contract list');
+                });
 
                 return deffered.promise;
+            },
+            save: function (contractLeave) {
+
+                if (!contractLeave || typeof contractLeave !== 'object') {
+                    return null;
+                }
+
+                var deffered = $q.defer(),
+                    params = {
+                        sequential: 1,
+                        values: contractLeave
+                    };
+
+                ContractLeave.save({
+                    action: 'replace',
+                    json: params
+                }, null, function (data) {
+                    console.log(data);
+                    deffered.resolve(data.values);
+                }, function () {
+                    deffered.reject('Unable to fetch contract details');
+                });
+
+                return deffered.promise;
+            },
+            model: function (leaveType) {
+
+                if (!leaveType || typeof leaveType !== 'object') {
+                    //TODO UtilsService.getAbsenceType()
+                    return null;
+                }
+
+                var model = [];
+
+                angular.forEach(leaveType, function (value) {
+                    model.push({
+                        "jobcontract_id": 0,
+                        "leave_type": value.id,
+                        "leave_amount": 0
+                    })
+                });
+
+                return model;
             }
         }
 

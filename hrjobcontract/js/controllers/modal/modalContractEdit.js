@@ -1,12 +1,13 @@
 console.log('Controller: ModalContractEditCtrl');
 define(['controllers/controllers','services/contractDetails'], function(controllers){
-    controllers.controller('ModalContractEditCtrl',['$scope','$modalInstance','$log', 'ContractDetailsService','contract',
-        function($scope, $modalInstance, $log, ContractDetailsService, contract){
+    controllers.controller('ModalContractEditCtrl',['$scope','$modalInstance','$log', 'ContractDetailsService','contract','utils',
+        function($scope, $modalInstance, $log, ContractDetailsService, contract, utils){
 
-            $scope.contract = {};
-            $scope.title = 'Edit contract';
             $scope.allowSave = true;
+            $scope.contract = {};
             $scope.isDisabled = false;
+            $scope.title = 'Edit contract';
+            $scope.utils = utils;
 
             angular.copy(contract,$scope.contract);
 

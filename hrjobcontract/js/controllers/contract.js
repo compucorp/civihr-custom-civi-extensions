@@ -10,7 +10,6 @@ define(['controllers/controllers','services/contractDetails','services/contractL
             var promiseContractDetails = ContractDetailsService.getOne(contractId),
                 promiseContractLeave = ContractLeaveService.get({ contractId: contractId});
 
-
             promiseContractDetails.then(function(contractDetails){
                 $scope.details = contractDetails;
                 $scope.details.is_primary = Boolean(+$scope.details.is_primary);
@@ -20,6 +19,7 @@ define(['controllers/controllers','services/contractDetails','services/contractL
 
             promiseContractLeave.then(function(contractLeave){
                 $scope.leave = contractLeave;
+                console.log($scope.leave);
             },function(reason){
                 console.log('Failed: ' + reason);
             });
@@ -37,11 +37,13 @@ define(['controllers/controllers','services/contractDetails','services/contractL
                     size: 'lg',
                     resolve: {
                         contract: function(){
-                            console.log()
                             return {
                                 details: $scope.details,
                                 leave: $scope.leave
                             }
+                        },
+                        utils: function(){
+                            return $scope.utils
                         }
                     }
                 }

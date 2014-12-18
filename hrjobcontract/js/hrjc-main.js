@@ -45,7 +45,9 @@ require([
     'controllers/modal/modalContractNew',
     'controllers/modal/modalContractView',
     'controllers/modal/modalRevision',
-    'filters/formatPeriod'
+    'filters/formatAmount',
+    'filters/formatPeriod',
+    'filters/parseInt'
 ],function(angular, app){
     'use strict';
 

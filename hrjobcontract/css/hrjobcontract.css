@@ -9696,6 +9696,10 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 #hrjob-contract .form-horizontal .well .form-group {
   margin-bottom: 0;
 }
+/* line 27, ../sass/partials/_forms.scss */
+#hrjob-contract .form-control-static .subfield {
+  display: block;
+}
 /* line 1, ../sass/partials/_list.scss */
 #hrjob-contract .hrjobcont-list-contract {
   list-style: none;

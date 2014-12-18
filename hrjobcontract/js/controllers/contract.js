@@ -1,26 +1,33 @@
 console.log('Controller: ContractCtrl');
-define(['controllers/controllers','services/contractDetails','services/contractLeave'], function(controllers){
-    controllers.controller('ContractCtrl',['$scope','$route','$modal', '$rootElement', '$q', 'settings', 'ContractDetailsService',
-        'ContractLeaveService','ContractPensionService',
-        function($scope, $route, $modal, $rootElement, $q, settings, ContractDetailsService, ContractLeaveService, ContractPensionService){
+define(['controllers/controllers',
+        'services/contractDetails',
+        'services/contractLeave',
+        'services/contractPension',
+        'services/contractInsurance'], function(controllers){
+    controllers.controller('ContractCtrl',['$scope', '$route', '$modal', '$rootElement', '$q', 'settings',
+        'ContractDetailsService', 'ContractLeaveService', 'ContractInsuranceService','ContractPensionService',
+        function($scope, $route, $modal, $rootElement, $q, settings, ContractDetailsService, ContractLeaveService,
+                 ContractInsuranceService, ContractPensionService){
 
             $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
 
             var contractId = $scope.contract.id,
                 promiseContractDetails = ContractDetailsService.getOne(contractId),
                 promiseContractLeave = ContractLeaveService.get({ jobcontract_id: contractId}),
+                promiseContractInsurance = ContractInsuranceService.getOne(contractId),
                 promiseContractPension = ContractPensionService.getOne(contractId);
 
             $q.all({
                 details: promiseContractDetails,
                 leave: promiseContractLeave,
+                insurance: promiseContractInsurance,
                 pension: promiseContractPension
             }).then(function(results){
                 $scope.details = results.details;
                 $scope.details.is_primary = !!+$scope.details.is_primary;
 
                 $scope.leave = results.leave;
-
+                $scope.insurance = results.insurance;
                 $scope.pension = results.pension;
             });
 
@@ -41,6 +48,7 @@ define(['controllers/controllers','services/contractDetails','services/contractL
                             return {
                                 details: $scope.details,
                                 leave: $scope.leave,
+                                insurance: $scope.insurance,
                                 pension: $scope.pension
                             }
                         },
@@ -67,6 +75,7 @@ define(['controllers/controllers','services/contractDetails','services/contractL
                 modalInstance.result.then(function(results){
                     $scope.details = results.details;
                     $scope.leave = results.leave,
+                    $scope.insurance = results.insurance,
                     $scope.pension = results.pension;
 
                     if (results.requireReload) {

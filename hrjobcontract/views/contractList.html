@@ -171,7 +171,11 @@
                                                     <div class="form-group">
                                                         <label class="col-sm-4 control-label">Health Insurance</label>
                                                         <div class="col-sm-6">
-                                                            <p class="form-control-static"></p>
+                                                            <p class="form-control-static">
+                                                                {{insurance.plan_type}}<br />
+                                                                <strong>Description:</strong> {{insurance.description}}<br />
+                                                                <strong>Dependents:</strong> {{insurance.dependents}}
+                                                            </p>
                                                         </div>
                                                         <div class="col-sm-2">
                                                             <a class="btn" role="button" ng-click="modalRevision('insurance')">
@@ -182,7 +186,11 @@
                                                     <div class="form-group">
                                                         <label class="col-sm-4 control-label">Life Insurance</label>
                                                         <div class="col-sm-6">
-                                                            <p class="form-control-static"></p>
+                                                            <p class="form-control-static">
+                                                                {{insurance.plan_type_life_insurance}}<br />
+                                                                <strong>Description:</strong> {{insurance.description_life_insurance}}<br />
+                                                                <strong>Dependents:</strong> {{insurance.dependents_life_insurance}}
+                                                            </p>
                                                         </div>
                                                         <div class="col-sm-2">
                                                             <a class="btn" role="button" ng-click="modalRevision('insurance')">

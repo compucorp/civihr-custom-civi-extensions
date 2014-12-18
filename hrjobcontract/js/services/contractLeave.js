@@ -55,7 +55,6 @@ define(['services/services'], function (services) {
                     action: 'replace',
                     json: params
                 }, null, function (data) {
-                    console.log(data);
                     deffered.resolve(data.values);
                 }, function () {
                     deffered.reject('Unable to fetch contract details');

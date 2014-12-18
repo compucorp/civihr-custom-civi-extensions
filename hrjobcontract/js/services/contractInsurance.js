@@ -1,10 +1,10 @@
-console.log('Service: ContractPensionService');
+console.log('Service: ContractInsuranceService');
 define(['services/services'], function (services) {
 
-    services.factory('ContractPensionService', ['$resource', 'settings', '$q', function ($resource, settings, $q) {
-        var ContractDetails = $resource(settings.pathRest, {
+    services.factory('ContractInsuranceService', ['$resource', 'settings', '$q', function ($resource, settings, $q) {
+        var ContractInsurance = $resource(settings.pathRest, {
             action: 'get',
-            entity: 'HRJobPension',
+            entity: 'HRJobHealth',
             json: {},
             api_key: settings.keyApi,
             key: settings.key
@@ -24,33 +24,33 @@ define(['services/services'], function (services) {
                     },
                     val;
 
-                ContractDetails.get({json: params}, function(data){
+                ContractInsurance.get({json: params}, function(data){
                     val = data.values;
                     deffered.resolve(val.length == 1 ? val[0] : null);
                 },function(){
-                    deffered.reject('Unable to fetch contract pension');
+                    deffered.reject('Unable to fetch contract Insurance');
                 });
 
                 return deffered.promise;
             },
-            save: function(contractPension){
+            save: function(contractInsurance){
 
-                if (!contractPension || typeof contractPension !== 'object') {
+                if (!contractInsurance || typeof contractInsurance !== 'object') {
                     return null;
                 }
 
                 var deffered = $q.defer(),
                     params = angular.extend({
                         sequential: 1
-                    },contractPension);
+                    },contractInsurance);
 
-                ContractDetails.save({
+                ContractInsurance.save({
                     action: 'create',
                     json: params
                 }, null, function(){
-                    deffered.resolve(contractPension);
+                    deffered.resolve(contractInsurance);
                 },function(){
-                    deffered.reject('Unable to fetch contract pension');
+                    deffered.reject('Unable to fetch contract insurance');
                 });
 
                 return deffered.promise;

@@ -6,8 +6,8 @@ define(['controllers/controllers',
         'services/contractInsurance'], function(controllers){
     controllers.controller('ContractCtrl',['$scope', '$route', '$modal', '$rootElement', '$q', 'settings',
         'ContractDetailsService', 'ContractLeaveService', 'ContractInsuranceService','ContractPensionService',
-        function($scope, $route, $modal, $rootElement, $q, settings, ContractDetailsService, ContractLeaveService,
-                 ContractInsuranceService, ContractPensionService){
+        function($scope, $route, $modal, $rootElement, $q, settings, ContractDetailsService,
+                 ContractLeaveService, ContractInsuranceService, ContractPensionService){
 
             $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
 

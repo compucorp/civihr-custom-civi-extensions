@@ -141,8 +141,8 @@
                                                         <div class="col-sm-6">
                                                             <p class="form-control-static">
                                                                 ({{details.period_start_date | formatPeriod}} - {{details.period_end_date | formatPeriod}})
-                                                                <span ng-if="details.notice_amount"><br /><strong>Notice <span ng-if="details.notice_amount_employee">(Employer)</span>:</strong> {{details.notice_amount}} {{details.notice_unit}}(s)</span>
-                                                                <span ng-if="details.notice_amount_employee"><br><strong>Notice <span>(Employee)</span>:</strong> {{details.notice_amount_employee}} {{details.notice_unit_employee}}(s)</span>
+                                                                <span ng-if="details.notice_amount" class="subfield"><strong>Notice <span ng-if="details.notice_amount_employee">(Employer)</span>:</strong> {{details.notice_amount}} {{details.notice_unit}}(s)</span>
+                                                                <span ng-if="details.notice_amount_employee" class="subfield"><strong>Notice <span>(Employee)</span>:</strong> {{details.notice_amount_employee}} {{details.notice_unit_employee}}(s)</span>
                                                             </p>
                                                         </div>
                                                         <div class="col-sm-2">
@@ -158,7 +158,7 @@
                                                                 <strong>Tied to funding</strong><br />
                                                                 <strong>Funding organization:</strong> <a href="#">Jackson
                                                                 Wellness Partnership</a>
-                                                                <span ng-if="details.funding_notes"><br /><strong>Notes:</strong> {{details.funding_notes}}</span>
+                                                                <span ng-if="details.funding_notes" class="subfield"><strong>Notes:</strong> {{details.funding_notes}}</span>
                                                             </p>
                                                         </div>
                                                         <div class="col-sm-2">
@@ -173,9 +173,9 @@
                                                         <label class="col-sm-4 control-label">Health Insurance</label>
                                                         <div class="col-sm-6">
                                                             <p class="form-control-static">
-                                                                <span ng-if="insurance.plan_type">{{insurance.plan_type}}</span>
-                                                                <span ng-if="insurance.description"><br /><strong>Description:</strong> {{insurance.description}}</span>
-                                                                <span ng-if="insurance.dependents"><br /><strong>Dependents:</strong> {{insurance.dependents}}</span>
+                                                                <span ng-if="insurance.plan_type" class="subfield">{{insurance.plan_type}}</span>
+                                                                <span ng-if="insurance.description" class="subfield"><strong>Description:</strong> {{insurance.description}}</span>
+                                                                <span ng-if="insurance.dependents" class="subfield"><strong>Dependents:</strong> {{insurance.dependents}}</span>
                                                             </p>
                                                         </div>
                                                         <div class="col-sm-2">
@@ -188,9 +188,9 @@
                                                         <label class="col-sm-4 control-label">Life Insurance</label>
                                                         <div class="col-sm-6">
                                                             <p class="form-control-static">
-                                                                <span ng-if="insurance.plan_type_life_insurance">{{insurance.plan_type_life_insurance}}</span>
-                                                                <span ng-if="insurance.description_life_insurance"><br /><strong>Description:</strong> {{insurance.description_life_insurance}}</span>
-                                                                <span ng-if="insurance.dependents_life_insurance"><br /><strong>Dependents:</strong> {{insurance.dependents_life_insurance}}</span>
+                                                                <span ng-if="insurance.plan_type_life_insurance" class="subfield">{{insurance.plan_type_life_insurance}}</span>
+                                                                <span ng-if="insurance.description_life_insurance" class="subfield"><strong>Description:</strong> {{insurance.description_life_insurance}}</span>
+                                                                <span ng-if="insurance.dependents_life_insurance" class="subfield"><strong>Dependents:</strong> {{insurance.dependents_life_insurance}}</span>
                                                             </p>
                                                         </div>
                                                         <div class="col-sm-2">
@@ -214,7 +214,7 @@
                                                         <label class="col-sm-4 control-label">Leave</label>
                                                         <div class="col-sm-6">
                                                             <p class="form-control-static">
-                                                                <span ng-repeat="leaveEntry in leave" ng-if="leaveEntry.leave_amount"><strong>{{utils.absenceType[leaveEntry.leave_type].title}}:</strong> {{leaveEntry.leave_amount}} day(s)<br></span>
+                                                                <span ng-repeat="leaveEntry in leave" ng-if="leaveEntry.leave_amount" class="subfield"><strong>{{utils.absenceType[leaveEntry.leave_type].title}}:</strong> {{leaveEntry.leave_amount}} day(s)<br></span>
                                                             </p>
                                                         </div>
                                                         <div class="col-sm-2">
@@ -238,11 +238,11 @@
                                                         <label class="col-sm-4 control-label">Pension</label>
                                                         <div class="col-sm-6">
                                                             <p class="form-control-static">
-                                                                <span ng-if="pension.is_enrolled">{{pension.is_enrolled}}</span>
-                                                                <span ng-if="pension.pension_type"><br /><strong>Pension Type:</strong> {{pension.pension_type}}</span>
-                                                                <span ng-if="pension.er_contrib_pct"><br /><strong>Employer Contribution (%):</strong> {{pension.er_contrib_pct}}</span>
-                                                                <span ng-if="pension.ee_contrib_pct"><br /><strong>Employee Contribution (%):</strong> {{pension.ee_contrib_pct}}</span>
-                                                                <span ng-if="pension.ee_contrib_abs | parseInt"><br /><strong>Employee Contribution (absolute amount):</strong> {{pension.ee_contrib_abs | formatAmount}}</span>
+                                                                <span ng-if="pension.is_enrolled" class="subfield">{{pension.is_enrolled}}</span>
+                                                                <span ng-if="pension.pension_type" class="subfield"><strong>Pension Type:</strong> {{pension.pension_type}}</span>
+                                                                <span ng-if="pension.er_contrib_pct" class="subfield"><strong>Employer Contribution (%):</strong> {{pension.er_contrib_pct}}</span>
+                                                                <span ng-if="pension.ee_contrib_pct" class="subfield"><strong>Employee Contribution (%):</strong> {{pension.ee_contrib_pct}}</span>
+                                                                <span ng-if="pension.ee_contrib_abs | parseInt" class="subfield"><strong>Employee Contribution (absolute amount):</strong> {{pension.ee_contrib_abs | formatAmount}}</span>
                                                             </p>
                                                         </div>
                                                         <div class="col-sm-2">

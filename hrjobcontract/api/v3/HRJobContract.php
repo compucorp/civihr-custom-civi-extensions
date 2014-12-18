@@ -1,5 +1,7 @@
 <?php
 
+require_once 'api/v3/jobcontract_utils.php';
+
 /**
  * HRJobContract.create API specification (optional)
  * This is used for documentation and validation.
@@ -64,8 +66,13 @@ function civicrm_api3_h_r_job_contract_get($params) {
     return $contracts;
 }
 
-/*
- * _civicrm_api3_basic_get( $className, $params, bool - success JSON / raw data JSON )
- * _civicrm_api3_get_BAO(__FUNCTION__)
- * *** _civicrm_api3_dao_to_array() *** - gets the data from DB
+/**
+ * HRJobContract.deletecontract API
+ *
+ * @param array $params
+ * @return array API result descriptor
+ * @throws API_Exception
  */
+function civicrm_api3_h_r_job_contract_deletecontract($params) {
+  return _civicrm_hrjobcontract_api3_deletecontract($params);
+}

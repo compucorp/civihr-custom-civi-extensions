@@ -256,7 +256,7 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
     {
         if (empty($params['jobcontract_id']))
         {
-            throw new API_Exception("Cannot create entity: please specify jobcontract_id value");
+            throw new API_Exception("Cannot create entity: please specify jobcontract_id value.");
         }
 
         if (empty($params['jobcontract_revision_id']))

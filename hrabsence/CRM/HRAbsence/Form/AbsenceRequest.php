@@ -54,7 +54,6 @@ class CRM_HRAbsence_Form_AbsenceRequest extends CRM_Core_Form {
    */
   function preProcess() {
     $this->_action = CRM_Utils_Request::retrieve('action', 'String', $this);
-    //$this->_jobHoursTime = CRM_HRJob_Page_JobsTab::getJobHoursTime();
     $this->_jobHoursTime = CRM_Hrjobcontract_Page_JobsTab::getJobHoursTime();
     $this->assign('jobHoursTime', $this->_jobHoursTime);
     $this->_aid = CRM_Utils_Request::retrieve('aid', 'Int', $this);
@@ -205,14 +204,14 @@ class CRM_HRAbsence_Form_AbsenceRequest extends CRM_Core_Form {
       $primaryJobContractId = null;
       
       $jobContracts = civicrm_api3('HRJobContract', 'get', array(
-          'contact_id' => $this->_targetContactID,//49
+          'contact_id' => $this->_targetContactID,
       ));
       
       if (!empty($jobContracts['values']))
       {
           foreach ($jobContracts['values'] as $jobContract)
           {
-              $jobData = civicrm_api3('HRJobData', 'get', array(
+              $jobData = civicrm_api3('HRJobDetails', 'get', array(
                   'jobcontract_id' => $jobContract['id'],
               ));
               
@@ -309,22 +308,17 @@ class CRM_HRAbsence_Form_AbsenceRequest extends CRM_Core_Form {
 
     $this->_absenceType = $activityTypes[$this->_activityTypeID];
     $this->assign('absenceType', $this->_absenceType);
-    /*$resultHRJob = civicrm_api3('HRJob', 'get', array(
-      'sequential' => 1,
-      'contact_id' => $this->_targetContactID,
-      'is_primary' => 1,
-    ));*/
     $primaryJobContractId = $this->getPrimaryJobContractId($this->_targetContactID);
-    $resultHRJobData = null;
+    $resultHRJobDetails = null;
     if ($primaryJobContractId)
     {
-        $resultHRJobData = civicrm_api3('HRJobData', 'get', array(
+        $resultHRJobDetails = civicrm_api3('HRJobDetails', 'get', array(
             'sequential' => 1,
             'jobcontract_id' => $primaryJobContractId,
         ));
     }
-    if (!empty($resultHRJobData['values'])) {
-      $this->_empPosition = $resultHRJobData['values'][0]['position'];
+    if (!empty($resultHRJobDetails['values'])) {
+      $this->_empPosition = $resultHRJobDetails['values'][0]['position'];
       $this->assign('emp_position', $this->_empPosition);
     }
     $this->assign('emp_name', CRM_Contact_BAO_Contact::displayName($this->_targetContactID));

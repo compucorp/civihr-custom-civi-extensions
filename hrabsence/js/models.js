@@ -265,7 +265,7 @@ CRM.HRAbsenceApp.module('Models', function(Models, HRAbsenceApp, Backbone, Mario
   CRM.Backbone.extendCollection(Models.EntitlementCollection);
 
   Models.JobLeaves = Backbone.Model.extend({});
-  CRM.Backbone.extendModel(Models.JobLeaves, 'HRJob');
+  CRM.Backbone.extendModel(Models.JobLeaves, 'HRJobContract');
   Models.JobLeavesCollection = Backbone.Collection.extend({
     model: Models.JobLeaves,
     /**

@@ -25,29 +25,30 @@ define(['controllers/controllers',
             $scope.save = function () {
 
                 var contract = $scope.contract,
-                    params = {
-                        id: null,
-                        jobcontract_revision_id: null,
-                        jobcontract_id: null
-                    },
                     entity, entityLen, i;
+
+                function changeParams(obj, id){
+                    delete obj.id;
+                    delete obj.jobcontract_revision_id;
+                    obj.jobcontract_id = id;
+                }
 
                 for (entity in contract) {
 
-                    if (!angular.isArray(contract[entity])) {
-                        angular.extend(contract[entity],params);
-                        continue;
-                    } else {
+                    if (angular.isArray(contract[entity])) {
                         i = 0, entityLen = contract[entity].length;
                         for (i; i < entityLen; i++) {
-                            angular.extend(contract[entity][i],params);
+                            changeParams(contract[entity][i],contract.id);
                         }
+                        continue;
+                    }
+
+                    if (angular.isObject(contract[entity])) {
+                        changeParams(contract[entity],contract.id);
                     }
 
                 }
 
-                console.log($scope.contract);
-/*
                 var promiseContractDetails = ContractDetailsService.save($scope.contract.details),
                     promiseContractLeave = ContractLeaveService.save($scope.contract.leave),
                     promiseContractInsurance = ContractInsuranceService.save($scope.contract.insurance),
@@ -62,7 +63,7 @@ define(['controllers/controllers',
                     results.requireReload = contract.details.period_end_date !== results.details.period_end_date;
                     $modalInstance.close(results);
                 });
-*/
+
             };
 
         }]);

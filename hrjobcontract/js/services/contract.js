@@ -2,7 +2,6 @@ console.log('Service: ContractService');
 define(['services/services'], function (services) {
 
     services.factory('Contract',['$resource', 'settings', function($resource, settings){
-        //return $resource(settings.pathApp+'/data/contractList.json',{
         return $resource(settings.pathRest,{
                 action: 'get',
                 entity: 'HRJobContract',
@@ -56,6 +55,25 @@ define(['services/services'], function (services) {
                     deffered.resolve(val.length == 1 ? val[0] : null);
                 },function(){
                     deffered.reject('Unable to fetch contract list');
+                });
+
+                return deffered.promise;
+            },
+            delete: function(contractId){
+
+                if (!contractId || typeof +contractId !== 'number') {
+                    return null;
+                }
+
+                var deffered = $q.defer();
+
+                Contract.delete({
+                    action: 'deletecontract',
+                    json: { id: contractId }
+                }, function(data){
+                    deffered.resolve(data);
+                },function(){
+                    deffered.reject('Could not delete contract ID:'+contractId);
                 });
 
                 return deffered.promise;

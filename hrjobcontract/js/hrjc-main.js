@@ -40,6 +40,7 @@ require([
     'services/contract',
     'controllers/contractList',
     'controllers/contract',
+    'controllers/history',
     'controllers/modal/modalContractChange',
     'controllers/modal/modalContractEdit',
     'controllers/modal/modalContractNew',

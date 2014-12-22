@@ -9660,6 +9660,15 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 #hrjob-contract .fa-meanpath:before {
   content: "\f20c";
 }
+/* line 1, ../sass/modules/_angular.scss */
+#hrjob-contract [ng\:cloak],
+#hrjob-contract [ng-cloak],
+#hrjob-contract [data-ng-cloak],
+#hrjob-contract [x-ng-cloak],
+#hrjob-contract .ng-cloak,
+#hrjob-contract .x-ng-cloak {
+  display: none !important;
+}
 /* line 1, ../sass/partials/_collapse.scss */
 #hrjob-contract a.btn-collapse {
   background: none;

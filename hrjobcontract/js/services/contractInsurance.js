@@ -11,17 +11,18 @@ define(['services/services'], function (services) {
         });
 
         return {
-            getOne: function(contractId) {
+            getOne: function(params) {
 
-                if (!contractId || typeof +contractId !== 'number') {
+                if ((!params || typeof params !== 'object') ||
+                    (!params.jobcontract_id && !params.jobcontract_revision_id) ||
+                    (params.jobcontract_id && typeof +params.jobcontract_id !== 'number') ||
+                    (params.jobcontract_revision_id && typeof +params.jobcontract_revision_id!== 'number')) {
                     return null;
                 }
 
+                params.sequential = 1;
+
                 var deffered = $q.defer(),
-                    params = {
-                        sequential: 1,
-                        jobcontract_id: contractId
-                    },
                     val;
 
                 ContractInsurance.get({json: params}, function(data){

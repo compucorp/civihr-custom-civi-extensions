@@ -12,10 +12,10 @@ define(['controllers/controllers',
             $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
 
             var contractId = $scope.contract.id,
-                promiseContractDetails = ContractDetailsService.getOne(contractId),
+                promiseContractDetails = ContractDetailsService.getOne({ jobcontract_id: contractId}),
                 promiseContractLeave = ContractLeaveService.get({ jobcontract_id: contractId}),
-                promiseContractInsurance = ContractInsuranceService.getOne(contractId),
-                promiseContractPension = ContractPensionService.getOne(contractId);
+                promiseContractInsurance = ContractInsuranceService.getOne({ jobcontract_id: contractId}),
+                promiseContractPension = ContractPensionService.getOne({ jobcontract_id: contractId});
 
             $q.all({
                 details: promiseContractDetails,

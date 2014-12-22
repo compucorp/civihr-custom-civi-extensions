@@ -274,6 +274,14 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
                 $tableName . '_revision_id' => $newRevision['id'],
             ));
         }
+        else
+        {
+            $updatedRevision = civicrm_api3('HRJobContractRevision', 'create', array(
+                'sequential' => 1,
+                'id' => $params['jobcontract_revision_id'],
+                $tableName . '_revision_id' => $params['jobcontract_revision_id'],
+            ));
+        }
     }
 
     CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);

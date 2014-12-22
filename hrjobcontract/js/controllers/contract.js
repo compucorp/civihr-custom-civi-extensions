@@ -46,6 +46,7 @@ define(['controllers/controllers',
                     resolve: {
                         contract: function(){
                             return {
+                                id: contractId,
                                 details: $scope.details,
                                 leave: $scope.leave,
                                 insurance: $scope.insurance,

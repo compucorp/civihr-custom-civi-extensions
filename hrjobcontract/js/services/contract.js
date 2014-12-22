@@ -11,7 +11,17 @@ define(['services/services'], function (services) {
             })
     }]);
 
-    services.factory('ContractService', ['Contract','settings','$q', function (Contract, settings, $q) {
+    services.factory('ContractRevision',['$resource', 'settings', function($resource, settings){
+        return $resource(settings.pathRest,{
+            action: 'get',
+            entity: 'HRJobContractRevision',
+            json: {},
+            api_key: settings.keyApi,
+            key: settings.key
+        })
+    }]);
+
+    services.factory('ContractService', ['Contract','ContractRevision','settings','$q', function (Contract, ContractRevision, settings, $q) {
         return {
             get: function(contactId) {
                 var deffered = $q.defer(),
@@ -59,7 +69,28 @@ define(['services/services'], function (services) {
 
                 return deffered.promise;
             },
-            delete: function(contractId){
+            getRevision: function(contractId) {
+
+                if (!contractId || typeof +contractId !== 'number') {
+                    return null;
+                }
+
+                var deffered = $q.defer(),
+                    params = {
+                        sequential: 1,
+                        jobcontract_id: contractId
+                    };
+
+                ContractRevision.get({json: params}, function(data){
+                    deffered.resolve(data.values);
+                },function(){
+                    deffered.reject('Unable to fetch contract revisions');
+                });
+
+                return deffered.promise;
+
+            },
+            delete: function(contractId) {
 
                 if (!contractId || typeof +contractId !== 'number') {
                     return null;

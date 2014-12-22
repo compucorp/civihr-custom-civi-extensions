@@ -36,10 +36,6 @@ function _civicrm_get_table_name($className)
  */
 function _civicrm_hrjobcontract_api3_set_current_revision(array &$params, $table)
 {
-    if (!empty($params['all']))
-    {
-        return false;
-    }
     if (!empty($params['jobcontract_id'])) {
         $revisionId = _civicrm_hrjobcontract_api3_get_current_revision_id((int)$params['jobcontract_id'], $table);
         if ($revisionId) {
@@ -156,7 +152,7 @@ function _civicrm_hrjobcontract_api3_replace($entity, $params) {
     $jobcontractRevisionId = null;
     $creates = array();
     foreach ($params['values'] as $replacement) {
-      if (empty($replacement['id']))
+      if (empty($replacement['id']) && empty($replacement['jobcontract_revision_id']))
       {
         $replacement['jobcontract_revision_id'] = $jobcontractRevisionId;
       }

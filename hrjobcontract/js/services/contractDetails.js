@@ -43,13 +43,15 @@ define(['services/services'], function (services) {
                 var deffered = $q.defer(),
                     params = angular.extend({
                         sequential: 1
-                    },contractDetails);
+                    },contractDetails),
+                    val;
 
                 ContractDetails.save({
                     action: 'create',
                     json: params
-                }, null, function(){
-                    deffered.resolve(contractDetails);
+                }, null, function(data){
+                    val = data.values;
+                    deffered.resolve(val.length == 1 ? val[0] : null);
                 },function(){
                     deffered.reject('Unable to fetch contract details');
                 });

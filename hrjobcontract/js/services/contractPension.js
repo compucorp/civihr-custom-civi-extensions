@@ -2,7 +2,7 @@ console.log('Service: ContractPensionService');
 define(['services/services'], function (services) {
 
     services.factory('ContractPensionService', ['$resource', 'settings', '$q', function ($resource, settings, $q) {
-        var ContractDetails = $resource(settings.pathRest, {
+        var ContractPension = $resource(settings.pathRest, {
             action: 'get',
             entity: 'HRJobPension',
             json: {},
@@ -25,7 +25,7 @@ define(['services/services'], function (services) {
                 var deffered = $q.defer(),
                     val;
 
-                ContractDetails.get({json: params}, function(data){
+                ContractPension.get({json: params}, function(data){
                     val = data.values;
                     deffered.resolve(val.length == 1 ? val[0] : null);
                 },function(){
@@ -43,13 +43,15 @@ define(['services/services'], function (services) {
                 var deffered = $q.defer(),
                     params = angular.extend({
                         sequential: 1
-                    },contractPension);
+                    },contractPension),
+                    val;
 
-                ContractDetails.save({
+                ContractPension.save({
                     action: 'create',
                     json: params
-                }, null, function(){
-                    deffered.resolve(contractPension);
+                }, null, function(data){
+                    val = data.values;
+                    deffered.resolve(val.length == 1 ? val[0] : null);
                 },function(){
                     deffered.reject('Unable to fetch contract pension');
                 });

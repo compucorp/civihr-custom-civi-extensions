@@ -49,21 +49,26 @@ define(['controllers/controllers',
                     contractDetails.jobcontract_id = contractId;
                     contractDetails.is_primary = 0;
 
-                    angular.forEach(contractLeave, function(values){
-                        values.jobcontract_id = contractId;
-                    });
+                    ContractDetailsService.save(contractDetails).then(function(results){
+                        return results.jobcontract_revision_id;
+                    }).then(function(revisionId){
 
-                    contractInsurance.jobcontract_id = contractId;
-                    contractPension.jobcontract_id = contractId;
+                        angular.forEach(contractLeave, function(values){
+                            values.jobcontract_id = contractId;
+                            values.jobcontract_revision_id = revisionId;
+                        });
 
-                    var promiseContractDetails = ContractDetailsService.save(contractDetails),
-                        promiseContractLeave = ContractLeaveService.save(contractLeave),
-                        promiseContractInsurance = ContractInsuranceService.save(contractInsurance),
-                        promiseContractPension = ContractPensionService.save(contractPension);
+                        contractInsurance.jobcontract_id = contractId;
+                        contractInsurance.jobcontract_revision_id = revisionId;
 
-                    $q.all([promiseContractDetails, promiseContractLeave, promiseContractInsurance, promiseContractPension]).then(function(){
+                        contractPension.jobcontract_id = contractId;
+                        contractPension.jobcontract_revision_id = revisionId;
+
+                        return $q.all([ContractLeaveService.save(contractLeave), ContractInsuranceService.save(contractInsurance), ContractPensionService.save(contractPension)])
+                    }).then(function(){
                         $modalInstance.close(contract);
                     });
+
                 });
             };
 

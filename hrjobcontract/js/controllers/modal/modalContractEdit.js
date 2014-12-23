@@ -23,20 +23,21 @@ define(['controllers/controllers',
             };
 
             $scope.save = function () {
-                var promiseContractDetails = ContractDetailsService.save($scope.contract.details),
-                    promiseContractLeave = ContractLeaveService.save($scope.contract.leave),
-                    promiseContractInsurance = ContractInsuranceService.save($scope.contract.insurance),
-                    promiseContractPension = ContractPensionService.save($scope.contract.pension);
 
                 $q.all({
-                    details: promiseContractDetails,
-                    leave: promiseContractLeave,
-                    insurance: promiseContractInsurance,
-                    pension: promiseContractPension
+                    details: ContractDetailsService.save($scope.contract.details),
+                    leave: ContractLeaveService.save($scope.contract.leave),
+                    insurance: ContractInsuranceService.save($scope.contract.insurance),
+                    pension: ContractPensionService.save($scope.contract.pension)
                 }).then(function(results){
 
                     //TODO (incorrect date format in the API response)
-                    //results.requireReload = contract.details.period_end_date !== results.details.period_end_date;
+                    results.details.period_start_date = $scope.contract.details.period_start_date;
+                    results.details.period_end_date = $scope.contract.details.period_end_date;
+                    //
+
+                    results.requireReload = contract.details.period_end_date !== results.details.period_end_date;
+
                     $modalInstance.close(results);
                 });
 

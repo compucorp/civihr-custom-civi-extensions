@@ -64,7 +64,7 @@ define(['controllers/controllers',
                         contractPension.jobcontract_id = contractId;
                         contractPension.jobcontract_revision_id = revisionId;
 
-                        return $q.all([ContractLeaveService.save(contractLeave), ContractInsuranceService.save(contractInsurance), ContractPensionService.save(contractPension)])
+                        return $q.all([ContractLeaveService.save(contractLeave), ContractInsuranceService.save(contractInsurance), ContractPensionService.save(contractPension)]);
                     }).then(function(){
                         $modalInstance.close(contract);
                     });

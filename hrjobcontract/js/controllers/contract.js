@@ -75,8 +75,8 @@ define(['controllers/controllers',
 
                 modalInstance.result.then(function(results){
                     $scope.details = results.details;
-                    $scope.leave = results.leave,
-                    $scope.insurance = results.insurance,
+                    $scope.leave = results.leave;
+                    $scope.insurance = results.insurance;
                     $scope.pension = results.pension;
 
                     if (results.requireReload) {

@@ -34,7 +34,9 @@ define(['controllers/controllers',
                     insurance: promiseContractInsurance,
                     pension: promiseContractPension
                 }).then(function(results){
-                    results.requireReload = contract.details.period_end_date !== results.details.period_end_date;
+
+                    //TODO (incorrect date format in the API response)
+                    //results.requireReload = contract.details.period_end_date !== results.details.period_end_date;
                     $modalInstance.close(results);
                 });
 

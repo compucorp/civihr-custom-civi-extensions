@@ -87,7 +87,7 @@
                         <tab heading="Summary">
                             <div ng-include src="'/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract/views/contractSummary.html'"></div>
                         </tab>
-                        <tab heading="Full History">
+                        <tab heading="Full History" disabled="!revisionList.length" ng-controller="RevisionListCtrl">
                             <div ng-include src="'/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract/views/contractRevisionList.html?v=wefwef'"></div>
                         </tab>
                     </tabset>

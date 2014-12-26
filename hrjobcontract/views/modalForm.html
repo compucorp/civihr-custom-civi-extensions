@@ -102,7 +102,7 @@
                                     <option value="">- select -</option>
                                     <option value="Day">Day</option>
                                     <option value="Week">Week</option>
-                                    <option value="Month" selected>Month</option>
+                                    <option value="Month">Month</option>
                                     <option value="Year">Year</option>
                                 </select>
                             </div>
@@ -130,29 +130,30 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="hours-type" class="col-sm-4 control-label">Hours type</label>
+                        <label for="{{prefix}}hours-type" class="col-sm-4 control-label">Hours type</label>
 
                         <div class="col-sm-5">
-                            <select id="hours-type" class="form-control" ng-disabled="isDisabled">
-                                <option value="1">Full Time</option>
-                                <option value="2">Part Time</option>
-                                <option value="3">Casual</option>
+                            <select id="{{prefix}}hours-type" class="form-control" ng-model="contract.hours.hours_type" ng-disabled="isDisabled">
+                                <option value="">- select -</option>
+                                <option value="0">Casual</option>
+                                <option value="4">Part Time</option>
+                                <option value="8">Full Time</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group required">
-                        <label for="actual-hours" class="col-sm-4 control-label">Actual hours</label>
+                        <label for="{{prefix}}actual-hours" class="col-sm-4 control-label">Actual hours</label>
                         <div class="col-sm-8">
                             <div class="form-inline">
-                                <input type="text" class="form-control input-inline-sm disabled" id="actual-hours" value="40"
-                                       ng-disabled="isDisabled || true">
+                                <input type="text" class="form-control input-inline-sm" id="{{prefix}}actual-hours"
+                                       ng-model="contract.hours.hours_amount" ng-disabled="isDisabled">
                                 per
-                                <input type="text" class="form-control input-inline-sm disabled" value="Week" ng-disabled="isDisabled || true">
+                                <input type="text" class="form-control input-inline-sm" ng-model="contract.hours.hours_unit" ng-disabled="isDisabled">
                             </div>
                         </div>
                     </div>
                     <div class="form-group required">
-                        <label for="actual-hours" class="col-sm-4 control-label">FTE
+                        <label for="{{prefix}}fte-num" class="col-sm-4 control-label">FTE
                             <a tooltip-placement="right"
                                tooltip-html-unsafe="<strong>FTE</strong> stands for
                                        Full Time Equivalent. This is a useful measure for
@@ -183,9 +184,11 @@
 
                         <div class="col-sm-8">
                             <div class="form-inline">
-                                <input type="text" class="form-control input-inline-sm disabled" id="fte" value="1" ng-disabled="isDisabled || true">
+                                <input type="text" class="form-control input-inline-sm" id="{{prefix}}fte-num"
+                                       ng-model="contract.hours.fte_num" ng-disabled="isDisabled">
                                 per
-                                <input type="text" class="form-control input-inline-sm disabled" value="1" ng-disabled="isDisabled || true">
+                                <input type="text" class="form-control input-inline-sm"
+                                       ng-model="contract.hours.fte_denom" ng-disabled="isDisabled">
                             </div>
                         </div>
                     </div>

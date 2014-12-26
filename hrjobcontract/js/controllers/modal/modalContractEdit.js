@@ -1,14 +1,16 @@
 console.log('Controller: ModalContractEditCtrl');
 define(['controllers/controllers',
         'services/contractDetails',
+        'services/contractHours',
         'services/contractLeave',
         'services/contractInsurance',
         'services/contractPension'], function(controllers){
 
     controllers.controller('ModalContractEditCtrl',['$scope','$modalInstance','$q', 'ContractDetailsService',
-        'ContractLeaveService','ContractInsuranceService','ContractPensionService','contract','utils',
-        function($scope, $modalInstance, $q, ContractDetailsService, ContractLeaveService, ContractInsuranceService,
-                 ContractPensionService, contract, utils){
+        'ContractHoursService', 'ContractLeaveService','ContractInsuranceService','ContractPensionService','contract',
+        'utils',
+        function($scope, $modalInstance, $q, ContractDetailsService, ContractHoursService, ContractLeaveService,
+            ContractInsuranceService, ContractPensionService, contract, utils){
 
             $scope.allowSave = true;
             $scope.contract = {};
@@ -26,6 +28,7 @@ define(['controllers/controllers',
 
                 $q.all({
                     details: ContractDetailsService.save($scope.contract.details),
+                    hours: ContractHoursService.save($scope.contract.hours),
                     leave: ContractLeaveService.save($scope.contract.leave),
                     insurance: ContractInsuranceService.save($scope.contract.insurance),
                     pension: ContractPensionService.save($scope.contract.pension)

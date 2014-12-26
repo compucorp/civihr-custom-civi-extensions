@@ -76,6 +76,7 @@ define(['controllers/controllers',
 
                 modalInstance.result.then(function(results){
                     $scope.details = results.details;
+                    $scope.hours = results.hours;
                     $scope.leave = results.leave;
                     $scope.insurance = results.insurance;
                     $scope.pension = results.pension;

@@ -34,10 +34,6 @@ define(['controllers/controllers',
 
             $scope.modalContract = function(action){
 
-                if (!action) {
-                    return null;
-                }
-
                 var modalInstance,
                     options = {
                     targetDomEl: $rootElement.find('div').eq(0),
@@ -61,15 +57,14 @@ define(['controllers/controllers',
                 }
 
                 switch(action){
-                    case 'view':
-                        options.controller = 'ModalContractViewCtrl'
-                        break;
                     case 'edit':
                         options.controller = 'ModalContractEditCtrl'
                         break;
                     case 'change':
                         options.controller = 'ModalContractChangeCtrl'
                         break;
+                    default:
+                        options.controller = 'ModalContractViewCtrl'
                 }
 
                 modalInstance = $modal.open(options);

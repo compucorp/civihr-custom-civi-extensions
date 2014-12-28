@@ -6,7 +6,7 @@
 </div>
 <div class="modal-body clearfix">
     <tabset class="tabs-left">
-        <tab heading="General">
+        <tab heading="General" ng-controller="FormGeneralCtrl">
             <div class="row">
                 <div class="col-xs-12">
                     <h4>General</h4>
@@ -73,7 +73,7 @@
                         <label class="col-sm-4 control-label">Contract Duration</label>
 
                         <div class="col-sm-8">
-                            <p class="form-control-static">2 months and 15 days</p>
+                            <p class="form-control-static">{{duration}}</p>
                         </div>
                     </div>
                     <div class="form-group">

@@ -24,7 +24,7 @@ define(['controllers/controllers',
 
             $scope.save = function () {
 
-                var contract = $scope.contract,
+                var contractNew = $scope.contract,
                     entity, entityLen, i, revisionId;
 
                 function changeParams(obj, contractId, revisionId){
@@ -33,38 +33,45 @@ define(['controllers/controllers',
                     revisionId ? obj.jobcontract_revision_id = revisionId : delete obj.jobcontract_revision_id;
                 }
 
-                changeParams(contract.details,contract.id);
+                changeParams(contractNew.details,contractNew.id);
 
-                ContractDetailsService.save(contract.details).then(function(contractDetails){
+                ContractDetailsService.save(contractNew.details).then(function(contractDetails){
                     return contractDetails;
                 }).then(function(contractDetails){
                     revisionId = contractDetails.jobcontract_revision_id;
 
-                    for (entity in contract) {
+                    for (entity in contractNew) {
 
-                        if (angular.isArray(contract[entity])) {
-                            i = 0, entityLen = contract[entity].length;
+                        if (angular.isArray(contractNew[entity])) {
+                            i = 0, entityLen = contractNew[entity].length;
                             for (i; i < entityLen; i++) {
-                                changeParams(contract[entity][i],contract.id,revisionId);
+                                changeParams(contractNew[entity][i],contractNew.id,revisionId);
                             }
                             continue;
                         }
 
-                        if (angular.isObject(contract[entity])) {
-                            changeParams(contract[entity],contract.id,revisionId);
+                        if (angular.isObject(contractNew[entity])) {
+                            changeParams(contractNew[entity],contractNew.id,revisionId);
                         }
 
                     }
 
                     return $q.all({
                         details: contractDetails,
-                        leave: ContractLeaveService.save(contract.leave),
-                        insurance: ContractInsuranceService.save(contract.insurance),
-                        pension: ContractPensionService.save(contract.pension)
+                        leave: ContractLeaveService.save(contractNew.leave),
+                        insurance: ContractInsuranceService.save(contractNew.insurance),
+                        pension: ContractPensionService.save(contractNew.pension)
                     });
 
                 }).then(function(results){
-                    results.requireReload = contract.details.period_end_date !== results.details.period_end_date;
+
+                    //TODO (incorrect date format in the API response)
+                    results.details.period_start_date = $scope.contract.details.period_start_date;
+                    results.details.period_end_date = $scope.contract.details.period_end_date;
+                    //
+
+                    results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
+
                     $modalInstance.close(results);
                 });
 

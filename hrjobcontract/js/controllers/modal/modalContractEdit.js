@@ -39,7 +39,7 @@ define(['controllers/controllers',
                     results.details.period_end_date = $scope.contract.details.period_end_date;
                     //
 
-                    results.requireReload = contract.details.period_end_date !== results.details.period_end_date;
+                    results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
 
                     $modalInstance.close(results);
                 });

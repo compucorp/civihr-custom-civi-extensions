@@ -59,14 +59,34 @@
                         <label for="{{prefix}}period-start-date" class="col-sm-4 control-label">Contract Start Date</label>
 
                         <div class="col-sm-4">
-                            <input type="date" class="form-control" id="{{prefix}}period-start-date" ng-model="contract.details.period_start_date" ng-disabled="isDisabled">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="{{prefix}}period-start-date"
+                                       datepicker-popup="yyyy-MM-dd"
+                                       is-open="dpDateStartOpen"
+                                       max-date="dpDateStartMax"
+                                       ng-model="contract.details.period_start_date"
+                                       ng-disabled="isDisabled">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="dpOpen($event, 'dpDateStartOpen')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="{{prefix}}period-end-date" class="col-sm-4 control-label">Contract End Date</label>
 
                         <div class="col-sm-4">
-                            <input type="date" class="form-control" id="{{prefix}}period-end-date" ng-model="contract.details.period_end_date" ng-disabled="isDisabled">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="{{prefix}}period-end-date"
+                                       datepicker-popup="yyyy-MM-dd"
+                                       is-open="dpDateEndOpen"
+                                       min-date="dpDateEndMin"
+                                       ng-model="contract.details.period_end_date"
+                                       ng-disabled="isDisabled">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="dpOpen($event, 'dpDateEndOpen')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">

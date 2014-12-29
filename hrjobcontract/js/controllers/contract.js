@@ -13,7 +13,7 @@ define(['controllers/controllers',
 
             $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
 
-            var contractId = $scope.contract.id;
+            var contractId = $scope.contract.id, revisionId;
 
             $q.all({
                 details: ContractDetailsService.getOne({ jobcontract_id: contractId}),
@@ -22,13 +22,31 @@ define(['controllers/controllers',
                 insurance: ContractInsuranceService.getOne({ jobcontract_id: contractId}),
                 pension: ContractPensionService.getOne({ jobcontract_id: contractId})
             }).then(function(results){
+
                 $scope.details = results.details;
                 $scope.details.is_primary = !!+$scope.details.is_primary;
+                revisionId = results.details.jobcontract_revision_id;
 
-                $scope.hours = results.hours;
-                $scope.leave = results.leave;
-                $scope.insurance = results.insurance;
-                $scope.pension = results.pension;
+                $scope.hours = results.hours || {
+                    jobcontract_id: contractId,
+                    jobcontract_revision_id: revisionId
+                };
+
+                $scope.leave = results.leave.length ? results.leave : ContractLeaveService.model($scope.utils.absenceType, {
+                    jobcontract_id: contractId,
+                    jobcontract_revision_id: $scope.details.jobcontract_revision_id
+                });
+
+                $scope.insurance = results.insurance || {
+                    jobcontract_id: contractId,
+                    jobcontract_revision_id: revisionId
+                };
+
+                $scope.pension = results.pension || {
+                    jobcontract_id: contractId,
+                    jobcontract_revision_id: revisionId
+                };
+
             });
 
 

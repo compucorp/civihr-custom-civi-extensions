@@ -62,21 +62,22 @@ define(['services/services'], function (services) {
 
                 return deffered.promise;
             },
-            model: function (leaveType) {
+            model: function (leaveType, params) {
 
                 if (!leaveType || typeof leaveType !== 'object') {
                     //TODO UtilsService.getAbsenceType()
                     return null;
                 }
 
-                var model = [];
+                var model = [],
+                    params = params || {};
 
                 angular.forEach(leaveType, function (value) {
-                    model.push({
+                    model.push(angular.extend({
                         "jobcontract_id": 0,
                         "leave_type": value.id,
                         "leave_amount": 0
-                    })
+                    },params));
                 });
 
                 return model;

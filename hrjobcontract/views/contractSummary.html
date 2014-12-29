@@ -115,7 +115,7 @@
                         <div class="form-group">
                             <label class="col-sm-4 control-label">Hours</label>
                             <div class="col-sm-6">
-                                <p class="form-control-static">{{hours.hours_type}} ({{hours.hours_amount}} per {{hours.hours_unit}}) ({{hours.fte_num}}/{{hours.fte_denom}}FTE)</p>
+                                <p class="form-control-static" ng-if="hours.hours_amount && hours.fte_num">{{hours.hours_type}} ({{hours.hours_amount}} per {{hours.hours_unit}}) ({{hours.fte_num}}/{{hours.fte_denom}}FTE)</p>
                             </div>
                             <div class="col-sm-2">
                                 <a class="btn" role="button" ng-click="modalRevision('hours')">

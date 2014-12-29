@@ -49,6 +49,7 @@ require([
     'controllers/modal/modalContractView',
     'controllers/modal/modalRevision',
     'controllers/form/formGeneral',
+    'controllers/form/formHours',
     'filters/formatAmount',
     'filters/formatPeriod',
     'filters/parseInt'

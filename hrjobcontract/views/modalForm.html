@@ -140,7 +140,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="form-group">
+                    <div class="form-group required">
                         <label for="standard-hours" class="col-sm-4 control-label">Location/Standard hours</label>
                         <div class="col-sm-5">
                             <select id="standard-hours" class="form-control"
@@ -166,13 +166,13 @@
                         <div class="col-sm-8">
                             <div class="form-inline">
                                 <input type="text" class="form-control input-inline-sm" id="{{prefix}}actual-hours"
-                                       ng-model="contract.hours.hours_amount" ng-disabled="isDisabled">
+                                       ng-model="contract.hours.hours_amount" ng-disabled="isDisabled || contract.hours.hours_type == 8" required>
                                 per
-                                <input type="text" class="form-control input-inline-sm" ng-model="contract.hours.hours_unit" ng-disabled="isDisabled">
+                                <input type="text" class="form-control input-inline-sm" ng-model="contract.hours.hours_unit" ng-disabled="true" required>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group required">
+                    <div class="form-group required" ng-show="+contract.hours.hours_type">
                         <label for="{{prefix}}fte-num" class="col-sm-4 control-label">FTE
                             <a tooltip-placement="right"
                                tooltip-html-unsafe="<strong>FTE</strong> stands for
@@ -205,10 +205,14 @@
                         <div class="col-sm-8">
                             <div class="form-inline">
                                 <input type="text" class="form-control input-inline-sm" id="{{prefix}}fte-num"
-                                       ng-model="contract.hours.fte_num" ng-disabled="isDisabled">
+                                       ng-model="fteFraction" ng-disabled="true">
                                 &nbsp;or&nbsp;
                                 <input type="text" class="form-control input-inline-sm"
-                                       ng-model="contract.hours.fte_denom" ng-disabled="isDisabled">
+                                       ng-model="contract.hours.hours_fte" ng-disabled="true">
+                                <input type="hidden" class="form-control input-inline-sm" id="{{prefix}}fte-num"
+                                       ng-model="contract.hours.fte_num" ng-disabled="isDisabled" required>
+                                <input type="hidden" class="form-control input-inline-sm"
+                                       ng-model="contract.hours.fte_denom" ng-disabled="isDisabled" required>
                             </div>
                         </div>
                     </div>

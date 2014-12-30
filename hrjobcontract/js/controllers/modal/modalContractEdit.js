@@ -21,8 +21,6 @@ define(['controllers/controllers',
 
             angular.copy(contract,$scope.contract);
 
-            console.log($scope.contract);
-
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
             };

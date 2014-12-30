@@ -34,6 +34,23 @@ define(['services/services'], function (services) {
 
                 return deffered.promise;
             },
+            getOptions: function(fieldName, callAPI){
+                var deffered = $q.defer(), data;
+
+                if (!callAPI) {
+                    var data = settings.CRM.options.HRJobHour || {};
+
+                    if (fieldName && typeof fieldName === 'string') {
+                        data = data[fieldName];
+                    }
+
+                    deffered.resolve(data || {});
+                } else {
+                    //TODO call2API
+                }
+
+                return deffered.promise;
+            },
             save: function(contractHours){
 
                 if (!contractHours || typeof contractHours !== 'object') {

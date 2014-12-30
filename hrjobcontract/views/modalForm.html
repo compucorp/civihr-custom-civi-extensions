@@ -240,70 +240,72 @@
                     </div>
                 </div>
             </div>
-            <hr>
-            <div class="form-group">
-                <label for="pay-scale" class="col-sm-4 control-label">Pay Scale / Grade</label>
+            <div collapse="contract.pay.is_paid == '0'">
+                <hr>
+                <div class="form-group">
+                    <label for="pay-scale" class="col-sm-4 control-label">Pay Scale / Grade</label>
 
-                <div class="col-sm-5">
-                    <select id="pay-scale" class="form-control" ng-disabled="isDisabled">
-                        <option value="1">US</option>
-                        <option value="2"> - Senior</option>
-                        <option value="3"> - Junior</option>
-                        <option value="4">UK</option>
-                        <option value="5"> - Senior</option>
-                        <option value="6"> - Junior</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="pay-currency" class="col-sm-4 control-label">Pay</label>
-
-                <div class="col-sm-8">
-                    <div class="form-inline">
-                        <select id="pay-currency" class="form-control" ng-disabled="isDisabled">
-                            <option value="GBP">&pound;</option>
-                            <option value="USD">&dollar;</option>
-                            <option value="EUR">&euro;</option>
-                        </select>
-                        <input type="text" name="pay-value" class="form-control input-inline-sm" value="1500" ng-disabled="isDisabled">
-                        per
-                        <select name="pay-timeunit" class="form-control" ng-disabled="isDisabled">
-                            <option value="">- select -</option>
-                            <option value="Day">Day</option>
-                            <option value="Week">Week</option>
-                            <option value="Month" selected>Month</option>
-                            <option value="Year">Year</option>
+                    <div class="col-sm-5">
+                        <select id="pay-scale" class="form-control" ng-disabled="isDisabled">
+                            <option value="1">US</option>
+                            <option value="2"> - Senior</option>
+                            <option value="3"> - Junior</option>
+                            <option value="4">UK</option>
+                            <option value="5"> - Senior</option>
+                            <option value="6"> - Junior</option>
                         </select>
                     </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="pay-estimate-annual" class="col-sm-4 control-label control-label-line-2">Annual pay estimate before
-                    benefits and deductions</label>
-
-                <div class="col-sm-3">
-                    <input type="text" id="pay-estimate-annual" class="form-control disabled" value="18000" ng-disabled="isDisabled || true">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="pay-cycle" class="col-sm-4 control-label">Pay cycle</label>
-
-                <div class="col-sm-3">
-                    <select id="pay-cycle" class="form-control" ng-disabled="isDisabled">
-                        <option value="">- select -</option>
-                        <option value="1">weekly</option>
-                        <option value="2" selected>monthly</option>
-                    </select>
-                </div>
-            </div>
-            <div class="well">
                 <div class="form-group">
-                    <label for="pay-gross-cycle" class="col-sm-4 control-label control-label-line-2">Gross Pay per cycle<br/>
-                        <small>(before benefits and deductions)</small>
-                    </label>
+                    <label for="{{prefix}}pay-amount" class="col-sm-4 control-label">Pay</label>
+
+                    <div class="col-sm-8">
+                        <div class="form-inline">
+                            <select class="form-control" ng-model="contract.pay.pay_currency" ng-disabled="isDisabled">
+                                <!--<option value="">&pound;</option>-->
+                                <option value="">&dollar;</option>
+                                <!--<option value="">&euro;</option>-->
+                            </select>
+                            <input id="{{prefix}}pay-amount" type="text" class="form-control input-inline-sm" ng-model="contract.pay.pay_amount" ng-disabled="isDisabled">
+                            per
+                            <select class="form-control" ng-model="contract.pay.pay_unit" ng-disabled="isDisabled">
+                                <option value="Hour">Hour</option>
+                                <option value="Day">Day</option>
+                                <option value="Week">Week</option>
+                                <option value="Month" selected>Month</option>
+                                <option value="Year">Year</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pay-estimate-annual" class="col-sm-4 control-label control-label-line-2">Annual pay estimate before
+                        benefits and deductions</label>
 
                     <div class="col-sm-3">
-                        <input type="text" id="pay-gross-cycle" class="form-control disabled" value="18000" ng-disabled="isDisabled || true">
+                        <input type="text" id="pay-estimate-annual" class="form-control disabled" ng-model="contract.pay.pay_annualized_est" ng-disabled="isDisabled || true">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pay-cycle" class="col-sm-4 control-label">Pay cycle</label>
+
+                    <div class="col-sm-3">
+                        <select id="pay-cycle" class="form-control" ng-disabled="isDisabled">
+                            <option value="">- select -</option>
+                            <option value="1">weekly</option>
+                            <option value="2" selected>monthly</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="well">
+                    <div class="form-group">
+                        <label for="pay-gross-cycle" class="col-sm-4 control-label control-label-line-2">Gross Pay per cycle<br/>
+                            <small>(before benefits and deductions)</small>
+                        </label>
+
+                        <div class="col-sm-3">
+                            <input type="text" id="pay-gross-cycle" class="form-control disabled" value="18000" ng-disabled="isDisabled || true">
+                        </div>
                     </div>
                 </div>
             </div>

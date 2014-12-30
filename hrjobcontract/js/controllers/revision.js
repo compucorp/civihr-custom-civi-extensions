@@ -11,11 +11,13 @@ define(['controllers/controllers',
 
             $q.all({
                 details: ContractDetailsService.getOne({ jobcontract_revision_id: $scope.revision.details_revision_id }),
+                pay: ContractPayService.getOne({ jobcontract_revision_id: $scope.revision.pay_revision_id }),
                 leave: ContractLeaveService.get({ jobcontract_revision_id: $scope.revision.leave_revision_id }),
                 insurance: ContractInsuranceService.getOne({ jobcontract_revision_id: $scope.revision.health_revision_id }),
                 pension: ContractPensionService.getOne({ jobcontract_revision_id: $scope.revision.pension_revision_id })
             }).then(function(results){
                 $scope.details = results.details;
+                $scope.pay = results.pay;
                 $scope.leave = results.leave;
                 $scope.insurance = results.insurance;
                 $scope.pension = results.pension;

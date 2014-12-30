@@ -1,14 +1,16 @@
 console.log('Controller: ModalContractChangeCtrl');
 define(['controllers/controllers',
         'services/contractDetails',
+        'services/contractPay',
         'services/contractLeave',
         'services/contractInsurance',
         'services/contractPension'], function(controllers){
 
     controllers.controller('ModalContractChangeCtrl',['$scope','$modalInstance','$q', 'ContractDetailsService',
-        'ContractLeaveService','ContractInsuranceService','ContractPensionService','contract','utils',
-        function($scope, $modalInstance, $q, ContractDetailsService, ContractLeaveService, ContractInsuranceService,
-                 ContractPensionService, contract, utils){
+        'ContractPayService', 'ContractLeaveService','ContractInsuranceService','ContractPensionService',
+        'contract','utils',
+        function($scope, $modalInstance, $q, ContractDetailsService, ContractPayService, ContractLeaveService,
+                 ContractInsuranceService, ContractPensionService, contract, utils){
 
             $scope.allowSave = true;
             $scope.contract = {};
@@ -58,6 +60,7 @@ define(['controllers/controllers',
 
                     return $q.all({
                         details: contractDetails,
+                        pay: ContractPayService.save(contractNew.pay),
                         leave: ContractLeaveService.save(contractNew.leave),
                         insurance: ContractInsuranceService.save(contractNew.insurance),
                         pension: ContractPensionService.save(contractNew.pension)

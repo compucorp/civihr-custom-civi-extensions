@@ -2,14 +2,15 @@ console.log('Controller: ContractCtrl');
 define(['controllers/controllers',
         'services/contractDetails',
         'services/contractHours',
+        'services/contractPay',
         'services/contractLeave',
         'services/contractPension',
         'services/contractInsurance'], function(controllers){
     controllers.controller('ContractCtrl',['$scope', '$route', '$modal', '$rootElement', '$q', 'settings',
-        'ContractDetailsService', 'ContractHoursService', 'ContractLeaveService', 'ContractInsuranceService',
-        'ContractPensionService',
+        'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
+        'ContractInsuranceService', 'ContractPensionService',
         function($scope, $route, $modal, $rootElement, $q, settings, ContractDetailsService, ContractHoursService,
-                 ContractLeaveService, ContractInsuranceService, ContractPensionService){
+                 ContractPayService, ContractLeaveService, ContractInsuranceService, ContractPensionService){
 
             $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
 
@@ -18,6 +19,7 @@ define(['controllers/controllers',
             $q.all({
                 details: ContractDetailsService.getOne({ jobcontract_id: contractId}),
                 hours: ContractHoursService.getOne({ jobcontract_id: contractId}),
+                pay: ContractPayService.getOne({ jobcontract_id: contractId}),
                 leave: ContractLeaveService.get({ jobcontract_id: contractId}),
                 insurance: ContractInsuranceService.getOne({ jobcontract_id: contractId}),
                 pension: ContractPensionService.getOne({ jobcontract_id: contractId})
@@ -28,6 +30,11 @@ define(['controllers/controllers',
                 revisionId = results.details.jobcontract_revision_id;
 
                 $scope.hours = results.hours || {
+                    jobcontract_id: contractId,
+                    jobcontract_revision_id: revisionId
+                };
+
+                $scope.pay = results.pay || {
                     jobcontract_id: contractId,
                     jobcontract_revision_id: revisionId
                 };
@@ -63,6 +70,7 @@ define(['controllers/controllers',
                                 id: contractId,
                                 details: $scope.details,
                                 hours: $scope.hours,
+                                pay: $scope.pay,
                                 leave: $scope.leave,
                                 insurance: $scope.insurance,
                                 pension: $scope.pension
@@ -90,6 +98,7 @@ define(['controllers/controllers',
                 modalInstance.result.then(function(results){
                     $scope.details = results.details;
                     $scope.hours = results.hours;
+                    $scope.pay = results.pay;
                     $scope.leave = results.leave;
                     $scope.insurance = results.insurance;
                     $scope.pension = results.pension;

@@ -149,10 +149,10 @@
                         <label for="{{prefix}}hours-type" class="col-sm-4 control-label">Hours type</label>
 
                         <div class="col-sm-5">
-                            <select id="{{prefix}}hours-type" class="form-control" ng-model="contract.hours.hours_type" ng-disabled="isDisabled">
-                                <option value="8">Full Time</option>
-                                <option value="4">Part Time</option>
-                                <option value="0">Casual</option>
+                            <select id="{{prefix}}hours-type" class="form-control"
+                                    ng-options="key as value for (key, value) in options.hours.hours_type"
+                                    ng-model="contract.hours.hours_type"
+                                    ng-disabled="isDisabled">
                             </select>
                         </div>
                     </div>

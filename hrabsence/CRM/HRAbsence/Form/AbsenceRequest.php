@@ -54,7 +54,7 @@ class CRM_HRAbsence_Form_AbsenceRequest extends CRM_Core_Form {
    */
   function preProcess() {
     $this->_action = CRM_Utils_Request::retrieve('action', 'String', $this);
-    $this->_jobHoursTime = CRM_Hrjobcontract_Page_JobsTab::getJobHoursTime();
+    $this->_jobHoursTime = CRM_Hrjobcontract_Page_JobContractTab::getJobHoursTime();
     $this->assign('jobHoursTime', $this->_jobHoursTime);
     $this->_aid = CRM_Utils_Request::retrieve('aid', 'Int', $this);
     $session = CRM_Core_Session::singleton();

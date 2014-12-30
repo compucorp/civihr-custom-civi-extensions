@@ -245,6 +245,7 @@ function hrjobcontract_civicrm_buildForm($formName, &$form) {
  * Implementation of hook_civicrm_tabs
  */
 function hrjobcontract_civicrm_tabs(&$tabs) {
+    CRM_Hrjobcontract_Page_JobContractTab::registerScripts();
     $tabs[] = Array(
         'id'        => 'hrjobcontract',
         'url'       => CRM_Utils_System::url('civicrm/contact/view/hrjobcontract'),

@@ -475,4 +475,80 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
     }
     return self::$_export;
   }
+  
+  static function handlePrimary($instance, array $params)
+  {
+      return null;
+      /* 
+       * Get all OTHER primary contracts for the user.
+       * 1. If OTHER primary is empty then set instance is_primary to 1 and return.
+       * 2. Else:
+       *    a) if instance->is_primary === 1 && other_primary_details_id !== instance_id then:
+       *           Add other_primary_id to $unsetPrimary
+       *    b) if instance->is_primary === 0 ...................
+       * 
+       * Create new revision for $unsetPrimary with is_primary = 0
+       */
+        $isPrimary = 0;
+        if (is_numeric(CRM_Utils_Array::value('is_primary', $params)))
+        {
+            $isPrimary = (int)$params['is_primary'];
+        }
+        
+        $result = civicrm_api3('HRJobContract', 'get', array(
+          'sequential' => 1,
+          'id' => 16,
+        ));
+        /*$insertRevisionQuery = 'INSERT INTO civicrm_hrjobcontract_revision SET jobcontract_id = %1';
+        $insertRevisionParams = array(1 => array($jobContractId, 'Integer'));
+        CRM_Core_DAO::executeQuery($insertRevisionQuery, $insertRevisionParams);
+        $revisionId = (int)CRM_Core_DAO::singleValueQuery('SELECT LAST_INSERT_ID()');*/
+        
+        $hrJobContract = CRM_Core_DAO::executeQuery('SELECT * FROM civicrm_hrjobcontract WHERE id = %1', array(1 => array($instance->id, 'Integer')));
+        if (!$hrJobContract->fetch())
+        {
+            throw new Exception('HRJobDetails::handlePrimary() error: cannot find job contract with given id (' . $instance->id . ').');
+        }
+        
+        //$hrOtherJobContracts = CRM_Core_DAO::executeQuery('SELECT * FROM civicrm_hrjobcontract WHERE contact_id = %1 AND id <> %2',
+        $hrOtherPrimaryJobContracts = CRM_Core_DAO::executeQuery(
+            'SELECT c.id, c.contact_id, r.status, d.id AS details_id, d.is_primary FROM civicrm_hrjobcontract_details d
+            JOIN civicrm_hrjobcontract_revision r ON d.jobcontract_revision_id = r.id
+            JOIN civicrm_hrjobcontract c ON r.jobcontract_id = c.id
+            WHERE c.contact_id = %1 AND r.status = 1 AND d.is_primary = 1 AND c.id <> %2',
+            array(
+                1 => array($hrJobContract->contact_id, 'Integer'),
+                2 => array($instance->id, 'Integer'),
+            )
+        );
+        
+        $primaries = array();
+        while ($hrOtherPrimaryJobContracts->fetch())
+        {
+            $primaries[$hrOtherPrimaryJobContracts->id] = $hrOtherPrimaryJobContracts->details_id;
+        }
+        
+        if (empty($primaries))
+        {
+            echo 'There is only one contract, setting it to primary.' . "\n";
+            $instance->is_primary = 1;
+            $instance->save();
+            return true;
+        }
+        
+        if ($isPrimary)
+        {
+            // Setting all the Job Contracts is_primary property to 0:
+            echo 'setting other primaries to 0' . "\n";
+            //CRM_Core_DAO::executeQuery('UPDATE civicrm_hrjobcontract_details SET is_primary = 0 WHERE id IN(' . implode($primaries) . ')');
+            // TODO: create new details revision with 'is_primary' = 0 instead of updating database directly.
+        }
+        
+        $instance->is_primary = $isPrimary;
+        $instance->save();
+        
+        // TODO: implement a case when there is no contract with 'is_primary' = 1.
+        
+        return (bool)$isPrimary;
+  }
 }

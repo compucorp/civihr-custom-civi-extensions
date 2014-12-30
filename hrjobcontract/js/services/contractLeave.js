@@ -39,6 +39,23 @@ define(['services/services'], function (services) {
 
                 return deffered.promise;
             },
+            getOptions: function(fieldName, callAPI){
+                var deffered = $q.defer(), data;
+
+                if (!callAPI) {
+                    var data = settings.CRM.options.HRJobLeave || {};
+
+                    if (fieldName && typeof fieldName === 'string') {
+                        data = data[optionGroup];
+                    }
+
+                    deffered.resolve(data || {});
+                } else {
+                    //TODO call2API
+                }
+
+                return deffered.promise;
+            },
             save: function (contractLeave) {
 
                 if (!contractLeave || typeof contractLeave !== 'object') {

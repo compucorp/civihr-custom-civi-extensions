@@ -76,9 +76,23 @@ require([
         }
     ]);
 
-    app.run(['settings','$rootScope',
-        function(settings, $rootScope){
+    app.run(['settings','$rootScope','$q','ContractDetailsService','ContractHoursService','ContractPayService',
+        'ContractLeaveService','ContractInsuranceService','ContractPensionService',
+        function(settings, $rootScope, $q, ContractDetailsService, ContractHoursService, ContractPayService,
+                 ContractLeaveService, ContractInsuranceService, ContractPensionService){
             $rootScope.prefix = settings.classNamePrefix;
+
+            $q.all({
+                details: ContractDetailsService.getOptions(),
+                hours: ContractHoursService.getOptions(),
+                pay: ContractPayService.getOptions(),
+                leave: ContractLeaveService.getOptions(),
+                insurance: ContractInsuranceService.getOptions(),
+                pension: ContractPensionService.getOptions()
+            }).then(function(results){
+                $rootScope.options = results;
+                console.log($rootScope.options);
+            });
         }
     ]);
 
@@ -91,7 +105,10 @@ require([
             pathApp: '/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract',
             keyApi: e.detail.keyApi,
             key: e.detail.key,
-            pathRest: '/sites/all/modules/civicrm/extern/rest.php'
+            pathRest: '/sites/all/modules/civicrm/extern/rest.php',
+            CRM: {
+                options: CRM.FieldOptions || {}
+            }
         });
 
         angular.bootstrap(document.getElementById('hrjob-contract'), ['hrjc']);

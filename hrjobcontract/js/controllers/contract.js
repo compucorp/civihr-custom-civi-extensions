@@ -12,9 +12,10 @@ define(['controllers/controllers',
         function($scope, $route, $modal, $rootElement, $q, settings, ContractDetailsService, ContractHoursService,
                  ContractPayService, ContractLeaveService, ContractInsuranceService, ContractPensionService){
 
-            $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
-
             var contractId = $scope.contract.id, revisionId;
+
+            $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
+            $scope.revisionList = [];
 
             $q.all({
                 details: ContractDetailsService.getOne({ jobcontract_id: contractId}),
@@ -105,6 +106,10 @@ define(['controllers/controllers',
 
                     if (results.requireReload) {
                         $route.reload();
+                    }
+
+                    if (results.revisionCreated) {
+                        $scope.revisionList.push(results.revisionCreated);
                     }
 
                 });

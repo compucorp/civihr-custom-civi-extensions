@@ -40,38 +40,7 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
           'defaultCurrency' => $config->defaultCurrency,
         ),
       );
-    })
-      ->addScriptFile('civicrm', 'packages/backbone/json2.js', 100, 'html-header', FALSE)
-      ->addScriptFile('civicrm', 'packages/backbone/backbone.js', 120, 'html-header')
-      ->addScriptFile('civicrm', 'packages/backbone/backbone.marionette.js', 125, 'html-header', FALSE)
-      ->addScriptFile('civicrm', 'packages/backbone/backbone.modelbinder.js', 125, 'html-header', FALSE)
-      ->addScriptFile('civicrm', 'js/jquery/jquery.crmRevisionLink.js', 125, 'html-header', FALSE)
-      ->addScriptFile('org.civicrm.hrjobcontract', 'js/jquery/jquery.hrContactLink.js', 125, 'html-header', FALSE)
-      ->addScriptFile('org.civicrm.hrjobcontract', 'js/jquery/jquery.hrFileLink.js', 125, 'html-header', FALSE)
-      ->addScriptFile('org.civicrm.hrjobcontract', 'js/jquery/jquery.lockButton.js', 125, 'html-header', FALSE)
-      ->addScriptFile('civicrm', 'js/crm.backbone.js', 130, 'html-header', FALSE)
-      ->addStyleFile('org.civicrm.hrjobcontract', 'css/hrjob.css', 140, 'html-header')
-      ->addScriptFile('org.civicrm.hrjobcontract', 'js/hrapp.js', 150, 'html-header')
-      ->addScriptFile('org.civicrm.hrjobcontract', 'js/renderutil.js', 155, 'html-header')
-      ->addScriptFile('org.civicrm.hrjobcontract', 'js/entities/hrjob.js', 155, 'html-header')
-      ->addScriptFile('org.civicrm.hrjobcontract', 'js/common/navigation.js', 155, 'html-header')
-      ->addScriptFile('org.civicrm.hrjobcontract', 'js/common/mbind.js', 155, 'html-header')
-      ->addScriptFile('org.civicrm.hrjobcontract', 'js/common/views.js', 155, 'html-header')
-      ->addScriptFile('org.civicrm.hrjobcontract', 'js/jobtabapp.js', 160, 'html-header')
-      ->addScriptFile('org.civicrm.hrjobcontract', 'js/jobtabapp/intro/show_controller.js', 160, 'html-header')
-      ->addScriptFile('org.civicrm.hrjobcontract', 'js/jobtabapp/intro/show_views.js', 160, 'html-header')
-      ->addScriptFile('org.civicrm.hrjobcontract', 'js/jobtabapp/tree/tree_controller.js', 160, 'html-header')
-      ->addScriptFile('org.civicrm.hrjobcontract', 'js/jobtabapp/tree/tree_views.js', 160, 'html-header')
-      ->addScriptFile('org.civicrm.hrjobcontract', 'js/jobtabapp/summary/summary_controller.js', 160, 'html-header')
-      ->addScriptFile('org.civicrm.hrjobcontract', 'js/jobtabapp/summary/summary_views.js', 160, 'html-header')
-    ;
-    foreach (array('general', 'funding', 'health', 'hour', 'leave', 'pay', 'pension', 'role') as $module) {
-      CRM_Core_Resources::singleton()
-        ->addScriptFile('org.civicrm.hrjobcontract', "js/jobtabapp/$module/edit_controller.js", 160, 'html-header')
-        ->addScriptFile('org.civicrm.hrjobcontract', "js/jobtabapp/$module/edit_views.js", 160, 'html-header')
-        ->addScriptFile('org.civicrm.hrjobcontract', "js/jobtabapp/$module/summary_views.js", 160, 'html-header')
-        ;
-    }
+    });
 
     $templateDir = CRM_Extension_System::singleton()->getMapper()->keyToBasePath('org.civicrm.hrjobcontract') . '/templates/';
     $region = CRM_Core_Region::instance('page-header');

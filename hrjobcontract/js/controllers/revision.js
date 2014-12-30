@@ -1,12 +1,14 @@
 console.log('Controller: RevisionCtrl');
 define(['controllers/controllers',
     'services/contractDetails',
+    'services/contractPay',
     'services/contractLeave',
     'services/contractPension',
     'services/contractInsurance'], function(controllers){
     controllers.controller('RevisionCtrl',['$scope', '$route', '$modal', '$rootElement', '$q', 'settings',
-        'ContractDetailsService', 'ContractLeaveService', 'ContractInsuranceService','ContractPensionService',
-        function($scope, $route, $modal, $rootElement, $q, settings, ContractDetailsService,
+        'ContractDetailsService', 'ContractPayService', 'ContractLeaveService', 'ContractInsuranceService',
+        'ContractPensionService',
+        function($scope, $route, $modal, $rootElement, $q, settings, ContractDetailsService, ContractPayService,
                  ContractLeaveService, ContractInsuranceService, ContractPensionService){
 
             $q.all({

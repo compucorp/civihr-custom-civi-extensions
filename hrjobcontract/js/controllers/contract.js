@@ -109,7 +109,7 @@ define(['controllers/controllers',
                     }
 
                     if (results.revisionCreated) {
-                        $scope.revisionList.push(results.revisionCreated);
+                        $scope.revisionList.unshift(results.revisionCreated);
                     }
 
                 });

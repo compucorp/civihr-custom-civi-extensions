@@ -28,7 +28,8 @@ define(['controllers/controllers',
             $scope.save = function () {
 
                 var contractNew = $scope.contract,
-                    entity, entityLen, i, revisionId;
+                    revisionIdPrev = contract.details.jobcontract_revision_id,
+                    entity, entityLen, i, revisionIdNew;
 
                 function changeParams(obj, contractId, revisionId){
                     obj.jobcontract_id = contractId;
@@ -41,20 +42,20 @@ define(['controllers/controllers',
                 ContractDetailsService.save(contractNew.details).then(function(contractDetails){
                     return contractDetails;
                 }).then(function(contractDetails){
-                    revisionId = contractDetails.jobcontract_revision_id;
+                    revisionIdNew = contractDetails.jobcontract_revision_id;
 
                     for (entity in contractNew) {
 
                         if (angular.isArray(contractNew[entity])) {
                             i = 0, entityLen = contractNew[entity].length;
                             for (i; i < entityLen; i++) {
-                                changeParams(contractNew[entity][i],contractNew.id,revisionId);
+                                changeParams(contractNew[entity][i],contractNew.id,revisionIdNew);
                             }
                             continue;
                         }
 
                         if (angular.isObject(contractNew[entity])) {
-                            changeParams(contractNew[entity],contractNew.id,revisionId);
+                            changeParams(contractNew[entity],contractNew.id,revisionIdNew);
                         }
 
                     }
@@ -77,14 +78,14 @@ define(['controllers/controllers',
 
                     results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
                     results.revisionCreated = {
-                        details_revision_id: revisionId,
-                        health_revision_id: revisionId,
-                        hour_revision_id: revisionId,
-                        id: revisionId,
+                        details_revision_id: revisionIdPrev,
+                        health_revision_id: revisionIdPrev,
+                        hour_revision_id: revisionIdPrev,
+                        id: revisionIdPrev,
                         jobcontract_id: contractNew.id,
-                        leave_revision_id: revisionId,
-                        pay_revision_id: revisionId,
-                        pension_revision_id: revisionId,
+                        leave_revision_id: revisionIdPrev,
+                        pay_revision_id: revisionIdPrev,
+                        pension_revision_id: revisionIdPrev,
                         status: 0
                     }
 

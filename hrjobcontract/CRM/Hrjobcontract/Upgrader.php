@@ -430,6 +430,12 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
       CRM_Core_DAO::executeQuery("UPDATE civicrm_contact SET api_key = 'demoapikey' WHERE sort_name = 'demo@example.com'");
       return TRUE;
   }
+  
+  public function upgrade_z9112() {
+      CRM_Core_DAO::executeQuery("INSERT INTO `civicrm_option_value` (`option_group_id`, `label`, `value`, `name`, `grouping`, `filter`, `is_default`, `weight`, `description`, `is_optgroup`, `is_reserved`, `is_active`, `component_id`, `domain_id`, `visibility_id`) VALUES
+(40, 'JobContract Revision Report', 'hrjobcontract/summary', 'CRM_Hrjobcontract_Report_Form_Summary', NULL, 0, 0, 54, 'JobContract Revision Report', 0, 0, 1, NULL, NULL, NULL);");
+      return TRUE;
+  }
 
   function decToFraction($fte) {
     $fteDecimalPart = explode('.', $fte);

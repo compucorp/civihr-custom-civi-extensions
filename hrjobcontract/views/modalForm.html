@@ -173,7 +173,7 @@
                         </div>
                     </div>
                     <div class="form-group required" ng-show="+contract.hours.hours_type">
-                        <label for="{{prefix}}fte-num" class="col-sm-4 control-label">FTE
+                        <label for="{{prefix}}fte" class="col-sm-4 control-label">FTE
                             <a tooltip-placement="right"
                                tooltip-html-unsafe="<strong>FTE</strong> stands for
                                        Full Time Equivalent. This is a useful measure for
@@ -204,12 +204,12 @@
 
                         <div class="col-sm-8">
                             <div class="form-inline">
-                                <input type="text" class="form-control input-inline-sm" id="{{prefix}}fte-num"
+                                <input type="text" class="form-control input-inline-sm" id="{{prefix}}fte"
                                        ng-model="fteFraction" ng-disabled="true">
                                 &nbsp;or&nbsp;
                                 <input type="text" class="form-control input-inline-sm"
                                        ng-model="contract.hours.hours_fte" ng-disabled="true">
-                                <input type="hidden" class="form-control input-inline-sm" id="{{prefix}}fte-num"
+                                <input type="hidden" class="form-control input-inline-sm"
                                        ng-model="contract.hours.fte_num" ng-disabled="isDisabled" required>
                                 <input type="hidden" class="form-control input-inline-sm"
                                        ng-model="contract.hours.fte_denom" ng-disabled="isDisabled" required>
@@ -219,7 +219,7 @@
                 </div>
             </div>
         </tab>
-        <tab heading="Pay">
+        <tab heading="Pay" ng-controller="FormPayCtrl">
 
             <div class="row">
                 <div class="col-xs-12">
@@ -231,10 +231,10 @@
                     <div class="form-group">
                         <div class="col-sm-5 col-sm-offset-4">
                             <label class="radio-inline">
-                                <input type="radio" name="isPaid" id="paid" value="paid" ng-disabled="isDisabled"> Paid
+                                <input type="radio" id="{{prefix}}paid" value="1" ng-model="contract.pay.is_paid" ng-disabled="isDisabled"> Paid
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="isPaid" id="unpaid" value="unpaid" checked ng-disabled="isDisabled"> Unpaid
+                                <input type="radio" id="{{prefix}}unpaid" value="0" ng-model="contract.pay.is_paid" ng-disabled="isDisabled"> Unpaid
                             </label>
                         </div>
                     </div>

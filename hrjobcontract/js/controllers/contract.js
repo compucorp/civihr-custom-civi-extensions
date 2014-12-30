@@ -59,6 +59,8 @@ define(['controllers/controllers',
 
             $scope.modalContract = function(action){
 
+                console.log($scope);
+
                 var modalInstance,
                     options = {
                     targetDomEl: $rootElement.find('div').eq(0),

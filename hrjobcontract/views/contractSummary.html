@@ -139,7 +139,7 @@
                         <div class="form-group">
                             <label class="col-sm-4 control-label">Pay</label>
                             <div class="col-sm-6">
-                                <p class="form-control-static">Paid (USD 40000.00 Year)</p>
+                                <p class="form-control-static">{{ pay.is_paid ? 'Paid (USD 40000.00 Year)' : 'Unpaid' }} </p>
                             </div>
                             <div class="col-sm-2">
                                 <a class="btn" role="button" ng-click="modalRevision('pay')">

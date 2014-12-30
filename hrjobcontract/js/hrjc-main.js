@@ -51,6 +51,7 @@ require([
     'controllers/modal/modalRevision',
     'controllers/form/formGeneral',
     'controllers/form/formHours',
+    'controllers/form/formPay',
     'filters/formatAmount',
     'filters/formatPeriod',
     'filters/parseInt'

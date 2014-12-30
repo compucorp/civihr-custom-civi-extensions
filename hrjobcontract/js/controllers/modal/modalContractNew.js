@@ -3,15 +3,17 @@ define(['controllers/controllers',
         'services/contract',
         'services/contractDetails',
         'services/contractHours',
+        'services/contractPay',
         'services/contractLeave',
         'services/contractInsurance',
         'services/contractPension'], function(controllers){
 
     controllers.controller('ModalContractNewCtrl', ['$scope', '$modalInstance', '$q', 'Contract',
-        'ContractDetailsService', 'ContractHoursService', 'ContractLeaveService', 'ContractInsuranceService',
-        'ContractPensionService', 'utils', 'settings',
+        'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
+        'ContractInsuranceService', 'ContractPensionService', 'utils', 'settings',
         function($scope, $modalInstance, $q, Contract, ContractDetailsService, ContractHoursService,
-                 ContractLeaveService, ContractInsuranceService, ContractPensionService, utils, settings){
+                 ContractPayService, ContractLeaveService, ContractInsuranceService, ContractPensionService,
+                 utils, settings){
 
             $scope.allowSave = true;
             $scope.isDisabled = false;
@@ -21,6 +23,7 @@ define(['controllers/controllers',
             $scope.contract = {
                 details: {},
                 hours: {},
+                pay: {},
                 leave: ContractLeaveService.model($scope.utils.absenceType),
                 insurance: {},
                 pension: {}
@@ -43,6 +46,7 @@ define(['controllers/controllers',
                         contractId = contract.id,
                         contractDetails = $scope.contract.details,
                         contractHours = $scope.contract.hours,
+                        contractPay = $scope.contract.pay,
                         contractLeave = $scope.contract.leave,
                         contractInsurance = $scope.contract.insurance,
                         contractPension = $scope.contract.pension;
@@ -64,6 +68,9 @@ define(['controllers/controllers',
                         contractHours.jobcontract_id = contractId;
                         contractHours.jobcontract_revision_id = revisionId;
 
+                        contractPay.jobcontract_id = contractId;
+                        contractPay.jobcontract_revision_id = revisionId;
+
                         contractInsurance.jobcontract_id = contractId;
                         contractInsurance.jobcontract_revision_id = revisionId;
 
@@ -72,6 +79,7 @@ define(['controllers/controllers',
 
                         return $q.all([
                             ContractHoursService.save(contractHours),
+                            ContractPayService.save(contractPay),
                             ContractLeaveService.save(contractLeave),
                             ContractInsuranceService.save(contractInsurance),
                             ContractPensionService.save(contractPension)

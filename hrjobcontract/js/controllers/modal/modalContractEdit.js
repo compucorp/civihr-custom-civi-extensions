@@ -21,6 +21,8 @@ define(['controllers/controllers',
 
             angular.copy(contract,$scope.contract);
 
+            console.log($scope.contract);
+
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
             };
@@ -30,7 +32,7 @@ define(['controllers/controllers',
                 $q.all({
                     details: ContractDetailsService.save($scope.contract.details),
                     hours: ContractHoursService.save($scope.contract.hours),
-                    pay: ContractHoursService.save($scope.contract.pay),
+                    pay: ContractPayService.save($scope.contract.pay),
                     leave: ContractLeaveService.save($scope.contract.leave),
                     insurance: ContractInsuranceService.save($scope.contract.insurance),
                     pension: ContractPensionService.save($scope.contract.pension)

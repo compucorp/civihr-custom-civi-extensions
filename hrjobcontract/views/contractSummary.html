@@ -115,7 +115,7 @@
                         <div class="form-group">
                             <label class="col-sm-4 control-label">Hours</label>
                             <div class="col-sm-6">
-                                <p class="form-control-static">Part Time (4 per Day) (1/1 FTE)</p>
+                                <p class="form-control-static"><span ng-if="hours.hours_amount">{{hours.hours_type}} ({{hours.hours_amount}} per {{hours.hours_unit}})</span> <span ng-if="hours.fte_num && hours.fte_denom">({{hours.fte_num}}/{{hours.fte_denom}}FTE)</span></p>
                             </div>
                             <div class="col-sm-2">
                                 <a class="btn" role="button" ng-click="modalRevision('hours')">
@@ -139,7 +139,7 @@
                         <div class="form-group">
                             <label class="col-sm-4 control-label">Pay</label>
                             <div class="col-sm-6">
-                                <p class="form-control-static">Paid (USD 40000.00 Year)</p>
+                                <p class="form-control-static">{{ pay.is_paid ? 'Paid (USD 40000.00 Year)' : 'Unpaid' }} </p>
                             </div>
                             <div class="col-sm-2">
                                 <a class="btn" role="button" ng-click="modalRevision('pay')">

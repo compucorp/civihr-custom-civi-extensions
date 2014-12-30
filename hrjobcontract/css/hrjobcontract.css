@@ -9884,6 +9884,14 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
     margin: 60px auto;
   }
 }
+/* line 1, ../sass/partials/_tables.scss */
+#hrjob-contract [datepicker-popup-wrap] {
+  padding: 10px;
+}
+/* line 4, ../sass/partials/_tables.scss */
+#hrjob-contract [datepicker-popup-wrap] table > thead > tr > th {
+  vertical-align: middle;
+}
 /* line 1, ../sass/partials/_tooltip.scss */
 #hrjob-contract .tooltip-inner {
   text-align: left;

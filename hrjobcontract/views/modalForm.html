@@ -6,7 +6,7 @@
 </div>
 <div class="modal-body clearfix">
     <tabset class="tabs-left">
-        <tab heading="General">
+        <tab heading="General" ng-controller="FormGeneralCtrl">
             <div class="row">
                 <div class="col-xs-12">
                     <h4>General</h4>
@@ -55,25 +55,46 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group required">
                         <label for="{{prefix}}period-start-date" class="col-sm-4 control-label">Contract Start Date</label>
 
                         <div class="col-sm-4">
-                            <input type="date" class="form-control" id="{{prefix}}period-start-date" ng-model="contract.details.period_start_date" ng-disabled="isDisabled">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="{{prefix}}period-start-date"
+                                       datepicker-popup="yyyy-MM-dd"
+                                       is-open="dpDateStartOpen"
+                                       max-date="dpDateStartMax"
+                                       ng-model="contract.details.period_start_date"
+                                       ng-disabled="isDisabled"
+                                       required>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-class="{disabled: isDisabled}" ng-click="dpOpen($event, 'dpDateStartOpen')"  ng-disabled="isDisabled"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="{{prefix}}period-end-date" class="col-sm-4 control-label">Contract End Date</label>
 
                         <div class="col-sm-4">
-                            <input type="date" class="form-control" id="{{prefix}}period-end-date" ng-model="contract.details.period_end_date" ng-disabled="isDisabled">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="{{prefix}}period-end-date"
+                                       datepicker-popup="yyyy-MM-dd"
+                                       is-open="dpDateEndOpen"
+                                       min-date="dpDateEndMin"
+                                       ng-model="contract.details.period_end_date"
+                                       ng-disabled="isDisabled">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-class="{disabled: isDisabled}" ng-click="dpOpen($event, 'dpDateEndOpen')" ng-disabled="isDisabled"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label">Contract Duration</label>
 
                         <div class="col-sm-8">
-                            <p class="form-control-static">2 months and 15 days</p>
+                            <p class="form-control-static">{{duration}}</p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -102,7 +123,7 @@
                                     <option value="">- select -</option>
                                     <option value="Day">Day</option>
                                     <option value="Week">Week</option>
-                                    <option value="Month" selected>Month</option>
+                                    <option value="Month">Month</option>
                                     <option value="Year">Year</option>
                                 </select>
                             </div>
@@ -111,7 +132,7 @@
                 </div>
             </div>
         </tab>
-        <tab heading="Hours">
+        <tab heading="Hours" ng-controller="FormHoursCtrl">
             <div class="row">
                 <div class="col-xs-12">
                     <h4>Hours</h4>
@@ -119,40 +140,40 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="form-group">
+                    <div class="form-group required">
                         <label for="standard-hours" class="col-sm-4 control-label">Location/Standard hours</label>
                         <div class="col-sm-5">
-                            <select id="standard-hours" class="form-control" ng-disabled="isDisabled">
-                                <option value="1" selected>Head office - 40 hours per week</option>
-                                <option value="2">Other office - 8 per day</option>
-                                <option value="3">Small office - 36 per week</option>
+                            <select id="standard-hours" class="form-control"
+                                    ng-options="(hoursLocation.location + ' - ' + hoursLocation.standard_hours + ' hours per ' + hoursLocation.periodicity) for hoursLocation in utils.hoursLocation"
+                                    ng-model="locationStandardHours"
+                                    ng-disabled="isDisabled">
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="hours-type" class="col-sm-4 control-label">Hours type</label>
+                        <label for="{{prefix}}hours-type" class="col-sm-4 control-label">Hours type</label>
 
                         <div class="col-sm-5">
-                            <select id="hours-type" class="form-control" ng-disabled="isDisabled">
-                                <option value="1">Full Time</option>
-                                <option value="2">Part Time</option>
-                                <option value="3">Casual</option>
+                            <select id="{{prefix}}hours-type" class="form-control" ng-model="contract.hours.hours_type" ng-disabled="isDisabled">
+                                <option value="8">Full Time</option>
+                                <option value="4">Part Time</option>
+                                <option value="0">Casual</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group required">
-                        <label for="actual-hours" class="col-sm-4 control-label">Actual hours</label>
+                        <label for="{{prefix}}actual-hours" class="col-sm-4 control-label">Actual hours</label>
                         <div class="col-sm-8">
                             <div class="form-inline">
-                                <input type="text" class="form-control input-inline-sm disabled" id="actual-hours" value="40"
-                                       ng-disabled="isDisabled || true">
+                                <input type="text" class="form-control input-inline-sm" id="{{prefix}}actual-hours"
+                                       ng-model="contract.hours.hours_amount" ng-disabled="isDisabled || contract.hours.hours_type == 8" required>
                                 per
-                                <input type="text" class="form-control input-inline-sm disabled" value="Week" ng-disabled="isDisabled || true">
+                                <input type="text" class="form-control input-inline-sm" ng-model="contract.hours.hours_unit" ng-disabled="true" required>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group required">
-                        <label for="actual-hours" class="col-sm-4 control-label">FTE
+                    <div class="form-group required" ng-show="+contract.hours.hours_type">
+                        <label for="{{prefix}}fte" class="col-sm-4 control-label">FTE
                             <a tooltip-placement="right"
                                tooltip-html-unsafe="<strong>FTE</strong> stands for
                                        Full Time Equivalent. This is a useful measure for
@@ -183,16 +204,22 @@
 
                         <div class="col-sm-8">
                             <div class="form-inline">
-                                <input type="text" class="form-control input-inline-sm disabled" id="fte" value="1" ng-disabled="isDisabled || true">
-                                per
-                                <input type="text" class="form-control input-inline-sm disabled" value="1" ng-disabled="isDisabled || true">
+                                <input type="text" class="form-control input-inline-sm" id="{{prefix}}fte"
+                                       ng-model="fteFraction" ng-disabled="true">
+                                &nbsp;or&nbsp;
+                                <input type="text" class="form-control input-inline-sm"
+                                       ng-model="contract.hours.hours_fte" ng-disabled="true">
+                                <input type="hidden" class="form-control input-inline-sm"
+                                       ng-model="contract.hours.fte_num" ng-disabled="isDisabled" required>
+                                <input type="hidden" class="form-control input-inline-sm"
+                                       ng-model="contract.hours.fte_denom" ng-disabled="isDisabled" required>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </tab>
-        <tab heading="Pay">
+        <tab heading="Pay" ng-controller="FormPayCtrl">
 
             <div class="row">
                 <div class="col-xs-12">
@@ -204,10 +231,10 @@
                     <div class="form-group">
                         <div class="col-sm-5 col-sm-offset-4">
                             <label class="radio-inline">
-                                <input type="radio" name="isPaid" id="paid" value="paid" ng-disabled="isDisabled"> Paid
+                                <input type="radio" id="{{prefix}}paid" value="1" ng-model="contract.pay.is_paid" ng-disabled="isDisabled"> Paid
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="isPaid" id="unpaid" value="unpaid" checked ng-disabled="isDisabled"> Unpaid
+                                <input type="radio" id="{{prefix}}unpaid" value="0" ng-model="contract.pay.is_paid" ng-disabled="isDisabled"> Unpaid
                             </label>
                         </div>
                     </div>
@@ -340,14 +367,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="insurance-health-desc" class="col-sm-4 control-label">Description
-                            <a tooltip-placement="right"
-                               tooltip="For a family plan, please list
-                                                   the names of all dependents who are also covered, along
-                                                   with their relationships to the individual.">
-                                <i class="fa fa-question-circle"></i>
-                            </a>
-                        </label>
+                        <label for="insurance-health-desc" class="col-sm-4 control-label">Description</label>
 
                         <div class="col-sm-8">
                             <textarea id="insurance-health-desc" name="insurance-health-desc" class="form-control"

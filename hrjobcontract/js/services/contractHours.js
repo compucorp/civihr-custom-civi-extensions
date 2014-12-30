@@ -1,10 +1,10 @@
-console.log('Service: ContractPensionService');
+console.log('Service: ContractHoursService');
 define(['services/services'], function (services) {
 
-    services.factory('ContractPensionService', ['$resource', 'settings', '$q', function ($resource, settings, $q) {
-        var ContractPension = $resource(settings.pathRest, {
+    services.factory('ContractHoursService', ['$resource', 'settings', '$q', function ($resource, settings, $q) {
+        var ContractHours = $resource(settings.pathRest, {
             action: 'get',
-            entity: 'HRJobPension',
+            entity: 'HRJobHour',
             json: {},
             api_key: settings.keyApi,
             key: settings.key
@@ -25,35 +25,35 @@ define(['services/services'], function (services) {
                 var deffered = $q.defer(),
                     val;
 
-                ContractPension.get({json: params}, function(data){
+                ContractHours.get({json: params}, function(data){
                     val = data.values;
                     deffered.resolve(val.length == 1 ? val[0] : null);
                 },function(){
-                    deffered.reject('Unable to fetch contract pension');
+                    deffered.reject('Unable to fetch contract hours');
                 });
 
                 return deffered.promise;
             },
-            save: function(contractPension){
+            save: function(contractHours){
 
-                if (!contractPension || typeof contractPension !== 'object') {
+                if (!contractHours || typeof contractHours !== 'object') {
                     return null;
                 }
 
                 var deffered = $q.defer(),
                     params = angular.extend({
                         sequential: 1
-                    },contractPension),
+                    },contractHours),
                     val;
 
-                ContractPension.save({
+                ContractHours.save({
                     action: 'create',
                     json: params
                 }, null, function(data){
                     val = data.values;
                     deffered.resolve(val.length == 1 ? val[0] : null);
                 },function(){
-                    deffered.reject('Unable to fetch contract pension');
+                    deffered.reject('Unable to fetch contract hours');
                 });
 
                 return deffered.promise;

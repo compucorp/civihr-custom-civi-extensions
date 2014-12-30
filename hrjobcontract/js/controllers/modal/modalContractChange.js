@@ -1,14 +1,17 @@
 console.log('Controller: ModalContractChangeCtrl');
 define(['controllers/controllers',
         'services/contractDetails',
+        'services/contractHours',
+        'services/contractPay',
         'services/contractLeave',
         'services/contractInsurance',
         'services/contractPension'], function(controllers){
 
     controllers.controller('ModalContractChangeCtrl',['$scope','$modalInstance','$q', 'ContractDetailsService',
-        'ContractLeaveService','ContractInsuranceService','ContractPensionService','contract','utils',
-        function($scope, $modalInstance, $q, ContractDetailsService, ContractLeaveService, ContractInsuranceService,
-                 ContractPensionService, contract, utils){
+        'ContractHoursService', 'ContractPayService', 'ContractLeaveService','ContractInsuranceService',
+        'ContractPensionService', 'contract','utils',
+        function($scope, $modalInstance, $q, ContractDetailsService, ContractHoursService, ContractPayService,
+                 ContractLeaveService, ContractInsuranceService, ContractPensionService, contract, utils){
 
             $scope.allowSave = true;
             $scope.contract = {};
@@ -24,43 +27,56 @@ define(['controllers/controllers',
 
             $scope.save = function () {
 
-                var contract = $scope.contract,
-                    entity, entityLen, i;
+                var contractNew = $scope.contract,
+                    entity, entityLen, i, revisionId;
 
-                function changeParams(obj, id){
+                function changeParams(obj, contractId, revisionId){
+                    obj.jobcontract_id = contractId;
                     delete obj.id;
-                    delete obj.jobcontract_revision_id;
-                    obj.jobcontract_id = id;
+                    revisionId ? obj.jobcontract_revision_id = revisionId : delete obj.jobcontract_revision_id;
                 }
 
-                for (entity in contract) {
+                changeParams(contractNew.details,contractNew.id);
 
-                    if (angular.isArray(contract[entity])) {
-                        i = 0, entityLen = contract[entity].length;
-                        for (i; i < entityLen; i++) {
-                            changeParams(contract[entity][i],contract.id);
+                ContractDetailsService.save(contractNew.details).then(function(contractDetails){
+                    return contractDetails;
+                }).then(function(contractDetails){
+                    revisionId = contractDetails.jobcontract_revision_id;
+
+                    for (entity in contractNew) {
+
+                        if (angular.isArray(contractNew[entity])) {
+                            i = 0, entityLen = contractNew[entity].length;
+                            for (i; i < entityLen; i++) {
+                                changeParams(contractNew[entity][i],contractNew.id,revisionId);
+                            }
+                            continue;
                         }
-                        continue;
+
+                        if (angular.isObject(contractNew[entity])) {
+                            changeParams(contractNew[entity],contractNew.id,revisionId);
+                        }
+
                     }
 
-                    if (angular.isObject(contract[entity])) {
-                        changeParams(contract[entity],contract.id);
-                    }
+                    return $q.all({
+                        details: contractDetails,
+                        hours: ContractHoursService.save(contractNew.hours),
+                        pay: ContractPayService.save(contractNew.pay),
+                        leave: ContractLeaveService.save(contractNew.leave),
+                        insurance: ContractInsuranceService.save(contractNew.insurance),
+                        pension: ContractPensionService.save(contractNew.pension)
+                    });
 
-                }
-
-                var promiseContractDetails = ContractDetailsService.save($scope.contract.details),
-                    promiseContractLeave = ContractLeaveService.save($scope.contract.leave),
-                    promiseContractInsurance = ContractInsuranceService.save($scope.contract.insurance),
-                    promiseContractPension = ContractPensionService.save($scope.contract.pension);
-
-                $q.all({
-                    details: promiseContractDetails,
-                    leave: promiseContractLeave,
-                    insurance: promiseContractInsurance,
-                    pension: promiseContractPension
                 }).then(function(results){
-                    results.requireReload = contract.details.period_end_date !== results.details.period_end_date;
+
+                    //TODO (incorrect date format in the API response)
+                    results.details.period_start_date = $scope.contract.details.period_start_date;
+                    results.details.period_end_date = $scope.contract.details.period_end_date;
+                    //
+
+                    results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
+
                     $modalInstance.close(results);
                 });
 

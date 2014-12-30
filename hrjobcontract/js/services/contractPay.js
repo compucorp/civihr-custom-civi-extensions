@@ -1,45 +1,65 @@
 console.log('Service: ContractPayService');
-define(['services/services','filters/getObjByContractId'], function (services) {
-    services.factory('ContractPayService', function ($filter) {
-        var items = {};
+define(['services/services'], function (services) {
 
-        items.query = function (id) {
-            var response = {
-                "values":[{
-                    "contract_id":"1",
-                    "id":"1",
-                    "pay_scale":"NJC pay scale",
-                    "is_paid":"1",
-                    "pay_amount":"200.00",
-                    "pay_unit":"Hour",
-                    "pay_annualized_est":"0.00",
-                    "pay_is_auto_est":"1",
-                    "jobcontract_revision_id": "20"
-                },{
-                    "contract_id":"2",
-                    "id":"2",
-                    "pay_scale":"NJC pay scale",
-                    "is_paid":"1",
-                    "pay_amount":"200.00",
-                    "pay_unit":"Hour",
-                    "pay_annualized_est":"0.00",
-                    "pay_is_auto_est":"1",
-                    "jobcontract_revision_id": "21"
-                },{
-                    "contract_id":"3",
-                    "id":"3",
-                    "pay_scale":"NJC pay scale",
-                    "is_paid":"1",
-                    "pay_amount":"200.00",
-                    "pay_unit":"Hour",
-                    "pay_annualized_est":"0.00",
-                    "pay_is_auto_est":"1",
-                    "jobcontract_revision_id": "22"
-                }]
+    services.factory('ContractPayService', ['$resource', 'settings', '$q', function ($resource, settings, $q) {
+        var ContractPay = $resource(settings.pathRest, {
+            action: 'get',
+            entity: 'HRJobPay',
+            json: {},
+            api_key: settings.keyApi,
+            key: settings.key
+        });
+
+        return {
+            getOne: function(params) {
+
+                if ((!params || typeof params !== 'object') ||
+                    (!params.jobcontract_id && !params.jobcontract_revision_id) ||
+                    (params.jobcontract_id && typeof +params.jobcontract_id !== 'number') ||
+                    (params.jobcontract_revision_id && typeof +params.jobcontract_revision_id!== 'number')) {
+                    return null;
+                }
+
+                params.sequential = 1;
+
+                var deffered = $q.defer(),
+                    val;
+
+                ContractPay.get({json: params}, function(data){
+                    val = data.values;
+                    deffered.resolve(val.length == 1 ? val[0] : null);
+                },function(){
+                    deffered.reject('Unable to fetch contract pay');
+                });
+
+                return deffered.promise;
+            },
+            save: function(contractPay){
+
+                if (!contractPay || typeof contractPay !== 'object') {
+                    return null;
+                }
+
+                var deffered = $q.defer(),
+                    params = angular.extend({
+                        sequential: 1
+                    },contractPay),
+                    val;
+
+                ContractPay.save({
+                    action: 'create',
+                    json: params
+                }, null, function(data){
+                    val = data.values;
+                    deffered.resolve(val.length == 1 ? val[0] : null);
+                },function(){
+                    deffered.reject('Unable to fetch contract pay');
+                });
+
+                return deffered.promise;
             }
+        }
 
-            return typeof id !== 'undefined' ? $filter('getObjByContractId')(response.values, id) || response.values : response.values;
-        };
-        return items;
-    });
+    }]);
+
 });

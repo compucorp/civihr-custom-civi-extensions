@@ -1,14 +1,17 @@
 console.log('Controller: ModalContractEditCtrl');
 define(['controllers/controllers',
         'services/contractDetails',
+        'services/contractHours',
+        'services/contractPay',
         'services/contractLeave',
         'services/contractInsurance',
         'services/contractPension'], function(controllers){
 
     controllers.controller('ModalContractEditCtrl',['$scope','$modalInstance','$q', 'ContractDetailsService',
-        'ContractLeaveService','ContractInsuranceService','ContractPensionService','contract','utils',
-        function($scope, $modalInstance, $q, ContractDetailsService, ContractLeaveService, ContractInsuranceService,
-                 ContractPensionService, contract, utils){
+        'ContractHoursService', 'ContractPayService', 'ContractLeaveService','ContractInsuranceService',
+        'ContractPensionService','contract', 'utils',
+        function($scope, $modalInstance, $q, ContractDetailsService, ContractHoursService, ContractPayService,
+                 ContractLeaveService, ContractInsuranceService, ContractPensionService, contract, utils){
 
             $scope.allowSave = true;
             $scope.contract = {};
@@ -18,23 +21,30 @@ define(['controllers/controllers',
 
             angular.copy(contract,$scope.contract);
 
+            console.log($scope.contract);
+
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
             };
 
             $scope.save = function () {
-                var promiseContractDetails = ContractDetailsService.save($scope.contract.details),
-                    promiseContractLeave = ContractLeaveService.save($scope.contract.leave),
-                    promiseContractInsurance = ContractInsuranceService.save($scope.contract.insurance),
-                    promiseContractPension = ContractPensionService.save($scope.contract.pension);
 
                 $q.all({
-                    details: promiseContractDetails,
-                    leave: promiseContractLeave,
-                    insurance: promiseContractInsurance,
-                    pension: promiseContractPension
+                    details: ContractDetailsService.save($scope.contract.details),
+                    hours: ContractHoursService.save($scope.contract.hours),
+                    pay: ContractPayService.save($scope.contract.pay),
+                    leave: ContractLeaveService.save($scope.contract.leave),
+                    insurance: ContractInsuranceService.save($scope.contract.insurance),
+                    pension: ContractPensionService.save($scope.contract.pension)
                 }).then(function(results){
-                    results.requireReload = contract.details.period_end_date !== results.details.period_end_date;
+
+                    //TODO (incorrect date format in the API response)
+                    results.details.period_start_date = $scope.contract.details.period_start_date;
+                    results.details.period_end_date = $scope.contract.details.period_end_date;
+                    //
+
+                    results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
+
                     $modalInstance.close(results);
                 });
 

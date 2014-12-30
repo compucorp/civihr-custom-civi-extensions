@@ -1,42 +1,65 @@
 console.log('Controller: ContractCtrl');
 define(['controllers/controllers',
         'services/contractDetails',
+        'services/contractHours',
+        'services/contractPay',
         'services/contractLeave',
         'services/contractPension',
         'services/contractInsurance'], function(controllers){
     controllers.controller('ContractCtrl',['$scope', '$route', '$modal', '$rootElement', '$q', 'settings',
-        'ContractDetailsService', 'ContractLeaveService', 'ContractInsuranceService','ContractPensionService',
-        function($scope, $route, $modal, $rootElement, $q, settings, ContractDetailsService,
-                 ContractLeaveService, ContractInsuranceService, ContractPensionService){
+        'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
+        'ContractInsuranceService', 'ContractPensionService',
+        function($scope, $route, $modal, $rootElement, $q, settings, ContractDetailsService, ContractHoursService,
+                 ContractPayService, ContractLeaveService, ContractInsuranceService, ContractPensionService){
 
             $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
 
-            var contractId = $scope.contract.id,
-                promiseContractDetails = ContractDetailsService.getOne(contractId),
-                promiseContractLeave = ContractLeaveService.get({ jobcontract_id: contractId}),
-                promiseContractInsurance = ContractInsuranceService.getOne(contractId),
-                promiseContractPension = ContractPensionService.getOne(contractId);
+            var contractId = $scope.contract.id, revisionId;
 
             $q.all({
-                details: promiseContractDetails,
-                leave: promiseContractLeave,
-                insurance: promiseContractInsurance,
-                pension: promiseContractPension
+                details: ContractDetailsService.getOne({ jobcontract_id: contractId}),
+                hours: ContractHoursService.getOne({ jobcontract_id: contractId}),
+                pay: ContractPayService.getOne({ jobcontract_id: contractId}),
+                leave: ContractLeaveService.get({ jobcontract_id: contractId}),
+                insurance: ContractInsuranceService.getOne({ jobcontract_id: contractId}),
+                pension: ContractPensionService.getOne({ jobcontract_id: contractId})
             }).then(function(results){
+
                 $scope.details = results.details;
                 $scope.details.is_primary = !!+$scope.details.is_primary;
+                revisionId = results.details.jobcontract_revision_id;
 
-                $scope.leave = results.leave;
-                $scope.insurance = results.insurance;
-                $scope.pension = results.pension;
+                $scope.hours = results.hours || {
+                    jobcontract_id: contractId,
+                    jobcontract_revision_id: revisionId
+                };
+
+                $scope.pay = results.pay || {
+                    jobcontract_id: contractId,
+                    jobcontract_revision_id: revisionId
+                };
+
+                $scope.leave = results.leave.length ? results.leave : ContractLeaveService.model($scope.utils.absenceType, {
+                    jobcontract_id: contractId,
+                    jobcontract_revision_id: $scope.details.jobcontract_revision_id
+                });
+
+                $scope.insurance = results.insurance || {
+                    jobcontract_id: contractId,
+                    jobcontract_revision_id: revisionId
+                };
+
+                $scope.pension = results.pension || {
+                    jobcontract_id: contractId,
+                    jobcontract_revision_id: revisionId
+                };
+
             });
 
 
             $scope.modalContract = function(action){
 
-                if (!action) {
-                    return null;
-                }
+                console.log($scope);
 
                 var modalInstance,
                     options = {
@@ -48,6 +71,8 @@ define(['controllers/controllers',
                             return {
                                 id: contractId,
                                 details: $scope.details,
+                                hours: $scope.hours,
+                                pay: $scope.pay,
                                 leave: $scope.leave,
                                 insurance: $scope.insurance,
                                 pension: $scope.pension
@@ -60,23 +85,24 @@ define(['controllers/controllers',
                 }
 
                 switch(action){
-                    case 'view':
-                        options.controller = 'ModalContractViewCtrl'
-                        break;
                     case 'edit':
                         options.controller = 'ModalContractEditCtrl'
                         break;
                     case 'change':
                         options.controller = 'ModalContractChangeCtrl'
                         break;
+                    default:
+                        options.controller = 'ModalContractViewCtrl'
                 }
 
                 modalInstance = $modal.open(options);
 
                 modalInstance.result.then(function(results){
                     $scope.details = results.details;
-                    $scope.leave = results.leave,
-                    $scope.insurance = results.insurance,
+                    $scope.hours = results.hours;
+                    $scope.pay = results.pay;
+                    $scope.leave = results.leave;
+                    $scope.insurance = results.insurance;
                     $scope.pension = results.pension;
 
                     if (results.requireReload) {

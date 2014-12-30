@@ -9,6 +9,7 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                 $scope.revisionList = [];
 
             promiseContractService.then(function(results){
+                results.pop();
                 $scope.revisionList = $filter('orderBy')(results, 'id', true);
             });
 

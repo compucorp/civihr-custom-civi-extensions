@@ -20,7 +20,6 @@ define(['controllers/controllers',
                 insurance: ContractInsuranceService.getOne({ jobcontract_revision_id: $scope.revision.health_revision_id }),
                 pension: ContractPensionService.getOne({ jobcontract_revision_id: $scope.revision.pension_revision_id })
             }).then(function(results){
-                console.log(results.details);
                 $scope.details = results.details;
                 $scope.hours = results.hours;
                 $scope.pay = results.pay;

@@ -32,26 +32,23 @@
                         <label for="{{prefix}}contract-type" class="col-sm-4 control-label">Contract type</label>
 
                         <div class="col-sm-5">
-                            <select id="{{prefix}}contract-type" class="form-control" ng-model="contract.details.contract_type" ng-disabled="isDisabled" required>
+                            <select id="{{prefix}}contract-type" class="form-control"
+                                    ng-model="contract.details.contract_type"
+                                    ng-options="key as value for (key, value) in options.details.contract_type"
+                                    ng-disabled="isDisabled" required>
                                 <option value="">- select -</option>
-                                <option value="Apprentice" selected>Apprentice</option>
-                                <option value="Contractor">Contractor</option>
-                                <option value="Employee - Temporary">Employee - Temporary</option>
-                                <option value="Employee - Permanent">Employee - Permanent</option>
-                                <option value="Intern">Intern</option>
-                                <option value="Trustee">Trustee</option>
-                                <option value="Volunteer">Volunteer</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="{{prefix}}location" class="col-sm-4 control-label">Normal Place of Work</label>
+                        <label for="{{prefix}}location" class="col-sm-4 control-label">Normal Place of Work {{test}}</label>
 
                         <div class="col-sm-5">
-                            <select id="{{prefix}}location" class="form-control" ng-model="contract.details.location" ng-disabled="isDisabled">
+                            <select id="{{prefix}}location" class="form-control"
+                                    ng-model="contract.details.location"
+                                    ng-options="key as value for (key, value) in options.details.location"
+                                    ng-disabled="isDisabled">
                                 <option value="">- select -</option>
-                                <option value="Headquarters" selected>Headquarters</option>
-                                <option value="Home">Home or Home-Office</option>
                             </select>
                         </div>
                     </div>
@@ -103,12 +100,11 @@
                         <div class="col-sm-8">
                             <div class="form-inline">
                                 <input type="text" class="form-control input-inline-sm" id="{{prefix}}notice-amount" ng-model="contract.details.notice_amount" ng-disabled="isDisabled">
-                                <select id="{{prefix}}notice-unit" class="form-control" ng-model="contract.details.notice_unit" ng-disabled="isDisabled">
+                                <select id="{{prefix}}notice-unit" class="form-control"
+                                        ng-model="contract.details.notice_unit"
+                                        ng-options="key as value for (key, value) in options.details.notice_unit"
+                                        ng-disabled="isDisabled">
                                     <option value="">- select -</option>
-                                    <option value="Day">Day</option>
-                                    <option value="Week" selected>Week</option>
-                                    <option value="Month" selected>Month</option>
-                                    <option value="Year">Year</option>
                                 </select>
                             </div>
                         </div>
@@ -119,12 +115,11 @@
                         <div class="col-sm-8">
                             <div class="form-inline">
                                 <input type="text" class="form-control input-inline-sm" id="{{prefix}}notice-amount-employee" ng-model="contract.details.notice_amount_employee" ng-disabled="isDisabled">
-                                <select id="{{prefix}}notice-unit-employee" class="form-control" ng-model="contract.details.notice_unit_employee" ng-disabled="isDisabled">
+                                <select id="{{prefix}}notice-unit-employee" class="form-control"
+                                        ng-model="contract.details.notice_unit_employee"
+                                        ng-options="key as value for (key, value) in options.details.notice_unit_employee"
+                                        ng-disabled="isDisabled">
                                     <option value="">- select -</option>
-                                    <option value="Day">Day</option>
-                                    <option value="Week">Week</option>
-                                    <option value="Month">Month</option>
-                                    <option value="Year">Year</option>
                                 </select>
                             </div>
                         </div>

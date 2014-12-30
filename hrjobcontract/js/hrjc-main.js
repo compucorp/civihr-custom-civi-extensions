@@ -91,6 +91,7 @@ require([
                 pension: ContractPensionService.getOptions()
             }).then(function(results){
                 $rootScope.options = results;
+                console.log($rootScope.options);
             });
         }
     ]);

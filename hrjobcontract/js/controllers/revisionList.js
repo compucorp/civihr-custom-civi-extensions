@@ -8,7 +8,7 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
 
             promiseContractService.then(function(results){
                 results.pop();
-                $scope.revisionList.push.apply($scope.$parent.revisionList,$filter('orderBy')(results, 'id', true));
+                $scope.revisionList.push.apply($scope.revisionList,$filter('orderBy')(results, 'id', true));
             });
 
         }]);

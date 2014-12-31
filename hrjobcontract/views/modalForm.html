@@ -241,13 +241,11 @@
                     <label for="pay-scale" class="col-sm-4 control-label">Pay Scale / Grade</label>
 
                     <div class="col-sm-5">
-                        <select id="pay-scale" class="form-control" ng-disabled="isDisabled">
-                            <option value="1">US</option>
-                            <option value="2"> - Senior</option>
-                            <option value="3"> - Junior</option>
-                            <option value="4">UK</option>
-                            <option value="5"> - Senior</option>
-                            <option value="6"> - Junior</option>
+                        <select id="pay-scale" class="form-control"
+                                ng-model="contract.pay.pay_scale"
+                                ng-options="key as value for (key, value) in options.pay.pay_scale"
+                                ng-disabled="isDisabled">
+                            <option value="">- select -</option>
                         </select>
                     </div>
                 </div>
@@ -256,19 +254,18 @@
 
                     <div class="col-sm-8">
                         <div class="form-inline">
-                            <select class="form-control" ng-model="contract.pay.pay_currency" ng-disabled="isDisabled">
-                                <!--<option value="">&pound;</option>-->
-                                <option value="">&dollar;</option>
-                                <!--<option value="">&euro;</option>-->
+                            <select class="form-control"
+                                    ng-model="contract.pay.pay_currency"
+                                    ng-options="key as value for (key, value) in options.pay.pay_currency"
+                                    ng-disabled="isDisabled">
                             </select>
                             <input id="{{prefix}}pay-amount" type="text" class="form-control input-inline-sm" ng-model="contract.pay.pay_amount" ng-disabled="isDisabled">
                             per
-                            <select class="form-control" ng-model="contract.pay.pay_unit" ng-disabled="isDisabled">
-                                <option value="Hour">Hour</option>
-                                <option value="Day">Day</option>
-                                <option value="Week">Week</option>
-                                <option value="Month" selected>Month</option>
-                                <option value="Year">Year</option>
+                            <select class="form-control"
+                                    ng-model="contract.pay.pay_unit"
+                                    ng-options="key as value for (key, value) in options.pay.pay_unit"
+                                    ng-disabled="isDisabled">
+                                <option value="">- select -</option>
                             </select>
                         </div>
                     </div>
@@ -299,7 +296,7 @@
                         </label>
 
                         <div class="col-sm-3">
-                            <input type="text" id="pay-gross-cycle" class="form-control disabled" value="18000" ng-disabled="isDisabled || true">
+                            <input type="text" id="pay-gross-cycle" class="form-control disabled" ng-disabled="isDisabled || true">
                         </div>
                     </div>
                 </div>

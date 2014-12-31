@@ -31,7 +31,7 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
           'working_days' => CRM_Hrjobcontract_Page_JobContractTab::getDaysPerTime(),
         ),
         'FieldOptions' => CRM_Hrjobcontract_Page_JobContractTab::getFieldOptions(),
-        'jobTabApp' => array(
+        'jobContractTabApp' => array(
           'contact_id' => CRM_Utils_Request::retrieve('cid', 'Integer'),
           'domain_id' => CRM_Core_Config::domainID(),
           'isLogEnabled'    => (bool) $config->logging,

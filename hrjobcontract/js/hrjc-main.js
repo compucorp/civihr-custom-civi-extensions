@@ -91,7 +91,7 @@ require([
                 pension: ContractPensionService.getOptions()
             }).then(function(results){
                 $rootScope.options = results;
-                console.log($rootScope.options);
+                console.log($rootScope.options)
             });
         }
     ]);
@@ -107,7 +107,8 @@ require([
             key: e.detail.key,
             pathRest: '/sites/all/modules/civicrm/extern/rest.php',
             CRM: {
-                options: CRM.FieldOptions || {}
+                options: CRM.FieldOptions || {},
+                defaultCurrency: CRM.jobContractTabApp.defaultCurrency
             }
         });
 

@@ -446,6 +446,37 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
         ('hrjobcontract', 'work_weeks_per_year', 'i:50;', 1, NULL, 1, NULL, '2014-12-01 03:01:02', NULL)");
       return TRUE;
   }
+  
+  public function upgrade_z9114() {
+    CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_hour` ADD `location_type` INT(3) NULL DEFAULT NULL AFTER `id`");
+    
+    $optionGroupID = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjc_hour_location_type', 'id', 'name');
+    if (!$optionGroupID) {
+        $params = array(
+          'name' => 'hrjc_hour_location_type',
+          'title' => 'Hour Location Type',
+          'is_active' => 1,
+          'is_reserved' => 1,
+        );
+        civicrm_api3('OptionGroup', 'create', $params);
+        $optionsValue = array(
+            0 => 'Head office - 40 hours per Week',
+            1 => 'Other office - 8 hours per Day',
+            2 => 'Small office - 36 hours per Week',
+        );
+        foreach ($optionsValue as $key => $value) {
+          $opValueParams = array(
+            'option_group_id' => 'hrjc_hour_location_type',
+            'name' => $value,
+            'label' => $value,
+            'value' => $key,
+          );
+          civicrm_api3('OptionValue', 'create', $opValueParams);
+        }
+    }
+    
+    return TRUE;
+  }
 
   function decToFraction($fte) {
     $fteDecimalPart = explode('.', $fte);

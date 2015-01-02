@@ -27,7 +27,7 @@
                     <div class="form-group">
                         <label class="col-sm-5 control-label">Contract type:</label>
                         <div class="col-sm-7">
-                            <p class="form-control-static">{{details.contract_type}}</p>
+                            <p class="form-control-static">{{options.details.contract_type[details.contract_type]}}</p>
                         </div>
                     </div>
                 </div>
@@ -85,10 +85,10 @@
                 <div class="col-xs-12">
                     <tabset>
                         <tab heading="Summary">
-                            <div ng-include src="'/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract/views/contractSummary.html?v=111'"></div>
+                            <div ng-include src="'/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract/views/contractSummary.html?v=2222'"></div>
                         </tab>
                         <tab heading="Full History" disabled="!revisionList.length" ng-controller="RevisionListCtrl">
-                            <div ng-include src="'/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract/views/contractRevisionList.html?v=111'"></div>
+                            <div ng-include src="'/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract/views/contractRevisionList.html?v=1111'"></div>
                         </tab>
                     </tabset>
                 </div>

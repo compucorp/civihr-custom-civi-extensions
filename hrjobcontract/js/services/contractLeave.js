@@ -14,15 +14,11 @@ define(['services/services'], function (services) {
         return {
             get: function (params) {
 
-                if (!params || typeof params !== 'object') {
-                    return null;
-                }
-
-                if (!params.jobcontract_id || typeof +params.jobcontract_id !== 'number') {
-                    return null;
-                }
-
-                if ((params.id && typeof +params.id !== 'number') ||
+                if ((!params || typeof params !== 'object') ||
+                    (!params.jobcontract_id && !params.jobcontract_revision_id) ||
+                    (params.jobcontract_id && typeof +params.jobcontract_id !== 'number') ||
+                    (params.jobcontract_revision_id && typeof +params.jobcontract_revision_id!== 'number') ||
+                    (params.id && typeof +params.id !== 'number') ||
                     (params.leaveType && typeof +params.leaveType !== 'number')) {
                     return null;
                 }
@@ -34,7 +30,7 @@ define(['services/services'], function (services) {
                 ContractLeave.get({json: params}, function(data){
                     deffered.resolve(data.values);
                 },function(){
-                    deffered.reject('Unable to fetch contract list');
+                    deffered.reject('Unable to fetch contract leave');
                 });
 
                 return deffered.promise;

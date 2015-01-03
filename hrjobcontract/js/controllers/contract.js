@@ -90,6 +90,8 @@ define(['controllers/controllers',
                     case 'change':
                         options.controller = 'ModalContractChangeCtrl'
                         break;
+                    case 'view':
+                        options.controller = 'ModalContractViewCtrl'
                     default:
                         options.controller = 'ModalContractViewCtrl'
                 }

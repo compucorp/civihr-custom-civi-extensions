@@ -28,5 +28,30 @@ define(['controllers/controllers',
                 $scope.pension = results.pension;
             });
 
+            $scope.modalContract = function(){
+
+                $modal.open({
+                    controller: 'ModalContractViewCtrl',
+                    targetDomEl: $rootElement.find('div').eq(0),
+                    templateUrl: settings.pathApp+'/views/modalForm.html?v='+(new Date()).getTime(),
+                    size: 'lg',
+                    resolve: {
+                        contract: function(){
+                            return {
+                                details: $scope.details,
+                                hours: $scope.hours,
+                                pay: $scope.pay,
+                                leave: $scope.leave,
+                                insurance: $scope.insurance,
+                                pension: $scope.pension
+                            }
+                        },
+                        utils: function(){
+                            return $scope.utils
+                        }
+                    }
+                });
+            }
+
         }]);
 });

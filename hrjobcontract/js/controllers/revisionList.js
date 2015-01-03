@@ -7,7 +7,6 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                 promiseContractService = ContractService.getRevision(contractId);
 
             promiseContractService.then(function(results){
-                results.pop();
                 $scope.revisionList.push.apply($scope.revisionList,$filter('orderBy')(results, 'id', true));
             });
 

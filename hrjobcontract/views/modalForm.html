@@ -331,7 +331,7 @@
         <tab heading="Insurance">
             <div class="row">
                 <div class="col-xs-12">
-                    <h4>Healt Insurance</h4>
+                    <h4>Health Insurance</h4>
                 </div>
             </div>
             <div class="row">
@@ -352,11 +352,11 @@
                         <label for="insurance-health-plan" class="col-sm-4 control-label">Plan Type</label>
 
                         <div class="col-sm-4">
-                            <select id="insurance-health-plan" class="form-control" ng-model="contract.insurance.plan_type"
+                            <select id="insurance-health-plan" class="form-control"
+                                    ng-model="contract.insurance.plan_type"
+                                    ng-options="key as value for (key, value) in options.insurance.plan_type"
                                     ng-disabled="isDisabled">
                                 <option value="">- select -</option>
-                                <option value="Family">Family</option>
-                                <option value="Individual">Individual</option>
                             </select>
                         </div>
                     </div>
@@ -404,11 +404,11 @@
                         <label for="insurance-life-plan" class="col-sm-4 control-label">Plan Type</label>
 
                         <div class="col-sm-4">
-                            <select id="insurance-life-plan" class="form-control" ng-model="contract.insurance.plan_type_life_insurance"
+                            <select id="insurance-life-plan" class="form-control"
+                                    ng-model="contract.insurance.plan_type_life_insurance"
+                                    ng-options="key as value for (key, value) in options.insurance.plan_type_life_insurance"
                                     ng-disabled="isDisabled">
                                 <option value="">- select -</option>
-                                <option value="Family">Family</option>
-                                <option value="Individual">Individual</option>
                             </select>
                         </div>
                     </div>
@@ -461,10 +461,11 @@
                         <label for="pension-provider" class="col-sm-4 control-label">Provider</label>
 
                         <div class="col-sm-4">
-                            <select id="pension-provider" class="form-control" ng-model="contract.pension.pension_type" ng-disabled="isDisabled">
+                            <select id="pension-provider" class="form-control"
+                                    ng-model="contract.pension.pension_type"
+                                    ng-options="key as value for (key, value) in options.pension.pension_type"
+                                    ng-disabled="isDisabled">
                                 <option value="">- select -</option>
-                                <option value="Employer Pension">Employer Pension</option>
-                                <option value="Personal Pension">Personal Pension</option>
                             </select>
                         </div>
                     </div>

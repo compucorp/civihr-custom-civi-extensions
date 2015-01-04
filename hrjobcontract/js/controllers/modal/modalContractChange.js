@@ -76,17 +76,7 @@ define(['controllers/controllers',
                     //
 
                     results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
-                    results.revisionCreated = {
-                        details_revision_id: revisionId,
-                        health_revision_id: revisionId,
-                        hour_revision_id: revisionId,
-                        id: revisionId,
-                        jobcontract_id: contractNew.id,
-                        leave_revision_id: revisionId,
-                        pay_revision_id: revisionId,
-                        pension_revision_id: revisionId,
-                        status: 0
-                    }
+                    results.revisionCreated = revisionId;
 
                     $modalInstance.close(results);
                 });

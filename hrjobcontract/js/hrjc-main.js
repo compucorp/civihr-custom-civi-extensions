@@ -43,7 +43,6 @@ require([
     'controllers/contractList',
     'controllers/contract',
     'controllers/revisionList',
-    'controllers/revision',
     'controllers/modal/modalContractChange',
     'controllers/modal/modalContractEdit',
     'controllers/modal/modalContractNew',

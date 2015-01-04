@@ -175,6 +175,19 @@ class CRM_Hrjobcontract_DAO_HRJobHour extends CRM_Hrjobcontract_DAO_Base
                   'title' => ts('Job Hours Id') ,
                   'required' => true,
                 ) ,
+                'location_type' => array(
+                  'name' => 'location_type',
+                  'type' => CRM_Utils_Type::T_INT,
+                  'title' => ts('Location Type') ,
+                  'export' => true,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_hour.location_type',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
+                  'pseudoconstant' => array(
+                    'optionGroupName' => 'hrjc_hour_location_type',
+                  )
+                ) ,
                 'hrjob_hours_type' => array(
                   'name' => 'hours_type',
                   'type' => CRM_Utils_Type::T_STRING,
@@ -261,6 +274,7 @@ class CRM_Hrjobcontract_DAO_HRJobHour extends CRM_Hrjobcontract_DAO_Base
         self::$_fieldKeys = self::setFieldKeys(
             array(
                 'id' => 'id',
+                'location_type' => 'location_type',
                 'hours_type' => 'hrjob_hours_type',
                 'hours_amount' => 'hrjob_hours_amount',
                 'hours_unit' => 'hrjob_hours_unit',

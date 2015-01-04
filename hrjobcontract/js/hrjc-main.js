@@ -90,7 +90,6 @@ require([
                 pension: ContractPensionService.getOptions()
             }).then(function(results){
                 $rootScope.options = results;
-                console.log($rootScope.options)
             });
         }
     ]);
@@ -108,6 +107,45 @@ require([
             CRM: {
                 options: CRM.FieldOptions || {},
                 defaultCurrency: CRM.jobContractTabApp.defaultCurrency
+            },
+            entityHistoryFields: {
+                details: [
+                    {
+                        label: 'Position',
+                        name: 'position'
+                    },
+                    {
+                        label: 'Title',
+                        name: 'title'
+                    },
+                    {
+                        label: 'Contract type',
+                        name: 'contract_type'
+                    }
+                ],
+                hours: [
+                    {
+                        label: 'Hours type',
+                        name: 'hours_type'
+                    },
+                    {
+                        label: 'Actual hours',
+                        name: 'hours_type'
+                    },
+                    {
+                        label: 'Time unit',
+                        name: 'hours_unit'
+                    }
+                ],
+                pay: [
+                    {
+                        label: 'Pay Amount',
+                        name: 'pay_amount'
+                    }
+                ],
+                leave: [],
+                insurance: [],
+                pension: []
             }
         });
 

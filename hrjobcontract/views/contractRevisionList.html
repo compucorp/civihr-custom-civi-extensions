@@ -14,17 +14,17 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="revision in $parent.revisionList" ng-controller="RevisionCtrl">
+        <tr ng-repeat="revision in $parent.revisionDataList">
             <td>2014-10-30</td>
-            <td>{{details.position}}</td>
+            <td>{{revision.details.position}}</td>
             <td>IT</td>
-            <td>{{pay.pay_scale}}</td>
-            <td>{{pay.pay_annualized_est}} {{options.pay.pay_currency[pay.pay_currency]}}</td>
-            <td>{{options.hours.hours_type[hours.hours_type]}}</td>
-            <td>{{options.details.location[details.location]}}</td>
+            <td>{{revision.pay.pay_scale}}</td>
+            <td>{{revision.pay.pay_annualized_est}} {{options.pay.pay_currency[pay.pay_currency]}}</td>
+            <td>{{options.hours.hours_type[revision.hours.hours_type]}}</td>
+            <td>{{options.details.location[revision.details.location]}}</td>
             <td>John Smith</td>
             <td></td>
-            <td><a data-target="#{{prefix}}modal-wizard">view this contract revision</a></td>
+            <td><a class="cursor-pointer" ng-click="modalContract('view',revision.revisionId)">view this contract revision</a></td>
         </tr>
     </tbody>
 </table>

@@ -9669,6 +9669,10 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 #hrjob-contract .x-ng-cloak {
   display: none !important;
 }
+/* line 5, ../sass/partials/_global.scss */
+#hrjob-contract .cursor-pointer {
+  cursor: pointer;
+}
 /* line 1, ../sass/partials/_collapse.scss */
 #hrjob-contract a.btn-collapse {
   background: none;

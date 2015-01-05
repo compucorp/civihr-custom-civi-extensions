@@ -5,17 +5,20 @@ define(['controllers/controllers',
         'services/contractPay',
         'services/contractLeave',
         'services/contractPension',
-        'services/contractInsurance'], function(controllers){
-    controllers.controller('ContractCtrl',['$scope', '$route', '$modal', '$rootElement', '$q', 'settings',
-        'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
+        'services/contractInsurance',
+        'services/utils',], function(controllers){
+    controllers.controller('ContractCtrl',['$scope', '$route', '$filter', '$modal', '$rootElement', '$q', 'settings',
+        'API', 'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
         'ContractInsuranceService', 'ContractPensionService',
-        function($scope, $route, $modal, $rootElement, $q, settings, ContractDetailsService, ContractHoursService,
-                 ContractPayService, ContractLeaveService, ContractInsuranceService, ContractPensionService){
+        function($scope, $route, $filter, $modal, $rootElement, $q, settings, API, ContractDetailsService,
+                 ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService,
+                 ContractPensionService){
 
-            var contractId = $scope.contract.id, revisionId;
+            var contractId = $scope.contract.id, revisionId, contractRevisionIdObj;
 
             $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
             $scope.revisionList = [];
+            $scope.revisionDataList = [];
 
             $q.all({
                 details: ContractDetailsService.getOne({ jobcontract_id: contractId}),
@@ -29,36 +32,21 @@ define(['controllers/controllers',
                 $scope.details = results.details;
                 $scope.details.is_primary = !!+$scope.details.is_primary;
                 revisionId = results.details.jobcontract_revision_id;
-
-                $scope.hours = results.hours || {
+                contractRevisionIdObj = {
                     jobcontract_id: contractId,
                     jobcontract_revision_id: revisionId
                 };
 
-                $scope.pay = results.pay || {
-                    jobcontract_id: contractId,
-                    jobcontract_revision_id: revisionId
-                };
-
-                $scope.leave = results.leave.length ? results.leave : ContractLeaveService.model($scope.utils.absenceType, {
-                    jobcontract_id: contractId,
-                    jobcontract_revision_id: $scope.details.jobcontract_revision_id
-                });
-
-                $scope.insurance = results.insurance || {
-                    jobcontract_id: contractId,
-                    jobcontract_revision_id: revisionId
-                };
-
-                $scope.pension = results.pension || {
-                    jobcontract_id: contractId,
-                    jobcontract_revision_id: revisionId
-                };
+                $scope.hours = results.hours || contractRevisionIdObj;
+                $scope.pay = results.pay || contractRevisionIdObj;
+                $scope.leave = results.leave.length ? results.leave : ContractLeaveService.model($scope.utils.absenceType, contractRevisionIdObj);
+                $scope.insurance = results.insurance || contractRevisionIdObj;
+                $scope.pension = results.pension || contractRevisionIdObj;
 
             });
 
 
-            $scope.modalContract = function(action){
+            $scope.modalContract = function(action, revisionId){
 
                 var modalInstance,
                     options = {
@@ -67,7 +55,7 @@ define(['controllers/controllers',
                     size: 'lg',
                     resolve: {
                         contract: function(){
-                            return {
+                            return !revisionId ? {
                                 id: contractId,
                                 details: $scope.details,
                                 hours: $scope.hours,
@@ -75,28 +63,43 @@ define(['controllers/controllers',
                                 leave: $scope.leave,
                                 insurance: $scope.insurance,
                                 pension: $scope.pension
-                            }
+                            } : $q.all({
+                                details: ContractDetailsService.getOne({ jobcontract_revision_id: revisionId }),
+                                hours: ContractHoursService.getOne({ jobcontract_revision_id: revisionId }),
+                                pay: ContractPayService.getOne({ jobcontract_revision_id: revisionId }),
+                                leave: ContractLeaveService.get({ jobcontract_revision_id: revisionId }),
+                                insurance: ContractInsuranceService.getOne({ jobcontract_revision_id: revisionId }),
+                                pension: ContractPensionService.getOne({ jobcontract_revision_id: revisionId })
+                            });
                         },
                         utils: function(){
                             return $scope.utils
                         }
                     }
-                }
+                };
 
                 switch(action){
                     case 'edit':
-                        options.controller = 'ModalContractEditCtrl'
+                        options.controller = 'ModalContractEditCtrl';
                         break;
                     case 'change':
-                        options.controller = 'ModalContractChangeCtrl'
+                        options.controller = 'ModalContractChangeCtrl';
+                        break;
+                    case 'view':
+                        options.controller = 'ModalContractViewCtrl';
                         break;
                     default:
-                        options.controller = 'ModalContractViewCtrl'
+                        options.controller = 'ModalContractViewCtrl';
                 }
 
                 modalInstance = $modal.open(options);
 
                 modalInstance.result.then(function(results){
+
+                    if (results.requireReload) {
+                        $route.reload();
+                    }
+
                     $scope.details = results.details;
                     $scope.hours = results.hours;
                     $scope.pay = results.pay;
@@ -104,16 +107,25 @@ define(['controllers/controllers',
                     $scope.insurance = results.insurance;
                     $scope.pension = results.pension;
 
-                    if (results.requireReload) {
-                        $route.reload();
-                    }
-
                     if (results.revisionCreated) {
                         $scope.revisionList.unshift(results.revisionCreated);
+
+                        $scope.revisionDataList.unshift({
+                            revisionId: results.revisionCreated.id,
+                            details: results.details,
+                            hours: results.hours,
+                            pay: results.pay
+                        });
+                    } else {
+                        angular.extend($scope.revisionDataList[0], {
+                            details: results.details,
+                            hours: results.hours,
+                            pay: results.pay
+                        });
                     }
 
                 });
-            }
+            };
 
             $scope.modalRevision = function(entity){
 
@@ -121,12 +133,41 @@ define(['controllers/controllers',
                     return null;
                 }
 
+                var i = 0, len = $scope.revisionList.length, promiseEntityRevisionList = [];
+                for (i; i < len; i++){
+                    promiseEntityRevisionList.push(API.getOne('HRJob'+$filter('capitalize')(entity),{
+                        jobcontract_revision_id: $scope.revisionList[i][entity+'_revision_id']
+                    }));
+                }
+
+                //TODO
+                switch(entity){
+                    case 'health':
+                        entity = 'insurance';
+                        break;
+                    case 'hour':
+                        entity = 'hours';
+                        break;
+                    case 'leave':
+                        alert('Soon!');
+                        return
+                        break;
+                }
+
                 var options = {
                     targetDomEl: $rootElement.find('div').eq(0),
                     size: 'lg',
                     controller: 'ModalRevisionCtrl',
-                    templateUrl: settings.pathApp+'/views/modalRevision.html?v='+(new Date()).getTime()
-                }
+                    templateUrl: settings.pathApp+'/views/modalRevision.html?v='+(new Date()).getTime(),
+                    resolve: {
+                        entity: function(){
+                            return entity;
+                        },
+                        revisionDataList: function(){
+                            return $q.all(promiseEntityRevisionList);
+                        }
+                    }
+                };
 
                 return $modal.open(options);
             }

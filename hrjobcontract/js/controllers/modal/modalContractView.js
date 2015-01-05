@@ -3,8 +3,6 @@ define(['controllers/controllers'], function(controllers){
     controllers.controller('ModalContractViewCtrl',['$scope','$modalInstance','contract','utils',
         function($scope, $modalInstance, contract, utils){
 
-            console.log(contract);
-
             $scope.allowSave = false;
             $scope.contract = {};
             $scope.isDisabled = true;

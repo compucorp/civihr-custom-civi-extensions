@@ -1,7 +1,7 @@
 console.log('Service: UtilsService');
 define(['services/services'], function (services) {
 
-    services.factory('API', ['$resource','settings', function ($resource, settings) {
+    services.factory('API', ['$resource','$q','settings', function ($resource, $q, settings) {
         return {
             resource: function(entity, action, json) {
 
@@ -18,6 +18,28 @@ define(['services/services'], function (services) {
                     api_key: settings.keyApi,
                     key: settings.key
                 })
+            },
+            getOne: function(entity, params) {
+
+                if ((!entity || typeof entity !== 'string') ||
+                    (params && typeof params !== 'object')) {
+                    return null;
+                }
+
+                var deffered = $q.defer(),
+                    json = angular.extend({
+                        sequential: 1
+                    },params),
+                    val;
+
+                this.resource(entity,'get', json).get(function(data){
+                    val = data.values;
+                    deffered.resolve(val.length == 1 ? val[0] : null);
+                },function(){
+                    deffered.reject('Unable to fetch data');
+                });
+
+                return deffered.promise;
             }
         }
     }]);

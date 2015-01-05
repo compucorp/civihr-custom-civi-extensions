@@ -51,6 +51,7 @@ require([
     'controllers/form/formGeneral',
     'controllers/form/formHours',
     'controllers/form/formPay',
+    'filters/capitalize',
     'filters/formatAmount',
     'filters/formatPeriod',
     'filters/parseInt'
@@ -112,36 +113,53 @@ require([
                 details: [
                     {
                         label: 'Position',
-                        name: 'position'
+                        name: 'position',
+                        isOption: false
                     },
                     {
                         label: 'Title',
-                        name: 'title'
+                        name: 'title',
+                        isOption: false
                     },
                     {
                         label: 'Contract type',
-                        name: 'contract_type'
+                        name: 'contract_type',
+                        isOption: false
                     }
                 ],
                 hours: [
                     {
                         label: 'Hours type',
-                        name: 'hours_type'
+                        name: 'hours_type',
+                        isOption: true
                     },
                     {
                         label: 'Actual hours',
-                        name: 'hours_type'
+                        name: 'hours_amount',
+                        isOption: false
                     },
                     {
                         label: 'Time unit',
-                        name: 'hours_unit'
+                        name: 'hours_unit',
+                        isOption: false
                     }
                 ],
                 pay: [
                     {
+                        label: 'Pay Scale / Grade',
+                        name: 'pay_scale',
+                        isOption: true
+                    },
+                    {
                         label: 'Pay Amount',
-                        name: 'pay_amount'
-                    }
+                        name: 'pay_amount',
+                        isOption: false
+                    },
+                    {
+                        label: 'Pay Unit',
+                        name: 'pay_unit',
+                        isOption: true
+                    },
                 ],
                 leave: [],
                 insurance: [],

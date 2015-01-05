@@ -18,15 +18,9 @@ class CRM_Hrjobcontract_BAO_HRJobDetails extends CRM_Hrjobcontract_DAO_HRJobDeta
             CRM_Hrjobcontract_DAO_HRJobDetails::handlePrimary($instance, $params);
         }
         
-        $currentInstanceResult = civicrm_api3('HRJobDetails', 'get', array(
-            'sequential' => 1,
-            'id' => $instance->id,
-        ));
-        
-        $currentInstance = CRM_Utils_Array::first($currentInstanceResult['values']);
         $revisionResult = civicrm_api3('HRJobContractRevision', 'get', array(
             'sequential' => 1,
-            'id' => $currentInstance['jobcontract_revision_id'],
+            'id' => $instance->jobcontract_revision_id,
         ));
         $revision = CRM_Utils_Array::first($revisionResult['values']);
         

@@ -44,7 +44,7 @@
             <th></th>
           </thead>
          {foreach from=$rows item=row}
-        <tr id="HRHourLocation-{$row.id}" class="crm-entity {cycle values="odd-row,even-row"} {$row.class}{if $row.is_active neq 1} disabled{/if}">
+        <tr id="HRHoursLocation-{$row.id}" class="crm-entity {cycle values="odd-row,even-row"} {$row.class}{if $row.is_active neq 1} disabled{/if}">
           <td class="crm-editable" data-field="title">{$row.location}</td>
           <td>{$row.standard_hours}</td>
           <td>{$row.periodicity}</td>

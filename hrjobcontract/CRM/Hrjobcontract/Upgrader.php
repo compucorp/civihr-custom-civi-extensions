@@ -508,6 +508,35 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
       return TRUE;
   }
   
+  public function upgrade_z9118() { // TODO!!!
+    $optionGroupID = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjc_revision_change_reason', 'id', 'name');
+    if (!$optionGroupID) {
+        $params = array(
+          'name' => 'hrjc_revision_change_reason',
+          'title' => 'Job Contract Revision Change Reason',
+          'is_active' => 1,
+          'is_reserved' => 1,
+        );
+        civicrm_api3('OptionGroup', 'create', $params);
+        $optionsValue = array(
+            1 => 'Reason 1',
+            2 => 'Reason 2',
+            3 => 'Reason 3',
+        );
+        foreach ($optionsValue as $key => $value) {
+          $opValueParams = array(
+            'option_group_id' => 'hrjc_revision_change_reason',
+            'name' => $value,
+            'label' => $value,
+            'value' => $key,
+          );
+          civicrm_api3('OptionValue', 'create', $opValueParams);
+        }
+    }
+    
+    return TRUE;
+  }
+  
   function decToFraction($fte) {
     $fteDecimalPart = explode('.', $fte);
     $array  = str_split($fteDecimalPart[1]);

@@ -7,18 +7,22 @@ define(['controllers/controllers',
         'services/contractPension',
         'services/contractInsurance',
         'services/utils',], function(controllers){
-    controllers.controller('ContractCtrl',['$scope', '$route', '$filter', '$modal', '$rootElement', '$q', 'settings',
+    controllers.controller('ContractCtrl',['$timeout','$scope', '$route', '$filter', '$modal', '$rootElement', '$q', 'settings',
         'API', 'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
         'ContractInsuranceService', 'ContractPensionService',
-        function($scope, $route, $filter, $modal, $rootElement, $q, settings, API, ContractDetailsService,
+        function($timeout, $scope, $route, $filter, $modal, $rootElement, $q, settings, API, ContractDetailsService,
                  ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService,
                  ContractPensionService){
 
-            var contractId = $scope.contract.id, revisionId, contractRevisionIdObj;
+            var contractId = $scope.contract.id, contractRevisionIdObj;
 
-            $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
+            $scope.contractLoaded = false;
+            $scope.isCollapsed = true;
+            $scope.model = angular.copy($scope.model);
             $scope.revisionList = [];
             $scope.revisionDataList = [];
+
+            angular.extend($scope, $scope.model);
 
             $q.all({
                 details: ContractDetailsService.getOne({ jobcontract_id: contractId}),
@@ -29,19 +33,29 @@ define(['controllers/controllers',
                 pension: ContractPensionService.getOne({ jobcontract_id: contractId})
             }).then(function(results){
 
-                $scope.details = results.details;
-                $scope.details.is_primary = !!+$scope.details.is_primary;
-                revisionId = results.details.jobcontract_revision_id;
                 contractRevisionIdObj = {
+                    id: null,
                     jobcontract_id: contractId,
-                    jobcontract_revision_id: revisionId
+                    jobcontract_revision_id: results.details.jobcontract_revision_id
                 };
 
-                $scope.hours = results.hours || contractRevisionIdObj;
-                $scope.pay = results.pay || contractRevisionIdObj;
+                angular.extend($scope.details, results.details);
+                $scope.details.is_primary = !!+$scope.details.is_primary;
+
+                angular.extend($scope.hours, results.hours || contractRevisionIdObj);
+                angular.extend($scope.pay, results.pay || contractRevisionIdObj);
+
                 $scope.leave = results.leave.length ? results.leave : ContractLeaveService.model($scope.utils.absenceType, contractRevisionIdObj);
-                $scope.insurance = results.insurance || contractRevisionIdObj;
-                $scope.pension = results.pension || contractRevisionIdObj;
+
+                angular.extend($scope.insurance, results.insurance || contractRevisionIdObj);
+                angular.extend($scope.pension, results.pension || contractRevisionIdObj);
+
+                angular.forEach($scope.model, function(val, key){
+                    console.log($scope[key]);
+                });
+
+                $scope.contractLoaded = true;
+                $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
 
             });
 
@@ -55,21 +69,44 @@ define(['controllers/controllers',
                     size: 'lg',
                     resolve: {
                         contract: function(){
-                            return !revisionId ? {
-                                id: contractId,
-                                details: $scope.details,
-                                hours: $scope.hours,
-                                pay: $scope.pay,
-                                leave: $scope.leave,
-                                insurance: $scope.insurance,
-                                pension: $scope.pension
-                            } : $q.all({
+
+                            if (!revisionId) {
+                                return {
+                                    id: contractId,
+                                    details: $scope.details,
+                                    hours: $scope.hours,
+                                    pay: $scope.pay,
+                                    leave: $scope.leave,
+                                    insurance: $scope.insurance,
+                                    pension: $scope.pension
+                                }
+                            }
+
+                            return $q.all({
                                 details: ContractDetailsService.getOne({ jobcontract_revision_id: revisionId }),
                                 hours: ContractHoursService.getOne({ jobcontract_revision_id: revisionId }),
                                 pay: ContractPayService.getOne({ jobcontract_revision_id: revisionId }),
                                 leave: ContractLeaveService.get({ jobcontract_revision_id: revisionId }),
                                 insurance: ContractInsuranceService.getOne({ jobcontract_revision_id: revisionId }),
                                 pension: ContractPensionService.getOne({ jobcontract_revision_id: revisionId })
+                            }).then(function(results){
+
+                                var contract = {},
+                                    contractRevisionIdObj = {
+                                        id: null,
+                                        jobcontract_id: contractId,
+                                        jobcontract_revision_id: results.details.jobcontract_revision_id
+                                    };
+
+                                angular.extend(contract, $scope.model);
+                                angular.extend(contract.details, results.details);
+                                angular.extend(contract.hours, results.hours || contractRevisionIdObj);
+                                angular.extend(contract.pay, results.pay || contractRevisionIdObj);
+                                contract.leave = results.leave.length ? results.leave : ContractLeaveService.model($scope.utils.absenceType, contractRevisionIdObj);
+                                angular.extend(contract.insurance, results.insurance || contractRevisionIdObj);
+                                angular.extend(contract.pension, results.pension || contractRevisionIdObj);
+
+                                return contract;
                             });
                         },
                         utils: function(){
@@ -100,12 +137,12 @@ define(['controllers/controllers',
                         $route.reload();
                     }
 
-                    $scope.details = results.details;
-                    $scope.hours = results.hours;
-                    $scope.pay = results.pay;
+                    angular.extend($scope.details, results.details);
+                    angular.extend($scope.hours, results.hours);
+                    angular.extend($scope.pay, results.pay);
                     $scope.leave = results.leave;
-                    $scope.insurance = results.insurance;
-                    $scope.pension = results.pension;
+                    angular.extend($scope.insurance, results.insurance);
+                    angular.extend($scope.pension, results.pension);
 
                     if (results.revisionCreated) {
                         $scope.revisionList.unshift(results.revisionCreated);

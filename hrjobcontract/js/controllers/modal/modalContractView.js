@@ -9,6 +9,8 @@ define(['controllers/controllers'], function(controllers){
             $scope.title = 'Contract';
             $scope.utils = utils;
 
+
+
             angular.copy(contract,$scope.contract);
 
             $scope.cancel = function () {

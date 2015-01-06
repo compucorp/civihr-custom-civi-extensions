@@ -1,16 +1,35 @@
 console.log('Controller: ContractListCtrl');
-define(['controllers/controllers', 'services/utils'], function(controllers){
-    controllers.controller('ContractListCtrl',['$scope','$rootElement','$modal','contractList','ContractService','UtilsService','settings',
-        function($scope, $rootElement, $modal, contractList, ContractService, UtilsService, settings){
+define(['controllers/controllers',
+        'services/contractDetails',
+        'services/utils'], function(controllers){
+    controllers.controller('ContractListCtrl',['$scope','$rootElement','$modal','$q','contractList','ContractService',
+        'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractInsuranceService',
+        'ContractPensionService', 'UtilsService','settings',
+        function($scope, $rootElement, $modal, $q, contractList, ContractService, ContractDetailsService,
+                 ContractHoursService, ContractPayService, ContractInsuranceService, ContractPensionService,
+                 UtilsService, settings){
 
+            $scope.contractListLoaded = false;
             $scope.contractCurrent = [];
             $scope.contractPast = [];
             $scope.utils = {
                 absenceType: {}
             };
 
-            angular.forEach(contractList,function(contract){
-                +contract.is_current ? $scope.contractCurrent.push(contract) : $scope.contractPast.push(contract);
+
+            $q.all({
+                details: ContractDetailsService.model(),
+                hours: ContractHoursService.model(),
+                pay: ContractPayService.model(),
+                insurance: ContractInsuranceService.model(),
+                pension: ContractPensionService.model()
+            }).then(function(model){
+                $scope.model = model;
+
+                angular.forEach(contractList,function(contract){
+                    +contract.is_current ? $scope.contractCurrent.push(contract) : $scope.contractPast.push(contract);
+                });
+                $scope.contractListLoaded = true;
             });
 
             var promiseAbsenceType = UtilsService.getAbsenceType();
@@ -19,7 +38,6 @@ define(['controllers/controllers', 'services/utils'], function(controllers){
             },function(reason){
                 console.log('Failed: ' + reason);
             });
-
 
             $scope.modalContract = function(action){
 

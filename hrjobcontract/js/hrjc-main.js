@@ -3,6 +3,7 @@ require.config({
     urlArgs: "bust=" + (new Date()).getTime(),
     paths: {
         angular: 'vendor/angular/angular.min',
+        angularAnimate: 'vendor/angular/angular-animate.min',
         angularBootstrap: 'vendor/angular/ui-bootstrap-tpls',
         angularResource: 'vendor/angular/angular-resource.min',
         angularRoute: 'vendor/angular/angular-route.min',
@@ -23,6 +24,9 @@ require.config({
     shim: {
         angular: {
             exports: 'angular'
+        },
+        angularAnimate: {
+            deps: ['angular']
         },
         angularBootstrap: {
             deps: ['angular']

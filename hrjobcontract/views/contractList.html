@@ -1,17 +1,16 @@
 <ul class="{{prefix}}list-contract">
-    <li ng-repeat="contract in contractCurrent" ng-controller="ContractCtrl" ng-include src="'contract.html'"></li>
+    <li class="{{prefix}}list-contract-item" ng-class="{'ng-active': contractLoaded}" ng-repeat="contract in contractCurrent" ng-controller="ContractCtrl" ng-include src="'contract.html'"></li>
 </ul>
 
 <h3 ng-show="contractPast.length">Past Job Contracts:</h3>
 <ul class="{{prefix}}list-contract">
-    <li ng-repeat="contract in contractPast" ng-controller="ContractCtrl" ng-include src="'contract.html'"></li>
+    <li class="{{prefix}}list-contract-item" ng-class="{'ng-active': contractLoaded}" ng-repeat="contract in contractPast" ng-controller="ContractCtrl" ng-include src="'contract.html'"></li>
 </ul>
-<p>
+<p class="{{prefix}}btn-add-contract"  ng-class="{'ng-active': contractListLoaded}">
     <button class="btn btn-default btn-sm btn-primary" ng-click="modalContract('new')">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Job Contract
     </button>
 </p>
-
 
 <script type="text/ng-template" id="contract.html">
     <div class="panel panel-default {{prefix}}panel-action" ng-cloak>
@@ -21,13 +20,13 @@
                     <div class="form-group">
                         <label class="col-sm-5 control-label">Position:</label>
                         <div class="col-sm-7">
-                            <p class="form-control-static">{{details.position}}</p>
+                            <p class="form-control-static" ng-bind="details.position"></p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-5 control-label">Contract type:</label>
                         <div class="col-sm-7">
-                            <p class="form-control-static">{{options.details.contract_type[details.contract_type]}}</p>
+                            <p class="form-control-static" ng-bind="options.details.contract_type[details.contract_type]"></p>
                         </div>
                     </div>
                 </div>
@@ -35,7 +34,7 @@
                     <div class="form-group">
                         <label class="col-sm-5 control-label">Dates:</label>
                         <div class="col-sm-7">
-                            <p class="form-control-static">{{details.period_start_date | formatPeriod}} - {{details.period_end_date | formatPeriod}}</p>
+                            <p class="form-control-static" ng-bind="(details.period_start_date | formatPeriod) + ' - ' + (details.period_end_date | formatPeriod)" ng-show="details.period_start_date"></p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -85,7 +84,7 @@
                 <div class="col-xs-12">
                     <tabset>
                         <tab heading="Summary">
-                            <div ng-include src="'/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract/views/contractSummary.html?v=888'"></div>
+                            <div ng-include src="'/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract/views/contractSummary.html?v=888'" class="{{prefix}}summary-container"></div>
                         </tab>
                         <tab heading="Full History" disabled="!revisionDataList.length" ng-controller="RevisionListCtrl">
                             <div ng-include src="'/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract/views/contractRevisionList.html?v=777'"></div>

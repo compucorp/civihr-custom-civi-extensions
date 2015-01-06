@@ -157,6 +157,18 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
           'title' => ts('Created Date') ,
           'required' => false,
         ) ,
+        'effective_date' => array(
+          'name' => 'effective_date',
+          'type' => CRM_Utils_Type::T_DATE,
+          'title' => ts('Effective Date') ,
+          'required' => false,
+        ) ,
+        'change_reason' => array(
+          'name' => 'change_reason',
+          'type' => CRM_Utils_Type::T_INT,
+          'title' => ts('Change reason') ,
+          'required' => false,
+        ) ,
         'modified_date' => array(
           'name' => 'modified_date',
           'type' => CRM_Utils_Type::T_DATE,
@@ -237,6 +249,8 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
         'jobcontract_id' => 'jobcontract_id',
         'created_date' => 'created_date',
         'modified_date' => 'modified_date',
+        'effective_date' => 'effective_date',
+        'change_reason' => 'change_reason',
         'status' => 'status',
         'details_revision_id' => 'details_revision_id',
         'health_revision_id' => 'health_revision_id',

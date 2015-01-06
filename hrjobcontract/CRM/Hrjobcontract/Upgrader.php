@@ -477,6 +477,11 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
     
     return TRUE;
   }
+  
+  public function upgrade_z9115() {
+      CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_revision` ADD `effective_date` DATE NULL DEFAULT NULL AFTER `modified_date`, ADD `change_reason` INT(3) NULL DEFAULT NULL AFTER `effective_date`");
+      return TRUE;
+  }
 
   function decToFraction($fte) {
     $fteDecimalPart = explode('.', $fte);

@@ -32,9 +32,17 @@ define(['controllers/controllers',
                 $scope.contractListLoaded = true;
             });
 
+            //TODO remove and use the fieldOptions
             var promiseAbsenceType = UtilsService.getAbsenceType();
             promiseAbsenceType.then(function(absenceType){
                 $scope.utils.absenceType = absenceType;
+            },function(reason){
+                console.log('Failed: ' + reason);
+            });
+
+            var promiseHoursLocation = UtilsService.getHoursLocation();
+            promiseHoursLocation.then(function(hoursLocation){
+                $scope.utils.hoursLocation = hoursLocation;
             },function(reason){
                 console.log('Failed: ' + reason);
             });

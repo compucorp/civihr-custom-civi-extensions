@@ -487,6 +487,12 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
       CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_hour` CHANGE `location_type` `location_standard_hours` INT(3) NULL DEFAULT NULL");
       return TRUE;
   }
+  
+  public function upgrade_z9117() {
+      CRM_Core_DAO::executeQuery("CREATE TABLE civicrm_hours_location (id INT(10) unsigned NOT NULL AUTO_INCREMENT, location VARCHAR(63), standard_hours INT(4), periodicity VARCHAR(63), is_active TINYINT(4) DEFAULT 1, primary key(id))");
+      CRM_Core_DAO::executeQuery('INSERT INTO `civicrm_hours_location` (id, location, standard_hours, periodicity, is_active ) VALUES ( 1, "Head office", 40, "Week", 1), (2, "Other office", 8, "Day", 1), (3, "Small office", 36, "Week",1)');
+      return TRUE;
+  }
 
   function decToFraction($fte) {
     $fteDecimalPart = explode('.', $fte);

@@ -9669,6 +9669,26 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 #hrjob-contract .x-ng-cloak {
   display: none !important;
 }
+/* line 1, ../sass/modules/_animate.scss */
+#hrjob-contract .hrjobcont-btn-add-contract {
+  -webkit-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+  opacity: 0;
+}
+/* line 7, ../sass/modules/_animate.scss */
+#hrjob-contract .hrjobcont-btn-add-contract.ng-active {
+  opacity: 1;
+}
+/* line 11, ../sass/modules/_animate.scss */
+#hrjob-contract .hrjobcont-list-contract-item {
+  -webkit-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+  opacity: 0;
+}
+/* line 17, ../sass/modules/_animate.scss */
+#hrjob-contract .hrjobcont-list-contract-item.ng-active {
+  opacity: 1;
+}
 /* line 5, ../sass/partials/_global.scss */
 #hrjob-contract .cursor-pointer {
   cursor: pointer;
@@ -9722,6 +9742,10 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 /* line 6, ../sass/partials/_list.scss */
 #hrjob-contract .hrjobcont-list-contract a[data-toggle="collapse"] {
   margin-bottom: 10px;
+}
+/* line 12, ../sass/partials/_list.scss */
+#hrjob-contract .hrjobcont-list-contract-item {
+  min-height: 108px;
 }
 /* line 1, ../sass/partials/_navs.scss */
 #hrjob-contract .nav-tabs {
@@ -9878,7 +9902,11 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
     padding-top: 0;
   }
 }
-/* line 2, ../sass/partials/_summary.scss */
+/* line 1, ../sass/partials/_summary.scss */
+#hrjob-contract .hrjobcont-summary-container {
+  min-height: 467px;
+}
+/* line 6, ../sass/partials/_summary.scss */
 #hrjob-contract .hrjobcont-summary .form-group {
   margin-bottom: 10px;
 }

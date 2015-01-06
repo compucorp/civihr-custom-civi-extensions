@@ -19,9 +19,30 @@ define(['controllers/controllers',
             $scope.title = 'Change contract terms';
             $scope.utils = utils;
 
+            var cache = {
+                details: {}
+            };
+
             angular.copy(contract,$scope.contract);
+            cache.details = angular.copy($scope.contract.details);
+            console.log($scope.contract.details);
+            console.log(cache.details);
+            console.log(angular.equals(cache.details,$scope.contract.details));
 
             $scope.cancel = function () {
+                //console.log(angular.equals(cache,$scope.contract));
+
+                console.log(cache.details);
+                console.log($scope.contract.details);
+
+                console.log(angular.equals(cache.details,$scope.contract.details));
+                /*console.log(angular.equals(cache.hours,$scope.contract.hours));
+                console.log(angular.equals(cache.pay,$scope.contract.pay));
+
+                console.log(angular.equals(cache.leave,$scope.contract.leave));
+                console.log(angular.equals(cache.insurance,$scope.contract.insurance));
+                console.log(angular.equals(cache.pension,$scope.contract.pension));
+                console.log(angular.equals(cache.funding,$scope.contract.funding));*/
                 $modalInstance.dismiss('cancel');
             };
 

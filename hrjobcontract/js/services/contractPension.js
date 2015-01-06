@@ -74,6 +74,43 @@ define(['services/services'], function (services) {
                 });
 
                 return deffered.promise;
+            },
+            model: function(params){
+
+                if (params && typeof params !== 'object') {
+                    return null;
+                }
+
+                if (!params || typeof params !== 'object') {
+                    params = {};
+                }
+
+                var deffered = $q.defer(),
+                    i = 0, len, model = {}, val;
+
+                params.sequential = 1;
+
+                ContractPension.get({
+                    action: 'getfields',
+                    json: params
+                }, function(data){
+
+                    if (!data.values) {
+                        deffered.reject('Unable to fetch contract pension fields');
+                    }
+
+                    i = 0, val = data.values, len = val.length;
+
+                    for (i; i < len; i++) {
+                        model[val[i].name] = '';
+                    }
+
+                    deffered.resolve(model);
+                },function(){
+                    deffered.reject('Unable to fetch contract pension fields');
+                });
+
+                return deffered.promise;
             }
         }
 

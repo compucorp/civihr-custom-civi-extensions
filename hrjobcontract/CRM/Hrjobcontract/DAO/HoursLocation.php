@@ -10,7 +10,7 @@ class CRM_Hrjobcontract_DAO_HoursLocation extends CRM_Core_DAO
    * @var string
    * @static
    */
-  static $_tableName = 'civicrm_hours_location';
+  static $_tableName = 'civicrm_hrhours_location';
   /**
    * static instance to hold the field values
    *
@@ -91,7 +91,7 @@ class CRM_Hrjobcontract_DAO_HoursLocation extends CRM_Core_DAO
    */
   function __construct()
   {
-    $this->__table = 'civicrm_hours_location';
+    $this->__table = 'civicrm_hrhours_location';
     parent::__construct();
   }
   /**

@@ -28,9 +28,9 @@
 {else}
 {if $rows}
   <div id="ltype">
-     <div id="help">
+     {*<div id="help">
        <p>&nbsp;{ts}Some Hours Location types cannot be deleted because there are existing Hour entities of that type.{/ts}</p>
-     </div>
+     </div>*}
      <div class="form-item">
         {strip}
   {* handle enable/disable actions*}

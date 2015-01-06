@@ -449,7 +449,7 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
   
   public function upgrade_z9114() {
     CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_hour` ADD `location_type` INT(3) NULL DEFAULT NULL AFTER `id`");
-    
+/*    
     $optionGroupID = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjc_hour_location_type', 'id', 'name');
     if (!$optionGroupID) {
         $params = array(
@@ -473,13 +473,18 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
           );
           civicrm_api3('OptionValue', 'create', $opValueParams);
         }
-    }
+    }*/
     
     return TRUE;
   }
   
   public function upgrade_z9115() {
       CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_revision` ADD `effective_date` DATE NULL DEFAULT NULL AFTER `modified_date`, ADD `change_reason` INT(3) NULL DEFAULT NULL AFTER `effective_date`");
+      return TRUE;
+  }
+  
+  public function upgrade_z9116() {
+      CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_hour` CHANGE `location_type` `location_standard_hours` INT(3) NULL DEFAULT NULL");
       return TRUE;
   }
 

@@ -56,6 +56,7 @@ require([
     'controllers/form/formHours',
     'controllers/form/formPay',
     'filters/capitalize',
+    'filters/getObjById',
     'filters/formatAmount',
     'filters/formatPeriod',
     'filters/parseInt'

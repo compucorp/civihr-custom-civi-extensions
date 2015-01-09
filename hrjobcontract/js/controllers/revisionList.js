@@ -16,9 +16,11 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                 $scope.revisionList.push.apply($scope.revisionList,revisionList);
 
                 angular.forEach(revisionList, function(revision){
+                    console.log( '{----! Revision: '+revision.id+' !----}');
+                    console.log(revision);
 
                     promiseRevisionList.push($q.all({
-                        revisionId: revision.id,
+                        revisionEntityIdObj: revision,
                         details: ContractDetailsService.getOne({
                             jobcontract_revision_id: revision.details_revision_id,
                             return: 'position, location'

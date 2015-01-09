@@ -19,44 +19,113 @@ define(['controllers/controllers',
             $scope.title = 'Change contract terms';
             $scope.utils = utils;
 
-            var cache = {
-                details: {}
-            };
 
             angular.copy(contract,$scope.contract);
-            cache.details = angular.copy($scope.contract.details);
-            console.log($scope.contract.details);
-            console.log(cache.details);
-            console.log(angular.equals(cache.details,$scope.contract.details));
+            console.log(contract);
+
 
             $scope.cancel = function () {
-                //console.log(angular.equals(cache,$scope.contract));
-
-                console.log(cache.details);
-                console.log($scope.contract.details);
-
-                console.log(angular.equals(cache.details,$scope.contract.details));
-                /*console.log(angular.equals(cache.hours,$scope.contract.hours));
-                console.log(angular.equals(cache.pay,$scope.contract.pay));
-
-                console.log(angular.equals(cache.leave,$scope.contract.leave));
-                console.log(angular.equals(cache.insurance,$scope.contract.insurance));
-                console.log(angular.equals(cache.pension,$scope.contract.pension));
-                console.log(angular.equals(cache.funding,$scope.contract.funding));*/
                 $modalInstance.dismiss('cancel');
             };
 
             $scope.save = function () {
 
                 var contractNew = $scope.contract,
-                    entity, entityLen, i, revisionId;
+                    entityName, entityChangedList = [], entityChangedListLen = 0, i = 0, isChanged,
+                    promiseEntityService = {}, revisionId, services = {
+                        details: ContractDetailsService,
+                        hours: ContractHoursService,
+                        pay: ContractPayService,
+                        leave: ContractLeaveService,
+                        insurance: ContractInsuranceService,
+                        pension: ContractPensionService
+                    }
 
                 function changeParams(obj, contractId, revisionId){
-                    obj.jobcontract_id = contractId;
-                    delete obj.id;
-                    revisionId ? obj.jobcontract_revision_id = revisionId : delete obj.jobcontract_revision_id;
+
+                    function setIds(obj){
+                        obj.jobcontract_id = contractId;
+                        delete obj.id;
+                        revisionId ? obj.jobcontract_revision_id = revisionId : delete obj.jobcontract_revision_id;
+                    }
+
+                    if (angular.isArray(obj)) {
+                        var i = 0, len = obj.length;
+                        for (i; i < len; i++) {
+                            setIds(obj[i]);
+                        }
+                        return
+                    }
+
+                    if (angular.isObject(obj)) {
+                        setIds(obj);
+                        return
+                    }
+
                 }
 
+                for (entityName in contractNew) {
+                    isChanged = !angular.equals(contract[entityName], contractNew[entityName])
+                    console.log(entityName + ': ' + isChanged);
+
+                    if (isChanged) {
+                        entityChangedList[i] = {};
+                        entityChangedList[i].name = entityName;
+                        entityChangedList[i].data = contractNew[entityName];
+                        entityChangedList[i].service = services[entityName];
+                        i++
+                        entityChangedListLen = i;
+                        console.log(contract[entityName]);
+                        console.log(contractNew[entityName]);
+                    }
+                }
+
+                if (!entityChangedListLen) {
+                    $modalInstance.dismiss('cancel');
+                    return;
+                }
+
+                console.log(' === Changed entities: ===');
+                console.log(entityChangedList);
+                changeParams(entityChangedList[0].data,contract.id);
+
+                entityChangedList[0].service.save(entityChangedList[0].data).then(function(results){
+                    revisionId = results.jobcontract_revision_id, i = 1;
+
+                    promiseEntityService[entityChangedList[0].name] = results;
+
+                    for (i; i < entityChangedListLen; i++) {
+                        changeParams(entityChangedList[i].data,contract.id,revisionId);
+                        promiseEntityService[entityChangedList[i].name] = entityChangedList[i].service.save(entityChangedList[i].data);
+                    }
+
+                    return $q.all(promiseEntityService);
+
+                }).then(function(results){
+
+                    for (entityName in contractNew) {
+                        results[entityName] = results[entityName] || contractNew[entityName];
+                    }
+
+                    results.revisionCreated = {
+                        details_revision_id: results.details.jobcontract_revision_id,
+                        health_revision_id: results.insurance.jobcontract_revision_id,
+                        hour_revision_id: results.hours.jobcontract_revision_id,
+                        id: revisionId,
+                        jobcontract_id: contractNew.id,
+                        leave_revision_id: results.leave[0].jobcontract_revision_id,
+                        pay_revision_id: results.pay.jobcontract_revision_id,
+                        pension_revision_id: results.pension.jobcontract_revision_id
+                    };
+
+                    console.log('Results:');
+                    console.log(results);
+
+                    $modalInstance.close(results);
+
+                });
+
+                /*
                 changeParams(contractNew.details,contractNew.id);
 
                 ContractDetailsService.save(contractNew.details).then(function(contractDetails){
@@ -91,6 +160,8 @@ define(['controllers/controllers',
 
                 }).then(function(results){
 
+                    console.log(results);
+
                     //TODO (incorrect date format in the API response)
                     results.details.period_start_date = $scope.contract.details.period_start_date;
                     results.details.period_end_date = $scope.contract.details.period_end_date;
@@ -110,6 +181,7 @@ define(['controllers/controllers',
 
                     $modalInstance.close(results);
                 });
+                */
 
             };
 

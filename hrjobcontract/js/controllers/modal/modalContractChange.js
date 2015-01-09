@@ -106,7 +106,6 @@ define(['controllers/controllers',
                     //
 
                     results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
-
                     results.revisionCreated = {
                         details_revision_id: results.details.jobcontract_revision_id,
                         health_revision_id: results.insurance.jobcontract_revision_id,
@@ -121,64 +120,6 @@ define(['controllers/controllers',
                     $modalInstance.close(results);
 
                 });
-
-                /*
-                changeParams(contractNew.details,contractNew.id);
-
-                ContractDetailsService.save(contractNew.details).then(function(contractDetails){
-                    return contractDetails;
-                }).then(function(contractDetails){
-                    revisionId = contractDetails.jobcontract_revision_id;
-
-                    for (entity in contractNew) {
-
-                        if (angular.isArray(contractNew[entity])) {
-                            i = 0, entityLen = contractNew[entity].length;
-                            for (i; i < entityLen; i++) {
-                                changeParams(contractNew[entity][i],contractNew.id,revisionId);
-                            }
-                            continue;
-                        }
-
-                        if (angular.isObject(contractNew[entity])) {
-                            changeParams(contractNew[entity],contractNew.id,revisionId);
-                        }
-
-                    }
-
-                    return $q.all({
-                        details: contractDetails,
-                        hours: ContractHoursService.save(contractNew.hours),
-                        pay: ContractPayService.save(contractNew.pay),
-                        leave: ContractLeaveService.save(contractNew.leave),
-                        insurance: ContractInsuranceService.save(contractNew.insurance),
-                        pension: ContractPensionService.save(contractNew.pension)
-                    });
-
-                }).then(function(results){
-
-                    console.log(results);
-
-                    //TODO (incorrect date format in the API response)
-                    results.details.period_start_date = $scope.contract.details.period_start_date;
-                    results.details.period_end_date = $scope.contract.details.period_end_date;
-                    //
-
-                    results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
-                    results.revisionCreated = {
-                        details_revision_id: revisionId,
-                        health_revision_id: revisionId,
-                        hour_revision_id: revisionId,
-                        id: revisionId,
-                        jobcontract_id: contractNew.id,
-                        leave_revision_id: revisionId,
-                        pay_revision_id: revisionId,
-                        pension_revision_id: revisionId
-                    };
-
-                    $modalInstance.close(results);
-                });
-                */
 
             };
 

@@ -40,6 +40,7 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
 
             }).then(function(results){
                 $scope.revisionDataList.push.apply($scope.revisionDataList,results);
+                console.log($scope.revisionDataList);
             });
 
         }]);

@@ -21,8 +21,6 @@ define(['controllers/controllers',
 
 
             angular.copy(contract,$scope.contract);
-            console.log(contract);
-
 
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
@@ -66,7 +64,6 @@ define(['controllers/controllers',
 
                 for (entityName in contractNew) {
                     isChanged = !angular.equals(contract[entityName], contractNew[entityName])
-                    console.log(entityName + ': ' + isChanged);
 
                     if (isChanged) {
                         entityChangedList[i] = {};
@@ -75,8 +72,6 @@ define(['controllers/controllers',
                         entityChangedList[i].service = services[entityName];
                         i++
                         entityChangedListLen = i;
-                        console.log(contract[entityName]);
-                        console.log(contractNew[entityName]);
                     }
                 }
 
@@ -85,8 +80,6 @@ define(['controllers/controllers',
                     return;
                 }
 
-                console.log(' === Changed entities: ===');
-                console.log(entityChangedList);
                 changeParams(entityChangedList[0].data,contract.id);
 
                 entityChangedList[0].service.save(entityChangedList[0].data).then(function(results){
@@ -107,6 +100,13 @@ define(['controllers/controllers',
                         results[entityName] = results[entityName] || contractNew[entityName];
                     }
 
+                    //TODO (incorrect date format in the API response)
+                    results.details.period_start_date = $scope.contract.details.period_start_date;
+                    results.details.period_end_date = $scope.contract.details.period_end_date;
+                    //
+
+                    results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
+
                     results.revisionCreated = {
                         details_revision_id: results.details.jobcontract_revision_id,
                         health_revision_id: results.insurance.jobcontract_revision_id,
@@ -117,9 +117,6 @@ define(['controllers/controllers',
                         pay_revision_id: results.pay.jobcontract_revision_id,
                         pension_revision_id: results.pension.jobcontract_revision_id
                     };
-
-                    console.log('Results:');
-                    console.log(results);
 
                     $modalInstance.close(results);
 

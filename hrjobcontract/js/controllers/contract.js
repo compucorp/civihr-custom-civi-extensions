@@ -50,11 +50,6 @@ define(['controllers/controllers',
                 angular.extend($scope.insurance, results.insurance || contractRevisionIdObj);
                 angular.extend($scope.pension, results.pension || contractRevisionIdObj);
 
-                angular.forEach($scope.model, function(val, key){
-                    console.log('=========' + key.toUpperCase() + '=========');
-                    console.log($scope[key]);
-                });
-
                 $scope.contractLoaded = true;
                 $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
 

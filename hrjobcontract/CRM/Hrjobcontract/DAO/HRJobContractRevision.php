@@ -168,6 +168,9 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
           'type' => CRM_Utils_Type::T_INT,
           'title' => ts('Change reason') ,
           'required' => false,
+          'pseudoconstant' => array(
+            'optionGroupName' => 'hrjc_revision_change_reason',
+          )
         ) ,
         'modified_date' => array(
           'name' => 'modified_date',

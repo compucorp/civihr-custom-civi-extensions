@@ -95,7 +95,12 @@ require([
                 insurance: ContractInsuranceService.getOptions(),
                 pension: ContractPensionService.getOptions()
             }).then(function(results){
+                console.log('options');
+                results.pension.is_enrolled = ['No','Yes','Opted out'];
                 $rootScope.options = results;
+
+
+
             });
         }
     ]);

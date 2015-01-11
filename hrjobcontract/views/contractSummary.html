@@ -151,7 +151,7 @@
                             <label class="col-sm-4 control-label">Pension</label>
                             <div class="col-sm-6">
                                 <p class="form-control-static">
-                                    <span ng-if="pension.is_enrolled" class="subfield">{{pension.is_enrolled}}</span>
+                                    <span ng-if="pension.is_enrolled !== ''" class="subfield">{{pension.is_enrolled == '2' ? 'Opted out' : pension.is_enrolled == '1' ? 'Enrolled' : 'Not Enrolled'}}</span>
                                     <span ng-if="pension.pension_type" class="subfield"><strong>Pension Type:</strong> {{pension.pension_type}}</span>
                                     <span ng-if="pension.er_contrib_pct" class="subfield"><strong>Employer Contribution (%):</strong> {{pension.er_contrib_pct}}</span>
                                     <span ng-if="pension.ee_contrib_pct" class="subfield"><strong>Employee Contribution (%):</strong> {{pension.ee_contrib_pct}}</span>

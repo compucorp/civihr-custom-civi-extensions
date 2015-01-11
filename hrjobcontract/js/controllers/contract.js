@@ -129,8 +129,6 @@ define(['controllers/controllers',
 
                 modalInstance.result.then(function(results){
 
-                    console.log(results);
-
                     if (results.requireReload) {
                         $route.reload();
                     }

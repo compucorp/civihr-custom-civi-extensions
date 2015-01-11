@@ -451,11 +451,11 @@
                     <div class="form-group">
                         <label for="pension-isenrolled" class="col-sm-4 control-label">Is Enrolled</label>
                         <div class="col-sm-4">
-                            <select id="pension-isenrolled" class="form-control" ng-model="contract.pension.is_enrolled" ng-disabled="isDisabled">
+                            <select id="pension-isenrolled" class="form-control"
+                                    ng-model="contract.pension.is_enrolled"
+                                    ng-options="key as value for (key, value) in options.pension.is_enrolled"
+                                    ng-disabled="isDisabled">
                                 <option value="">- select -</option>
-                                <option value="0">No</option>
-                                <option value="1">Yes</option>
-                                <option value="2">Opted out</option>
                             </select>
                         </div>
                     </div>

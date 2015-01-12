@@ -29,7 +29,7 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
           'locationType' => CRM_Core_PseudoConstant::get('CRM_Core_DAO_Address', 'location_type_id'),
           'job_hours_time' => CRM_Hrjobcontract_Page_JobContractTab::getJobHoursTime(),
           'working_days' => CRM_Hrjobcontract_Page_JobContractTab::getDaysPerTime(),
-          'jobcontract_edit_reason' => CRM_Hrjobcontract_Page_JobContractTab::getRevisionChangeReasons(),
+          //'jobcontract_edit_reason' => CRM_Hrjobcontract_Page_JobContractTab::getRevisionChangeReasons(),
         ),
         'FieldOptions' => CRM_Hrjobcontract_Page_JobContractTab::getFieldOptions(),
         'jobContractTabApp' => array(
@@ -64,6 +64,9 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
    */
   public static function getFieldOptions() {
     $fields = array(
+      'HRJobContractRevision' => array(
+        'hrjc_revision_change_reason' => 'change_reason',
+      ),
       'HRJobDetails' => array(
         "contract_type",
         "level_type",

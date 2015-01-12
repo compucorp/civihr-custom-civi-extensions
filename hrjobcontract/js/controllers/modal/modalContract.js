@@ -69,6 +69,23 @@ define(['controllers/controllers',
                     return modalChangeReason.result;
                 }
 
+                function confirmEdit() {
+                    var modalConfirmEdit = $modal.open({
+                        targetDomEl: $rootElement.find('div').eq(0),
+                        templateUrl: settings.pathApp+'/views/modalConfirmEdit.html?v='+(new Date()).getTime(),
+                        controller: 'ModalDialogCtrl',
+                        resolve: {
+                            content: function(){
+                                return {
+                                    msg: 'Save without making a new revision?'
+                                }
+                            }
+                        }
+                    });
+
+                    return modalConfirmEdit.result;
+                }
+
                 function contractEdit(){
                     $q.all({
                         details: ContractDetailsService.save($scope.contract.details),
@@ -142,7 +159,8 @@ define(['controllers/controllers',
                     changeParams(entityChangedList[0].data,contract.id);
 
                     entityChangedList[0].service.save(entityChangedList[0].data).then(function(results){
-                        revisionId = results.jobcontract_revision_id, i = 1;
+                        revisionId = !angular.isArray(results) ? results.jobcontract_revision_id : results[0].jobcontract_revision_id,
+                        i = 1;
 
                         promiseEntityService[entityChangedList[0].name] = results;
 
@@ -196,7 +214,20 @@ define(['controllers/controllers',
 
                     switch (action){
                         case 'edit':
-                            contractEdit();
+                            confirmEdit().then(function(confirmed){
+                                switch (confirmed) {
+                                    case 'edit':
+                                        contractEdit();
+                                        break;
+                                    case 'change':
+                                        changeReason().then(function(results){
+                                            contractChange(results.reasonId, results.date);
+                                        });
+                                        break;
+
+                                }
+                            });
+
                             break;
                         case 'change':
                             changeReason().then(function(results){

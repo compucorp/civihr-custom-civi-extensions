@@ -15,10 +15,10 @@
         </thead>
         <tbody>
             <tr ng-repeat="revision in revisionDataList" ng-if="(!$index || revision.jobcontract_revision_id != revisionDataList[$index - 1].jobcontract_revision_id)">
-                <td></td>
+                <td>{{revisionList[$index].effective_date | date: 'yyyy/MM/dd' || '-'}}</td>
                 <td ng-repeat="field in entityHistoryFields[entity]">{{(!field.isOption ? revision[field.name] : options[entity][field.name][revision[field.name]]) || '-'}}</td>
-                <td></td>
-                <td></td>
+                <td>-</td>
+                <td>{{options.contract.change_reason[revisionList[$index].change_reason] || '-'}}</td>
                 <td><a>view this contract revision</a></td>
             </tr>
         </tbody>

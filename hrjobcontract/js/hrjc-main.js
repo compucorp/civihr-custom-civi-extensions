@@ -100,8 +100,6 @@ require([
                 results.pension.is_enrolled = ['No','Yes','Opted out'];
                 $rootScope.options = results;
 
-
-
             });
         }
     ]);

@@ -181,9 +181,9 @@ define(['controllers/controllers',
                     return null;
                 }
 
-                var i = 0, len = $scope.revisionList.length, promiseEntityRevisionList = [];
+                var i = 0, len = $scope.revisionList.length, promiseEntityRevisionDataList = [];
                 for (i; i < len; i++){
-                    promiseEntityRevisionList.push(API.getOne('HRJob'+$filter('capitalize')(entity),{
+                    promiseEntityRevisionDataList.push(API.getOne('HRJob'+$filter('capitalize')(entity),{
                         jobcontract_revision_id: $scope.revisionList[i][entity+'_revision_id']
                     }));
                 }
@@ -212,7 +212,10 @@ define(['controllers/controllers',
                             return entity;
                         },
                         revisionDataList: function(){
-                            return $q.all(promiseEntityRevisionList);
+                            return $q.all(promiseEntityRevisionDataList);
+                        },
+                        revisionList: function(){
+                            return $scope.revisionList
                         }
                     }
                 };

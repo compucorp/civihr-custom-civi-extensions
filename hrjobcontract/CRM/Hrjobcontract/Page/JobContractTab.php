@@ -29,6 +29,7 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
           'locationType' => CRM_Core_PseudoConstant::get('CRM_Core_DAO_Address', 'location_type_id'),
           'job_hours_time' => CRM_Hrjobcontract_Page_JobContractTab::getJobHoursTime(),
           'working_days' => CRM_Hrjobcontract_Page_JobContractTab::getDaysPerTime(),
+          'jobcontract_edit_reason' => CRM_Hrjobcontract_Page_JobContractTab::getRevisionChangeReasons(),
         ),
         'FieldOptions' => CRM_Hrjobcontract_Page_JobContractTab::getFieldOptions(),
         'jobContractTabApp' => array(
@@ -152,5 +153,19 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
     $days['perWeek'] = $settings['work_days_per_week'];//DAYS_PER_WEEK;
     $days['perMonth'] = $settings['work_days_per_month'];//DAYS_PER_MONTH;
     return $days;
+  }
+  
+  /**
+   * Get a reasons for creating new revision
+   */
+  static function getRevisionChangeReasons() {
+    $change_reason = array();
+    $result = civicrm_api3('OptionValue', 'get', array(
+      'option_group_id' =>'hrjc_revision_change_reason',
+    ));
+    foreach ($result['values'] as $key => $val) {
+      $change_reason[$val['value']] = $val['name'];
+    }
+    return $change_reason;
   }
 }

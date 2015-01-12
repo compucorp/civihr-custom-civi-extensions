@@ -81,14 +81,14 @@ require([
         }
     ]);
 
-    app.run(['settings','$rootScope','$q','ContractDetailsService','ContractHoursService','ContractPayService',
-        'ContractLeaveService','ContractInsuranceService','ContractPensionService',
-        function(settings, $rootScope, $q, ContractDetailsService, ContractHoursService, ContractPayService,
+    app.run(['settings','$rootScope','$q', 'ContractService', 'ContractDetailsService', 'ContractHoursService',
+        'ContractPayService', 'ContractLeaveService', 'ContractInsuranceService', 'ContractPensionService',
+        function(settings, $rootScope, $q, ContractService, ContractDetailsService, ContractHoursService, ContractPayService,
                  ContractLeaveService, ContractInsuranceService, ContractPensionService){
             $rootScope.prefix = settings.classNamePrefix;
 
             $q.all({
-                contract: ContractService().getRevisionOptions(),
+                contract: ContractService.getRevisionOptions(),
                 details: ContractDetailsService.getOptions(),
                 hours: ContractHoursService.getOptions(),
                 pay: ContractPayService.getOptions(),

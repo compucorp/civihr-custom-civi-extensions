@@ -155,24 +155,13 @@ define(['controllers/controllers',
                     angular.extend($scope.pension, results.pension);
 
                     if (results.revisionCreated) {
-                        console.log(results.revisionCreated);
+                        $scope.revisionList.unshift(results.revisionCreated);
 
-                        var modalChangeReason = $modal.open({
-                            targetDomEl: $rootElement.find('div').eq(0),
-                            templateUrl: settings.pathApp+'/views/modalChangeReason.html?v='+(new Date()).getTime(),
-                            controller: 'ModalChangeReasonCtrl',
-                            resolve: {}
-                        });
-
-                        modalChangeReason.result.then(function(){
-                            $scope.revisionList.unshift(results.revisionCreated);
-
-                            $scope.revisionDataList.unshift({
-                                revisionEntityIdObj: results.revisionCreated,
-                                details: results.details,
-                                hours: results.hours,
-                                pay: results.pay
-                            });
+                        $scope.revisionDataList.unshift({
+                            revisionEntityIdObj: results.revisionCreated,
+                            details: results.details,
+                            hours: results.hours,
+                            pay: results.pay
                         });
 
                     } else {

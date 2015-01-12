@@ -3,21 +3,19 @@
         <tr>
             <th>Effective Date</th>
             <th>Position</th>
-            <th>Department</th>
             <th>Pay Scale</th>
             <th>Total Salary</th>
-            <th>Hours (Full time/ Part time)</th>
+            <th>Hours<br>(Full time/ Part time)</th>
             <th>Location</th>
-            <th>Change Record By</th>
+            <th>Change<br>Recorded By</th>
             <th>&nbsp;</th>
             <th>&nbsp;</th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="revision in $parent.revisionDataList">
-            <td>-</td>
+            <td>{{(revision.revisionEntityIdObj.effective_date | date: 'yyyy/MM/dd') || '-'}}</td>
             <td>{{revision.details.position || '-'}}</td>
-            <td>-</td>
             <td>{{revision.pay.pay_scale || '-'}}</td>
             <td>{{revision.pay.pay_annualized_est || '-'}} {{options.pay.pay_currency[pay.pay_currency]}}</td>
             <td>{{options.hours.hours_type[revision.hours.hours_type] || '-'}}</td>

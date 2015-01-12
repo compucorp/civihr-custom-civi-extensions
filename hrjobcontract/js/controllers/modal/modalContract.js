@@ -1,5 +1,6 @@
 console.log('Controller: ModalContractCtrl');
 define(['controllers/controllers',
+        'services/contract',
         'services/contractDetails',
         'services/contractHours',
         'services/contractPay',
@@ -8,11 +9,11 @@ define(['controllers/controllers',
         'services/contractPension'], function(controllers){
 
     controllers.controller('ModalContractCtrl',['$scope','$modal', '$modalInstance','$q', '$rootElement',
-        'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
+        'ContractService', 'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
         'ContractInsuranceService', 'ContractPensionService', 'action', 'contract', 'content', 'utils', 'settings',
-        function($scope, $modal, $modalInstance, $q, $rootElement, ContractDetailsService, ContractHoursService,
-                 ContractPayService, ContractLeaveService, ContractInsuranceService, ContractPensionService, action,
-                 contract, content, utils, settings){
+        function($scope, $modal, $modalInstance, $q, $rootElement, ContractService, ContractDetailsService,
+                 ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService,
+                 ContractPensionService, action, contract, content, utils, settings){
 
 
             var content = content || {},
@@ -57,6 +58,17 @@ define(['controllers/controllers',
             };
 
             if ($scope.allowSave) {
+                function changeReason(){
+                    var modalChangeReason = $modal.open({
+                        targetDomEl: $rootElement.find('div').eq(0),
+                        templateUrl: settings.pathApp+'/views/modalChangeReason.html?v='+(new Date()).getTime(),
+                        controller: 'ModalChangeReasonCtrl',
+                        resolve: {}
+                    });
+
+                    return modalChangeReason.result;
+                }
+
                 function contractEdit(){
                     $q.all({
                         details: ContractDetailsService.save($scope.contract.details),
@@ -78,10 +90,11 @@ define(['controllers/controllers',
                     });
                 }
 
-                function contractChange(){
+                function contractChange(reasonId, date){
+
                     var contractNew = $scope.contract,
                         entityName, entityChangedList = [], entityChangedListLen = 0, i = 0, isChanged,
-                        promiseEntityService = {}, revisionId, services = {
+                        promiseEntityService = {}, revisionId, entityServices = {
                             details: ContractDetailsService,
                             hours: ContractHoursService,
                             pay: ContractPayService,
@@ -120,15 +133,10 @@ define(['controllers/controllers',
                             entityChangedList[i] = {};
                             entityChangedList[i].name = entityName;
                             entityChangedList[i].data = contractNew[entityName];
-                            entityChangedList[i].service = services[entityName];
+                            entityChangedList[i].service = entityServices[entityName];
                             i++
                             entityChangedListLen = i;
                         }
-                    }
-
-                    if (!entityChangedListLen) {
-                        $modalInstance.dismiss('cancel');
-                        return;
                     }
 
                     changeParams(entityChangedList[0].data,contract.id);
@@ -143,7 +151,13 @@ define(['controllers/controllers',
                             promiseEntityService[entityChangedList[i].name] = entityChangedList[i].service.save(entityChangedList[i].data);
                         }
 
-                        return $q.all(promiseEntityService);
+                        return $q.all(angular.extend(promiseEntityService,{
+                            revisionCreated: ContractService.saveRevision({
+                                id: revisionId,
+                                change_reason: reasonId,
+                                effective_date: date
+                            })
+                        }));
 
                     }).then(function(results){
 
@@ -157,16 +171,15 @@ define(['controllers/controllers',
                         //
 
                         results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
-                        results.revisionCreated = {
+                        angular.extend(results.revisionCreated, {
                             details_revision_id: results.details.jobcontract_revision_id,
                             health_revision_id: results.insurance.jobcontract_revision_id,
                             hour_revision_id: results.hours.jobcontract_revision_id,
-                            id: revisionId,
                             jobcontract_id: contractNew.id,
                             leave_revision_id: results.leave[0].jobcontract_revision_id,
                             pay_revision_id: results.pay.jobcontract_revision_id,
                             pension_revision_id: results.pension.jobcontract_revision_id
-                        };
+                        });
 
                         $modalInstance.close(results);
 
@@ -176,12 +189,20 @@ define(['controllers/controllers',
 
                 $scope.save = function () {
 
+                    if (angular.equals(contract,$scope.contract)) {
+                        $modalInstance.dismiss('cancel');
+                        return;
+                    }
+
                     switch (action){
                         case 'edit':
                             contractEdit();
                             break;
                         case 'change':
-                            contractChange();
+                            changeReason().then(function(results){
+                                contractChange(results.reasonId, results.date);
+                            });
+
                             break;
                         default:
                             $modalInstance.dismiss('cancel');

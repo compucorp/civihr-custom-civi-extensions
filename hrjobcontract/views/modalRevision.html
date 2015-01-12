@@ -14,9 +14,9 @@
         </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="revision in revisionDataList">
+            <tr ng-repeat="revision in revisionDataList" ng-if="(!$index || revision.jobcontract_revision_id != revisionDataList[$index - 1].jobcontract_revision_id)">
                 <td></td>
-                <td ng-repeat="field in entityHistoryFields[entity]">{{!field.isOption ? revision[field.name] : options[entity][field.name][revision[field.name]]}}</td>
+                <td ng-repeat="field in entityHistoryFields[entity]">{{(!field.isOption ? revision[field.name] : options[entity][field.name][revision[field.name]]) || '-'}}</td>
                 <td></td>
                 <td></td>
                 <td><a>view this contract revision</a></td>

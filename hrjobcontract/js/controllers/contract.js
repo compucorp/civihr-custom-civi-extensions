@@ -50,17 +50,13 @@ define(['controllers/controllers',
                 angular.extend($scope.insurance, results.insurance || contractRevisionIdObj);
                 angular.extend($scope.pension, results.pension || contractRevisionIdObj);
 
-                angular.forEach($scope.model, function(val, key){
-                    console.log($scope[key]);
-                });
-
                 $scope.contractLoaded = true;
                 $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
 
             });
 
 
-            $scope.modalContract = function(action, revisionId){
+            $scope.modalContract = function(action, revisionEntityIdObj){
 
                 var modalInstance,
                     options = {
@@ -70,7 +66,7 @@ define(['controllers/controllers',
                     resolve: {
                         contract: function(){
 
-                            if (!revisionId) {
+                            if (!revisionEntityIdObj) {
                                 return {
                                     id: contractId,
                                     details: $scope.details,
@@ -83,12 +79,12 @@ define(['controllers/controllers',
                             }
 
                             return $q.all({
-                                details: ContractDetailsService.getOne({ jobcontract_revision_id: revisionId }),
-                                hours: ContractHoursService.getOne({ jobcontract_revision_id: revisionId }),
-                                pay: ContractPayService.getOne({ jobcontract_revision_id: revisionId }),
-                                leave: ContractLeaveService.get({ jobcontract_revision_id: revisionId }),
-                                insurance: ContractInsuranceService.getOne({ jobcontract_revision_id: revisionId }),
-                                pension: ContractPensionService.getOne({ jobcontract_revision_id: revisionId })
+                                details: ContractDetailsService.getOne({ jobcontract_revision_id: revisionEntityIdObj.details_revision_id }),
+                                hours: ContractHoursService.getOne({ jobcontract_revision_id: revisionEntityIdObj.hour_revision_id }),
+                                pay: ContractPayService.getOne({ jobcontract_revision_id: revisionEntityIdObj.pay_revision_id }),
+                                leave: ContractLeaveService.get({ jobcontract_revision_id: revisionEntityIdObj.leave_revision_id }),
+                                insurance: ContractInsuranceService.getOne({ jobcontract_revision_id: revisionEntityIdObj.insurance_revision_id }),
+                                pension: ContractPensionService.getOne({ jobcontract_revision_id: revisionEntityIdObj.pension_revision_id })
                             }).then(function(results){
 
                                 var contract = {},
@@ -148,7 +144,7 @@ define(['controllers/controllers',
                         $scope.revisionList.unshift(results.revisionCreated);
 
                         $scope.revisionDataList.unshift({
-                            revisionId: results.revisionCreated.id,
+                            revisionEntityIdObj: results.revisionCreated,
                             details: results.details,
                             hours: results.hours,
                             pay: results.pay

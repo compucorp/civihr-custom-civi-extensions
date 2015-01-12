@@ -9904,7 +9904,7 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 }
 /* line 1, ../sass/partials/_summary.scss */
 #hrjob-contract .hrjobcont-summary-container {
-  min-height: 467px;
+  min-height: 387px;
 }
 /* line 6, ../sass/partials/_summary.scss */
 #hrjob-contract .hrjobcont-summary .form-group {

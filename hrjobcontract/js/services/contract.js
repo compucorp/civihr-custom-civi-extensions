@@ -90,6 +90,32 @@ define(['services/services'], function (services) {
                 return deffered.promise;
 
             },
+            saveRevision: function(revisionDetails) {
+
+                if ((!revisionDetails || typeof revisionDetails !== 'object') ||
+                    (!revisionDetails.id || typeof +revisionDetails.id !== 'number')) {
+                    return null;
+                }
+
+                var deffered = $q.defer(),
+                    params = angular.extend({
+                        sequential: 1
+                    },revisionDetails),
+                    val;
+
+                ContractRevision.save({
+                    action: 'create',
+                    json: params
+                }, null, function(data){
+                    val = data.values;
+                    deffered.resolve(val.length == 1 ? val[0] : null);
+                },function(){
+                    deffered.reject('Unable to fetch contract revision id: ' + revisionId);
+                });
+
+                return deffered.promise;
+
+            },
             delete: function(contractId) {
 
                 if (!contractId || typeof +contractId !== 'number') {

@@ -1941,6 +1941,7 @@ angular.module('ui.bootstrap.modal', ['ui.bootstrap.transition'])
             topBackdropIndex = i;
           }
         }
+
         return topBackdropIndex;
       }
 
@@ -1960,14 +1961,17 @@ angular.module('ui.bootstrap.modal', ['ui.bootstrap.transition'])
         removeAfterAnimate(modalWindow.modalDomEl, modalWindow.modalScope, 300, function() {
           modalWindow.modalScope.$destroy();
           targetDomEl.toggleClass(OPENED_MODAL_CLASS, openedWindows.length() > 0);
-          targetDomEl = undefined;
+          //TODO
+          //targetDomEl = undefined;
           checkRemoveBackdrop();
         });
       }
 
       function checkRemoveBackdrop() {
           //remove backdrop if no longer needed
-          if (backdropDomEl && backdropIndex() == -1) {
+          var removeBackdrop = backdropDomEl && backdropIndex() == -1;
+
+          if (removeBackdrop) {
             var backdropScopeRef = backdropScope;
             removeAfterAnimate(backdropDomEl, backdropScope, 150, function () {
               backdropScopeRef.$destroy();
@@ -1976,6 +1980,8 @@ angular.module('ui.bootstrap.modal', ['ui.bootstrap.transition'])
             backdropDomEl = undefined;
             backdropScope = undefined;
           }
+
+          return removeBackdrop;
       }
 
       function removeAfterAnimate(domEl, scope, emulateTime, done) {

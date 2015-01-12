@@ -60,69 +60,83 @@ define(['controllers/controllers',
 
                 var modalInstance,
                     options = {
-                    targetDomEl: $rootElement.find('div').eq(0),
-                    templateUrl: settings.pathApp+'/views/modalForm.html?v='+(new Date()).getTime(),
-                    size: 'lg',
-                    resolve: {
-                        contract: function(){
+                        controller: 'ModalContractCtrl',
+                        targetDomEl: $rootElement.find('div').eq(0),
+                        templateUrl: settings.pathApp+'/views/modalForm.html?v='+(new Date()).getTime(),
+                        size: 'lg',
+                        resolve: {
+                            action: function(){
+                                return action || 'view'
+                            },
+                            content: function(){
+                                return null
+                            },
+                            contract: function(){
 
-                            if (!revisionEntityIdObj) {
-                                return {
-                                    id: contractId,
-                                    details: $scope.details,
-                                    hours: $scope.hours,
-                                    pay: $scope.pay,
-                                    leave: $scope.leave,
-                                    insurance: $scope.insurance,
-                                    pension: $scope.pension
+                                if (!revisionEntityIdObj) {
+                                    return {
+                                        id: contractId,
+                                        details: $scope.details,
+                                        hours: $scope.hours,
+                                        pay: $scope.pay,
+                                        leave: $scope.leave,
+                                        insurance: $scope.insurance,
+                                        pension: $scope.pension
+                                    }
                                 }
+
+                                return $q.all({
+                                    details: ContractDetailsService.getOne({ jobcontract_revision_id: revisionEntityIdObj.details_revision_id }),
+                                    hours: ContractHoursService.getOne({ jobcontract_revision_id: revisionEntityIdObj.hour_revision_id }),
+                                    pay: ContractPayService.getOne({ jobcontract_revision_id: revisionEntityIdObj.pay_revision_id }),
+                                    leave: ContractLeaveService.get({ jobcontract_revision_id: revisionEntityIdObj.leave_revision_id }),
+                                    insurance: ContractInsuranceService.getOne({ jobcontract_revision_id: revisionEntityIdObj.insurance_revision_id }),
+                                    pension: ContractPensionService.getOne({ jobcontract_revision_id: revisionEntityIdObj.pension_revision_id })
+                                }).then(function(results){
+
+                                    var contract = {},
+                                        contractRevisionIdObj = {
+                                            id: null,
+                                            jobcontract_id: contractId,
+                                            jobcontract_revision_id: results.details.jobcontract_revision_id
+                                        };
+
+                                    angular.extend(contract, $scope.model);
+                                    angular.extend(contract.details, results.details);
+                                    angular.extend(contract.hours, results.hours || contractRevisionIdObj);
+                                    angular.extend(contract.pay, results.pay || contractRevisionIdObj);
+                                    contract.leave = results.leave.length ? results.leave : ContractLeaveService.model($scope.utils.absenceType, contractRevisionIdObj);
+                                    angular.extend(contract.insurance, results.insurance || contractRevisionIdObj);
+                                    angular.extend(contract.pension, results.pension || contractRevisionIdObj);
+
+                                    return contract;
+                                });
+                            },
+                            utils: function(){
+                                return $scope.utils
                             }
-
-                            return $q.all({
-                                details: ContractDetailsService.getOne({ jobcontract_revision_id: revisionEntityIdObj.details_revision_id }),
-                                hours: ContractHoursService.getOne({ jobcontract_revision_id: revisionEntityIdObj.hour_revision_id }),
-                                pay: ContractPayService.getOne({ jobcontract_revision_id: revisionEntityIdObj.pay_revision_id }),
-                                leave: ContractLeaveService.get({ jobcontract_revision_id: revisionEntityIdObj.leave_revision_id }),
-                                insurance: ContractInsuranceService.getOne({ jobcontract_revision_id: revisionEntityIdObj.insurance_revision_id }),
-                                pension: ContractPensionService.getOne({ jobcontract_revision_id: revisionEntityIdObj.pension_revision_id })
-                            }).then(function(results){
-
-                                var contract = {},
-                                    contractRevisionIdObj = {
-                                        id: null,
-                                        jobcontract_id: contractId,
-                                        jobcontract_revision_id: results.details.jobcontract_revision_id
-                                    };
-
-                                angular.extend(contract, $scope.model);
-                                angular.extend(contract.details, results.details);
-                                angular.extend(contract.hours, results.hours || contractRevisionIdObj);
-                                angular.extend(contract.pay, results.pay || contractRevisionIdObj);
-                                contract.leave = results.leave.length ? results.leave : ContractLeaveService.model($scope.utils.absenceType, contractRevisionIdObj);
-                                angular.extend(contract.insurance, results.insurance || contractRevisionIdObj);
-                                angular.extend(contract.pension, results.pension || contractRevisionIdObj);
-
-                                return contract;
-                            });
-                        },
-                        utils: function(){
-                            return $scope.utils
                         }
-                    }
-                };
+                    };
 
                 switch(action){
                     case 'edit':
-                        options.controller = 'ModalContractEditCtrl';
+                        options.resolve.content = function(){
+                            return {
+                                allowSave: true,
+                                isDisabled: false,
+                                title: 'Edit contract'
+                            }
+                        };
                         break;
                     case 'change':
-                        options.controller = 'ModalContractChangeCtrl';
+                        options.resolve.content = function(){
+                            return {
+                                allowSave: true,
+                                isDisabled: false,
+                                title: 'Change contract terms'
+                            }
+                        };
                         break;
-                    case 'view':
-                        options.controller = 'ModalContractViewCtrl';
-                        break;
-                    default:
-                        options.controller = 'ModalContractViewCtrl';
                 }
 
                 modalInstance = $modal.open(options);
@@ -141,6 +155,7 @@ define(['controllers/controllers',
                     angular.extend($scope.pension, results.pension);
 
                     if (results.revisionCreated) {
+                        console.log(results.revisionCreated);
                         $scope.revisionList.unshift(results.revisionCreated);
 
                         $scope.revisionDataList.unshift({

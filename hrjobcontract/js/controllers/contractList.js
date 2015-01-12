@@ -74,27 +74,47 @@ define(['controllers/controllers',
             }
 
             $scope.delete = function(contractId) {
-                ContractService.delete(contractId).then(function(result){
 
-                    if (!result.is_error) {
-                        function removeContractById(contractArray, id){
-
-                            var i = 0,
-                                len = contractArray.length;
-
-                            for (i; i < len; i++){
-                                if (+contractArray[i].id == id) {
-                                    contractArray.splice(i,1);
-                                    return id;
-                                }
-                            }
-
-                            return null;
+                var modalInstance = $modal.open({
+                    targetDomEl: $rootElement.find('div').eq(0),
+                    templateUrl: settings.pathApp+'/views/modalDialog.html?v='+(new Date()).getTime(),
+                    size: 'sm',
+                    controller: 'ModalDialogCtrl',
+                    resolve: {
+                        content: function(){
+                            return {
+                                msg: 'Are you sure you want to delete this job contract?'
+                            };
                         }
-
-                        removeContractById($scope.contractCurrent, contractId) || removeContractById($scope.contractPast, contractId);
                     }
                 });
+
+                modalInstance.result.then(function(confirm){
+                    if (confirm) {
+                        ContractService.delete(contractId).then(function(result){
+
+                            if (!result.is_error) {
+                                function removeContractById(contractArray, id){
+
+                                    var i = 0,
+                                        len = contractArray.length;
+
+                                    for (i; i < len; i++){
+                                        if (+contractArray[i].id == id) {
+                                            contractArray.splice(i,1);
+                                            return id;
+                                        }
+                                    }
+
+                                    return null;
+                                }
+
+                                removeContractById($scope.contractCurrent, contractId) || removeContractById($scope.contractPast, contractId);
+                            }
+                        });
+                    }
+                })
+
             }
 
         }]);

@@ -90,6 +90,23 @@ define(['services/services'], function (services) {
                 return deffered.promise;
 
             },
+            getRevisionOptions: function(fieldName, callAPI){
+                var deffered = $q.defer(), data;
+
+                if (!callAPI) {
+                    var data = settings.CRM.options.HRJobContractRevision || {};
+
+                    if (fieldName && typeof fieldName === 'string') {
+                        data = data[optionGroup];
+                    }
+
+                    deffered.resolve(data || {});
+                } else {
+                    //TODO call2API
+                }
+
+                return deffered.promise;
+            },
             saveRevision: function(revisionDetails) {
 
                 if ((!revisionDetails || typeof revisionDetails !== 'object') ||

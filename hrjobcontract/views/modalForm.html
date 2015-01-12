@@ -1,541 +1,541 @@
 <form novalidate class="form-horizontal {{prefix}}wizard" name="contractForm" role="form" ng-submit="save()">
-<div class="modal-header">
-    <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span
-            class="sr-only">Close</span></button>
-    <h4 class="modal-title">{{title}}</h4>
-</div>
-<div class="modal-body clearfix">
-    <tabset class="tabs-left">
-        <tab heading="General" ng-controller="FormGeneralCtrl">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h4>General</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="form-group required">
-                        <label for="{{prefix}}position" class="col-sm-4 control-label">Position</label>
-
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="{{prefix}}position" ng-model="contract.details.position" ng-disabled="isDisabled" required>
-                        </div>
-                    </div>
-                    <div class="form-group required">
-                        <label for="{{prefix}}title" class="col-sm-4 control-label">Title</label>
-
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="{{prefix}}title" ng-model="contract.details.title" ng-disabled="isDisabled" required>
-                        </div>
-                    </div>
-                    <div class="form-group required">
-                        <label for="{{prefix}}contract-type" class="col-sm-4 control-label">Contract type</label>
-
-                        <div class="col-sm-5">
-                            <select id="{{prefix}}contract-type" class="form-control"
-                                    ng-model="contract.details.contract_type"
-                                    ng-options="key as value for (key, value) in options.details.contract_type"
-                                    ng-disabled="isDisabled" required>
-                                <option value="">- select -</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="{{prefix}}location" class="col-sm-4 control-label">Normal Place of Work {{test}}</label>
-
-                        <div class="col-sm-5">
-                            <select id="{{prefix}}location" class="form-control"
-                                    ng-model="contract.details.location"
-                                    ng-options="key as value for (key, value) in options.details.location"
-                                    ng-disabled="isDisabled">
-                                <option value="">- select -</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group required">
-                        <label for="{{prefix}}period-start-date" class="col-sm-4 control-label">Contract Start Date</label>
-
-                        <div class="col-sm-4">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="{{prefix}}period-start-date"
-                                       datepicker-popup="yyyy-MM-dd"
-                                       is-open="dpDateStartOpen"
-                                       max-date="dpDateStartMax"
-                                       ng-model="contract.details.period_start_date"
-                                       ng-disabled="isDisabled"
-                                       required>
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-class="{disabled: isDisabled}" ng-click="dpOpen($event, 'dpDateStartOpen')"  ng-disabled="isDisabled"><i class="glyphicon glyphicon-calendar"></i></button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="{{prefix}}period-end-date" class="col-sm-4 control-label">Contract End Date</label>
-
-                        <div class="col-sm-4">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="{{prefix}}period-end-date"
-                                       datepicker-popup="yyyy-MM-dd"
-                                       is-open="dpDateEndOpen"
-                                       min-date="dpDateEndMin"
-                                       ng-model="contract.details.period_end_date"
-                                       ng-disabled="isDisabled">
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-class="{disabled: isDisabled}" ng-click="dpOpen($event, 'dpDateEndOpen')" ng-disabled="isDisabled"><i class="glyphicon glyphicon-calendar"></i></button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Contract Duration</label>
-
-                        <div class="col-sm-8">
-                            <p class="form-control-static">{{duration}}</p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="{{prefix}}notice-amount" class="col-sm-4 control-label">Notice Period from Employer</label>
-
-                        <div class="col-sm-8">
-                            <div class="form-inline">
-                                <input type="text" class="form-control input-inline-sm" id="{{prefix}}notice-amount" ng-model="contract.details.notice_amount" ng-disabled="isDisabled">
-                                <select id="{{prefix}}notice-unit" class="form-control"
-                                        ng-model="contract.details.notice_unit"
-                                        ng-options="key as value for (key, value) in options.details.notice_unit"
-                                        ng-disabled="isDisabled">
-                                    <option value="">- select -</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="{{prefix}}notice-amount-employee" class="col-sm-4 control-label">Notice Period from Employee</label>
-
-                        <div class="col-sm-8">
-                            <div class="form-inline">
-                                <input type="text" class="form-control input-inline-sm" id="{{prefix}}notice-amount-employee" ng-model="contract.details.notice_amount_employee" ng-disabled="isDisabled">
-                                <select id="{{prefix}}notice-unit-employee" class="form-control"
-                                        ng-model="contract.details.notice_unit_employee"
-                                        ng-options="key as value for (key, value) in options.details.notice_unit_employee"
-                                        ng-disabled="isDisabled">
-                                    <option value="">- select -</option>
-                                </select>
-                            </div>
-                        </div>
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span
+                class="sr-only">Close</span></button>
+        <h4 class="modal-title">{{title}}</h4>
+    </div>
+    <div class="modal-body clearfix">
+        <tabset class="tabs-left">
+            <tab heading="General" ng-controller="FormGeneralCtrl">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>General</h4>
                     </div>
                 </div>
-            </div>
-        </tab>
-        <tab heading="Hours" ng-controller="FormHoursCtrl">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h4>Hours</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="form-group">
-                        <label for="standard-hours" class="col-sm-4 control-label">Location/Standard hours</label>
-                        <div class="col-sm-5">
-                            <select id="standard-hours" class="form-control"
-                                    ng-options="hoursLocation.id as (hoursLocation.location + ' - ' + hoursLocation.standard_hours + ' hours per ' + hoursLocation.periodicity) for hoursLocation in utils.hoursLocation"
-                                    ng-model="contract.hours.location_standard_hours"
-                                    ng-disabled="isDisabled">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="{{prefix}}hours-type" class="col-sm-4 control-label">Hours type</label>
-
-                        <div class="col-sm-5">
-                            <select id="{{prefix}}hours-type" class="form-control"
-                                    ng-options="key as value for (key, value) in options.hours.hours_type"
-                                    ng-model="contract.hours.hours_type"
-                                    ng-disabled="isDisabled">
-                                <option value="">- select -</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div ng-show="hrsTypeDefined">
+                <div class="row">
+                    <div class="col-xs-12">
                         <div class="form-group required">
-                            <label for="{{prefix}}actual-hours" class="col-sm-4 control-label">Actual hours</label>
+                            <label for="{{prefix}}position" class="col-sm-4 control-label">Position</label>
+
                             <div class="col-sm-8">
-                                <div class="form-inline">
-                                    <input type="text" class="form-control input-inline-sm" id="{{prefix}}actual-hours"
-                                           ng-model="contract.hours.hours_amount" ng-disabled="isDisabled || contract.hours.hours_type == 8" ng-required="hrsTypeDefined">
-                                    per
-                                    <input type="text" class="form-control input-inline-sm" ng-model="contract.hours.hours_unit" ng-disabled="true" ng-required="hrsTypeDefined">
+                                <input type="text" class="form-control" id="{{prefix}}position" ng-model="contract.details.position" ng-disabled="isDisabled" required>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="{{prefix}}title" class="col-sm-4 control-label">Title</label>
+
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="{{prefix}}title" ng-model="contract.details.title" ng-disabled="isDisabled" required>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="{{prefix}}contract-type" class="col-sm-4 control-label">Contract type</label>
+
+                            <div class="col-sm-5">
+                                <select id="{{prefix}}contract-type" class="form-control"
+                                        ng-model="contract.details.contract_type"
+                                        ng-options="key as value for (key, value) in options.details.contract_type"
+                                        ng-disabled="isDisabled" required>
+                                    <option value="">- select -</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="{{prefix}}location" class="col-sm-4 control-label">Normal Place of Work {{test}}</label>
+
+                            <div class="col-sm-5">
+                                <select id="{{prefix}}location" class="form-control"
+                                        ng-model="contract.details.location"
+                                        ng-options="key as value for (key, value) in options.details.location"
+                                        ng-disabled="isDisabled">
+                                    <option value="">- select -</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="{{prefix}}period-start-date" class="col-sm-4 control-label">Contract Start Date</label>
+
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="{{prefix}}period-start-date"
+                                           datepicker-popup="yyyy-MM-dd"
+                                           is-open="dpDateStartOpen"
+                                           max-date="dpDateStartMax"
+                                           ng-model="contract.details.period_start_date"
+                                           ng-disabled="isDisabled"
+                                           required>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-class="{disabled: isDisabled}" ng-click="dpOpen($event, 'dpDateStartOpen')"  ng-disabled="isDisabled"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group required" ng-show="+contract.hours.hours_type">
-                            <label for="{{prefix}}fte" class="col-sm-4 control-label">FTE
+                        <div class="form-group">
+                            <label for="{{prefix}}period-end-date" class="col-sm-4 control-label">Contract End Date</label>
+
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="{{prefix}}period-end-date"
+                                           datepicker-popup="yyyy-MM-dd"
+                                           is-open="dpDateEndOpen"
+                                           min-date="dpDateEndMin"
+                                           ng-model="contract.details.period_end_date"
+                                           ng-disabled="isDisabled">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-class="{disabled: isDisabled}" ng-click="dpOpen($event, 'dpDateEndOpen')" ng-disabled="isDisabled"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Contract Duration</label>
+
+                            <div class="col-sm-8">
+                                <p class="form-control-static">{{duration}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="{{prefix}}notice-amount" class="col-sm-4 control-label">Notice Period from Employer</label>
+
+                            <div class="col-sm-8">
+                                <div class="form-inline">
+                                    <input type="text" class="form-control input-inline-sm" id="{{prefix}}notice-amount" ng-model="contract.details.notice_amount" ng-disabled="isDisabled">
+                                    <select id="{{prefix}}notice-unit" class="form-control"
+                                            ng-model="contract.details.notice_unit"
+                                            ng-options="key as value for (key, value) in options.details.notice_unit"
+                                            ng-disabled="isDisabled">
+                                        <option value="">- select -</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="{{prefix}}notice-amount-employee" class="col-sm-4 control-label">Notice Period from Employee</label>
+
+                            <div class="col-sm-8">
+                                <div class="form-inline">
+                                    <input type="text" class="form-control input-inline-sm" id="{{prefix}}notice-amount-employee" ng-model="contract.details.notice_amount_employee" ng-disabled="isDisabled">
+                                    <select id="{{prefix}}notice-unit-employee" class="form-control"
+                                            ng-model="contract.details.notice_unit_employee"
+                                            ng-options="key as value for (key, value) in options.details.notice_unit_employee"
+                                            ng-disabled="isDisabled">
+                                        <option value="">- select -</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="Hours" ng-controller="FormHoursCtrl">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Hours</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="standard-hours" class="col-sm-4 control-label">Location/Standard hours</label>
+                            <div class="col-sm-5">
+                                <select id="standard-hours" class="form-control"
+                                        ng-options="hoursLocation.id as (hoursLocation.location + ' - ' + hoursLocation.standard_hours + ' hours per ' + hoursLocation.periodicity) for hoursLocation in utils.hoursLocation"
+                                        ng-model="contract.hours.location_standard_hours"
+                                        ng-disabled="isDisabled">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="{{prefix}}hours-type" class="col-sm-4 control-label">Hours type</label>
+
+                            <div class="col-sm-5">
+                                <select id="{{prefix}}hours-type" class="form-control"
+                                        ng-options="key as value for (key, value) in options.hours.hours_type"
+                                        ng-model="contract.hours.hours_type"
+                                        ng-disabled="isDisabled">
+                                    <option value="">- select -</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div ng-show="hrsTypeDefined">
+                            <div class="form-group required">
+                                <label for="{{prefix}}actual-hours" class="col-sm-4 control-label">Actual hours</label>
+                                <div class="col-sm-8">
+                                    <div class="form-inline">
+                                        <input type="text" class="form-control input-inline-sm" id="{{prefix}}actual-hours"
+                                               ng-model="contract.hours.hours_amount" ng-disabled="isDisabled || contract.hours.hours_type == 8" ng-required="hrsTypeDefined">
+                                        per
+                                        <input type="text" class="form-control input-inline-sm" ng-model="contract.hours.hours_unit" ng-disabled="true" ng-required="hrsTypeDefined">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group required" ng-show="+contract.hours.hours_type">
+                                <label for="{{prefix}}fte" class="col-sm-4 control-label">FTE
+                                    <a tooltip-placement="right"
+                                       tooltip-html-unsafe="<strong>FTE</strong> stands for
+                                               Full Time Equivalent. This is a useful measure for
+                                               an organisation that has peopleworking part-time.
+                                               For a full-time person, FTE is always equal to
+                                               1.0, whereas for a part-time person, the FTE will represent
+                                               the fraction of standard hours that the person works on a
+                                               regular basis.<br>
+                                               E.g. if the standard working day at an organisation
+                                               comprises of 8 hours, then a person who regularly works for
+                                               8 hours each day would be considered to be full- time and
+                                               would have an FTE value of 1.0. A person who regularly works
+                                               for only 4 hours each day would be considered to be a
+                                               part-time person and would have an FTE value of 0.5. If the
+                                               organisation had 10 people, each with an FTE of 1.0 the
+                                               actual headcount of full-time people would be 10 and the
+                                               FTE headcount (equal to actual headcount multiplied by the
+                                               FTE value) would also be 10. However, if the organisation
+                                               had another 10 people who each worked part-time with an FTE
+                                               value of 0.5 the actual headcount of part-time people would
+                                               be 10 while the FTE headcount would only be 5. Thus for an
+                                               organisation that had a total of 10 full-time people, and 10
+                                               part-time people (each with an FTE of 0.5) the actual
+                                               headcount for the organisation would be 20 while the FTE
+                                               headcount would be 15.">
+                                        <i class="fa fa-question-circle"></i>
+                                    </a></label>
+                                <div class="col-sm-8">
+                                    <div class="form-inline">
+                                        <input type="text" class="form-control input-inline-sm" id="{{prefix}}fte"
+                                               ng-model="fteFraction" ng-disabled="true">
+                                        &nbsp;or&nbsp;
+                                        <input type="text" class="form-control input-inline-sm"
+                                               ng-model="contract.hours.hours_fte" ng-disabled="true"><br>
+                                        <input type="hidden" class="form-control input-inline-sm"
+                                               ng-model="contract.hours.fte_num" ng-disabled="isDisabled" ng-required="hrsTypeDefined">
+                                        <input type="hidden" class="form-control input-inline-sm"
+                                               ng-model="contract.hours.fte_denom" ng-disabled="isDisabled" ng-required="hrsTypeDefined">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="Pay" ng-controller="FormPayCtrl">
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Pay</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <div class="col-sm-5 col-sm-offset-4">
+                                <label class="radio-inline">
+                                    <input type="radio" id="{{prefix}}paid" value="1" ng-model="contract.pay.is_paid" ng-disabled="isDisabled"> Paid
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" id="{{prefix}}unpaid" value="0" ng-model="contract.pay.is_paid" ng-disabled="isDisabled"> Unpaid
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div collapse="contract.pay.is_paid == '0'">
+                    <hr>
+                    <div class="form-group">
+                        <label for="pay-scale" class="col-sm-4 control-label">Pay Scale / Grade</label>
+
+                        <div class="col-sm-5">
+                            <select id="pay-scale" class="form-control"
+                                    ng-model="contract.pay.pay_scale"
+                                    ng-options="key as value for (key, value) in options.pay.pay_scale"
+                                    ng-disabled="isDisabled">
+                                <option value="">- select -</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="{{prefix}}pay-amount" class="col-sm-4 control-label">Pay</label>
+
+                        <div class="col-sm-8">
+                            <div class="form-inline">
+                                <select class="form-control"
+                                        ng-model="contract.pay.pay_currency"
+                                        ng-options="key as value for (key, value) in options.pay.pay_currency"
+                                        ng-disabled="isDisabled">
+                                </select>
+                                <input id="{{prefix}}pay-amount" type="text" class="form-control input-inline-sm" ng-model="contract.pay.pay_amount" ng-disabled="isDisabled">
+                                per
+                                <select class="form-control"
+                                        ng-model="contract.pay.pay_unit"
+                                        ng-options="key as value for (key, value) in options.pay.pay_unit"
+                                        ng-disabled="isDisabled">
+                                    <option value="">- select -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pay-estimate-annual" class="col-sm-4 control-label control-label-line-2">Annual pay estimate before
+                            benefits and deductions</label>
+
+                        <div class="col-sm-3">
+                            <input type="text" id="pay-estimate-annual" class="form-control disabled" ng-model="contract.pay.pay_annualized_est" ng-disabled="isDisabled || true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pay-cycle" class="col-sm-4 control-label">Pay cycle</label>
+
+                        <div class="col-sm-3">
+                            <select id="pay-cycle" class="form-control" ng-disabled="isDisabled">
+                                <option value="">- select -</option>
+                                <option value="1">weekly</option>
+                                <option value="2" selected>monthly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="well">
+                        <div class="form-group">
+                            <label for="pay-gross-cycle" class="col-sm-4 control-label control-label-line-2">Gross Pay per cycle<br/>
+                                <small>(before benefits and deductions)</small>
+                            </label>
+
+                            <div class="col-sm-3">
+                                <input type="text" id="pay-gross-cycle" class="form-control disabled" ng-disabled="isDisabled || true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="Leave">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Leave</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <div class="col-sm-4 text-right">
+                                Leave type
+                            </div>
+                            <div class="col-sm-4">
+                                Days per year
+                            </div>
+                        </div>
+                        <div class="form-group" ng-repeat="leaveEntry in contract.leave">
+                            <label for="leave-{{leaveEntry.leave_type}}" class="col-sm-4 control-label">{{utils.absenceType[leaveEntry.leave_type].title}}</label>
+
+                            <div class="col-sm-2">
+                                <input type="text" id="leave-{{leaveEntry.leave_type}}" name="leave-{{leaveEntry.leave_type}}" class="form-control" ng-model="leaveEntry.leave_amount" ng-disabled="isDisabled">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="Insurance">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Health Insurance</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="insurance-health-provider" class="col-sm-4 control-label">Provider
                                 <a tooltip-placement="right"
-                                   tooltip-html-unsafe="<strong>FTE</strong> stands for
-                                           Full Time Equivalent. This is a useful measure for
-                                           an organisation that has peopleworking part-time.
-                                           For a full-time person, FTE is always equal to
-                                           1.0, whereas for a part-time person, the FTE will represent
-                                           the fraction of standard hours that the person works on a
-                                           regular basis.<br>
-                                           E.g. if the standard working day at an organisation
-                                           comprises of 8 hours, then a person who regularly works for
-                                           8 hours each day would be considered to be full- time and
-                                           would have an FTE value of 1.0. A person who regularly works
-                                           for only 4 hours each day would be considered to be a
-                                           part-time person and would have an FTE value of 0.5. If the
-                                           organisation had 10 people, each with an FTE of 1.0 the
-                                           actual headcount of full-time people would be 10 and the
-                                           FTE headcount (equal to actual headcount multiplied by the
-                                           FTE value) would also be 10. However, if the organisation
-                                           had another 10 people who each worked part-time with an FTE
-                                           value of 0.5 the actual headcount of part-time people would
-                                           be 10 while the FTE headcount would only be 5. Thus for an
-                                           organisation that had a total of 10 full-time people, and 10
-                                           part-time people (each with an FTE of 0.5) the actual
-                                           headcount for the organisation would be 20 while the FTE
-                                           headcount would be 15.">
+                                   tooltip="The name of the health insurance company.">
                                     <i class="fa fa-question-circle"></i>
                                 </a></label>
+
                             <div class="col-sm-8">
-                                <div class="form-inline">
-                                    <input type="text" class="form-control input-inline-sm" id="{{prefix}}fte"
-                                           ng-model="fteFraction" ng-disabled="true">
-                                    &nbsp;or&nbsp;
-                                    <input type="text" class="form-control input-inline-sm"
-                                           ng-model="contract.hours.hours_fte" ng-disabled="true"><br>
-                                    <input type="hidden" class="form-control input-inline-sm"
-                                           ng-model="contract.hours.fte_num" ng-disabled="isDisabled" ng-required="hrsTypeDefined">
-                                    <input type="hidden" class="form-control input-inline-sm"
-                                           ng-model="contract.hours.fte_denom" ng-disabled="isDisabled" ng-required="hrsTypeDefined">
-                                </div>
+                                <input type="text" id="insurance-health-provider" name="insurance-health-provider"
+                                       class="form-control" ng-model="contract.insurance.provider" ng-disabled="isDisabled">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="insurance-health-plan" class="col-sm-4 control-label">Plan Type</label>
+
+                            <div class="col-sm-4">
+                                <select id="insurance-health-plan" class="form-control"
+                                        ng-model="contract.insurance.plan_type"
+                                        ng-options="key as value for (key, value) in options.insurance.plan_type"
+                                        ng-disabled="isDisabled">
+                                    <option value="">- select -</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="insurance-health-desc" class="col-sm-4 control-label">Description</label>
+
+                            <div class="col-sm-8">
+                                <textarea id="insurance-health-desc" name="insurance-health-desc" class="form-control"
+                                          rows="3" ng-model="contract.insurance.description" ng-disabled="isDisabled"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="insurance-health-deps" class="col-sm-4 control-label">Dependents
+                                <a tooltip-placement="right"
+                                   tooltip="For a family plan, please list
+                                                       the names of all dependents who are also covered, along
+                                                       with their relationships to the individual.">
+                                    <i class="fa fa-question-circle"></i>
+                                </a>
+                            </label>
+
+                            <div class="col-sm-8">
+                                <textarea id="insurance-health-deps" name="insurance-health-deps" class="form-control"
+                                          rows="3" ng-model="contract.insurance.dependents" ng-disabled="isDisabled"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </tab>
-        <tab heading="Pay" ng-controller="FormPayCtrl">
-
-            <div class="row">
-                <div class="col-xs-12">
-                    <h4>Pay</h4>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Life Insurance</h4>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="form-group">
-                        <div class="col-sm-5 col-sm-offset-4">
-                            <label class="radio-inline">
-                                <input type="radio" id="{{prefix}}paid" value="1" ng-model="contract.pay.is_paid" ng-disabled="isDisabled"> Paid
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="insurance-life-provider" class="col-sm-4 control-label">Provider</label>
+
+                            <div class="col-sm-8">
+                                <input type="text" id="insurance-life-provider" name="insurance-life-provider"
+                                       class="form-control" ng-model="contract.insurance.provider_life_insurance" ng-disabled="isDisabled">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="insurance-life-plan" class="col-sm-4 control-label">Plan Type</label>
+
+                            <div class="col-sm-4">
+                                <select id="insurance-life-plan" class="form-control"
+                                        ng-model="contract.insurance.plan_type_life_insurance"
+                                        ng-options="key as value for (key, value) in options.insurance.plan_type_life_insurance"
+                                        ng-disabled="isDisabled">
+                                    <option value="">- select -</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="insurance-life-desc" class="col-sm-4 control-label">Description</label>
+
+                            <div class="col-sm-8">
+                                <textarea id="insurance-life-desc" name="insurance-life-desc" class="form-control"
+                                          rows="3" ng-model="contract.insurance.description_life_insurance" ng-disabled="isDisabled"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="insurance-life-deps" class="col-sm-4 control-label">Dependents
+                                <a tooltip-placement="right"
+                                   tooltip="For a family plan, please list
+                                                       the names of all dependents who are also covered, along
+                                                       with their relationships to the individual.">
+                                    <i class="fa fa-question-circle"></i>
+                                </a>
                             </label>
-                            <label class="radio-inline">
-                                <input type="radio" id="{{prefix}}unpaid" value="0" ng-model="contract.pay.is_paid" ng-disabled="isDisabled"> Unpaid
-                            </label>
+
+                            <div class="col-sm-8">
+                                <textarea id="insurance-life-deps" name="insurance-life-deps" class="form-control"
+                                          rows="3" ng-model="contract.insurance.dependents_life_insurance" ng-disabled="isDisabled"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div collapse="contract.pay.is_paid == '0'">
-                <hr>
-                <div class="form-group">
-                    <label for="pay-scale" class="col-sm-4 control-label">Pay Scale / Grade</label>
-
-                    <div class="col-sm-5">
-                        <select id="pay-scale" class="form-control"
-                                ng-model="contract.pay.pay_scale"
-                                ng-options="key as value for (key, value) in options.pay.pay_scale"
-                                ng-disabled="isDisabled">
-                            <option value="">- select -</option>
-                        </select>
+            </tab>
+            <tab heading="Pension">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Pension</h4>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="{{prefix}}pay-amount" class="col-sm-4 control-label">Pay</label>
-
-                    <div class="col-sm-8">
-                        <div class="form-inline">
-                            <select class="form-control"
-                                    ng-model="contract.pay.pay_currency"
-                                    ng-options="key as value for (key, value) in options.pay.pay_currency"
-                                    ng-disabled="isDisabled">
-                            </select>
-                            <input id="{{prefix}}pay-amount" type="text" class="form-control input-inline-sm" ng-model="contract.pay.pay_amount" ng-disabled="isDisabled">
-                            per
-                            <select class="form-control"
-                                    ng-model="contract.pay.pay_unit"
-                                    ng-options="key as value for (key, value) in options.pay.pay_unit"
-                                    ng-disabled="isDisabled">
-                                <option value="">- select -</option>
-                            </select>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="pension-isenrolled" class="col-sm-4 control-label">Is Enrolled</label>
+                            <div class="col-sm-4">
+                                <select id="pension-isenrolled" class="form-control"
+                                        ng-model="contract.pension.is_enrolled"
+                                        ng-options="key as value for (key, value) in options.pension.is_enrolled"
+                                        ng-disabled="isDisabled">
+                                    <option value="">- select -</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="pay-estimate-annual" class="col-sm-4 control-label control-label-line-2">Annual pay estimate before
-                        benefits and deductions</label>
+                        <div class="form-group">
+                            <label for="pension-provider" class="col-sm-4 control-label">Provider</label>
 
-                    <div class="col-sm-3">
-                        <input type="text" id="pay-estimate-annual" class="form-control disabled" ng-model="contract.pay.pay_annualized_est" ng-disabled="isDisabled || true">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="pay-cycle" class="col-sm-4 control-label">Pay cycle</label>
-
-                    <div class="col-sm-3">
-                        <select id="pay-cycle" class="form-control" ng-disabled="isDisabled">
-                            <option value="">- select -</option>
-                            <option value="1">weekly</option>
-                            <option value="2" selected>monthly</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="well">
-                    <div class="form-group">
-                        <label for="pay-gross-cycle" class="col-sm-4 control-label control-label-line-2">Gross Pay per cycle<br/>
-                            <small>(before benefits and deductions)</small>
-                        </label>
-
-                        <div class="col-sm-3">
-                            <input type="text" id="pay-gross-cycle" class="form-control disabled" ng-disabled="isDisabled || true">
+                            <div class="col-sm-4">
+                                <select id="pension-provider" class="form-control"
+                                        ng-model="contract.pension.pension_type"
+                                        ng-options="key as value for (key, value) in options.pension.pension_type"
+                                        ng-disabled="isDisabled">
+                                    <option value="">- select -</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </tab>
-        <tab heading="Leave">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h4>Leave</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="form-group">
-                        <div class="col-sm-4 text-right">
-                            Leave type
-                        </div>
-                        <div class="col-sm-4">
-                            Days per year
-                        </div>
-                    </div>
-                    <div class="form-group" ng-repeat="leaveEntry in contract.leave">
-                        <label for="leave-{{leaveEntry.leave_type}}" class="col-sm-4 control-label">{{utils.absenceType[leaveEntry.leave_type].title}}</label>
+                        <div class="form-group">
+                            <label for="pension-contrib-emplr" class="col-sm-4 control-label">Employer Contribution (%)</label>
 
-                        <div class="col-sm-2">
-                            <input type="text" id="leave-{{leaveEntry.leave_type}}" name="leave-{{leaveEntry.leave_type}}" class="form-control" ng-model="leaveEntry.leave_amount" ng-disabled="isDisabled">
+                            <div class="col-sm-3">
+                                <input type="text" id="pension-contrib-emplr" name="pension-contrib-emplr" class="form-control"
+                                       ng-model="contract.pension.er_contrib_pct" ng-disabled="isDisabled">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pension-contrib-emple" class="col-sm-4 control-label">Employee Contribution (%)</label>
+
+                            <div class="col-sm-3">
+                                <input type="text" id="pension-contrib-emple" name="pension-contrib-emple" class="form-control"
+                                       ng-model="contract.pension.ee_contrib_pct" ng-disabled="isDisabled">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pension-contrib-emple-abs" class="col-sm-4 control-label control-label-line-2">Employee
+                                Contribution (absolute amount)</label>
+
+                            <div class="col-sm-3">
+                                <input type="text" id="pension-contrib-emple-abs" name="pension-contrib-emple-abs"
+                                       ng-model="contract.pension.ee_contrib_abs" class="form-control" ng-disabled="isDisabled">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pension-evidence-file" class="col-sm-4 control-label">Evidence File</label>
+
+                            <div class="col-sm-3">
+                                <input type="file" id="pension-evidence-file" name="pension-evidence-file" ng-disabled="isDisabled">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pension-evidence-note" class="col-sm-4 control-label">Evidence Note</label>
+
+                            <div class="col-sm-8">
+                                <input type="text" id="pension-evidence-note" name="pension-evidence-note" class="form-control"
+                                       ng-model="contract.pension.ee_evidence_note" ng-disabled="isDisabled">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </tab>
-        <tab heading="Insurance">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h4>Health Insurance</h4>
+            </tab>
+            <tab heading="Funding">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Funding</h4>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="form-group">
-                        <label for="insurance-health-provider" class="col-sm-4 control-label">Provider
-                            <a tooltip-placement="right"
-                               tooltip="The name of the health insurance company.">
-                                <i class="fa fa-question-circle"></i>
-                            </a></label>
-
-                        <div class="col-sm-8">
-                            <input type="text" id="insurance-health-provider" name="insurance-health-provider"
-                                   class="form-control" ng-model="contract.insurance.provider" ng-disabled="isDisabled">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="insurance-health-plan" class="col-sm-4 control-label">Plan Type</label>
-
-                        <div class="col-sm-4">
-                            <select id="insurance-health-plan" class="form-control"
-                                    ng-model="contract.insurance.plan_type"
-                                    ng-options="key as value for (key, value) in options.insurance.plan_type"
-                                    ng-disabled="isDisabled">
-                                <option value="">- select -</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="insurance-health-desc" class="col-sm-4 control-label">Description</label>
-
-                        <div class="col-sm-8">
-                            <textarea id="insurance-health-desc" name="insurance-health-desc" class="form-control"
-                                      rows="3" ng-model="contract.insurance.description" ng-disabled="isDisabled"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="insurance-health-deps" class="col-sm-4 control-label">Dependents
-                            <a tooltip-placement="right"
-                               tooltip="For a family plan, please list
-                                                   the names of all dependents who are also covered, along
-                                                   with their relationships to the individual.">
-                                <i class="fa fa-question-circle"></i>
-                            </a>
-                        </label>
-
-                        <div class="col-sm-8">
-                            <textarea id="insurance-health-deps" name="insurance-health-deps" class="form-control"
-                                      rows="3" ng-model="contract.insurance.dependents" ng-disabled="isDisabled"></textarea>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="pension-funding-notes" class="col-sm-4 control-label">Funding Notes</label>
+                            <div class="col-sm-8">
+                                <textarea id="pension-funding-notes" name="pension-funding-notes" class="form-control"
+                                          rows="3" ng-model="contract.details.funding_notes" ng-disabled="isDisabled"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <h4>Life Insurance</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="form-group">
-                        <label for="insurance-life-provider" class="col-sm-4 control-label">Provider</label>
-
-                        <div class="col-sm-8">
-                            <input type="text" id="insurance-life-provider" name="insurance-life-provider"
-                                   class="form-control" ng-model="contract.insurance.provider_life_insurance" ng-disabled="isDisabled">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="insurance-life-plan" class="col-sm-4 control-label">Plan Type</label>
-
-                        <div class="col-sm-4">
-                            <select id="insurance-life-plan" class="form-control"
-                                    ng-model="contract.insurance.plan_type_life_insurance"
-                                    ng-options="key as value for (key, value) in options.insurance.plan_type_life_insurance"
-                                    ng-disabled="isDisabled">
-                                <option value="">- select -</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="insurance-life-desc" class="col-sm-4 control-label">Description</label>
-
-                        <div class="col-sm-8">
-                            <textarea id="insurance-life-desc" name="insurance-life-desc" class="form-control"
-                                      rows="3" ng-model="contract.insurance.description_life_insurance" ng-disabled="isDisabled"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="insurance-life-deps" class="col-sm-4 control-label">Dependents
-                            <a tooltip-placement="right"
-                               tooltip="For a family plan, please list
-                                                   the names of all dependents who are also covered, along
-                                                   with their relationships to the individual.">
-                                <i class="fa fa-question-circle"></i>
-                            </a>
-                        </label>
-
-                        <div class="col-sm-8">
-                            <textarea id="insurance-life-deps" name="insurance-life-deps" class="form-control"
-                                      rows="3" ng-model="contract.insurance.dependents_life_insurance" ng-disabled="isDisabled"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </tab>
-        <tab heading="Pension">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h4>Pension</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="form-group">
-                        <label for="pension-isenrolled" class="col-sm-4 control-label">Is Enrolled</label>
-                        <div class="col-sm-4">
-                            <select id="pension-isenrolled" class="form-control"
-                                    ng-model="contract.pension.is_enrolled"
-                                    ng-options="key as value for (key, value) in options.pension.is_enrolled"
-                                    ng-disabled="isDisabled">
-                                <option value="">- select -</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="pension-provider" class="col-sm-4 control-label">Provider</label>
-
-                        <div class="col-sm-4">
-                            <select id="pension-provider" class="form-control"
-                                    ng-model="contract.pension.pension_type"
-                                    ng-options="key as value for (key, value) in options.pension.pension_type"
-                                    ng-disabled="isDisabled">
-                                <option value="">- select -</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="pension-contrib-emplr" class="col-sm-4 control-label">Employer Contribution (%)</label>
-
-                        <div class="col-sm-3">
-                            <input type="text" id="pension-contrib-emplr" name="pension-contrib-emplr" class="form-control"
-                                   ng-model="contract.pension.er_contrib_pct" ng-disabled="isDisabled">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="pension-contrib-emple" class="col-sm-4 control-label">Employee Contribution (%)</label>
-
-                        <div class="col-sm-3">
-                            <input type="text" id="pension-contrib-emple" name="pension-contrib-emple" class="form-control"
-                                   ng-model="contract.pension.ee_contrib_pct" ng-disabled="isDisabled">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="pension-contrib-emple-abs" class="col-sm-4 control-label control-label-line-2">Employee
-                            Contribution (absolute amount)</label>
-
-                        <div class="col-sm-3">
-                            <input type="text" id="pension-contrib-emple-abs" name="pension-contrib-emple-abs"
-                                   ng-model="contract.pension.ee_contrib_abs" class="form-control" ng-disabled="isDisabled">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="pension-evidence-file" class="col-sm-4 control-label">Evidence File</label>
-
-                        <div class="col-sm-3">
-                            <input type="file" id="pension-evidence-file" name="pension-evidence-file" ng-disabled="isDisabled">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="pension-evidence-note" class="col-sm-4 control-label">Evidence Note</label>
-
-                        <div class="col-sm-8">
-                            <input type="text" id="pension-evidence-note" name="pension-evidence-note" class="form-control"
-                                   ng-model="contract.pension.ee_evidence_note" ng-disabled="isDisabled">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </tab>
-        <tab heading="Funding">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h4>Funding</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="form-group">
-                        <label for="pension-funding-notes" class="col-sm-4 control-label">Funding Notes</label>
-                        <div class="col-sm-8">
-                            <textarea id="pension-funding-notes" name="pension-funding-notes" class="form-control"
-                                      rows="3" ng-model="contract.details.funding_notes" ng-disabled="isDisabled"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </tab>
-    </tabset>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
-    <button type="submit" class="btn btn-primary btn-save" ng-show="allowSave" ng-disabled="!contractForm.$valid">Save changes</button>
-</div>
+            </tab>
+        </tabset>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
+        <button type="submit" class="btn btn-primary btn-save" ng-show="allowSave" ng-disabled="!contractForm.$valid">Save changes</button>
+    </div>
 </form>

@@ -41,6 +41,8 @@ define(['controllers/controllers',
                     resolve: {
                         content: function(){
                             return {
+                                copyCancel: 'No',
+                                title: 'Alert',
                                 msg: 'Are you sure you want to cancel? Changes will be lost!'
                             };
                         }

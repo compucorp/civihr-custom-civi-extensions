@@ -47,6 +47,7 @@ require([
     'controllers/contractList',
     'controllers/contract',
     'controllers/revisionList',
+    'controllers/modal/modalChangeReason',
     'controllers/modal/modalContract',
     'controllers/modal/modalContractNew',
     'controllers/modal/modalDialog',
@@ -87,6 +88,7 @@ require([
             $rootScope.prefix = settings.classNamePrefix;
 
             $q.all({
+                contract: ContractService().getRevisionOptions(),
                 details: ContractDetailsService.getOptions(),
                 hours: ContractHoursService.getOptions(),
                 pay: ContractPayService.getOptions(),

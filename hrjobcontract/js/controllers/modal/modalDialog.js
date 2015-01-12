@@ -5,6 +5,8 @@ define(['controllers/controllers'], function(controllers){
 
             $scope.title = content.title || 'CiviHR Job Contract';
             $scope.msg = content.msg || '';
+            $scope.copyConfirm = content.copyConfirm || 'Yes';
+            $scope.copyCancel = content.copyCancel || 'Cancel';
 
             $scope.confirm = function () {
                 $modalInstance.close(true);

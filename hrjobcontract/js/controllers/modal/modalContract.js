@@ -28,7 +28,7 @@ define(['controllers/controllers',
 
             $scope.cancel = function () {
 
-                if (action == 'view') {
+                if (action == 'view' || angular.equals(contract,$scope.contract)) {
                     $modalInstance.dismiss('cancel');
                     return;
                 }
@@ -41,7 +41,7 @@ define(['controllers/controllers',
                     resolve: {
                         content: function(){
                             return {
-                                msg: 'Lorem ipsum'
+                                msg: 'Are you sure you want to cancel? Changes will be lost!'
                             };
                         }
                     }
@@ -77,7 +77,6 @@ define(['controllers/controllers',
                 }
 
                 function contractChange(){
-
                     var contractNew = $scope.contract,
                         entityName, entityChangedList = [], entityChangedListLen = 0, i = 0, isChanged,
                         promiseEntityService = {}, revisionId, services = {

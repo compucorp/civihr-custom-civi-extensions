@@ -545,6 +545,55 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
     return TRUE;
   }
   
+  public function upgrade_z9121() {
+      CRM_Core_DAO::executeQuery("
+        CREATE TABLE IF NOT EXISTS `civicrm_hrpay_scale` (
+        `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+          `pay_scale` VARCHAR(63) DEFAULT NULL,
+          `pay_grade` VARCHAR(63) DEFAULT NULL,
+          `currency` VARCHAR(63) DEFAULT NULL,
+          `amount` DECIMAL(10,2) DEFAULT NULL,
+          `periodicity` VARCHAR(63) DEFAULT NULL,
+          `is_active` tinyint(4) DEFAULT '1',
+          PRIMARY KEY(id)
+        ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1
+      ");
+      CRM_Core_DAO::executeQuery("
+        INSERT INTO `civicrm_hrpay_scale` (`id`, `pay_scale`, `pay_grade`, `currency`, `amount`, `periodicity`, `is_active`) VALUES
+        (1, 'NJC pay scale', '', '', NULL, '', 1),
+        (2, 'JNC pay scale', '', '', NULL, '', 1),
+        (3, 'Soulbury Pay Agreement', '', '', NULL, '', 1),
+        (4, 'US', 'Senior', 'USD', 38000, 'Year', 1),
+        (5, 'US', 'Junior', 'USD', 24000, 'Year', 1),
+        (6, 'UK', 'Senior', 'GBP', 35000, 'Year', 1),
+        (7, 'UK', 'Junior', 'GBP', 22000, 'Year', 1)
+      ");
+      
+      return TRUE;
+  }
+  
+  public function upgrade_z9122() {
+      CRM_Core_DAO::executeQuery("DROP TABLE IF EXISTS civicrm_hrhours_location");
+      CRM_Core_DAO::executeQuery("
+        CREATE TABLE IF NOT EXISTS `civicrm_hrhours_location` (
+        `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+          `location` varchar(63) DEFAULT NULL,
+          `standard_hours` int(4) DEFAULT NULL,
+          `periodicity` varchar(63) DEFAULT NULL,
+          `is_active` tinyint(4) DEFAULT '1',
+          PRIMARY KEY(id)
+        ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1
+      ");
+      CRM_Core_DAO::executeQuery("
+        INSERT INTO `civicrm_hrhours_location` (`id`, `location`, `standard_hours`, `periodicity`, `is_active`) VALUES
+        (1, 'Head office', 40, 'Week', 1),
+        (2, 'Other office', 8, 'Day', 1),
+        (3, 'Small office', 36, 'Week', 1)
+      ");
+      
+      return TRUE;
+  }
+  
   function decToFraction($fte) {
     $fteDecimalPart = explode('.', $fte);
     $array  = str_split($fteDecimalPart[1]);

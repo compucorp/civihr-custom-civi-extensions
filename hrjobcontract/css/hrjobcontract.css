@@ -9729,7 +9729,11 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 #hrjob-contract .form-horizontal .well .form-group {
   margin-bottom: 0;
 }
-/* line 27, ../sass/partials/_forms.scss */
+/* line 23, ../sass/partials/_forms.scss */
+#hrjob-contract .form-horizontal .well .form-group + .form-group {
+  margin-top: 15px;
+}
+/* line 31, ../sass/partials/_forms.scss */
 #hrjob-contract .form-control-static .subfield {
   display: block;
 }
@@ -9922,6 +9926,27 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 }
 /* line 4, ../sass/partials/_tables.scss */
 #hrjob-contract [datepicker-popup-wrap] table > thead > tr > th {
+  vertical-align: middle;
+}
+/* line 9, ../sass/partials/_tables.scss */
+#hrjob-contract .hrjobcont-table-pay {
+  table-layout: fixed;
+}
+/* line 12, ../sass/partials/_tables.scss */
+#hrjob-contract .hrjobcont-table-pay .col-action {
+  width: 48px;
+}
+/* line 24, ../sass/partials/_tables.scss */
+#hrjob-contract .hrjobcont-table-pay .col-index {
+  width: 35px;
+}
+/* line 36, ../sass/partials/_tables.scss */
+#hrjob-contract .hrjobcont-table-pay .action {
+  vertical-align: middle;
+}
+/* line 40, ../sass/partials/_tables.scss */
+#hrjob-contract .hrjobcont-table-pay .index {
+  font-weight: bold;
   vertical-align: middle;
 }
 /* line 1, ../sass/partials/_tooltip.scss */

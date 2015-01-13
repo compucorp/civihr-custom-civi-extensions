@@ -5,13 +5,13 @@
 <div class="modal-body">
     <table class="table table-striped">
         <thead>
-        <tr>
-            <th>Effective Date</th>
-            <th ng-repeat="field in entityHistoryFields[entity]">{{field.label}}</th>
-            <th>Change Recorded By</th>
-            <th>Reason For Change</th>
-            <th>&nbsp;</th>
-        </tr>
+            <tr>
+                <th>Effective Date</th>
+                <th ng-repeat="field in entityHistoryFields[entity]">{{field.label}}</th>
+                <th>Change Recorded By</th>
+                <th>Reason For Change</th>
+                <th>&nbsp;</th>
+            </tr>
         </thead>
         <tbody>
             <tr ng-repeat="revision in revisionDataList" ng-if="(!$index || revision.jobcontract_revision_id != revisionDataList[$index - 1].jobcontract_revision_id)">

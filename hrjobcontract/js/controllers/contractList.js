@@ -16,7 +16,6 @@ define(['controllers/controllers',
                 absenceType: {}
             };
 
-
             $q.all({
                 details: ContractDetailsService.model(),
                 hours: ContractHoursService.model(),

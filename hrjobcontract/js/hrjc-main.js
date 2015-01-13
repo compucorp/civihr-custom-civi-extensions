@@ -97,7 +97,29 @@ require([
                 pension: ContractPensionService.getOptions()
             }).then(function(results){
                 console.log('options');
+
+                results.pay.benefit_name = {
+                    '1': 'Bike',
+                    '2': 'Medical'
+                };
+
+                results.pay.benefit_type = {
+                    '1': 'Fixed',
+                    '2': '%'
+                };
+
+                results.pay.deduction_name = {
+                    '1': 'Bike',
+                    '2': 'Medical'
+                };
+
+                results.pay.deduction_type = {
+                    '1': 'Fixed',
+                    '2': '%'
+                };
+
                 results.pension.is_enrolled = ['No','Yes','Opted out'];
+                console.log(results);
                 $rootScope.options = results;
 
             });

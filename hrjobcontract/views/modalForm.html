@@ -217,7 +217,6 @@
                 </div>
             </tab>
             <tab heading="Pay" ng-controller="FormPayCtrl">
-
                 <div class="row">
                     <div class="col-xs-12">
                         <h4>Pay</h4>
@@ -295,6 +294,154 @@
                         <div class="form-group">
                             <label for="pay-gross-cycle" class="col-sm-4 control-label control-label-line-2">Gross Pay per cycle<br/>
                                 <small>(before benefits and deductions)</small>
+                            </label>
+
+                            <div class="col-sm-3">
+                                <input type="text" id="pay-gross-cycle" class="form-control disabled" ng-disabled="isDisabled || true">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <a class="btn btn-collapse" ng-click="collapseBenDed = !collapseBenDed">
+                                <h4><i ng-class="{fa: true, 'fa-caret-down': !collapseBenDed, 'fa-caret-right': collapseBenDed }"></i> Benefits and deductions</h4>
+                            </a>
+                        </div>
+                    </div>
+                    <div collapse="collapseBenDed">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Annual Benefits</div>
+                                    <table class="table table-striped {{prefix}}table-pay">
+                                        <colgroup>
+                                            <col class="col-index">
+                                            <col class="col-name">
+                                            <col class="col-type">
+                                            <col class="col-amount-pct">
+                                            <col class="col-amount-abs">
+                                            <col class="col-action">
+                                        </colgroup>
+                                        <thead ng-show="contract.pay.annual_benefits.length">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Benefit</th>
+                                            <th>Type</th>
+                                            <th>% Amount</th>
+                                            <th>Absolute amount</th>
+                                            <th class="action">&nbsp;</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="benefit in contract.pay.annual_benefits">
+                                            <td class="index">{{$index+1}}</td>
+                                            <td><select class="form-control"
+                                                        ng-options="key as value for (key, value) in options.pay.benefit_name"
+                                                        ng-model="benefit.name"
+                                                        ng-disabled="isDisabled">
+                                                <option value="">- select -</option>
+                                            </select></td>
+                                            <td><select class="form-control"
+                                                        ng-options="key as value for (key, value) in options.pay.benefit_type"
+                                                        ng-model="benefit.type"
+                                                        ng-disabled="isDisabled">
+                                                <option value="">- select -</option>
+                                            </select></td>
+                                            <td><input type="text" class="form-control" ng-model="benefit.amount_pct" ng-disabled="isDisabled"></td>
+                                            <td><input type="text" class="form-control" ng-model="benefit.amount_abs" ng-disabled="isDisabled"></td>
+                                            <td class="action"><a class="btn btn-default btn-sm btn-danger" ng-click="remove(contract.pay.annual_benefits, $index)" ng-disabled="isDisabled">
+                                                <span class="fa fa-remove" aria-hidden="true"></span>
+                                            </a></td>
+                                        </tr>
+                                        <tr ng-if="!isDisabled">
+                                            <td colspan="6" class="text-right">
+                                                <a class="btn btn-default btn-sm btn-primary" ng-click="add(contract.pay.annual_benefits)">
+                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Annual Deductions</div>
+                                    <table class="table table-striped {{prefix}}table-pay">
+                                        <colgroup>
+                                            <col class="col-index">
+                                            <col class="col-name">
+                                            <col class="col-type">
+                                            <col class="col-amount-pct">
+                                            <col class="col-amount-abs">
+                                            <col class="col-action">
+                                        </colgroup>
+                                        <thead ng-show="contract.pay.annual_deductions.length">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Deduction</th>
+                                            <th>Type</th>
+                                            <th>% Amount</th>
+                                            <th>Absolute amount</th>
+                                            <th class="action">&nbsp;</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="deduction in contract.pay.annual_deductions">
+                                            <td class="index">{{$index+1}}</td>
+                                            <td><select class="form-control"
+                                                        ng-options="key as value for (key, value) in options.pay.deduction_name"
+                                                        ng-model="deduction.name"
+                                                        ng-disabled="isDisabled">
+                                                <option value="">- select -</option>
+                                            </select></td>
+                                            <td><select class="form-control"
+                                                        ng-options="key as value for (key, value) in options.pay.deduction_type"
+                                                        ng-model="deduction.type"
+                                                        ng-disabled="isDisabled">
+                                                <option value="">- select -</option>
+                                            </select></td>
+                                            <td><input type="text" class="form-control" ng-model="deduction.amount_pct" ng-disabled="isDisabled"></td>
+                                            <td><input type="text" class="form-control" ng-model="deduction.amount_abs" ng-disabled="isDisabled"></td>
+                                            <td class="action"><a class="btn btn-default btn-sm btn-danger" ng-click="remove(contract.pay.annual_deductions, $index)" ng-disabled="isDisabled">
+                                                <span class="fa fa-remove" aria-hidden="true"></span>
+                                            </a></td>
+                                        </tr>
+                                        <tr ng-if="!isDisabled">
+                                            <td colspan="6" class="text-right">
+                                                <a class="btn btn-default btn-sm btn-primary" ng-click="add(contract.pay.annual_deductions)">
+                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="well">
+                            <div class="form-group">
+                                <label for="pay-gross-cycle" class="col-sm-4 control-label">Benefits per cycle</label>
+
+                                <div class="col-sm-3">
+                                    <input type="text" id="pay-gross-cycle" class="form-control disabled" ng-disabled="isDisabled || true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="pay-gross-cycle" class="col-sm-4 control-label">Deductions per cycle</label>
+
+                                <div class="col-sm-3">
+                                    <input type="text" id="pay-gross-cycle" class="form-control disabled" ng-disabled="isDisabled || true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="well">
+                        <div class="form-group">
+                            <label for="pay-gross-cycle" class="col-sm-4 control-label control-label-line-2">Net Pay per cycle<br/>
+                                <small>(after benefits and deductions)</small>
                             </label>
 
                             <div class="col-sm-3">

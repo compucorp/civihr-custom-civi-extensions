@@ -6,28 +6,25 @@ define(['controllers/controllers',
         'services/contractPay',
         'services/contractLeave',
         'services/contractInsurance',
-        'services/contractPension'], function(controllers){
+        'services/contractPension',
+        'services/utils'], function(controllers){
 
     controllers.controller('ModalContractNewCtrl', ['$scope', '$modalInstance', '$q', 'Contract',
         'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
-        'ContractInsuranceService', 'ContractPensionService', 'utils', 'settings',
+        'ContractInsuranceService', 'ContractPensionService', 'model', 'UtilsService', 'utils', 'settings',
         function($scope, $modalInstance, $q, Contract, ContractDetailsService, ContractHoursService,
                  ContractPayService, ContractLeaveService, ContractInsuranceService, ContractPensionService,
-                 utils, settings){
+                 model, UtilsService, utils, settings){
 
             $scope.allowSave = true;
+            $scope.contract = {};
             $scope.isDisabled = false;
             $scope.title = 'Add New Job Contract';
             $scope.utils = utils;
 
-            $scope.contract = {
-                details: {},
-                hours: {},
-                pay: {},
-                leave: ContractLeaveService.model($scope.utils.absenceType),
-                insurance: {},
-                pension: {}
-            };
+            angular.copy(model,$scope.contract);
+
+            $scope.contract.leave = ContractLeaveService.model($scope.utils.absenceType);
 
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
@@ -35,6 +32,7 @@ define(['controllers/controllers',
 
             $scope.save = function () {
                 var contract = new Contract();
+
                 contract.$save({
                     action: 'create',
                     json: {
@@ -53,29 +51,17 @@ define(['controllers/controllers',
 
                     contract.is_current = !contractDetails.period_end_date || new Date(contractDetails.period_end_date) > new Date();
 
-                    contractDetails.jobcontract_id = contractId;
+                    UtilsService.prepareEntityIds(contractDetails, contractId);
+
                     contractDetails.is_primary = 0;
 
                     ContractDetailsService.save(contractDetails).then(function(results){
                         return results.jobcontract_revision_id;
                     }).then(function(revisionId){
 
-                        angular.forEach(contractLeave, function(values){
-                            values.jobcontract_id = contractId;
-                            values.jobcontract_revision_id = revisionId;
+                        angular.forEach($scope.contract, function(entity){
+                            UtilsService.prepareEntityIds(entity, contractId, revisionId);
                         });
-
-                        contractHours.jobcontract_id = contractId;
-                        contractHours.jobcontract_revision_id = revisionId;
-
-                        contractPay.jobcontract_id = contractId;
-                        contractPay.jobcontract_revision_id = revisionId;
-
-                        contractInsurance.jobcontract_id = contractId;
-                        contractInsurance.jobcontract_revision_id = revisionId;
-
-                        contractPension.jobcontract_id = contractId;
-                        contractPension.jobcontract_revision_id = revisionId;
 
                         return $q.all([
                             ContractHoursService.save(contractHours),

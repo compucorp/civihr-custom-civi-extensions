@@ -28,20 +28,25 @@ define(['controllers/controllers',
                 angular.forEach(contractList,function(contract){
                     +contract.is_current ? $scope.contractCurrent.push(contract) : $scope.contractPast.push(contract);
                 });
+
                 $scope.contractListLoaded = true;
             });
 
             //TODO remove and use the fieldOptions
-            var promiseAbsenceType = UtilsService.getAbsenceType();
-            promiseAbsenceType.then(function(absenceType){
+            UtilsService.getAbsenceType().then(function(absenceType){
                 $scope.utils.absenceType = absenceType;
             },function(reason){
                 console.log('Failed: ' + reason);
             });
 
-            var promiseHoursLocation = UtilsService.getHoursLocation();
-            promiseHoursLocation.then(function(hoursLocation){
+            UtilsService.getHoursLocation().then(function(hoursLocation){
                 $scope.utils.hoursLocation = hoursLocation;
+            },function(reason){
+                console.log('Failed: ' + reason);
+            });
+
+            UtilsService.getPayScaleGrade().then(function(payScaleGrade){
+                $scope.utils.payScaleGrade = payScaleGrade;
             },function(reason){
                 console.log('Failed: ' + reason);
             });
@@ -59,8 +64,11 @@ define(['controllers/controllers',
                         size: 'lg',
                         controller: 'ModalContractNewCtrl',
                         resolve: {
+                            model: function() {
+                                return $scope.model;
+                            },
                             utils: function(){
-                                return $scope.utils
+                                return $scope.utils;
                             }
                         }
                     }

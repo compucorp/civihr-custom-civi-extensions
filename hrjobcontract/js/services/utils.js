@@ -84,15 +84,51 @@ define(['services/services'], function (services) {
             getHoursLocation: function(){
                 var deffered = $q.defer();
 
-                tempAPI.resource('HRHoursLocation','get').get(function(data){
+                API.resource('HRHoursLocation','get',{
+                    sequential: 1
+                }).get(function(data){
                     deffered.resolve(data.values);
                 },function(){
                     deffered.reject('Unable to fetch standard hours');
                 });
 
                 return deffered.promise;
-            }
+            },
+            getPayScaleGrade: function(){
+                var deffered = $q.defer();
 
+                tempAPI.resource('HRPayScaleGrade','get',{
+                    sequential: 1
+                }).get(function(data){
+                    deffered.resolve(data.values);
+                },function(){
+                    deffered.reject('Unable to fetch standard hours');
+                });
+
+                return deffered.promise;
+            },
+            prepareEntityIds: function(entityObj, contractId, revisionId){
+
+                function setIds(entityObj){
+                    entityObj.jobcontract_id = contractId;
+                    delete entityObj.id;
+                    revisionId ? entityObj.jobcontract_revision_id = revisionId : delete entityObj.jobcontract_revision_id;
+                }
+
+                if (angular.isArray(entityObj)) {
+                    var i = 0, len = obj.length;
+                    for (i; i < len; i++) {
+                        setIds(entityObj[i]);
+                    }
+                    return
+                }
+
+                if (angular.isObject(entityObj)) {
+                    setIds(entityObj);
+                    return
+                }
+
+            }
         }
     }]);
 

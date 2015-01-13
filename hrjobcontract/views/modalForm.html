@@ -243,8 +243,8 @@
 
                         <div class="col-sm-5">
                             <select id="pay-scale" class="form-control"
+                                    ng-options="payScaleGrade.pay_scale as (payScaleGrade.pay_scale + ' - ' + payScaleGrade.pay_grade + ' - ' + payScaleGrade.currency + ' ' + payScaleGrade.amount + ' per ' + payScaleGrade.periodicity) for payScaleGrade in utils.payScaleGrade"
                                     ng-model="contract.pay.pay_scale"
-                                    ng-options="key as value for (key, value) in options.pay.pay_scale"
                                     ng-disabled="isDisabled">
                                 <option value="">- select -</option>
                             </select>

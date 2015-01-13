@@ -40,21 +40,17 @@ class CRM_Hrjobcontract_BAO_HRJobPay extends CRM_Hrjobcontract_DAO_HRJobPay {
    * @param array $params key-value pairs
    * @return CRM_HRJob_DAO_HRJobPay|NULL
    *
+   */
   public static function create($params) {
-    $className = 'CRM_HRJob_DAO_HRJobPay';
-    $entityName = 'HRJobPay';
-    $hook = empty($params['id']) ? 'create' : 'edit';
-
-    CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);
-    $instance = new $className();
-    $instance->copyValues($params);
-    $instance->save();
-    CRM_Utils_Hook::post($hook, $entityName, $instance->id, $instance);
-
-    return $instance;
-  } */
-
-
+      if (is_array($params['annual_benefits'])) {
+          $params['annual_benefits'] = json_encode($params['annual_benefits']);
+      }
+      if (is_array($params['annual_deductions'])) {
+          $params['annual_deductions'] = json_encode($params['annual_deductions']);
+      }
+      return parent::create($params);
+  }
+  
   /**
    * combine all the importable fields from the lower levels object
    *

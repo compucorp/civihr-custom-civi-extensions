@@ -136,6 +136,18 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
    * @var boolean
    */
   public $pay_is_auto_est;
+  /**
+   * JSON representation of Annual Benefits
+   *
+   * @var boolean
+   */
+  public $annual_benefits;
+  /**
+   * JSON representation of Annual Deductions
+   *
+   * @var boolean
+   */
+  public $annual_deductions;
 
   /**
    * class constructor
@@ -248,7 +260,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'dataPattern' => '',
                 'export' => true,
                 'pseudoconstant' => array(
-                  'optionGroupName' => 'hrjobcontract_pension_type',
+                  'optionGroupName' => 'currencies_enabled',
                 )
               ) ,
               'hrjob_pay_annualized_est' => array(
@@ -265,6 +277,30 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'type' => CRM_Utils_Type::T_BOOLEAN,
                 'title' => ts('Estimated Auto Pay') ,
                 'default' => '1',
+              ) ,
+              'annual_benefits' => array(
+                'name' => 'annual_benefits',
+                'type' => CRM_Utils_Type::T_STRING,
+                'title' => ts('Annual Benefits') ,
+                'size' => CRM_Utils_Type::HUGE,
+                'export' => true,
+                'import' => true,
+                'where' => 'civicrm_hrjobcontract_pay.annual_benefits',
+                'headerPattern' => '',
+                'dataPattern' => '',
+                'callback' => 'CRM_Hrjobcontract_Callback::getJSON',
+              ) ,
+              'annual_deductions' => array(
+                'name' => 'annual_deductions',
+                'type' => CRM_Utils_Type::T_STRING,
+                'title' => ts('Annual Deductions') ,
+                'size' => CRM_Utils_Type::HUGE,
+                'export' => true,
+                'import' => true,
+                'where' => 'civicrm_hrjobcontract_pay.annual_deductions',
+                'headerPattern' => '',
+                'dataPattern' => '',
+                'callback' => 'CRM_Hrjobcontract_Callback::getJSON',
               ) ,
             )
         );
@@ -291,6 +327,8 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'pay_currency' => 'hrjob_pay_currency',
                 'pay_annualized_est' => 'hrjob_pay_annualized_est',
                 'pay_is_auto_est' => 'pay_is_auto_est',
+                'annual_benefits' => 'annual_benefits',
+                'annual_deductions' => 'annual_deductions',
             )
         );
     }

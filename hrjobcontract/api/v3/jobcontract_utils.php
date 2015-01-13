@@ -116,6 +116,62 @@ function _civicrm_hrjobcontract_api3_get_current_revision_id($jobContractId, $ta
 }
 
 /**
+ * Function to do a 'custom' api get
+ *
+ * @param string $bao_name name of BAO
+ * @param array $params params from api
+ * @param bool $returnAsSuccess return in api success format
+ * @param string $entity
+ *
+ * @return array
+ */
+function _civicrm_hrjobcontract_api3_custom_get($bao_name, &$params, $returnAsSuccess = TRUE, $entity = "")
+{
+    $bao = new $bao_name();
+    $callbacks = array();
+    
+    $fields = $bao::fields();
+    foreach ($fields as $field)
+    {
+        if (!empty($field['callback']))
+        {
+            $callback = $field['callback'];
+            if (CRM_Utils_System::validCallback($callback))
+            {
+                list($className, $fnName) = explode('::', $callback);
+                if (method_exists($className, $fnName))
+                {
+                    $callbacks[$field['name']] = array(
+                        'className' => $className,
+                        'fnName' => $fnName,
+                    );
+                }
+            }
+        }
+    }
+    
+    _civicrm_api3_dao_set_filter($bao, $params, TRUE, $entity);
+    if ($returnAsSuccess)
+    {
+        $daoToArray = _civicrm_api3_dao_to_array($bao, $params, FALSE, $entity);
+        if (!empty($callbacks))
+        {
+            foreach ($daoToArray as $entryKey => $entryValue)
+            {
+                foreach ($callbacks as $callbackKey => $callbackValue)
+                {
+                    $daoToArray[$entryKey][$callbackKey] = call_user_func(array($callbackValue['className'], $callbackValue['fnName']), $entryValue[$callbackKey]);
+                }
+            }
+        }        
+        return civicrm_api3_create_success($daoToArray, $params, $entity, 'get');
+    }
+    else {
+      return _civicrm_api3_dao_to_array($bao, $params, FALSE, $entity, 'get');
+    }
+}
+
+/**
  * HRJobContract implementation of the "replace" action.
  *
  * Replace the old set of entities (matching some given keys) with a new set of

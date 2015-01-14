@@ -594,6 +594,140 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
       return TRUE;
   }
   
+  public function upgrade_z9123() {
+    // pay_cycle:
+    $optionGroupID = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjc_pay_cycle', 'id', 'name');
+    if (!$optionGroupID) {
+        $params = array(
+          'name' => 'hrjc_pay_cycle',
+          'title' => 'Job Contract Pay Cycle',
+          'is_active' => 1,
+          'is_reserved' => 1,
+        );
+        civicrm_api3('OptionGroup', 'create', $params);
+        $optionsValue = array(
+            1 => 'Weekly',
+            2 => 'Monthly',
+        );
+        foreach ($optionsValue as $key => $value) {
+          $opValueParams = array(
+            'option_group_id' => 'hrjc_pay_cycle',
+            'name' => $value,
+            'label' => $value,
+            'value' => $key,
+          );
+          civicrm_api3('OptionValue', 'create', $opValueParams);
+        }
+    }
+    
+    // benefit_name:
+    $optionGroupID = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjc_benefit_name', 'id', 'name');
+    if (!$optionGroupID) {
+        $params = array(
+          'name' => 'hrjc_benefit_name',
+          'title' => 'Job Contract Benefit Name',
+          'is_active' => 1,
+          'is_reserved' => 1,
+        );
+        civicrm_api3('OptionGroup', 'create', $params);
+        $optionsValue = array(
+            1 => 'Bike',
+            2 => 'Medical',
+        );
+        foreach ($optionsValue as $key => $value) {
+          $opValueParams = array(
+            'option_group_id' => 'hrjc_benefit_name',
+            'name' => $value,
+            'label' => $value,
+            'value' => $key,
+          );
+          civicrm_api3('OptionValue', 'create', $opValueParams);
+        }
+    }
+    
+    // benefit_type:
+    $optionGroupID = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjc_benefit_type', 'id', 'name');
+    if (!$optionGroupID) {
+        $params = array(
+          'name' => 'hrjc_benefit_type',
+          'title' => 'Job Contract Benefit Type',
+          'is_active' => 1,
+          'is_reserved' => 1,
+        );
+        civicrm_api3('OptionGroup', 'create', $params);
+        $optionsValue = array(
+            1 => 'Fixed',
+            2 => '%',
+        );
+        foreach ($optionsValue as $key => $value) {
+          $opValueParams = array(
+            'option_group_id' => 'hrjc_benefit_type',
+            'name' => $value,
+            'label' => $value,
+            'value' => $key,
+          );
+          civicrm_api3('OptionValue', 'create', $opValueParams);
+        }
+    }
+    
+    // deduction_name:
+    $optionGroupID = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjc_deduction_name', 'id', 'name');
+    if (!$optionGroupID) {
+        $params = array(
+          'name' => 'hrjc_deduction_name',
+          'title' => 'Job Contract Deduction Name',
+          'is_active' => 1,
+          'is_reserved' => 1,
+        );
+        civicrm_api3('OptionGroup', 'create', $params);
+        $optionsValue = array(
+            1 => 'Bike',
+            2 => 'Medical',
+        );
+        foreach ($optionsValue as $key => $value) {
+          $opValueParams = array(
+            'option_group_id' => 'hrjc_deduction_name',
+            'name' => $value,
+            'label' => $value,
+            'value' => $key,
+          );
+          civicrm_api3('OptionValue', 'create', $opValueParams);
+        }
+    }
+    
+    // deduction_type:
+    $optionGroupID = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjc_deduction_type', 'id', 'name');
+    if (!$optionGroupID) {
+        $params = array(
+          'name' => 'hrjc_deduction_type',
+          'title' => 'Job Contract Deduction Type',
+          'is_active' => 1,
+          'is_reserved' => 1,
+        );
+        civicrm_api3('OptionGroup', 'create', $params);
+        $optionsValue = array(
+            1 => 'Fixed',
+            2 => '%',
+        );
+        foreach ($optionsValue as $key => $value) {
+          $opValueParams = array(
+            'option_group_id' => 'hrjc_deduction_type',
+            'name' => $value,
+            'label' => $value,
+            'value' => $key,
+          );
+          civicrm_api3('OptionValue', 'create', $opValueParams);
+        }
+    }
+    
+    return TRUE;
+  }
+  
+  public function upgrade_z9124() {
+    CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_pay`  ADD `pay_cycle` INT(4) DEFAULT NULL  AFTER `annual_deductions`,  ADD `pay_per_cycle_gross` DECIMAL(10,2)  DEFAULT NULL  AFTER `pay_cycle`,  ADD `pay_per_cycle_net` DECIMAL(10,2)  DEFAULT NULL  AFTER `pay_per_cycle_gross`");
+    return TRUE;
+  }
+  
   function decToFraction($fte) {
     $fteDecimalPart = explode('.', $fte);
     $array  = str_split($fteDecimalPart[1]);

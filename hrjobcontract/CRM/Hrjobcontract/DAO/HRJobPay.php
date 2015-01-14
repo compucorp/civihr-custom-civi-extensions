@@ -302,6 +302,42 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'dataPattern' => '',
                 'callback' => 'CRM_Hrjobcontract_Callback::getJSON',
               ) ,
+              'pay_cycle' => array(
+                'name' => 'pay_cycle',
+                'type' => CRM_Utils_Type::T_INT,
+                'title' => ts('Pay Cycle') ,
+                'size' => CRM_Utils_Type::MEDIUM,
+                'import' => true,
+                'where' => 'civicrm_hrjobcontract_pay.pay_cycle',
+                'headerPattern' => '',
+                'dataPattern' => '',
+                'export' => true,
+                'pseudoconstant' => array(
+                  'optionGroupName' => 'hrjc_pay_cycle',
+                )
+              ) ,
+              'pay_per_cycle_gross' => array(
+                'name' => 'pay_per_cycle_gross',
+                'type' => CRM_Utils_Type::T_FLOAT,
+                'title' => ts('Pay Per Cycle Gross') ,
+                'size' => CRM_Utils_Type::BIG,
+                'import' => true,
+                'where' => 'civicrm_hrjobcontract_pay.pay_per_cycle_gross',
+                'headerPattern' => '',
+                'dataPattern' => '',
+                'export' => true,
+              ) ,
+              'pay_per_cycle_net' => array(
+                'name' => 'pay_per_cycle_net',
+                'type' => CRM_Utils_Type::T_FLOAT,
+                'title' => ts('Pay Per Cycle Net') ,
+                'size' => CRM_Utils_Type::BIG,
+                'import' => true,
+                'where' => 'civicrm_hrjobcontract_pay.pay_per_cycle_net',
+                'headerPattern' => '',
+                'dataPattern' => '',
+                'export' => true,
+              ) ,
             )
         );
     }
@@ -329,6 +365,9 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'pay_is_auto_est' => 'pay_is_auto_est',
                 'annual_benefits' => 'annual_benefits',
                 'annual_deductions' => 'annual_deductions',
+                'pay_cycle' => 'pay_cycle',
+                'pay_per_cycle_gross' => 'pay_per_cycle_gross',
+                'pay_per_cycle_net' => 'pay_per_cycle_net',
             )
         );
     }

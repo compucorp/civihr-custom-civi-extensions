@@ -227,10 +227,10 @@
                         <div class="form-group">
                             <div class="col-sm-5 col-sm-offset-4">
                                 <label class="radio-inline">
-                                    <input type="radio" id="{{prefix}}paid" value="1" ng-model="contract.pay.is_paid" ng-disabled="isDisabled"> Paid
+                                    <input type="radio" id="{{prefix}}paid" value="1" ng-model="contract.pay.is_paid" ng-change="setDefaults()" ng-disabled="isDisabled"> Paid
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" id="{{prefix}}unpaid" value="0" ng-model="contract.pay.is_paid" ng-disabled="isDisabled"> Unpaid
+                                    <input type="radio" id="{{prefix}}unpaid" value="0" ng-model="contract.pay.is_paid" ng-change="resetData()" ng-disabled="isDisabled"> Unpaid
                                 </label>
                             </div>
                         </div>
@@ -239,11 +239,12 @@
                 <div collapse="contract.pay.is_paid == '0'">
                     <hr>
                     <div class="form-group">
-                        <label for="pay-scale" class="col-sm-4 control-label">Pay Scale / Grade</label>
+                        <label for="{{prefix}}pay-scale-grade" class="col-sm-4 control-label">Pay Scale / Grade</label>
 
                         <div class="col-sm-5">
-                            <select id="pay-scale" class="form-control"
-                                    ng-options="payScaleGrade.pay_scale as (payScaleGrade.pay_scale + ' - ' + payScaleGrade.pay_grade + ' - ' + payScaleGrade.currency + ' ' + payScaleGrade.amount + ' per ' + payScaleGrade.periodicity) for payScaleGrade in utils.payScaleGrade"
+                            <select id="{{prefix}}pay-scale-grade" class="form-control"
+                                    ng-change="applyPayScaleGradeData()"
+                                    ng-options="payScaleGrade.id as (payScaleGrade.pay_scale + ' - ' + payScaleGrade.pay_grade + ' - ' + payScaleGrade.currency + ' ' + payScaleGrade.amount + ' per ' + payScaleGrade.periodicity) for payScaleGrade in utils.payScaleGrade"
                                     ng-model="contract.pay.pay_scale"
                                     ng-disabled="isDisabled">
                                 <option value="">- select -</option>
@@ -272,21 +273,21 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="pay-estimate-annual" class="col-sm-4 control-label control-label-line-2">Annual pay estimate before
+                        <label for="{{prefix}}pay-estimate-annual" class="col-sm-4 control-label control-label-line-2">Annual pay estimate before
                             benefits and deductions</label>
 
                         <div class="col-sm-3">
-                            <input type="text" id="pay-estimate-annual" class="form-control disabled" ng-model="contract.pay.pay_annualized_est" ng-disabled="isDisabled || true">
+                            <input type="text" id="{{prefix}}pay-estimate-annual" class="form-control disabled" ng-model="contract.pay.pay_annualized_est" ng-disabled="isDisabled || true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="pay-cycle" class="col-sm-4 control-label">Pay cycle</label>
+                        <label for="{{prefix}}pay-cycle" class="col-sm-4 control-label">Pay cycle</label>
 
                         <div class="col-sm-3">
-                            <select id="pay-cycle" class="form-control" ng-disabled="isDisabled">
-                                <option value="">- select -</option>
-                                <option value="1">weekly</option>
-                                <option value="2" selected>monthly</option>
+                            <select id="{{prefix}}pay-cycle" class="form-control"
+                                    ng-options="key as value for (key, value) in options.pay.pay_cycle"
+                                    ng-model="contract.pay.pay_cycle"
+                                    ng-disabled="isDisabled">
                             </select>
                         </div>
                     </div>

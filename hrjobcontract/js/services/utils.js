@@ -116,7 +116,7 @@ define(['services/services'], function (services) {
                 }
 
                 if (angular.isArray(entityObj)) {
-                    var i = 0, len = obj.length;
+                    var i = 0, len = entityObj.length;
                     for (i; i < len; i++) {
                         setIds(entityObj[i]);
                     }

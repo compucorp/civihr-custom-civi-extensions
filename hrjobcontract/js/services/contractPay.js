@@ -108,7 +108,7 @@ define(['services/services'], function (services) {
                             continue;
                         }
 
-                        model[val[i].name] = '';
+                        model[val[i].name] = null;
                     }
 
                     console.log(model);

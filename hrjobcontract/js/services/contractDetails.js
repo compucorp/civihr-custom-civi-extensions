@@ -102,7 +102,7 @@ define(['services/services'], function (services) {
                     i = 0, val = data.values, len = val.length;
 
                     for (i; i < len; i++) {
-                        model[val[i].name] = '';
+                        model[val[i].name] = null;
                     }
 
                     deffered.resolve(model);

@@ -102,9 +102,16 @@ define(['services/services'], function (services) {
                     i = 0, val = data.values, len = val.length;
 
                     for (i; i < len; i++) {
-                        model[val[i].name] = '';
+                        //TODO
+                        if (val[i].callback && val[i].callback == 'CRM_Hrjobcontract_Callback::getJSON') {
+                            model[val[i].name] = [];
+                            continue;
+                        }
+
+                        model[val[i].name] = null;
                     }
 
+                    console.log(model);
                     deffered.resolve(model);
                 },function(){
                     deffered.reject('Unable to fetch contract pay fields');

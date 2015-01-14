@@ -96,7 +96,11 @@ require([
                 insurance: ContractInsuranceService.getOptions(),
                 pension: ContractPensionService.getOptions()
             }).then(function(results){
-                console.log('options');
+
+                results.pay.pay_cycle = {
+                    '1': 'Weekly',
+                    '2': 'Monthly'
+                };
 
                 results.pay.benefit_name = {
                     '1': 'Bike',
@@ -119,8 +123,9 @@ require([
                 };
 
                 results.pension.is_enrolled = ['No','Yes','Opted out'];
-                console.log(results);
+
                 $rootScope.options = results;
+                console.log($rootScope.options);
 
             });
         }

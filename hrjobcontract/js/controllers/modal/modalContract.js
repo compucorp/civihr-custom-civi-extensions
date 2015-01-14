@@ -6,14 +6,16 @@ define(['controllers/controllers',
         'services/contractPay',
         'services/contractLeave',
         'services/contractInsurance',
-        'services/contractPension'], function(controllers){
+        'services/contractPension',
+        'services/utils'], function(controllers){
 
     controllers.controller('ModalContractCtrl',['$scope','$modal', '$modalInstance','$q', '$rootElement',
         'ContractService', 'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
-        'ContractInsuranceService', 'ContractPensionService', 'action', 'contract', 'content', 'utils', 'settings',
+        'ContractInsuranceService', 'ContractPensionService', 'action', 'contract', 'content', 'UtilsService', 'utils',
+        'settings',
         function($scope, $modal, $modalInstance, $q, $rootElement, ContractService, ContractDetailsService,
                  ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService,
-                 ContractPensionService, action, contract, content, utils, settings){
+                 ContractPensionService, action, contract, content, UtilsService, utils, settings){
 
 
             var content = content || {},
@@ -87,6 +89,7 @@ define(['controllers/controllers',
                 }
 
                 function contractEdit(){
+
                     $q.all({
                         details: ContractDetailsService.save($scope.contract.details),
                         hours: ContractHoursService.save($scope.contract.hours),
@@ -100,6 +103,10 @@ define(['controllers/controllers',
                         results.details.period_start_date = $scope.contract.details.period_start_date;
                         results.details.period_end_date = $scope.contract.details.period_end_date;
                         //
+
+                        //TODO (incorrect JSON format in the API response)
+                        results.pay.annual_benefits = $scope.contract.pay.annual_benefits;
+                        results.pay.annual_deductions = $scope.contract.pay.annual_deductions;
 
                         results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
 
@@ -120,29 +127,6 @@ define(['controllers/controllers',
                             pension: ContractPensionService
                         }
 
-                    function changeParams(obj, contractId, revisionId){
-
-                        function setIds(obj){
-                            obj.jobcontract_id = contractId;
-                            delete obj.id;
-                            revisionId ? obj.jobcontract_revision_id = revisionId : delete obj.jobcontract_revision_id;
-                        }
-
-                        if (angular.isArray(obj)) {
-                            var i = 0, len = obj.length;
-                            for (i; i < len; i++) {
-                                setIds(obj[i]);
-                            }
-                            return
-                        }
-
-                        if (angular.isObject(obj)) {
-                            setIds(obj);
-                            return
-                        }
-
-                    }
-
                     for (entityName in contractNew) {
                         isChanged = !angular.equals(contract[entityName], contractNew[entityName])
 
@@ -156,7 +140,7 @@ define(['controllers/controllers',
                         }
                     }
 
-                    changeParams(entityChangedList[0].data,contract.id);
+                    UtilsService.prepareEntityIds(entityChangedList[0].data,contract.id);
 
                     entityChangedList[0].service.save(entityChangedList[0].data).then(function(results){
                         revisionId = !angular.isArray(results) ? results.jobcontract_revision_id : results[0].jobcontract_revision_id,
@@ -165,7 +149,7 @@ define(['controllers/controllers',
                         promiseEntityService[entityChangedList[0].name] = results;
 
                         for (i; i < entityChangedListLen; i++) {
-                            changeParams(entityChangedList[i].data,contract.id,revisionId);
+                            UtilsService.prepareEntityIds(entityChangedList[i].data,contract.id,revisionId);
                             promiseEntityService[entityChangedList[i].name] = entityChangedList[i].service.save(entityChangedList[i].data);
                         }
 
@@ -184,9 +168,14 @@ define(['controllers/controllers',
                         }
 
                         //TODO (incorrect date format in the API response)
-                        results.details.period_start_date = $scope.contract.details.period_start_date;
-                        results.details.period_end_date = $scope.contract.details.period_end_date;
+                        results.details.period_start_date = contractNew.details.period_start_date;
+                        results.details.period_end_date = contractNew.details.period_end_date;
+                        results.revisionCreated.effective_date = date;
                         //
+
+                        //TODO (incorrect JSON format in the API response)
+                        results.pay.annual_benefits = contractNew.pay.annual_benefits;
+                        results.pay.annual_deductions = contractNew.pay.annual_deductions;
 
                         results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
                         angular.extend(results.revisionCreated, {

@@ -2,7 +2,7 @@
 
 require_once 'CRM/Core/DAO.php';
 require_once 'CRM/Utils/Type.php';
-class CRM_Hrjobcontract_DAO_HoursLocation extends CRM_Core_DAO
+class CRM_Hrjobcontract_DAO_PayScale extends CRM_Core_DAO
 {
   /**
    * static instance to hold the table name
@@ -10,7 +10,7 @@ class CRM_Hrjobcontract_DAO_HoursLocation extends CRM_Core_DAO
    * @var string
    * @static
    */
-  static $_tableName = 'civicrm_hrhours_location';
+  static $_tableName = 'civicrm_hrpay_scale';
   /**
    * static instance to hold the field values
    *
@@ -57,22 +57,31 @@ class CRM_Hrjobcontract_DAO_HoursLocation extends CRM_Core_DAO
    */
   static $_log = true;
   /**
-   * Unique Hours Location type ID
+   * Unique Pay Scale type ID
    *
    * @var int unsigned
    */
   public $id;
   /**
-   * Negotiated name for the Hours Location
+   *
+   * @var int
+   */
+  public $pay_scale;
+  /**
    *
    * @var string
    */
-  public $location;
+  public $pay_grade;
+  /**
+   *
+   * @var string
+   */
+  public $currency;
   /**
    *
    * @var int
    */
-  public $standard_hours;
+  public $amount;
   /**
    *
    * @var string
@@ -87,11 +96,11 @@ class CRM_Hrjobcontract_DAO_HoursLocation extends CRM_Core_DAO
    * class constructor
    *
    * @access public
-   * @return civicrm_hours_location
+   * @return civicrm_pay_scale
    */
   function __construct()
   {
-    $this->__table = 'civicrm_hrhours_location';
+    $this->__table = 'civicrm_hrpay_scale';
     parent::__construct();
   }
   /**
@@ -107,25 +116,46 @@ class CRM_Hrjobcontract_DAO_HoursLocation extends CRM_Core_DAO
         'id' => array(
           'name' => 'id',
           'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Hours Location Id') ,
+          'title' => ts('Pay Scale Id') ,
           'required' => true,
         ) ,
-        'location' => array(
-          'name' => 'location',
+        'pay_scale' => array(
+          'name' => 'pay_scale',
           'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Location') ,
+          'title' => ts('Pay Scale') ,
           'maxlength' => 63,
           'export' => true,
-          'where' => 'civicrm_hrhours_location.location',
+          'where' => 'civicrm_hrpay_scale.pay_scale',
           'headerPattern' => '',
           'dataPattern' => '',
         ) ,
-        'standard_hours' => array(
-          'name' => 'standard_hours',
+        'pay_grade' => array(
+          'name' => 'pay_grade',
           'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Standard Hours') ,
+          'title' => ts('Pay Grade') ,
           'export' => true,
-          'where' => 'civicrm_hrhours_location.standard_hours',
+          'where' => 'civicrm_hrpay_scale.pay_grade',
+          'headerPattern' => '',
+          'dataPattern' => '',
+        ) ,
+        'currency' => array(
+          'name' => 'currency',
+          'type' => CRM_Utils_Type::T_INT,
+          'title' => ts('Currency') ,
+          'export' => true,
+          'where' => 'civicrm_hrpay_scale.currency',
+          'headerPattern' => '',
+          'dataPattern' => '',
+          'pseudoconstant' => array(
+            'optionGroupName' => 'currencies_enabled',
+          )
+        ) ,
+        'amount' => array(
+          'name' => 'amount',
+          'type' => CRM_Utils_Type::T_INT,
+          'title' => ts('Amount') ,
+          'export' => true,
+          'where' => 'civicrm_hrpay_scale.amount',
           'headerPattern' => '',
           'dataPattern' => '',
         ) ,
@@ -135,14 +165,14 @@ class CRM_Hrjobcontract_DAO_HoursLocation extends CRM_Core_DAO
           'title' => ts('Periodicity') ,
           'maxlength' => 63,
           'export' => true,
-          'where' => 'civicrm_hrhours_location.periodicity',
+          'where' => 'civicrm_hrpay_scale.periodicity',
           'headerPattern' => '',
           'dataPattern' => '',
         ) ,
         'is_active' => array(
           'name' => 'is_active',
           'type' => CRM_Utils_Type::T_BOOLEAN,
-          'title' => ts('Hours Location Is Active') ,
+          'title' => ts('Pay Scale Is Active') ,
           'default' => '1',
         ) ,
       );
@@ -161,8 +191,10 @@ class CRM_Hrjobcontract_DAO_HoursLocation extends CRM_Core_DAO
     if (!(self::$_fieldKeys)) {
       self::$_fieldKeys = array(
         'id' => 'id',
-        'location' => 'location',
-        'standard_hours' => 'standard_hours',
+        'pay_scale' => 'pay_scale',
+        'pay_grade' => 'pay_grade',
+        'currency' => 'currency',
+        'amount' => 'amount',
         'periodicity' => 'periodicity',
         'is_active' => 'is_active',
       );
@@ -205,7 +237,7 @@ class CRM_Hrjobcontract_DAO_HoursLocation extends CRM_Core_DAO
       foreach($fields as $name => $field) {
         if (CRM_Utils_Array::value('import', $field)) {
           if ($prefix) {
-            self::$_import['hours_location'] = & $fields[$name];
+            self::$_import['pay_scale'] = & $fields[$name];
           } else {
             self::$_import[$name] = & $fields[$name];
           }
@@ -229,7 +261,7 @@ class CRM_Hrjobcontract_DAO_HoursLocation extends CRM_Core_DAO
       foreach($fields as $name => $field) {
         if (CRM_Utils_Array::value('export', $field)) {
           if ($prefix) {
-            self::$_export['hours_location'] = & $fields[$name];
+            self::$_export['pay_scale'] = & $fields[$name];
           } else {
             self::$_export[$name] = & $fields[$name];
           }

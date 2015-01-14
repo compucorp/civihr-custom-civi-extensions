@@ -307,7 +307,12 @@ function hrjobcontract_civicrm_entityTypes(&$entityTypes) {
   $entityTypes[] = array(
     'name' => 'HRHoursLocation',
     'class' => 'CRM_Hrjobcontract_DAO_HoursLocation',
-    'table' => 'civicrm_hrjobcontract_role',
+    'table' => 'civicrm_hrhours_location',
+  );
+  $entityTypes[] = array(
+    'name' => 'HRPayScale',
+    'class' => 'CRM_Hrjobcontract_DAO_PayScale',
+    'table' => 'civicrm_hrpay_scale',
   );
 }
 

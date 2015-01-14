@@ -204,9 +204,6 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'headerPattern' => '',
                 'dataPattern' => '',
                 'export' => true,
-                'pseudoconstant' => array(
-                  'optionGroupName' => 'hrjc_pay_scale',
-                )
               ) ,
               'hrjob_is_paid' => array(
                 'name' => 'is_paid',

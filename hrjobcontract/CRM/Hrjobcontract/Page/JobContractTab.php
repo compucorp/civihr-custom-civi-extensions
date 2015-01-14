@@ -29,7 +29,7 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
           'locationType' => CRM_Core_PseudoConstant::get('CRM_Core_DAO_Address', 'location_type_id'),
           'job_hours_time' => CRM_Hrjobcontract_Page_JobContractTab::getJobHoursTime(),
           'working_days' => CRM_Hrjobcontract_Page_JobContractTab::getDaysPerTime(),
-          'pay_scale' => CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_pay_scale'),
+          //'pay_scale' => CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_pay_scale'),
           'benefit_name' => CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_benefit_name'),
           'benefit_type' => CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_benefit_type'),
           'deduction_name' => CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_deduction_name'),
@@ -85,7 +85,7 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
         'hours_unit',
       ),
       'HRJobPay' => array(
-        'pay_scale',
+        //'pay_scale',
         'is_paid',
         'pay_unit',
         'pay_currency',

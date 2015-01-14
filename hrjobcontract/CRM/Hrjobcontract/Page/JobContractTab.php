@@ -29,7 +29,11 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
           'locationType' => CRM_Core_PseudoConstant::get('CRM_Core_DAO_Address', 'location_type_id'),
           'job_hours_time' => CRM_Hrjobcontract_Page_JobContractTab::getJobHoursTime(),
           'working_days' => CRM_Hrjobcontract_Page_JobContractTab::getDaysPerTime(),
-          //'jobcontract_edit_reason' => CRM_Hrjobcontract_Page_JobContractTab::getRevisionChangeReasons(),
+          'pay_scale' => CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_pay_scale'),
+          'benefit_name' => CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_benefit_name'),
+          'benefit_type' => CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_benefit_type'),
+          'deduction_name' => CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_deduction_name'),
+          'deduction_type' => CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_deduction_type'),
         ),
         'FieldOptions' => CRM_Hrjobcontract_Page_JobContractTab::getFieldOptions(),
         'jobContractTabApp' => array(
@@ -170,5 +174,17 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
       $change_reason[$val['value']] = $val['name'];
     }
     return $change_reason;
+  }
+  
+  /**
+   * Get custom options by option group name
+   */
+  static function getCustomOptions($optionGroupName) {
+    $data = array();
+    $result = civicrm_api3('OptionValue', 'get', array('option_group_id' => $optionGroupName));
+    foreach ($result['values'] as $key => $val) {
+      $data[$val['name']] = $val['value'];
+    }
+    return $data;
   }
 }

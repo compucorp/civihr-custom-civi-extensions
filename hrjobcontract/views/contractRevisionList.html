@@ -16,7 +16,7 @@
         <tr ng-repeat="revision in $parent.revisionDataList">
             <td>{{(revision.revisionEntityIdObj.effective_date | date: 'yyyy/MM/dd') || '-'}}</td>
             <td>{{revision.details.position || '-'}}</td>
-            <td>{{revision.pay.pay_scale || '-'}}</td>
+            <td>{{(((utils.payScaleGrade | getObjById:revision.pay.pay_scale:'pay_scale') || '') || ((utils.payScaleGrade | getObjById:revision.pay.pay_scale:'pay_grade') || '')) || '-'}}</td>
             <td>{{revision.pay.pay_annualized_est || '-'}} {{options.pay.pay_currency[pay.pay_currency]}}</td>
             <td>{{options.hours.hours_type[revision.hours.hours_type] || '-'}}</td>
             <td>{{options.details.location[revision.details.location] || '-'}}</td>

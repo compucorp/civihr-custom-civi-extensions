@@ -292,7 +292,17 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
         {
             unset($previousEntity['id']);
             unset($previousEntity['jobcontract_revision_id']);
-            $params = array_merge($previousEntity, $params);
+            
+            $previousEntityData = array();
+            foreach ($previousEntity as $key => $value)
+            {
+                if (is_array($value))
+                {
+                    $value = json_encode($value);
+                }
+                $previousEntityData[$key] = $value;
+            }
+            $params = array_merge($previousEntityData, $params);
         }
     }
     

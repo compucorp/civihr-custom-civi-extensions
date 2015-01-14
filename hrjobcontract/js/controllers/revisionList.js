@@ -28,7 +28,7 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                         }),
                         pay: ContractPayService.getOne({
                             jobcontract_revision_id: revision.pay_revision_id,
-                            return: 'pay_scale, pay_annualized_est'
+                            return: 'pay_scale, pay_annualized_est, pay_currency'
                         })
                     }));
                 });

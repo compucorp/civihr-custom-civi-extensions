@@ -728,6 +728,11 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
     return TRUE;
   }
   
+  public function  upgrade_z9125() {
+      CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_revision` ADD `editor_uid` INT(10) NULL DEFAULT NULL AFTER `jobcontract_id`");
+      return TRUE;
+  }
+          
   function decToFraction($fte) {
     $fteDecimalPart = explode('.', $fte);
     $array  = str_split($fteDecimalPart[1]);

@@ -151,6 +151,12 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
           'required' => true,
           'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJobContract',
         ) ,
+        'editor_uid' => array(
+          'name' => 'editor_uid',
+          'type' => CRM_Utils_Type::T_INT,
+          'title' => ts('Editor Uid') ,
+          'required' => true,
+        ) ,
         'created_date' => array(
           'name' => 'created_date',
           'type' => CRM_Utils_Type::T_DATE,
@@ -250,6 +256,7 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
       self::$_fieldKeys = array(
         'id' => 'id',
         'jobcontract_id' => 'jobcontract_id',
+        'editor_uid' => 'editor_uid',
         'created_date' => 'created_date',
         'modified_date' => 'modified_date',
         'effective_date' => 'effective_date',

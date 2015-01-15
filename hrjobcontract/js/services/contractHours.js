@@ -1,7 +1,9 @@
 console.log('Service: ContractHoursService');
-define(['services/services'], function (services) {
+define(['services/services',
+    'services/utils'], function (services) {
 
-    services.factory('ContractHoursService', ['$resource', 'settings', '$q', function ($resource, settings, $q) {
+    services.factory('ContractHoursService', ['$resource', 'settings', '$q', 'UtilsService',
+        function ($resource, settings, $q, UtilsService) {
         var ContractHours = $resource(settings.pathRest, {
             action: 'get',
             entity: 'HRJobHour',
@@ -26,6 +28,11 @@ define(['services/services'], function (services) {
                     val;
 
                 ContractHours.get({json: params}, function(data){
+
+                    if (UtilsService.errorHandler(data,'Unable to fetch contract hours',deffered)) {
+                        return
+                    }
+
                     val = data.values;
                     deffered.resolve(val.length == 1 ? val[0] : null);
                 },function(){
@@ -67,10 +74,15 @@ define(['services/services'], function (services) {
                     action: 'create',
                     json: params
                 }, null, function(data){
+
+                    if (UtilsService.errorHandler(data,'Unable to create contract hours', deffered)) {
+                        return
+                    }
+
                     val = data.values;
                     deffered.resolve(val.length == 1 ? val[0] : null);
                 },function(){
-                    deffered.reject('Unable to fetch contract hours');
+                    deffered.reject('Unable to create contract hours');
                 });
 
                 return deffered.promise;

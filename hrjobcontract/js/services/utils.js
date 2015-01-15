@@ -128,6 +128,29 @@ define(['services/services'], function (services) {
                     return
                 }
 
+            },
+            errorHandler: function(data, msg, deffered){
+                if (data.is_error) {
+                    console.error(data.error_code + '\n'+data.error_message);
+
+                    if (deffered) {
+                        deffered.reject(data.error_code + '\n'+data.error_message);
+                    }
+
+                    if (data.trace) {
+                        console.error(data.trace);
+                    }
+                    return true;
+                }
+
+                if (!data.values) {
+                    console.error(msg || 'Unknown Error');
+
+                    if (deffered) {
+                        deffered.reject(msg || 'Unknown Error');
+                    }
+                    return true;
+                }
             }
         }
     }]);

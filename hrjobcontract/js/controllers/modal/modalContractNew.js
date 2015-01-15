@@ -9,10 +9,10 @@ define(['controllers/controllers',
         'services/contractPension',
         'services/utils'], function(controllers){
 
-    controllers.controller('ModalContractNewCtrl', ['$scope', '$modalInstance', '$q', 'Contract',
+    controllers.controller('ModalContractNewCtrl', ['$scope', '$modalInstance', '$q', 'Contract','ContractService',
         'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
         'ContractInsuranceService', 'ContractPensionService', 'model', 'UtilsService', 'utils', 'settings',
-        function($scope, $modalInstance, $q, Contract, ContractDetailsService, ContractHoursService,
+        function($scope, $modalInstance, $q, Contract, ContractService, ContractDetailsService, ContractHoursService,
                  ContractPayService, ContractLeaveService, ContractInsuranceService, ContractPensionService,
                  model, UtilsService, utils, settings){
 
@@ -35,8 +35,6 @@ define(['controllers/controllers',
             $scope.save = function () {
                 var contract = new Contract();
 
-                console.log($scope.contract.details);
-
                 contract.$save({
                     action: 'create',
                     json: {
@@ -54,12 +52,15 @@ define(['controllers/controllers',
                         contractPension = $scope.contract.pension;
 
                     contract.is_current = !contractDetails.period_end_date || new Date(contractDetails.period_end_date) > new Date();
-                    contractDetails.is_primary = 0; //TODO
+                    //contractDetails.is_primary = 0; //TODO
 
                     UtilsService.prepareEntityIds(contractDetails, contractId);
 
                     ContractDetailsService.save(contractDetails).then(function(results){
                         return results.jobcontract_revision_id;
+                    },function(reason){
+                        alert(reason);
+                        ContractService.delete(contractId);
                     }).then(function(revisionId){
 
                         angular.forEach($scope.contract, function(entity){

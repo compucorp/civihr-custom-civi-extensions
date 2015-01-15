@@ -1,7 +1,8 @@
 console.log('Service: ContractDetailsService');
-define(['services/services'], function (services) {
+define(['services/services',
+        'services/utils'], function (services) {
 
-    services.factory('ContractDetailsService', ['$resource', 'settings', '$q', function ($resource, settings, $q) {
+    services.factory('ContractDetailsService', ['$resource', 'settings', '$q', 'UtilsService', function ($resource, settings, $q, UtilsService) {
         var ContractDetails = $resource(settings.pathRest, {
             action: 'get',
             entity: 'HRJobDetails',
@@ -26,6 +27,11 @@ define(['services/services'], function (services) {
                     val;
 
                 ContractDetails.get({json: params}, function(data){
+
+                    if (UtilsService.errorHandler(data,'Unable to fetch contract details',deffered)) {
+                        return
+                    }
+
                     val = data.values;
                     deffered.resolve(val.length == 1 ? val[0] : null);
                 },function(){
@@ -59,7 +65,8 @@ define(['services/services'], function (services) {
 
                 var deffered = $q.defer(),
                     params = angular.extend({
-                        sequential: 1
+                        sequential: 1,
+                        debug: 1
                     },contractDetails),
                     val;
 
@@ -67,10 +74,16 @@ define(['services/services'], function (services) {
                     action: 'create',
                     json: params
                 }, null, function(data){
+
+                    if (UtilsService.errorHandler(data,'Unable to create contract details',deffered)) {
+                        return
+                    }
+
                     val = data.values;
                     deffered.resolve(val.length == 1 ? val[0] : null);
+
                 },function(){
-                    deffered.reject('Unable to fetch contract details');
+                    deffered.reject('Unable to create contract details');
                 });
 
                 return deffered.promise;

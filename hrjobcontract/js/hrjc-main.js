@@ -96,32 +96,6 @@ require([
                 insurance: ContractInsuranceService.getOptions(),
                 pension: ContractPensionService.getOptions()
             }).then(function(results){
-
-                results.pay.pay_cycle = {
-                    '1': 'Weekly',
-                    '2': 'Monthly'
-                };
-
-                results.pay.benefit_name = {
-                    '1': 'Bike',
-                    '2': 'Medical'
-                };
-
-                results.pay.benefit_type = {
-                    '1': 'Fixed',
-                    '2': '%'
-                };
-
-                results.pay.deduction_name = {
-                    '1': 'Bike',
-                    '2': 'Medical'
-                };
-
-                results.pay.deduction_type = {
-                    '1': 'Fixed',
-                    '2': '%'
-                };
-
                 results.pension.is_enrolled = ['No','Yes','Opted out'];
 
                 $rootScope.options = results;
@@ -137,6 +111,7 @@ require([
         app.constant('settings', {
             classNamePrefix: 'hrjobcont-',
             contactId: decodeURIComponent((new RegExp('[?|&]cid=([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null,
+            debug: 1,
             pathApp: '/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract',
             keyApi: e.detail.keyApi,
             key: e.detail.key,

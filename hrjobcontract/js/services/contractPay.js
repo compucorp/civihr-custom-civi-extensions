@@ -1,7 +1,10 @@
 console.log('Service: ContractPayService');
-define(['services/services'], function (services) {
+define(['services/services',
+        'services/utils'], function (services) {
 
-    services.factory('ContractPayService', ['$resource', 'settings', '$q', function ($resource, settings, $q) {
+    services.factory('ContractPayService', ['$resource', 'settings', '$q', 'UtilsService',
+        function ($resource, settings, $q, UtilsService) {
+
         var ContractPay = $resource(settings.pathRest, {
             action: 'get',
             entity: 'HRJobPay',
@@ -21,11 +24,17 @@ define(['services/services'], function (services) {
                 }
 
                 params.sequential = 1;
+                params.debug = settings.debug;
 
                 var deffered = $q.defer(),
                     val;
 
                 ContractPay.get({json: params}, function(data){
+
+                    if (UtilsService.errorHandler(data,'Unable to fetch contract pay', deffered)) {
+                        return
+                    }
+
                     val = data.values;
                     deffered.resolve(val.length == 1 ? val[0] : null);
                 },function(){
@@ -59,7 +68,8 @@ define(['services/services'], function (services) {
 
                 var deffered = $q.defer(),
                     params = angular.extend({
-                        sequential: 1
+                        sequential: 1,
+                        debug: settings.debug
                     },contractPay),
                     val;
 
@@ -67,10 +77,15 @@ define(['services/services'], function (services) {
                     action: 'create',
                     json: params
                 }, null, function(data){
+
+                    if (UtilsService.errorHandler(data,'Unable to create contract pay', deffered)) {
+                        return
+                    }
+
                     val = data.values;
                     deffered.resolve(val.length == 1 ? val[0] : null);
                 },function(){
-                    deffered.reject('Unable to fetch contract pay');
+                    deffered.reject('Unable to create contract pay');
                 });
 
                 return deffered.promise;

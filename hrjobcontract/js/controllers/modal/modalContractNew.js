@@ -52,7 +52,6 @@ define(['controllers/controllers',
                         contractPension = $scope.contract.pension;
 
                     contract.is_current = !contractDetails.period_end_date || new Date(contractDetails.period_end_date) > new Date();
-                    //contractDetails.is_primary = 0; //TODO
 
                     UtilsService.prepareEntityIds(contractDetails, contractId);
 
@@ -61,6 +60,8 @@ define(['controllers/controllers',
                     },function(reason){
                         alert(reason);
                         ContractService.delete(contractId);
+                        $modalInstance.dismiss();
+                        return $q.reject();
                     }).then(function(revisionId){
 
                         angular.forEach($scope.contract, function(entity){

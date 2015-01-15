@@ -1,7 +1,10 @@
 console.log('Service: ContractInsuranceService');
-define(['services/services'], function (services) {
+define(['services/services',
+        'services/utils'], function (services) {
 
-    services.factory('ContractInsuranceService', ['$resource', 'settings', '$q', function ($resource, settings, $q) {
+    services.factory('ContractInsuranceService', ['$resource', 'settings', '$q', 'UtilsService',
+        function ($resource, settings, $q, UtilsService) {
+
         var ContractInsurance = $resource(settings.pathRest, {
             action: 'get',
             entity: 'HRJobHealth',
@@ -21,11 +24,17 @@ define(['services/services'], function (services) {
                 }
 
                 params.sequential = 1;
+                params.debug = settings.debug;
 
                 var deffered = $q.defer(),
                     val;
 
                 ContractInsurance.get({json: params}, function(data){
+
+                    if (UtilsService.errorHandler(data,'Unable to fetch contract Insurance', deffered)) {
+                        return
+                    }
+
                     val = data.values;
                     deffered.resolve(val.length == 1 ? val[0] : null);
                 },function(){
@@ -59,7 +68,8 @@ define(['services/services'], function (services) {
 
                 var deffered = $q.defer(),
                     params = angular.extend({
-                        sequential: 1
+                        sequential: 1,
+                        debug: settings.debug
                     },contractInsurance),
                     val;
 
@@ -68,10 +78,14 @@ define(['services/services'], function (services) {
                     json: params
                 }, null, function(data){
 
+                    if (UtilsService.errorHandler(data,'Unable to create contract insurance', deffered)) {
+                        return
+                    }
+
                     val = data.values;
                     deffered.resolve(val.length == 1 ? val[0] : null);
                 },function(){
-                    deffered.reject('Unable to fetch contract insurance');
+                    deffered.reject('Unable to create contract insurance');
                 });
 
                 return deffered.promise;

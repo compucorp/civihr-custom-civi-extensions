@@ -482,7 +482,6 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
         if (is_numeric(CRM_Utils_Array::value('is_primary', $params)))
         {
             $isPrimary = (int)$params['is_primary'];
-            dd('Setting $isPrimary to ' . $isPrimary . '.', $params);
         }
         
         $revisionResult = civicrm_api3('HRJobContractRevision', 'get', array(
@@ -492,8 +491,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
         $revision = CRM_Utils_Array::first($revisionResult['values']);
         if (empty($revision))
         {
-            dd('No revision found (id = ' . $instance->jobcontract_revision_id . '), returning.', $params);
-            // No revision found (id = $instance->jobcontract_revision_id), returning.
+            // No revision found (id = ' . $instance->jobcontract_revision_id . '), returning.
             return false;
         }
         
@@ -504,15 +502,9 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
         $jobcontract = CRM_Utils_Array::first($jobcontractResult['values']);
         if (empty($jobcontract))
         {
-            dd('No job contract found (id = ' . $revision['jobcontract_id'] . '), returning.', $params);
-            // No job contract found (id = $revision['jobcontract_id']), returning.
+            // No job contract found (id = ' . $revision['jobcontract_id'] . '), returning.
             return false;
         }
-        
-        dd('Executing SQL: ' . "SELECT c.id, c.contact_id, r.status, d.id AS details_id, d.is_primary FROM civicrm_hrjobcontract_details d
-            JOIN civicrm_hrjobcontract_revision r ON d.jobcontract_revision_id = r.id
-            JOIN civicrm_hrjobcontract c ON r.jobcontract_id = c.id
-            WHERE c.contact_id = {$jobcontract['contact_id']} AND r.status = 1 AND d.is_primary = 1 AND c.id <> {$jobcontract['id']}", $params);
         
         $hrOtherPrimaryJobContracts = CRM_Core_DAO::executeQuery(
             'SELECT c.id, c.contact_id, r.status, d.id AS details_id, d.is_primary FROM civicrm_hrjobcontract_details d
@@ -526,16 +518,13 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
         );
         
         $primaries = array();
-        dd('Setting $primaries to array().', $params);
         while ($hrOtherPrimaryJobContracts->fetch())
         {
-            dd('primaries[' . $hrOtherPrimaryJobContracts->id . '] = ' . $hrOtherPrimaryJobContracts->details_id, $params);
             $primaries[$hrOtherPrimaryJobContracts->id] = $hrOtherPrimaryJobContracts->details_id;
         }
         
         if (empty($primaries))
         {
-            dd('$primaries are empty, setting $instance->is_primary to 1 and returning.', $params);
             // There is no primary contract, setting current one to primary.
             $instance->is_primary = 1;
             $instance->save();
@@ -544,11 +533,9 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
         
         if ($isPrimary)
         {
-            dd('Setting other primaries to 0.', $params);
             // Setting other primaries to 0.
             foreach ($primaries as $key => $value)
             {
-                dd('Creating new revision for jobcontract_id = ' . $key . ' with is_primary = 0.', $params);
                 CRM_Hrjobcontract_BAO_HRJobDetails::create(
                     array(
                         'jobcontract_id' => $key,
@@ -558,18 +545,9 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
             }
         }
         
-        dd('Finally, setting $instance->is_primary to ' . $isPrimary . '.', $params);
         $instance->is_primary = $isPrimary;
         $instance->save();
-        dd('Saving and returning.', $params);
+        
         return (bool)$isPrimary;
   }
-}
-
-function dd($message, $params)
-{
-    if ((int)$params['debug'] === 1)
-    {
-        echo $message . "\n";
-    }
 }

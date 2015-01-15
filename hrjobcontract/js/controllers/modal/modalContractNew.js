@@ -35,6 +35,8 @@ define(['controllers/controllers',
             $scope.save = function () {
                 var contract = new Contract();
 
+                console.log($scope.contract.details);
+
                 contract.$save({
                     action: 'create',
                     json: {

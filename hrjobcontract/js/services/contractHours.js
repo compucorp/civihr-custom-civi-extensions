@@ -102,7 +102,15 @@ define(['services/services'], function (services) {
                     i = 0, val = data.values, len = val.length;
 
                     for (i; i < len; i++) {
-                        model[val[i].name] = null;
+                        model[val[i].name] = '';
+                    }
+
+                    if (typeof model.id !== 'undefined') {
+                        model.id = null;
+                    }
+
+                    if (typeof model.jobcontract_revision_id !== 'undefined') {
+                        model.jobcontract_revision_id = null;
                     }
 
                     deffered.resolve(model);

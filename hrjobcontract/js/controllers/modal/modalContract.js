@@ -139,6 +139,10 @@ define(['controllers/controllers',
                             entityChangedList[i].service = entityServices[entityName];
                             i++
                             entityChangedListLen = i;
+
+                            console.log('==== Entity changed:' + entityName + ' ====');
+                            console.log(contract[entityName]);
+                            console.log(contractNew[entityName]);
                         }
                     }
 

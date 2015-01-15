@@ -134,7 +134,6 @@ define(['services/services',
                         }
                     }
 
-                    console.log(model);
                     deffered.resolve(model);
                 },function(){
                     deffered.reject('Unable to fetch contract pay fields');

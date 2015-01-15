@@ -1,7 +1,9 @@
 console.log('Service: ContractLeaveService');
-define(['services/services'], function (services) {
+define(['services/services',
+        'services/utils'], function (services) {
 
-    services.factory('ContractLeaveService', ['$resource', '$q', 'settings', function ($resource, $q, settings) {
+    services.factory('ContractLeaveService', ['$resource', '$q', 'settings', 'UtilsService',
+        function ($resource, $q, settings, UtilsService) {
 
         var ContractLeave = $resource(settings.pathRest, {
             action: 'get',
@@ -24,10 +26,16 @@ define(['services/services'], function (services) {
                 }
 
                 params.sequential = 1;
+                params.debug = settings.debug;
 
                 var deffered = $q.defer();
 
                 ContractLeave.get({json: params}, function(data){
+
+                    if (UtilsService.errorHandler(data,'Unable to fetch contract leave', deffered)) {
+                        return
+                    }
+
                     deffered.resolve(data.values);
                 },function(){
                     deffered.reject('Unable to fetch contract leave');
@@ -61,16 +69,22 @@ define(['services/services'], function (services) {
                 var deffered = $q.defer(),
                     params = {
                         sequential: 1,
-                        values: contractLeave
+                        values: contractLeave,
+                        debug: settings.debug
                     };
 
                 ContractLeave.save({
                     action: 'replace',
                     json: params
                 }, null, function (data) {
+
+                    if (UtilsService.errorHandler(data,'Unable to create contract leave', deffered)) {
+                        return
+                    }
+
                     deffered.resolve(data.values);
                 }, function () {
-                    deffered.reject('Unable to fetch contract details');
+                    deffered.reject('Unable to create contract details');
                 });
 
                 return deffered.promise;

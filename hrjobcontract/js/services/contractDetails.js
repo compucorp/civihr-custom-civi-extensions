@@ -2,7 +2,8 @@ console.log('Service: ContractDetailsService');
 define(['services/services',
         'services/utils'], function (services) {
 
-    services.factory('ContractDetailsService', ['$resource', 'settings', '$q', 'UtilsService', function ($resource, settings, $q, UtilsService) {
+    services.factory('ContractDetailsService', ['$resource', 'settings', '$q', 'UtilsService',
+        function ($resource, settings, $q, UtilsService) {
         var ContractDetails = $resource(settings.pathRest, {
             action: 'get',
             entity: 'HRJobDetails',
@@ -22,6 +23,7 @@ define(['services/services',
                 }
 
                 params.sequential = 1;
+                params.debug = settings.debug;
 
                 var deffered = $q.defer(),
                     val;
@@ -66,7 +68,7 @@ define(['services/services',
                 var deffered = $q.defer(),
                     params = angular.extend({
                         sequential: 1,
-                        debug: 1
+                        debug: settings.debug
                     },contractDetails),
                     val;
 

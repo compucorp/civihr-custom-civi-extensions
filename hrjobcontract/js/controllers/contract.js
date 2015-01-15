@@ -40,7 +40,7 @@ define(['controllers/controllers',
                 };
 
                 angular.extend($scope.details, results.details);
-                $scope.details.is_primary = !!+$scope.details.is_primary;
+                //$scope.details.is_primary = !!+$scope.details.is_primary;
 
                 angular.extend($scope.hours, results.hours || contractRevisionIdObj);
                 angular.extend($scope.pay, results.pay || contractRevisionIdObj);

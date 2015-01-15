@@ -122,6 +122,8 @@ require([
                     '2': '%'
                 };
 
+                console.log(results.pay);
+
                 results.pension.is_enrolled = ['No','Yes','Opted out'];
 
                 $rootScope.options = results;
@@ -137,6 +139,7 @@ require([
         app.constant('settings', {
             classNamePrefix: 'hrjobcont-',
             contactId: decodeURIComponent((new RegExp('[?|&]cid=([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null,
+            debug: 1,
             pathApp: '/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract',
             keyApi: e.detail.keyApi,
             key: e.detail.key,

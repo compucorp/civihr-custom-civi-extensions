@@ -277,7 +277,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                 ) ,
                 'hrjob_period_start_date' => array(
                   'name' => 'period_start_date',
-                  'type' => CRM_Utils_Type::T_STRING,
+                  'type' => CRM_Utils_Type::T_DATE,
                   'title' => ts('Job Contract Start Date') ,
                   'export' => true,
                   'import' => true,
@@ -287,7 +287,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                 ) ,
                 'hrjob_period_end_date' => array(
                   'name' => 'period_end_date',
-                  'type' => CRM_Utils_Type::T_STRING,
+                  'type' => CRM_Utils_Type::T_DATE,
                   'title' => ts('Job Contract End Date') ,
                   'export' => true,
                   'import' => true,

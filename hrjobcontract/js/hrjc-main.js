@@ -117,7 +117,8 @@ require([
             pathRest: '/sites/all/modules/civicrm/extern/rest.php',
             CRM: {
                 options: CRM.FieldOptions || {},
-                defaultCurrency: CRM.jobContractTabApp.defaultCurrency
+                defaultCurrency: CRM.jobContractTabApp.defaultCurrency,
+                apiTsFmt: 'YYYY-MM-DD HH:mm:ss'
             },
             entityHistoryFields: {
                 details: [

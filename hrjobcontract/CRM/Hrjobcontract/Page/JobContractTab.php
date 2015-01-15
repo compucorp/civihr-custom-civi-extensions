@@ -30,10 +30,6 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
           'job_hours_time' => CRM_Hrjobcontract_Page_JobContractTab::getJobHoursTime(),
           'working_days' => CRM_Hrjobcontract_Page_JobContractTab::getDaysPerTime(),
           //'pay_scale' => CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_pay_scale'),
-          'benefit_name' => CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_benefit_name'),
-          'benefit_type' => CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_benefit_type'),
-          'deduction_name' => CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_deduction_name'),
-          'deduction_type' => CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_deduction_type'),
         ),
         'FieldOptions' => CRM_Hrjobcontract_Page_JobContractTab::getFieldOptions(),
         'jobContractTabApp' => array(
@@ -116,6 +112,12 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
         $fieldOptions[$entityName][$fieldName] = CRM_Core_PseudoConstant::get("CRM_Hrjobcontract_DAO_{$entityName}", $fieldName);
       }
     }
+    
+    $fieldOptions['HRJobPay']['benefit_name'] = CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_benefit_name');
+    $fieldOptions['HRJobPay']['benefit_type'] = CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_benefit_type');
+    $fieldOptions['HRJobPay']['deduction_name'] = CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_deduction_name');
+    $fieldOptions['HRJobPay']['deduction_type'] = CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_deduction_type');
+    
     return $fieldOptions;
   }
 

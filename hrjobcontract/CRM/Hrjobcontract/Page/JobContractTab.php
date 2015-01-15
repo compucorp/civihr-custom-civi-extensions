@@ -85,6 +85,7 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
         'is_paid',
         'pay_unit',
         'pay_currency',
+        'pay_cycle',
       ),
       'HRJobPension' => array(
         'pension_type',

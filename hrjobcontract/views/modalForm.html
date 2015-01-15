@@ -52,6 +52,17 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group" ng-show="showIsPrimary">
+                            <label for="{{prefix}}is-primary" class="col-sm-4 control-label control-label-checkbox">Is Primary?</label>
+
+                            <div class="col-sm-5">
+                                <input type="checkbox" id="{{prefix}}is-primary"
+                                       ng-true-value="1"
+                                       ng-false-value="0"
+                                       ng-model="contract.details.is_primary"
+                                       ng-disabled="isDisabled">
+                            </div>
+                        </div>
                         <div class="form-group required">
                             <label for="{{prefix}}period-start-date" class="col-sm-4 control-label">Contract Start Date</label>
 
@@ -285,7 +296,7 @@
 
                         <div class="col-sm-3">
                             <select id="{{prefix}}pay-cycle" class="form-control"
-                                    ng-change="calcPayPerCycleGross()"
+                                    ng-change="calcPayPerCycleGross(); calcBenefitsPerCycle(); calcDeductionsPerCycle();"
                                     ng-options="key as value for (key, value) in options.pay.pay_cycle"
                                     ng-model="contract.pay.pay_cycle"
                                     ng-disabled="isDisabled">
@@ -349,8 +360,11 @@
                                                         ng-disabled="isDisabled">
                                                 <option value="">- select -</option>
                                             </select></td>
-                                            <td><input type="text" class="form-control" ng-model="benefit.amount_pct" ng-disabled="isDisabled"></td>
-                                            <td><input type="text" class="form-control" ng-model="benefit.amount_abs" ng-disabled="isDisabled"></td>
+                                            <td><input type="text" class="form-control"
+                                                       ng-if="benefit.type == '2'"
+                                                       ng-model="benefit.amount_pct"
+                                                       ng-disabled="isDisabled"></td>
+                                            <td><input type="text" class="form-control" ng-model="benefit.amount_abs" ng-disabled="isDisabled || benefit.type == '2'"></td>
                                             <td class="action"><a class="btn btn-default btn-sm btn-danger" ng-click="remove(contract.pay.annual_benefits, $index)" ng-disabled="isDisabled">
                                                 <span class="fa fa-remove" aria-hidden="true"></span>
                                             </a></td>
@@ -405,8 +419,11 @@
                                                         ng-disabled="isDisabled">
                                                 <option value="">- select -</option>
                                             </select></td>
-                                            <td><input type="text" class="form-control" ng-model="deduction.amount_pct" ng-disabled="isDisabled"></td>
-                                            <td><input type="text" class="form-control" ng-model="deduction.amount_abs" ng-disabled="isDisabled"></td>
+                                            <td><input type="text" class="form-control"
+                                                       ng-if="deduction.type == '2'"
+                                                       ng-model="deduction.amount_pct"
+                                                       ng-disabled="isDisabled"></td>
+                                            <td><input type="text" class="form-control" ng-model="deduction.amount_abs" ng-disabled="isDisabled || deduction.type == '2'"></td>
                                             <td class="action"><a class="btn btn-default btn-sm btn-danger" ng-click="remove(contract.pay.annual_deductions, $index)" ng-disabled="isDisabled">
                                                 <span class="fa fa-remove" aria-hidden="true"></span>
                                             </a></td>

@@ -24,6 +24,8 @@ define(['controllers/controllers',
             $scope.allowSave = typeof content.allowSave !== 'undefined' ? content.allowSave : false;
             $scope.contract = {};
             $scope.isDisabled = typeof content.isDisabled !== 'undefined' ? content.isDisabled : true;
+            //$scope.showIsPrimary = utils.contractListLen > 1;
+            $scope.showIsPrimary = false;
             $scope.title = typeof content.title !== 'undefined' ? content.title : 'Contract';
             $scope.utils = utils;
 
@@ -137,6 +139,10 @@ define(['controllers/controllers',
                             entityChangedList[i].service = entityServices[entityName];
                             i++
                             entityChangedListLen = i;
+
+                            console.log('==== Entity changed:' + entityName + ' ====');
+                            console.log(contract[entityName]);
+                            console.log(contractNew[entityName]);
                         }
                     }
 

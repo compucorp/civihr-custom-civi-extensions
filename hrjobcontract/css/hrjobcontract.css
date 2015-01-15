@@ -9693,6 +9693,26 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 #hrjob-contract .cursor-pointer {
   cursor: pointer;
 }
+/* line 2, ../sass/partials/_badges.scss */
+#hrjob-contract .badge.badge-primary {
+  background-color: #428bca;
+}
+/* line 6, ../sass/partials/_badges.scss */
+#hrjob-contract .badge.badge-success {
+  background-color: #5cb85c;
+}
+/* line 10, ../sass/partials/_badges.scss */
+#hrjob-contract .badge.badge-info {
+  background-color: #5bc0de;
+}
+/* line 14, ../sass/partials/_badges.scss */
+#hrjob-contract .badge.badge-warning {
+  background-color: #f0ad4e;
+}
+/* line 18, ../sass/partials/_badges.scss */
+#hrjob-contract .badge.badge-danger {
+  background-color: #d9534f;
+}
 /* line 1, ../sass/partials/_collapse.scss */
 #hrjob-contract a.btn-collapse {
   background: none;
@@ -9720,20 +9740,24 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
   margin-top: -3px;
   padding-top: 0;
 }
-/* line 16, ../sass/partials/_forms.scss */
+/* line 15, ../sass/partials/_forms.scss */
+#hrjob-contract .form-horizontal .control-label.control-label-checkbox {
+  padding-top: 0;
+}
+/* line 20, ../sass/partials/_forms.scss */
 #hrjob-contract .form-horizontal .well {
   padding-left: 0;
   padding-right: 0;
 }
-/* line 20, ../sass/partials/_forms.scss */
+/* line 24, ../sass/partials/_forms.scss */
 #hrjob-contract .form-horizontal .well .form-group {
   margin-bottom: 0;
 }
-/* line 23, ../sass/partials/_forms.scss */
+/* line 27, ../sass/partials/_forms.scss */
 #hrjob-contract .form-horizontal .well .form-group + .form-group {
   margin-top: 15px;
 }
-/* line 31, ../sass/partials/_forms.scss */
+/* line 35, ../sass/partials/_forms.scss */
 #hrjob-contract .form-control-static .subfield {
   display: block;
 }

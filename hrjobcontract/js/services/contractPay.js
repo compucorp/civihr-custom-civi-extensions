@@ -108,7 +108,15 @@ define(['services/services'], function (services) {
                             continue;
                         }
 
-                        model[val[i].name] = null;
+                        model[val[i].name] = '';
+
+                        if (typeof model.id !== 'undefined') {
+                            model.id = null;
+                        }
+
+                        if (typeof model.jobcontract_revision_id !== 'undefined') {
+                            model.jobcontract_revision_id = null;
+                        }
                     }
 
                     console.log(model);

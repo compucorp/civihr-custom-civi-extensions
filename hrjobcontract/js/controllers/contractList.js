@@ -13,7 +13,8 @@ define(['controllers/controllers',
             $scope.contractCurrent = [];
             $scope.contractPast = [];
             $scope.utils = {
-                absenceType: {}
+                absenceType: {},
+                contractListLen: contractList.length
             };
 
             $q.all({
@@ -27,6 +28,14 @@ define(['controllers/controllers',
 
                 angular.forEach(contractList,function(contract){
                     +contract.is_current ? $scope.contractCurrent.push(contract) : $scope.contractPast.push(contract);
+                });
+
+                $scope.$watchCollection('contractCurrent',function(){
+                    $scope.utils.contractListLen = $scope.contractCurrent.length + $scope.contractPast.length;
+                });
+
+                $scope.$watchCollection('contractPast',function(){
+                    $scope.utils.contractListLen = $scope.contractCurrent.length + $scope.contractPast.length;
                 });
 
                 $scope.contractListLoaded = true;

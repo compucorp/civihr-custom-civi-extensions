@@ -52,6 +52,17 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group" ng-show="showIsPrimary">
+                            <label for="{{prefix}}is-primary" class="col-sm-4 control-label control-label-checkbox">Is Primary?</label>
+
+                            <div class="col-sm-5">
+                                <input type="checkbox" id="{{prefix}}is-primary"
+                                       ng-true-value="1"
+                                       ng-false-value="0"
+                                       ng-model="contract.details.is_primary"
+                                       ng-disabled="isDisabled">
+                            </div>
+                        </div>
                         <div class="form-group required">
                             <label for="{{prefix}}period-start-date" class="col-sm-4 control-label">Contract Start Date</label>
 
@@ -285,7 +296,7 @@
 
                         <div class="col-sm-3">
                             <select id="{{prefix}}pay-cycle" class="form-control"
-                                    ng-change="calcPayPerCycleGross()"
+                                    ng-change="calcPayPerCycleGross(); calcBenefitsPerCycle(); calcDeductionsPerCycle();"
                                     ng-options="key as value for (key, value) in options.pay.pay_cycle"
                                     ng-model="contract.pay.pay_cycle"
                                     ng-disabled="isDisabled">

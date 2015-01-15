@@ -38,9 +38,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-5 control-label">Is primary?</label>
+                        <div class="col-sm-5"></div>
                         <div class="col-sm-7">
-                            <input type="checkbox" name="primary" ng-model="details.is_primary" disabled>
+                            <span ng-if="details.is_primary && utils.contractListLen > 1"><span class="badge badge-primary">Primary</span>&nbsp;</span><span class="badge" ng-class="{'badge-primary':pay.is_paid!=0}">{{options.pay.is_paid[pay.is_paid]}}</span>
                         </div>
                     </div>
                 </div>

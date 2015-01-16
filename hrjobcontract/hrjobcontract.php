@@ -109,8 +109,12 @@ function hrjobcontract_civicrm_uninstall() {
   CRM_Core_BAO_Navigation::resetNavigation();
 
   //delete custom groups and field
-  $customGroup = civicrm_api3('CustomGroup', 'getsingle', array('return' => "id",'name' => "HRJob_Summary",));
-  civicrm_api3('CustomGroup', 'delete', array('id' => $customGroup['id']));
+  //$customGroup = civicrm_api3('CustomGroup', 'getsingle', array('return' => "id",'name' => "HRJob_Summary",));
+  $customGroup = civicrm_api3('CustomGroup', 'get', array('name' => "HRJob_Summary",));
+  $customGroupData = CRM_Utils_Array::first($customGroup['values']);
+  if (!empty($customGroupData['id'])) {
+    civicrm_api3('CustomGroup', 'delete', array('id' => $customGroupData['id']));
+  }
 
   //delete all option group and values
   CRM_Core_DAO::executeQuery("DELETE FROM civicrm_option_group WHERE name IN ('hrjc_contract_type', 'hrjc_level_type', 'hrjc_department', 'hrjc_hours_type', 'hrjc_pay_grade', 'hrjc_health_provider', 'hrjc_life_provider', 'hrjc_location', 'hrjc_pension_type', 'hrjc_region', 'hrjc_pay_scale')");

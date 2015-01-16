@@ -368,6 +368,11 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
                   'title' => ts('Location') ,
                   'maxlength' => 127,
                   'size' => CRM_Utils_Type::HUGE,
+                  'export' => true,
+                  'import' => true,
+                  'where' => 'civicrm_hrjobcontract_role.location',
+                  'headerPattern' => '',
+                  'dataPattern' => '',
                   'pseudoconstant' => array(
                     'optionGroupName' => 'hrjc_location',
                   )

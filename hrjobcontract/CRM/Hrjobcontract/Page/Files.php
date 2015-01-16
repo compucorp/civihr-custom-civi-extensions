@@ -80,7 +80,7 @@ class CRM_Hrjobcontract_Page_Files extends CRM_Core_Page {
     $config = CRM_Core_Config::singleton();
     $postParams = $_POST;
     if($postParams['entityID'] == 'undefined') {
-      $result = civicrm_api3('HRJob','get',array('options' => array('sort' => "id DESC")));
+      $result = civicrm_api3('HRJobContract','get',array('options' => array('sort' => "id DESC")));
       foreach($result['values'] as $key=>$val) {
         $id= $val['id'];
         break;

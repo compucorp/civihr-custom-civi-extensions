@@ -44,7 +44,27 @@ function civicrm_api3_h_r_job_contract_revision_delete($params) {
  * @throws API_Exception
  */
 function civicrm_api3_h_r_job_contract_revision_get($params) {
-  return _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params);
+    $revisions = $result = _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params);
+    if (!empty($revisions['values']))
+    {
+        foreach ($revisions['values'] as $key => $revision)
+        {
+            if (!empty($revision['details_revision_id']))
+            {
+                $details = civicrm_api3('HRJobDetails', 'get', array(
+                    'sequential' => 1,
+                    'jobcontract_revision_id' => $revision['id'],
+                ));
+                $isPrimary = false;
+                if (!empty($details['values'][0]['is_primary']))
+                {
+                    $isPrimary = $details['values'][0]['is_primary'];
+                }
+                $result['values'][$key]['is_primary'] = (int)$isPrimary;
+            }
+        }
+    }
+    return $result;
 }
 
 /**

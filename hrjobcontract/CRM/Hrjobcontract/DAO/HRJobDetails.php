@@ -536,12 +536,15 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
             // Setting other primaries to 0.
             foreach ($primaries as $key => $value)
             {
-                CRM_Hrjobcontract_BAO_HRJobDetails::create(
-                    array(
-                        'jobcontract_id' => $key,
-                        'is_primary' => 0,
-                    )
+                $createParams = array(
+                    'jobcontract_id' => $key,
+                    'is_primary' => 0,
                 );
+                if (!empty($params['id']))
+                {
+                    $createParams['id'] = $value;
+                }
+                CRM_Hrjobcontract_BAO_HRJobDetails::create($createParams);
             }
         }
         

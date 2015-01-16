@@ -108,6 +108,7 @@ define(['controllers/controllers',
                         results.pay.annual_benefits = $scope.contract.pay.annual_benefits;
                         results.pay.annual_deductions = $scope.contract.pay.annual_deductions;
 
+                        results.isPrimarySet = results.details.is_primary != contract.details.is_primary && +results.details.is_primary,
                         results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
 
                         $modalInstance.close(results);
@@ -186,6 +187,7 @@ define(['controllers/controllers',
 
                         results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
                         angular.extend(results.revisionCreated, {
+                            isPrimarySet: results.details.is_primary != contract.details.is_primary && +results.details.is_primary,
                             details_revision_id: results.details.jobcontract_revision_id,
                             health_revision_id: results.insurance.jobcontract_revision_id,
                             hour_revision_id: results.hours.jobcontract_revision_id,

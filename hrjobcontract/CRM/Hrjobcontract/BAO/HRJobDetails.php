@@ -15,7 +15,7 @@ class CRM_Hrjobcontract_BAO_HRJobDetails extends CRM_Hrjobcontract_DAO_HRJobDeta
         
         if (is_numeric(CRM_Utils_Array::value('is_primary', $params)) || empty($params['id'])) {
             //CRM_Core_BAO_Block::handlePrimary($params, get_class());
-            //CRM_Hrjobcontract_DAO_HRJobDetails::handlePrimary($instance, $params);
+            CRM_Hrjobcontract_DAO_HRJobDetails::handlePrimary($instance, $params);
         }
         
         $revisionResult = civicrm_api3('HRJobContractRevision', 'get', array(

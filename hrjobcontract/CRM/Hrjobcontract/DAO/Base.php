@@ -248,6 +248,8 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
   {
     $className = get_called_class();
     $entityName = _civicrm_get_entity_name($className);
+    $baoName = 'CRM_Hrjobcontract_BAO_' . $entityName;
+    $daoName = 'CRM_Hrjobcontract_DAO_' . $entityName;
     $tableName = _civicrm_get_table_name($className);
     
     $hook = empty($params['id']) ? 'create' : 'edit';
@@ -265,6 +267,19 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
         _civicrm_hrjobcontract_api3_set_current_revision($previousEntityParams, $tableName);
         $previousEntityResult = civicrm_api3($entityName, 'get', $previousEntityParams);
         $previousEntity = CRM_Utils_Array::first($previousEntityResult['values']);
+        
+        $classInstance = new $daoName();
+        $previousInstance = $classInstance->create($previousEntity);
+        /*$previousInstance = new $baoName();
+        if (!empty($previousEntity))
+        {
+            $previousInstance->id = $previousEntity['id'];
+            $previousInstance->find(true);
+        }*/
+        if (!empty($params['is_primary']))
+        {
+            $previousInstance->is_primary = null;
+        }
         
         if (empty($params['jobcontract_revision_id']))
         {
@@ -298,9 +313,9 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
             {
                 if (is_array($value))
                 {
-                    $value = json_encode($value);
+                    $value = json_encode($previousInstance->$key);
                 }
-                $previousEntityData[$key] = $value;
+                $previousEntityData[$key] = $previousInstance->$key;
             }
             $params = array_merge($previousEntityData, $params);
         }
@@ -308,6 +323,11 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
     
     CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);
     $instance = new $className();
+    if (!empty($params['id']))
+    {
+        $instance->id = $params['id'];
+        $instance->find(true);
+    }
     $instance->copyValues($params);
     $instance->save();
     CRM_Utils_Hook::post($hook, $entityName, $instance->id, $instance);

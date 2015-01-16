@@ -1,11 +1,17 @@
 console.log('Controller: ContractListCtrl');
 define(['controllers/controllers',
+        'filters/getObjById',
         'services/contractDetails',
+        'services/contractHours',
+        'services/contractInsurance',
+        'services/contractLeave',
+        'services/contractPay',
+        'services/contractPension',
         'services/utils'], function(controllers){
-    controllers.controller('ContractListCtrl',['$scope','$rootElement','$modal','$q','contractList','ContractService',
+    controllers.controller('ContractListCtrl',['$scope','$rootElement','$modal','$q', '$filter', 'contractList','ContractService',
         'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractInsuranceService',
         'ContractPensionService', 'UtilsService','settings',
-        function($scope, $rootElement, $modal, $q, contractList, ContractService, ContractDetailsService,
+        function($scope, $rootElement, $modal, $q, $filter, contractList, ContractService, ContractDetailsService,
                  ContractHoursService, ContractPayService, ContractInsuranceService, ContractPensionService,
                  UtilsService, settings){
 

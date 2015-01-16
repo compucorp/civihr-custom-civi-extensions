@@ -268,17 +268,20 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
         $previousEntityResult = civicrm_api3($entityName, 'get', $previousEntityParams);
         $previousEntity = CRM_Utils_Array::first($previousEntityResult['values']);
         
-        $classInstance = new $daoName();
-        $previousInstance = $classInstance->create($previousEntity);
-        /*$previousInstance = new $baoName();
         if (!empty($previousEntity))
         {
-            $previousInstance->id = $previousEntity['id'];
-            $previousInstance->find(true);
-        }*/
-        if (!empty($params['is_primary']))
-        {
-            $previousInstance->is_primary = null;
+            $classInstance = new $daoName();
+            $previousInstance = $classInstance->create($previousEntity);
+            /*$previousInstance = new $baoName();
+            if (!empty($previousEntity))
+            {
+                $previousInstance->id = $previousEntity['id'];
+                $previousInstance->find(true);
+            }*/
+            if (!empty($params['is_primary']))
+            {
+                $previousInstance->is_primary = null;
+            }
         }
         
         if (empty($params['jobcontract_revision_id']))

@@ -170,10 +170,31 @@ require([
                         label: 'Pay Unit',
                         name: 'pay_unit',
                         isOption: true
-                    },
+                    }
                 ],
                 leave: [],
-                insurance: [],
+                insurance: [
+                    {
+                        label: 'Health Insurance Provider',
+                        name: 'provider',
+                        isOption: false
+                    },
+                    {
+                        label: 'Health Insurance Plan Type',
+                        name: 'plan_type',
+                        isOption: true
+                    },
+                    {
+                        label: 'Life Insurance Provider',
+                        name: 'provider_life_insurance',
+                        isOption: false
+                    },
+                    {
+                        label: 'Life Insurance Plan Type',
+                        name: 'plan_type_life_insurance',
+                        isOption: true
+                    },
+                ],
                 pension: []
             }
         });

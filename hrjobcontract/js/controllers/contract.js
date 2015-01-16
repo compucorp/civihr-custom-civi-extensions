@@ -40,15 +40,16 @@ define(['controllers/controllers',
                 };
 
                 angular.extend($scope.details, results.details);
-                //$scope.details.is_primary = !!+$scope.details.is_primary;
-
                 angular.extend($scope.hours, results.hours || contractRevisionIdObj);
                 angular.extend($scope.pay, results.pay || contractRevisionIdObj);
-
                 $scope.leave = results.leave.length ? results.leave : ContractLeaveService.model($scope.utils.absenceType, contractRevisionIdObj);
-
                 angular.extend($scope.insurance, results.insurance || contractRevisionIdObj);
                 angular.extend($scope.pension, results.pension || contractRevisionIdObj);
+
+                if (+$scope.details.is_primary) {
+                    console.log("$broadcast('unsetIsPrimary," + contractId +"')");
+                    $scope.$parent.$parent.$broadcast('unsetIsPrimary', contractId);;
+                }
 
                 $scope.contractLoaded = true;
                 $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
@@ -172,6 +173,11 @@ define(['controllers/controllers',
                         });
                     }
 
+                    if (results.isPrimarySet) {
+                        console.log("$broadcast('unsetIsPrimary," + contractId +"')");
+                        $scope.$parent.$parent.$broadcast('unsetIsPrimary', contractId);;
+                    }
+
                 });
             };
 
@@ -222,6 +228,13 @@ define(['controllers/controllers',
 
                 return $modal.open(options);
             }
+
+            $scope.$on('unsetIsPrimary',function(e, excludeContractId){
+                console.log("$on('unsetIsPrimary," + contractId +"')");
+                if (contractId != excludeContractId) {
+                    $scope.details.is_primary = 0;
+                }
+            });
 
         }]);
 });

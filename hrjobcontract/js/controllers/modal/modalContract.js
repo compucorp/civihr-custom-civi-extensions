@@ -17,7 +17,6 @@ define(['controllers/controllers',
                  ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService,
                  ContractPensionService, action, contract, content, UtilsService, utils, settings){
 
-
             var content = content || {},
                 action = action || 'view';
 

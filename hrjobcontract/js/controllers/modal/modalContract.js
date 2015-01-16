@@ -112,6 +112,9 @@ define(['controllers/controllers',
                         results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
 
                         $modalInstance.close(results);
+                    },function(reason){
+                        alert(reason);
+                        $modalInstance.dismiss();
                     });
                 }
 

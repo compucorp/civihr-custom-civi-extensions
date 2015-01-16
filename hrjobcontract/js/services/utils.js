@@ -44,8 +44,7 @@ define(['services/services'], function (services) {
         }
     }]);
 
-    /** To be removed **/
-    services.factory('tempAPI', ['$resource','settings', function ($resource, settings) {
+    services.factory('testAPI', ['$resource','settings', function ($resource, settings) {
         return {
             resource: function(entity, action, json) {
 
@@ -66,7 +65,7 @@ define(['services/services'], function (services) {
         }
     }]);
 
-    services.factory('UtilsService', ['API','tempAPI','settings','$q', function (API, tempAPI, settings, $q) {
+    services.factory('UtilsService', ['API','testAPI','settings','$q', function (API, testAPI, settings, $q) {
         return {
             getAbsenceType: function(){
                 var deffered = $q.defer();
@@ -97,7 +96,7 @@ define(['services/services'], function (services) {
             getPayScaleGrade: function(){
                 var deffered = $q.defer();
 
-                tempAPI.resource('HRPayScaleGrade','get',{
+                testAPI.resource('HRPayScaleGrade','get',{
                     sequential: 1
                 }).get(function(data){
                     deffered.resolve(data.values);

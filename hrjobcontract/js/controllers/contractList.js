@@ -16,6 +16,7 @@ define(['controllers/controllers',
                  UtilsService, settings){
 
             $scope.contractListLoaded = false;
+            $scope.contractIdPrimary = 0;
             $scope.contractCurrent = [];
             $scope.contractPast = [];
             $scope.utils = {
@@ -34,6 +35,12 @@ define(['controllers/controllers',
 
                 angular.forEach(contractList,function(contract){
                     +contract.is_current ? $scope.contractCurrent.push(contract) : $scope.contractPast.push(contract);
+
+                    console.log('test');
+                    console.log(contract.is_primary);
+                    if (+contract.is_primary) {
+                        $scope.contractIdPrimary = contract.id;
+                    }
                 });
 
                 $scope.$watchCollection('contractCurrent',function(){

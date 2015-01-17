@@ -47,7 +47,6 @@ define(['controllers/controllers',
                 angular.extend($scope.pension, results.pension || contractRevisionIdObj);
 
                 if (+$scope.details.is_primary) {
-                    console.log("$broadcast('unsetIsPrimary," + contractId +"')");
                     $scope.$parent.$parent.$broadcast('unsetIsPrimary', contractId);;
                 }
 
@@ -230,7 +229,6 @@ define(['controllers/controllers',
             }
 
             $scope.$on('unsetIsPrimary',function(e, excludeContractId){
-                console.log("$on('unsetIsPrimary," + contractId +"')");
                 if (contractId != excludeContractId) {
                     $scope.details.is_primary = 0;
                 }

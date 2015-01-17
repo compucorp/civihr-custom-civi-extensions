@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<extension key="org.civicrm.hrabsence" type="module">
+<extension key="org.civicrm.hrabsence-compucorp" type="module">
   <file>hrabsence</file>
   <name>Absence (CiviHR)</name>
   <description>Track sick-days, vacation-days, etc</description>
@@ -9,12 +9,12 @@
     <email>info@civicrm.org</email>
   </maintainer>
   <releaseDate>2014-10-10</releaseDate>
-  <version>1.4.0</version>
+  <version>1.5.0</version>
   <develStage>beta</develStage>
   <compatibility>
     <ver>4.5</ver>
   </compatibility>
-  <comments>This is a new, undeveloped module</comments>
+  <comments>This is a new version for Absence (CiviHR) extension</comments>
   <civix>
     <namespace>CRM/HRAbsence</namespace>
   </civix>

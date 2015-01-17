@@ -61,6 +61,13 @@ function civicrm_api3_h_r_job_contract_get($params) {
             }
         }
         $contracts['values'][$key]['is_current'] = (int)$isCurrent;
+        
+        $isPrimary = false;
+        if (!empty($details['is_primary']))
+        {
+            $isPrimary = $details['is_primary'];
+        }
+        $contracts['values'][$key]['is_primary'] = (int)$isPrimary;
     }
     
     return $contracts;

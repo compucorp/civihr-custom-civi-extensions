@@ -29,6 +29,10 @@ define(['controllers/controllers',
 
             angular.copy(contract,$scope.contract);
 
+            $scope.setFile = function(el){
+                $scope.contract.details.contract_file = el.files[0];
+            }
+
             $scope.cancel = function () {
 
                 if (action == 'view' || angular.equals(contract,$scope.contract)) {
@@ -113,7 +117,7 @@ define(['controllers/controllers',
 
                         $modalInstance.close(results);
                     },function(reason){
-                        alert(reason);
+                        CRM.alert(reason, 'Error', 'error');
                         $modalInstance.dismiss();
                     });
                 }
@@ -185,9 +189,9 @@ define(['controllers/controllers',
                         results.pay.annual_benefits = contractNew.pay.annual_benefits;
                         results.pay.annual_deductions = contractNew.pay.annual_deductions;
 
+                        results.isPrimarySet = results.details.is_primary != contract.details.is_primary && +results.details.is_primary;
                         results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
                         angular.extend(results.revisionCreated, {
-                            isPrimarySet: results.details.is_primary != contract.details.is_primary && +results.details.is_primary,
                             details_revision_id: results.details.jobcontract_revision_id,
                             health_revision_id: results.insurance.jobcontract_revision_id,
                             hour_revision_id: results.hours.jobcontract_revision_id,

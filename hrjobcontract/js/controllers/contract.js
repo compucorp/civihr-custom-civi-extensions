@@ -46,10 +46,6 @@ define(['controllers/controllers',
                 angular.extend($scope.insurance, results.insurance || contractRevisionIdObj);
                 angular.extend($scope.pension, results.pension || contractRevisionIdObj);
 
-                if (+$scope.details.is_primary) {
-                    $scope.$parent.$parent.$broadcast('unsetIsPrimary', contractId);;
-                }
-
                 $scope.contractLoaded = true;
                 $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
 
@@ -142,6 +138,7 @@ define(['controllers/controllers',
                 modalInstance = $modal.open(options);
 
                 modalInstance.result.then(function(results){
+                    console.log(results);
 
                     if (results.requireReload) {
                         $route.reload();
@@ -173,8 +170,7 @@ define(['controllers/controllers',
                     }
 
                     if (results.isPrimarySet) {
-                        console.log("$broadcast('unsetIsPrimary," + contractId +"')");
-                        $scope.$parent.$parent.$broadcast('unsetIsPrimary', contractId);;
+                        $scope.$parent.$parent.toggleIsPrimary(contractId);
                     }
 
                 });
@@ -202,7 +198,7 @@ define(['controllers/controllers',
                         entity = 'hours';
                         break;
                     case 'leave':
-                        alert('Soon!');
+                        CRM.alert(null, 'Soon!');
                         return
                         break;
                 }
@@ -229,7 +225,7 @@ define(['controllers/controllers',
             }
 
             $scope.$on('unsetIsPrimary',function(e, excludeContractId){
-                if (contractId != excludeContractId) {
+                if (contractId == excludeContractId) {
                     $scope.details.is_primary = 0;
                 }
             });

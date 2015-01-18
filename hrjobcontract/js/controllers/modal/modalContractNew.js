@@ -52,13 +52,14 @@ define(['controllers/controllers',
                         contractPension = $scope.contract.pension;
 
                     contract.is_current = !contractDetails.period_end_date || new Date(contractDetails.period_end_date) > new Date();
+                    contract.is_primary = $scope.contract.details.is_primary;
 
                     UtilsService.prepareEntityIds(contractDetails, contractId);
 
                     ContractDetailsService.save(contractDetails).then(function(results){
                         return results.jobcontract_revision_id;
                     },function(reason){
-                        alert(reason);
+                        CRM.alert(reason, 'Error', 'error');
                         ContractService.delete(contractId);
                         $modalInstance.dismiss();
                         return $q.reject();

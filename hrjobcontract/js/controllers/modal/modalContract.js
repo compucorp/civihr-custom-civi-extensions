@@ -241,6 +241,5 @@ define(['controllers/controllers',
                 }
             }
 
-
         }]);
 });

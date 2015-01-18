@@ -18,11 +18,10 @@ define(['controllers/controllers',
 
             $scope.contractLoaded = false;
             $scope.isCollapsed = true;
-            $scope.model = angular.copy($scope.model);
             $scope.revisionList = [];
             $scope.revisionDataList = [];
 
-            angular.extend($scope, $scope.model);
+            angular.extend($scope, angular.copy($scope.model));
 
             $q.all({
                 details: ContractDetailsService.getOne({ jobcontract_id: contractId}),
@@ -51,6 +50,7 @@ define(['controllers/controllers',
                 $scope.$watch('contract.is_primary',function(){
                     $scope.isCollapsed = !+$scope.contract.is_primary;
                 });
+
             });
 
 
@@ -99,7 +99,7 @@ define(['controllers/controllers',
                                             jobcontract_revision_id: results.details.jobcontract_revision_id
                                         };
 
-                                    angular.extend(contract, $scope.model);
+                                    angular.extend(contract, angular.copy($scope.model));
                                     angular.extend(contract.details, results.details);
                                     angular.extend(contract.hours, results.hours || contractRevisionIdObj);
                                     angular.extend(contract.pay, results.pay || contractRevisionIdObj);
@@ -138,6 +138,7 @@ define(['controllers/controllers',
                 }
 
                 modalInstance = $modal.open(options);
+
 
                 modalInstance.result.then(function(results){
 

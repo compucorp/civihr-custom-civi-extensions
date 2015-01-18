@@ -27,6 +27,9 @@ define(['controllers/controllers',
 
             $scope.contract.leave = ContractLeaveService.model($scope.utils.absenceType);
 
+            $scope.setFile = function(el){
+                $scope.contract.details.contract_file = el.files[0];
+            }
 
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
@@ -52,11 +55,11 @@ define(['controllers/controllers',
                         contractPension = $scope.contract.pension;
 
                     contract.is_current = !contractDetails.period_end_date || new Date(contractDetails.period_end_date) > new Date();
-                    contract.is_primary = $scope.contract.details.is_primary;
 
                     UtilsService.prepareEntityIds(contractDetails, contractId);
 
                     ContractDetailsService.save(contractDetails).then(function(results){
+                        contract.is_primary = results.is_primary;
                         return results.jobcontract_revision_id;
                     },function(reason){
                         CRM.alert(reason, 'Error', 'error');

@@ -33,6 +33,8 @@ define(['controllers/controllers',
             }).then(function(model){
                 $scope.model = model;
 
+                contractList = $filter('orderBy')(contractList,'-is_primary');
+
                 angular.forEach(contractList,function(contract){
                     +contract.is_current ? $scope.contractCurrent.push(contract) : $scope.contractPast.push(contract);
 
@@ -72,7 +74,19 @@ define(['controllers/controllers',
             });
 
             $scope.toggleIsPrimary = function(contractId) {
+                var contractPrimaryOld, contractPrimaryNew;
+
                 $scope.$broadcast('unsetIsPrimary',$scope.contractIdPrimary);
+
+                contractPrimaryOld = $filter('getObjById')($scope.contractCurrent,$scope.contractIdPrimary) || $filter('getObjById')($scope.contractPast,$scope.contractIdPrimary) || {};
+                contractPrimaryNew = $filter('getObjById')($scope.contractCurrent,contractId) || $filter('getObjById')($scope.contractPast,contractId) || {};
+
+                contractPrimaryOld.is_primary = '0';
+                contractPrimaryNew.is_primary = '1';
+
+                $scope.contractCurrent = $filter('orderBy')($scope.contractCurrent,'-is_primary');
+                $scope.contractPast = $filter('orderBy')($scope.contractPast,'-is_primary');
+
                 $scope.contractIdPrimary = contractId;
             }
 

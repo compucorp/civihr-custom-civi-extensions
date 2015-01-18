@@ -47,8 +47,10 @@ define(['controllers/controllers',
                 angular.extend($scope.pension, results.pension || contractRevisionIdObj);
 
                 $scope.contractLoaded = true;
-                $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
 
+                $scope.$watch('contract.is_primary',function(){
+                    $scope.isCollapsed = !+$scope.contract.is_primary;
+                });
             });
 
 

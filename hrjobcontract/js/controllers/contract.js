@@ -140,7 +140,6 @@ define(['controllers/controllers',
                 modalInstance = $modal.open(options);
 
                 modalInstance.result.then(function(results){
-                    console.log(results);
 
                     if (results.requireReload) {
                         $route.reload();

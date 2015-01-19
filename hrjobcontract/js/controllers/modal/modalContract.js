@@ -11,11 +11,11 @@ define(['controllers/controllers',
 
     controllers.controller('ModalContractCtrl',['$scope','$modal', '$modalInstance','$q', '$rootElement',
         'ContractService', 'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
-        'ContractInsuranceService', 'ContractPensionService', 'action', 'contract', 'content', 'UtilsService', 'utils',
+        'ContractInsuranceService', 'ContractPensionService', 'FileUploader', 'action', 'contract', 'content', 'UtilsService', 'utils',
         'settings',
         function($scope, $modal, $modalInstance, $q, $rootElement, ContractService, ContractDetailsService,
                  ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService,
-                 ContractPensionService, action, contract, content, UtilsService, utils, settings){
+                 ContractPensionService, FileUploader, action, contract, content, UtilsService, utils, settings){
 
             var content = content || {},
                 action = action || 'view';
@@ -29,10 +29,6 @@ define(['controllers/controllers',
             $scope.utils = utils;
 
             angular.copy(contract,$scope.contract);
-
-            $scope.setFile = function(el){
-                $scope.contract.details.contract_file = el.files[0];
-            }
 
             $scope.cancel = function () {
 

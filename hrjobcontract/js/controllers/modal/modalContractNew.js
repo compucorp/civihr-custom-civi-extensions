@@ -27,10 +27,6 @@ define(['controllers/controllers',
 
             $scope.contract.leave = ContractLeaveService.model($scope.utils.absenceType);
 
-            $scope.setFile = function(el){
-                $scope.contract.details.contract_file = el.files[0];
-            }
-
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
             };

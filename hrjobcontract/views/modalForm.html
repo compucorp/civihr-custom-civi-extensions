@@ -140,8 +140,38 @@
 
                             <div class="col-sm-8">
                                 <input type="file" class="form-control-file" id="{{prefix}}contract-file"
-                                       onchange="angular.element(this).scope().setFile(this)"
+                                       nv-file-select
+                                       uploader="uploaderContractFile"
+                                       multiple
                                        ng-disabled="isDisabled">
+                                <table class="table table-condensed {{prefix}}table-upload" ng-show="uploaderContractFile.queue.length">
+                                    <colgroup>
+                                        <col class="col-index">
+                                        <col class="col-name">
+                                        <col class="col-size" ng-show="uploaderContractFile.isHTML5">
+                                        <col class="col-action">
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th ng-show="uploaderContractFile.isHTML5">Size</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in uploaderContractFile.queue">
+                                            <td><strong>{{$index+1}}</strong></td>
+                                            <td><strong>{{ item.file.name }}</strong></td>
+                                            <td ng-show="uploaderContractFile.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                                            <td nowrap>
+                                                <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                                    <span class="glyphicon glyphicon-trash"></span> Remove
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

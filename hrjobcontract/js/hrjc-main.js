@@ -111,13 +111,13 @@ require([
 
         app.constant('settings', {
             classNamePrefix: 'hrjobcont-',
-            contactId: decodeURIComponent((new RegExp('[?|&]cid=([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null,
+            contactId: +CRM.cid||null,
             debug: 1,
             pathApp: CRM.jobContractTabApp.path,
             pathTpl: CRM.jobContractTabApp.path + 'views/',
             keyApi: e.detail.keyApi,
             key: e.detail.key,
-            pathRest: '/sites/all/modules/civicrm/extern/rest.php',
+            pathRest: CRM.url('sites/all/modules/civicrm/extern/rest.php'),
             CRM: {
                 options: CRM.FieldOptions || {},
                 defaultCurrency: CRM.jobContractTabApp.defaultCurrency,

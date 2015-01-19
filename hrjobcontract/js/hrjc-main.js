@@ -117,7 +117,7 @@ require([
             pathTpl: CRM.jobContractTabApp.path + 'views/',
             keyApi: e.detail.keyApi,
             key: e.detail.key,
-            pathRest: CRM.url('sites/all/modules/civicrm/extern/rest.php'),
+            pathRest: CRM.config.resourceBase + '/extern/rest.php',
             CRM: {
                 options: CRM.FieldOptions || {},
                 defaultCurrency: CRM.jobContractTabApp.defaultCurrency,

@@ -9,12 +9,16 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
     // $this->executeCustomDataFile('xml/customdata.xml');
     $this->executeSqlFile('sql/install.sql');
     
-    CRM_Core_DAO::executeQuery("
-      INSERT INTO `civicrm_contact` (`contact_type`, `contact_sub_type`, `do_not_email`, `do_not_phone`, `do_not_mail`, `do_not_sms`, `do_not_trade`, `is_opt_out`, `legal_identifier`, `external_identifier`, `sort_name`, `display_name`, `nick_name`, `legal_name`, `image_URL`, `preferred_communication_method`, `preferred_language`, `preferred_mail_format`, `hash`, `api_key`, `source`, `first_name`, `middle_name`, `last_name`, `prefix_id`, `suffix_id`, `formal_title`, `communication_style_id`, `email_greeting_id`, `email_greeting_custom`, `email_greeting_display`, `postal_greeting_id`, `postal_greeting_custom`, `postal_greeting_display`, `addressee_id`, `addressee_custom`, `addressee_display`, `job_title`, `gender_id`, `birth_date`, `is_deceased`, `deceased_date`, `household_name`, `primary_contact_id`, `organization_name`, `sic_code`, `user_unique_id`, `employer_id`, `is_deleted`, `created_date`, `modified_date`) VALUES
-      ('Individual', NULL, 0, 0, 0, 0, 0, 0, NULL, NULL, 'apiclient', 'apiclient@compucorp.co.uk', NULL, NULL, NULL, NULL, 'en_US', 'Both', '', 'demoapikey', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 'Dear', 1, NULL, 'Dear', 1, NULL, '', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2014-12-01 13:59:51', '2014-12-11 15:51:50');
-    ");
+    $userPassword = md5(date('YmdHis') . rand(1, 99999));
+    $userApiKey = 'hrjc9c9jwe5v7upfzb40f6aq';
+    $userEmail = 'apiclient@compucorp.co.uk';
+    $userName = 'apiclient';
+    exec('drush -y user-create --password="' . $userPassword . '" --mail="' . $userEmail . '" "' . $userName . '"', $output);
+    exec('drush -y user-add-role civicrm_webtest_user "' . $userName . '"', $output);
+    CRM_Core_DAO::executeQuery("UPDATE civicrm_contact SET api_key = '" . $userApiKey . "' WHERE sort_name = '{$userEmail}'");
     
     $this->migrateData();
+    $this->upgradeBundle();
   }
   
   /*
@@ -240,68 +244,39 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
         
         return CRM_Core_DAO::executeQuery($insertQuery, $insertParams);
     }
-  
-/*  public function upgrade_u0010() {
-      $this->ctx->log->info('Applying update 0010');
-      CRM_Core_DAO::executeQuery("
-        INSERT INTO `civicrm_contact` (`contact_type`, `contact_sub_type`, `do_not_email`, `do_not_phone`, `do_not_mail`, `do_not_sms`, `do_not_trade`, `is_opt_out`, `legal_identifier`, `external_identifier`, `sort_name`, `display_name`, `nick_name`, `legal_name`, `image_URL`, `preferred_communication_method`, `preferred_language`, `preferred_mail_format`, `hash`, `api_key`, `source`, `first_name`, `middle_name`, `last_name`, `prefix_id`, `suffix_id`, `formal_title`, `communication_style_id`, `email_greeting_id`, `email_greeting_custom`, `email_greeting_display`, `postal_greeting_id`, `postal_greeting_custom`, `postal_greeting_display`, `addressee_id`, `addressee_custom`, `addressee_display`, `job_title`, `gender_id`, `birth_date`, `is_deceased`, `deceased_date`, `household_name`, `primary_contact_id`, `organization_name`, `sic_code`, `user_unique_id`, `employer_id`, `is_deleted`, `created_date`, `modified_date`) VALUES
-        ('Individual', NULL, 0, 0, 0, 0, 0, 0, NULL, NULL, 'apiclient', 'apiclient@compucorp.co.uk', NULL, NULL, NULL, NULL, 'en_US', 'Both', '', 'demoapikey', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 'Dear', 1, NULL, 'Dear', 1, NULL, '', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2014-12-01 13:59:51', '2014-12-11 15:51:50');
-      ");
-      return TRUE;
-  }*/
-  
-  public function upgrade_u0999() {
-    $this->ctx->log->info('Applying update 0999');
-    $this->executeCustomDataFile('xml/option_group_install.xml');
-    return TRUE;
-  }
-
-  public function upgrade_u1101() {
-    $this->ctx->log->info('Applying update 1101');
-    $this->executeCustomDataFile('xml/1101_departments.xml');
-    return TRUE;
-  }
-
-  public function upgrade_u1103() {
-    $this->ctx->log->info('Applying update 1103');
     
+  public function upgradeBundle() {
+    //$this->ctx->log->info('Applying update 0999');
+    $this->executeCustomDataFile('xml/option_group_install.xml');
+
+    //$this->ctx->log->info('Applying update 1101');
+    $this->executeCustomDataFile('xml/1101_departments.xml');
+
+    //$this->ctx->log->info('Applying update 1103');
     if (!CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup','hrjc_life_provider', 'name')) {
       $this->executeCustomDataFile('xml/1103_life_provider.xml');
     }
-    return TRUE;
-  }
-  public function upgrade_u1105() {
-    $this->ctx->log->info('Applying update 1105');
-    
+
+    //$this->ctx->log->info('Applying update 1105');
     if (!CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup','hrjc_pension_type', 'name')) {
       $this->executeCustomDataFile('xml/1105_pension_type.xml');
     }
-    return TRUE;
-  }
 
-  public function upgrade_u1201() {
-    $this->ctx->log->info('Applying update 1201');
-
+    /* DEPRECATED:
+    //$this->ctx->log->info('Applying update 1201');
     //get all fields of Custom Group "HRJob_Summary"
     $params = array(
       'custom_group_id' => 'HRJob_Summary',
     );
     $results = civicrm_api3('CustomField', 'get', $params);
-
     foreach ($results['values'] as $result) {
       $result['is_view'] = 0; // make the field editable
       civicrm_api3('CustomField', 'create', $result);
     }
-
     //disable trigger
-    CRM_Core_DAO::triggerRebuild();
-
-    return TRUE;
-  }
-
-  public function upgrade_u1202() {
-    $this->ctx->log->info('Applying update 1202');
-
+    CRM_Core_DAO::triggerRebuild();*/
+    
+    //$this->ctx->log->info('Applying update 1202');
     //Add job import navigation menu
     $weight = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'Import Contacts', 'weight', 'name');
     $contactNavId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'Contacts', 'id', 'name');
@@ -319,12 +294,7 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
     );
     $importJobNavigation->copyValues($params);
     $importJobNavigation->save();
-    return TRUE;
-  }
-
-  public function upgrade_u1400() {
-    $this->ctx->log->info('Applying update 1400');
-
+    //$this->ctx->log->info('Applying update 1400');
     $optionGroupID = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjc_pay_scale', 'id', 'name');
     if (!$optionGroupID) {
         $params = array(
@@ -345,7 +315,7 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
           civicrm_api3('OptionValue', 'create', $opValueParams);
         }
     }
-
+    
     $i = 4;
     $params = array(
       'option_group_id' => 'hrjc_contract_type',
@@ -354,26 +324,21 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
       'label' => 'Employee - Permanent',
       'value' => 'Employee - Permanent',
     );
-    
     civicrm_api3('OptionValue', 'create',$params);
+    /* DEPRECATED:
     $empoption_id = civicrm_api3('OptionValue', 'getsingle', array('return' => "id",'option_group_id' => 'hrjc_contract_type', 'name' => "Employee"));
     civicrm_api3('OptionValue', 'create',array('id' => $empoption_id['id'],'name' => "Employee_Temporary",'label' => 'Employee - Temporary', 'value' => 'Employee - Temporary'));
+    */
     $optionGroupID = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjc_contract_type', 'id', 'name');
-
     foreach (array('Intern','Trustee','Volunteer') as $opName) {
       $i++;
       CRM_Core_DAO::executeQuery("UPDATE civicrm_option_value SET weight = {$i} WHERE name = '{$opName}' and option_group_id = {$optionGroupID}");
     }
-
     $optionGroupId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjc_hours_type', 'id', 'name');
-
     //change value of stored hours type
     CRM_Core_DAO::executeQuery("UPDATE civicrm_hrjobcontract_hour SET hours_type = CASE hours_type WHEN 'full' THEN 8 WHEN 'part' THEN 4 WHEN 'casual' THEN 0 ELSE NULL END");
-    return TRUE;
-  }
 
-  public function upgrade_u1401() {
-    $this->ctx->log->info('Applying update 1401');
+    //$this->ctx->log->info('Applying update 1401');
     $administerNavId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'Dropdown Options', 'id', 'name');
     $params = array(
       'label'      => ts('Hours Types'),
@@ -385,11 +350,8 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
     );
     CRM_Core_BAO_Navigation::add($params);
     CRM_Core_BAO_Navigation::resetNavigation();
-    return TRUE;
-  }
 
-  public function upgrade_u1402() {
-    $this->ctx->log->info('Applying update 1402');
+    //$this->ctx->log->info('Applying update 1402');
     //Upgrade for HR-394 and HR-395
     $optionGroupID = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjc_region', 'id', 'name');
     if (!$optionGroupID) {
@@ -401,95 +363,37 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
       civicrm_api3('OptionGroup', 'create', $params);
     }
 
-    return TRUE;
-  }
-
-  public function upgrade_u1403() {
-    $this->ctx->log->info('Applying update 1403');
-
-    $result = civicrm_api3('HRJobHour', 'get');
-    foreach ($result['values'] as $key => $value) {
-      $fteFraction = CRM_Hrjobcontract_Upgrader::decToFraction($value['hours_fte']);
-      CRM_Core_DAO::executeQuery("update civicrm_hrjobcontract_hour set fte_num={$fteFraction[0]} , fte_denom={$fteFraction[1]} where id = {$value['id']}");
+    $result = CRM_Core_DAO::executeQuery('SELECT * FROM civicrm_hrjobcontract_hour ORDER BY id ASC');
+    while ($result->fetch())
+    {
+        $fteFraction = CRM_Hrjobcontract_Upgrader::decToFraction($result->hours_fte);
+        CRM_Core_DAO::executeQuery("UPDATE civicrm_hrjobcontract_hour SET fte_num={$fteFraction[0]} , fte_denom={$fteFraction[1]} WHERE id = {$result->id}");
     }
-    return TRUE;
-  }
 
-  public function upgrade_u1404() {
-    $this->ctx->log->info('Applying update 1404');
-
+    //$this->ctx->log->info('Applying update 1404');
     $optionGroupId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjc_pay_grade', 'id', 'name');
     $sql = "UPDATE civicrm_option_value SET civicrm_option_value.value = CASE civicrm_option_value.label WHEN 'Paid' THEN 1 WHEN 'Unpaid' THEN 0 END WHERE option_group_id = $optionGroupId";
     CRM_Core_DAO::executeQuery($sql);
-
     CRM_Core_DAO::triggerRebuild();
-    return TRUE;
-  }
-  
-  public function upgrade_u1511() {
-      CRM_Core_DAO::executeQuery("UPDATE civicrm_contact SET api_key = 'demoapikey' WHERE sort_name = 'demo@example.com'");
-      return TRUE;
-  }
-  
-  public function upgrade_u1512() {
-      CRM_Core_DAO::executeQuery("INSERT INTO `civicrm_option_value` (`option_group_id`, `label`, `value`, `name`, `grouping`, `filter`, `is_default`, `weight`, `description`, `is_optgroup`, `is_reserved`, `is_active`, `component_id`, `domain_id`, `visibility_id`) VALUES
+
+    CRM_Core_DAO::executeQuery("INSERT INTO `civicrm_option_value` (`option_group_id`, `label`, `value`, `name`, `grouping`, `filter`, `is_default`, `weight`, `description`, `is_optgroup`, `is_reserved`, `is_active`, `component_id`, `domain_id`, `visibility_id`) VALUES
         (40, 'JobContract Revision Report', 'hrjobcontract/summary', 'CRM_Hrjobcontract_Report_Form_Summary', NULL, 0, 0, 54, 'JobContract Revision Report', 0, 0, 1, NULL, NULL, NULL)");
-      return TRUE;
-  }
-  
-  public function upgrade_u1513() {
-      CRM_Core_DAO::executeQuery("INSERT INTO `civicrm_setting` (`group_name`, `name`, `value`, `domain_id`, `contact_id`, `is_domain`, `component_id`, `created_date`, `created_id`) VALUES
+
+    CRM_Core_DAO::executeQuery("INSERT INTO `civicrm_setting` (`group_name`, `name`, `value`, `domain_id`, `contact_id`, `is_domain`, `component_id`, `created_date`, `created_id`) VALUES
         ('hrjobcontract', 'work_days_per_month', 'i:22;', 1, NULL, 1, NULL, '2014-12-01 03:01:02', NULL),
         ('hrjobcontract', 'work_days_per_week', 'i:5;', 1, NULL, 1, NULL, '2014-12-01 03:01:02', NULL),
         ('hrjobcontract', 'work_hour_per_day', 'i:8;', 1, NULL, 1, NULL, '2014-12-01 03:01:02', NULL),
         ('hrjobcontract', 'work_months_per_year', 'i:12;', 1, NULL, 1, NULL, '2014-12-01 03:01:02', NULL),
         ('hrjobcontract', 'work_weeks_per_year', 'i:50;', 1, NULL, 1, NULL, '2014-12-01 03:01:02', NULL)");
-      return TRUE;
-  }
-  
-  public function upgrade_u1514() {
+
     CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_hour` ADD `location_type` INT(3) NULL DEFAULT NULL AFTER `id`");
-/*    
-    $optionGroupID = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjc_hour_location_type', 'id', 'name');
-    if (!$optionGroupID) {
-        $params = array(
-          'name' => 'hrjc_hour_location_type',
-          'title' => 'Hour Location Type',
-          'is_active' => 1,
-          'is_reserved' => 1,
-        );
-        civicrm_api3('OptionGroup', 'create', $params);
-        $optionsValue = array(
-            0 => 'Head office - 40 hours per Week',
-            1 => 'Other office - 8 hours per Day',
-            2 => 'Small office - 36 hours per Week',
-        );
-        foreach ($optionsValue as $key => $value) {
-          $opValueParams = array(
-            'option_group_id' => 'hrjc_hour_location_type',
-            'name' => $value,
-            'label' => $value,
-            'value' => $key,
-          );
-          civicrm_api3('OptionValue', 'create', $opValueParams);
-        }
-    }*/
-    
-    return TRUE;
-  }
-  
-  public function upgrade_u1515() {
-      CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_revision` ADD `effective_date` DATE NULL DEFAULT NULL AFTER `modified_date`, ADD `change_reason` INT(3) NULL DEFAULT NULL AFTER `effective_date`");
-      return TRUE;
-  }
-  
-  public function upgrade_u1516() {
-      CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_hour` CHANGE `location_type` `location_standard_hours` INT(3) NULL DEFAULT NULL");
-      return TRUE;
-  }
-  
-  public function upgrade_u1517() {
-      CRM_Core_DAO::executeQuery("
+
+    CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_revision` ADD `effective_date` DATE NULL DEFAULT NULL AFTER `modified_date`, ADD `change_reason` INT(3) NULL DEFAULT NULL AFTER `effective_date`");
+
+    CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_hour` CHANGE `location_type` `location_standard_hours` INT(3) NULL DEFAULT NULL");
+
+    CRM_Core_DAO::executeQuery("DROP TABLE IF EXISTS civicrm_hrhours_location");
+    CRM_Core_DAO::executeQuery("
         CREATE TABLE IF NOT EXISTS `civicrm_hrhours_location` (
         `id` int(10) unsigned NOT NULL,
           `location` varchar(63) DEFAULT NULL,
@@ -504,11 +408,7 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
         (2, 'Other office', 8, 'Day', 1),
         (3, 'Small office', 36, 'Week', 1)
       ");
-      
-      return TRUE;
-  }
-  
-  public function upgrade_u1518() { // TODO!!!
+
     $optionGroupID = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjc_revision_change_reason', 'id', 'name');
     if (!$optionGroupID) {
         $params = array(
@@ -533,20 +433,13 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
           civicrm_api3('OptionValue', 'create', $opValueParams);
         }
     }
-    
-    return TRUE;
-  }
-  
-  public function upgrade_u1519() {
+
     CRM_Core_DAO::executeQuery("
         ALTER TABLE `civicrm_hrjobcontract_pay` ADD `annual_benefits` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `pay_is_auto_est`, ADD `annual_deductions` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `annual_benefits`
     ");
-    
-    return TRUE;
-  }
-  
-  public function upgrade_u1521() {
-      CRM_Core_DAO::executeQuery("
+
+    CRM_Core_DAO::executeQuery("DROP TABLE IF EXISTS civicrm_hrpay_scale");
+    CRM_Core_DAO::executeQuery("
         CREATE TABLE IF NOT EXISTS `civicrm_hrpay_scale` (
         `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
           `pay_scale` VARCHAR(63) DEFAULT NULL,
@@ -568,12 +461,8 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
         (6, 'UK', 'Senior', 'GBP', 35000, 'Year', 1),
         (7, 'UK', 'Junior', 'GBP', 22000, 'Year', 1)
       ");
-      
-      return TRUE;
-  }
-  
-  public function upgrade_u1522() {
-      CRM_Core_DAO::executeQuery("DROP TABLE IF EXISTS civicrm_hrhours_location");
+
+    CRM_Core_DAO::executeQuery("DROP TABLE IF EXISTS civicrm_hrhours_location");
       CRM_Core_DAO::executeQuery("
         CREATE TABLE IF NOT EXISTS `civicrm_hrhours_location` (
         `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -590,11 +479,7 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
         (2, 'Other office', 8, 'Day', 1),
         (3, 'Small office', 36, 'Week', 1)
       ");
-      
-      return TRUE;
-  }
-  
-  public function upgrade_u1523() {
+
     // pay_cycle:
     $optionGroupID = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjc_pay_cycle', 'id', 'name');
     if (!$optionGroupID) {
@@ -719,18 +604,10 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
           civicrm_api3('OptionValue', 'create', $opValueParams);
         }
     }
-    
-    return TRUE;
-  }
-  
-  public function upgrade_u1524() {
+
     CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_pay`  ADD `pay_cycle` INT(4) DEFAULT NULL  AFTER `annual_deductions`,  ADD `pay_per_cycle_gross` DECIMAL(10,2)  DEFAULT NULL  AFTER `pay_cycle`,  ADD `pay_per_cycle_net` DECIMAL(10,2)  DEFAULT NULL  AFTER `pay_per_cycle_gross`");
-    return TRUE;
-  }
-  
-  public function  upgrade_u1525() {
-      CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_revision` ADD `editor_uid` INT(10) NULL DEFAULT NULL AFTER `jobcontract_id`");
-      return TRUE;
+
+    CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_revision` ADD `editor_uid` INT(10) NULL DEFAULT NULL AFTER `jobcontract_id`");
   }
           
   function decToFraction($fte) {

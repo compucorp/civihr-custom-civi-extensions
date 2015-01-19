@@ -12,7 +12,7 @@
      */
     document.dispatchEvent(new CustomEvent('hrjcLoad', {
         detail: {
-            keyApi: "demoapikey",
+            keyApi: "hrjc9c9jwe5v7upfzb40f6aq",
             key: "{/literal}{$smarty.const.CIVICRM_SITE_KEY}{literal}"
         }
     }));

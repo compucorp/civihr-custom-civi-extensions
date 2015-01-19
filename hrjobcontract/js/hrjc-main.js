@@ -114,10 +114,11 @@ require([
             contactId: +CRM.cid||null,
             debug: 1,
             pathApp: CRM.jobContractTabApp.path,
+            pathFile: CRM.url('civicrm/hrjobcontract/file/upload'),
+            pathRest: CRM.config.resourceBase + '/extern/rest.php',
             pathTpl: CRM.jobContractTabApp.path + 'views/',
             keyApi: e.detail.keyApi,
             key: e.detail.key,
-            pathRest: CRM.config.resourceBase + '/extern/rest.php',
             CRM: {
                 options: CRM.FieldOptions || {},
                 defaultCurrency: CRM.jobContractTabApp.defaultCurrency,

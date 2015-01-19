@@ -30,6 +30,25 @@ define(['controllers/controllers',
 
             angular.copy(contract,$scope.contract);
 
+            $scope.uploaderContractFile = new FileUploader({
+                url: settings.pathFile,
+                formData: [
+                    {
+                        entityTable: 'civicrm_hrjobcontract_details'
+                    }
+                ]
+            });
+
+            $scope.uploaderEvidenceFile = new FileUploader({
+                url: settings.pathFile,
+                formData: [
+                    {
+                        entityTable: 'civicrm_hrjobcontract_pension'
+                    }
+                ],
+                queueLimit: 1
+            });
+
             $scope.cancel = function () {
 
                 if (action == 'view' || angular.equals(contract,$scope.contract)) {

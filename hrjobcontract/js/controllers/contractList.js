@@ -33,11 +33,11 @@ define(['controllers/controllers',
             }).then(function(model){
                 $scope.model = model;
 
+                contractList = $filter('orderBy')(contractList,'-is_primary');
+
                 angular.forEach(contractList,function(contract){
                     +contract.is_current ? $scope.contractCurrent.push(contract) : $scope.contractPast.push(contract);
 
-                    console.log('test');
-                    console.log(contract.is_primary);
                     if (+contract.is_primary) {
                         $scope.contractIdPrimary = contract.id;
                     }
@@ -73,6 +73,23 @@ define(['controllers/controllers',
                 console.log('Failed: ' + reason);
             });
 
+            $scope.toggleIsPrimary = function(contractId) {
+                var contractPrimaryOld, contractPrimaryNew;
+
+                $scope.$broadcast('unsetIsPrimary',$scope.contractIdPrimary);
+
+                contractPrimaryOld = $filter('getObjById')($scope.contractCurrent,$scope.contractIdPrimary) || $filter('getObjById')($scope.contractPast,$scope.contractIdPrimary) || {};
+                contractPrimaryNew = $filter('getObjById')($scope.contractCurrent,contractId) || $filter('getObjById')($scope.contractPast,contractId) || {};
+
+                contractPrimaryOld.is_primary = '0';
+                contractPrimaryNew.is_primary = '1';
+
+                $scope.contractCurrent = $filter('orderBy')($scope.contractCurrent,'-is_primary');
+                $scope.contractPast = $filter('orderBy')($scope.contractPast,'-is_primary');
+
+                $scope.contractIdPrimary = contractId;
+            }
+
             $scope.modalContract = function(action){
 
                 if (!action || action !== 'new') {
@@ -82,7 +99,7 @@ define(['controllers/controllers',
                 var modalInstance,
                     options = {
                         targetDomEl: $rootElement.find('div').eq(0),
-                        templateUrl: settings.pathApp+'/views/modalForm.html?v='+(new Date()).getTime(),
+                        templateUrl: settings.pathApp+'views/modalForm.html?v='+(new Date()).getTime(),
                         size: 'lg',
                         controller: 'ModalContractNewCtrl',
                         resolve: {
@@ -99,6 +116,9 @@ define(['controllers/controllers',
 
                 modalInstance.result.then(function(contract){
                     +contract.is_current ? $scope.contractCurrent.push(contract) : $scope.contractPast.push(contract);
+                    if (+contract.is_primary) {
+                        $scope.toggleIsPrimary(contract.id);
+                    }
                 });
             }
 
@@ -106,7 +126,7 @@ define(['controllers/controllers',
 
                 var modalInstance = $modal.open({
                     targetDomEl: $rootElement.find('div').eq(0),
-                    templateUrl: settings.pathApp+'/views/modalDialog.html?v='+(new Date()).getTime(),
+                    templateUrl: settings.pathApp+'views/modalDialog.html?v='+(new Date()).getTime(),
                     size: 'sm',
                     controller: 'ModalDialogCtrl',
                     resolve: {

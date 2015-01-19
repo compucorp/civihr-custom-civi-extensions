@@ -11,11 +11,11 @@ define(['controllers/controllers',
 
     controllers.controller('ModalContractCtrl',['$scope','$modal', '$modalInstance','$q', '$rootElement',
         'ContractService', 'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
-        'ContractInsuranceService', 'ContractPensionService', 'action', 'contract', 'content', 'UtilsService', 'utils',
+        'ContractInsuranceService', 'ContractPensionService', 'FileUploader', 'action', 'contract', 'content', 'UtilsService', 'utils',
         'settings',
         function($scope, $modal, $modalInstance, $q, $rootElement, ContractService, ContractDetailsService,
                  ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService,
-                 ContractPensionService, action, contract, content, UtilsService, utils, settings){
+                 ContractPensionService, FileUploader, action, contract, content, UtilsService, utils, settings){
 
             var content = content || {},
                 action = action || 'view';
@@ -23,11 +23,31 @@ define(['controllers/controllers',
             $scope.allowSave = typeof content.allowSave !== 'undefined' ? content.allowSave : false;
             $scope.contract = {};
             $scope.isDisabled = typeof content.isDisabled !== 'undefined' ? content.isDisabled : true;
+            $scope.isPrimaryDisabled = +contract.details.is_primary;
             $scope.showIsPrimary = utils.contractListLen > 1;
             $scope.title = typeof content.title !== 'undefined' ? content.title : 'Contract';
             $scope.utils = utils;
 
             angular.copy(contract,$scope.contract);
+
+            $scope.uploaderContractFile = new FileUploader({
+                url: settings.pathFile,
+                formData: [
+                    {
+                        entityTable: 'civicrm_hrjobcontract_details'
+                    }
+                ]
+            });
+
+            $scope.uploaderEvidenceFile = new FileUploader({
+                url: settings.pathFile,
+                formData: [
+                    {
+                        entityTable: 'civicrm_hrjobcontract_pension'
+                    }
+                ],
+                queueLimit: 1
+            });
 
             $scope.cancel = function () {
 
@@ -38,7 +58,7 @@ define(['controllers/controllers',
 
                 var modalInstance = $modal.open({
                     targetDomEl: $rootElement.find('div').eq(0),
-                    templateUrl: settings.pathApp+'/views/modalDialog.html?v='+(new Date()).getTime(),
+                    templateUrl: settings.pathApp+'views/modalDialog.html?v='+(new Date()).getTime(),
                     size: 'sm',
                     controller: 'ModalDialogCtrl',
                     resolve: {
@@ -63,7 +83,7 @@ define(['controllers/controllers',
                 function changeReason(){
                     var modalChangeReason = $modal.open({
                         targetDomEl: $rootElement.find('div').eq(0),
-                        templateUrl: settings.pathApp+'/views/modalChangeReason.html?v='+(new Date()).getTime(),
+                        templateUrl: settings.pathApp+'views/modalChangeReason.html?v='+(new Date()).getTime(),
                         controller: 'ModalChangeReasonCtrl',
                         resolve: {}
                     });
@@ -74,7 +94,7 @@ define(['controllers/controllers',
                 function confirmEdit() {
                     var modalConfirmEdit = $modal.open({
                         targetDomEl: $rootElement.find('div').eq(0),
-                        templateUrl: settings.pathApp+'/views/modalConfirmEdit.html?v='+(new Date()).getTime(),
+                        templateUrl: settings.pathApp+'views/modalConfirmEdit.html?v='+(new Date()).getTime(),
                         controller: 'ModalDialogCtrl',
                         resolve: {
                             content: function(){
@@ -113,7 +133,7 @@ define(['controllers/controllers',
 
                         $modalInstance.close(results);
                     },function(reason){
-                        alert(reason);
+                        CRM.alert(reason, 'Error', 'error');
                         $modalInstance.dismiss();
                     });
                 }
@@ -141,10 +161,6 @@ define(['controllers/controllers',
                             entityChangedList[i].service = entityServices[entityName];
                             i++
                             entityChangedListLen = i;
-
-                            console.log('==== Entity changed:' + entityName + ' ====');
-                            console.log(contract[entityName]);
-                            console.log(contractNew[entityName]);
                         }
                     }
 
@@ -185,9 +201,9 @@ define(['controllers/controllers',
                         results.pay.annual_benefits = contractNew.pay.annual_benefits;
                         results.pay.annual_deductions = contractNew.pay.annual_deductions;
 
+                        results.isPrimarySet = results.details.is_primary != contract.details.is_primary && +results.details.is_primary;
                         results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
                         angular.extend(results.revisionCreated, {
-                            isPrimarySet: results.details.is_primary != contract.details.is_primary && +results.details.is_primary,
                             details_revision_id: results.details.jobcontract_revision_id,
                             health_revision_id: results.insurance.jobcontract_revision_id,
                             hour_revision_id: results.hours.jobcontract_revision_id,
@@ -239,7 +255,6 @@ define(['controllers/controllers',
                     }
                 }
             }
-
 
         }]);
 });

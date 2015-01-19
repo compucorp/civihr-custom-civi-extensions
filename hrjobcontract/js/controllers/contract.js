@@ -18,11 +18,10 @@ define(['controllers/controllers',
 
             $scope.contractLoaded = false;
             $scope.isCollapsed = true;
-            $scope.model = angular.copy($scope.model);
             $scope.revisionList = [];
             $scope.revisionDataList = [];
 
-            angular.extend($scope, $scope.model);
+            angular.extend($scope, angular.copy($scope.model));
 
             $q.all({
                 details: ContractDetailsService.getOne({ jobcontract_id: contractId}),
@@ -46,15 +45,13 @@ define(['controllers/controllers',
                 angular.extend($scope.insurance, results.insurance || contractRevisionIdObj);
                 angular.extend($scope.pension, results.pension || contractRevisionIdObj);
 
-                if (+$scope.details.is_primary) {
-                    $scope.$parent.$parent.$broadcast('unsetIsPrimary', contractId);;
-                }
-
                 $scope.contractLoaded = true;
-                $scope.isCollapsed = !!$scope.$index || !+$scope.contract.is_current;
+
+                $scope.$watch('contract.is_primary',function(){
+                    $scope.isCollapsed = !+$scope.contract.is_primary;
+                });
 
             });
-
 
             $scope.modalContract = function(action, revisionEntityIdObj){
 
@@ -62,7 +59,7 @@ define(['controllers/controllers',
                     options = {
                         controller: 'ModalContractCtrl',
                         targetDomEl: $rootElement.find('div').eq(0),
-                        templateUrl: settings.pathApp+'/views/modalForm.html?v='+(new Date()).getTime(),
+                        templateUrl: settings.pathApp+'views/modalForm.html?v='+(new Date()).getTime(),
                         size: 'lg',
                         resolve: {
                             action: function(){
@@ -101,7 +98,7 @@ define(['controllers/controllers',
                                             jobcontract_revision_id: results.details.jobcontract_revision_id
                                         };
 
-                                    angular.extend(contract, $scope.model);
+                                    angular.extend(contract, angular.copy($scope.model));
                                     angular.extend(contract.details, results.details);
                                     angular.extend(contract.hours, results.hours || contractRevisionIdObj);
                                     angular.extend(contract.pay, results.pay || contractRevisionIdObj);
@@ -141,6 +138,7 @@ define(['controllers/controllers',
 
                 modalInstance = $modal.open(options);
 
+
                 modalInstance.result.then(function(results){
 
                     if (results.requireReload) {
@@ -173,8 +171,7 @@ define(['controllers/controllers',
                     }
 
                     if (results.isPrimarySet) {
-                        console.log("$broadcast('unsetIsPrimary," + contractId +"')");
-                        $scope.$parent.$parent.$broadcast('unsetIsPrimary', contractId);;
+                        $scope.$parent.$parent.toggleIsPrimary(contractId);
                     }
 
                 });
@@ -202,7 +199,7 @@ define(['controllers/controllers',
                         entity = 'hours';
                         break;
                     case 'leave':
-                        alert('Soon!');
+                        CRM.alert(null, 'Soon!');
                         return
                         break;
                 }
@@ -211,7 +208,7 @@ define(['controllers/controllers',
                     targetDomEl: $rootElement.find('div').eq(0),
                     size: 'lg',
                     controller: 'ModalRevisionCtrl',
-                    templateUrl: settings.pathApp+'/views/modalRevision.html?v='+(new Date()).getTime(),
+                    templateUrl: settings.pathApp+'views/modalRevision.html?v='+(new Date()).getTime(),
                     resolve: {
                         entity: function(){
                             return entity;
@@ -221,6 +218,9 @@ define(['controllers/controllers',
                         },
                         revisionList: function(){
                             return $scope.revisionList
+                        },
+                        modalContract: function(){
+                            return $scope.modalContract;
                         }
                     }
                 };
@@ -229,7 +229,7 @@ define(['controllers/controllers',
             }
 
             $scope.$on('unsetIsPrimary',function(e, excludeContractId){
-                if (contractId != excludeContractId) {
+                if (contractId == excludeContractId) {
                     $scope.details.is_primary = 0;
                 }
             });

@@ -59,7 +59,7 @@ define(['controllers/controllers',
                     options = {
                         controller: 'ModalContractCtrl',
                         targetDomEl: $rootElement.find('div').eq(0),
-                        templateUrl: settings.pathApp+'/views/modalForm.html?v='+(new Date()).getTime(),
+                        templateUrl: settings.pathApp+'views/modalForm.html?v='+(new Date()).getTime(),
                         size: 'lg',
                         resolve: {
                             action: function(){
@@ -208,7 +208,7 @@ define(['controllers/controllers',
                     targetDomEl: $rootElement.find('div').eq(0),
                     size: 'lg',
                     controller: 'ModalRevisionCtrl',
-                    templateUrl: settings.pathApp+'/views/modalRevision.html?v='+(new Date()).getTime(),
+                    templateUrl: settings.pathApp+'views/modalRevision.html?v='+(new Date()).getTime(),
                     resolve: {
                         entity: function(){
                             return entity;

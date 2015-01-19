@@ -5,6 +5,7 @@ require.config({
         angular: 'vendor/angular/angular.min',
         angularAnimate: 'vendor/angular/angular-animate.min',
         angularBootstrap: 'vendor/angular/ui-bootstrap-tpls',
+        angularFileUpload: 'vendor/angular/angular-file-upload',
         angularResource: 'vendor/angular/angular-resource.min',
         angularRoute: 'vendor/angular/angular-route.min',
         bootstrap: 'vendor/bootstrap',
@@ -68,7 +69,7 @@ require([
             $routeProvider.
                 when('/', {
                     controller: 'ContractListCtrl',
-                    templateUrl: settings.pathApp+'/views/contractList.html?v='+(new Date()).getTime(),
+                    templateUrl: settings.pathApp+'views/contractList.html?v='+(new Date()).getTime(),
                     resolve: {
                         contractList: function(ContractService){
                             return ContractService.get()
@@ -85,6 +86,7 @@ require([
         'ContractPayService', 'ContractLeaveService', 'ContractInsuranceService', 'ContractPensionService',
         function(settings, $rootScope, $q, ContractService, ContractDetailsService, ContractHoursService, ContractPayService,
                  ContractLeaveService, ContractInsuranceService, ContractPensionService){
+            $rootScope.pathTpl = settings.pathTpl;
             $rootScope.prefix = settings.classNamePrefix;
 
             $q.all({
@@ -111,7 +113,8 @@ require([
             classNamePrefix: 'hrjobcont-',
             contactId: decodeURIComponent((new RegExp('[?|&]cid=([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null,
             debug: 1,
-            pathApp: '/sites/all/modules/civicrm/tools/extensions/civihr/hrjobcontract',
+            pathApp: CRM.jobContractTabApp.path,
+            pathTpl: CRM.jobContractTabApp.path + 'views/',
             keyApi: e.detail.keyApi,
             key: e.detail.key,
             pathRest: '/sites/all/modules/civicrm/extern/rest.php',

@@ -54,7 +54,7 @@ define(['services/services'], function (services) {
                     return null;
                 }
 
-                return $resource(settings.pathApp+'/js/data/'+entity+'.json',{
+                return $resource(settings.pathApp+'js/data/'+entity+'.json',{
                     action: action,
                     entity: entity,
                     json: json,
@@ -96,7 +96,7 @@ define(['services/services'], function (services) {
             getPayScaleGrade: function(){
                 var deffered = $q.defer();
 
-                testAPI.resource('HRPayScaleGrade','get',{
+                API.resource('HRPayScale','get',{
                     sequential: 1
                 }).get(function(data){
                     deffered.resolve(data.values);

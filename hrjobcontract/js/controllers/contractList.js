@@ -99,7 +99,7 @@ define(['controllers/controllers',
                 var modalInstance,
                     options = {
                         targetDomEl: $rootElement.find('div').eq(0),
-                        templateUrl: settings.pathApp+'/views/modalForm.html?v='+(new Date()).getTime(),
+                        templateUrl: settings.pathApp+'views/modalForm.html?v='+(new Date()).getTime(),
                         size: 'lg',
                         controller: 'ModalContractNewCtrl',
                         resolve: {
@@ -126,7 +126,7 @@ define(['controllers/controllers',
 
                 var modalInstance = $modal.open({
                     targetDomEl: $rootElement.find('div').eq(0),
-                    templateUrl: settings.pathApp+'/views/modalDialog.html?v='+(new Date()).getTime(),
+                    templateUrl: settings.pathApp+'views/modalDialog.html?v='+(new Date()).getTime(),
                     size: 'sm',
                     controller: 'ModalDialogCtrl',
                     resolve: {

@@ -43,7 +43,7 @@ define(['controllers/controllers',
 
                 var modalInstance = $modal.open({
                     targetDomEl: $rootElement.find('div').eq(0),
-                    templateUrl: settings.pathApp+'/views/modalDialog.html?v='+(new Date()).getTime(),
+                    templateUrl: settings.pathApp+'views/modalDialog.html?v='+(new Date()).getTime(),
                     size: 'sm',
                     controller: 'ModalDialogCtrl',
                     resolve: {
@@ -68,7 +68,7 @@ define(['controllers/controllers',
                 function changeReason(){
                     var modalChangeReason = $modal.open({
                         targetDomEl: $rootElement.find('div').eq(0),
-                        templateUrl: settings.pathApp+'/views/modalChangeReason.html?v='+(new Date()).getTime(),
+                        templateUrl: settings.pathApp+'views/modalChangeReason.html?v='+(new Date()).getTime(),
                         controller: 'ModalChangeReasonCtrl',
                         resolve: {}
                     });
@@ -79,7 +79,7 @@ define(['controllers/controllers',
                 function confirmEdit() {
                     var modalConfirmEdit = $modal.open({
                         targetDomEl: $rootElement.find('div').eq(0),
-                        templateUrl: settings.pathApp+'/views/modalConfirmEdit.html?v='+(new Date()).getTime(),
+                        templateUrl: settings.pathApp+'views/modalConfirmEdit.html?v='+(new Date()).getTime(),
                         controller: 'ModalDialogCtrl',
                         resolve: {
                             content: function(){

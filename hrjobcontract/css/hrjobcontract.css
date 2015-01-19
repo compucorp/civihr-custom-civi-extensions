@@ -9757,7 +9757,11 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 #hrjob-contract .form-horizontal .well .form-group + .form-group {
   margin-top: 15px;
 }
-/* line 35, ../sass/partials/_forms.scss */
+/* line 34, ../sass/partials/_forms.scss */
+#hrjob-contract .form-control-file {
+  padding: 6px 12px;
+}
+/* line 39, ../sass/partials/_forms.scss */
 #hrjob-contract .form-control-static .subfield {
   display: block;
 }

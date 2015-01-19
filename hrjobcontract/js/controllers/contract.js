@@ -53,7 +53,6 @@ define(['controllers/controllers',
 
             });
 
-
             $scope.modalContract = function(action, revisionEntityIdObj){
 
                 var modalInstance,
@@ -219,6 +218,9 @@ define(['controllers/controllers',
                         },
                         revisionList: function(){
                             return $scope.revisionList
+                        },
+                        modalContract: function(){
+                            return $scope.modalContract;
                         }
                     }
                 };

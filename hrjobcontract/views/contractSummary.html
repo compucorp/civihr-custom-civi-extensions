@@ -127,7 +127,7 @@
                             <label class="col-sm-4 control-label">Leave</label>
                             <div class="col-sm-6">
                                 <p class="form-control-static">
-                                    <span ng-repeat="leaveEntry in leave" ng-if="leaveEntry.leave_amount" class="subfield"><strong>{{utils.absenceType[leaveEntry.leave_type].title}}:</strong> {{leaveEntry.leave_amount}} day(s)<br></span>
+                                    <span ng-repeat="leaveEntry in leave" ng-if="leaveEntry.leave_amount" class="subfield"><strong>{{options.leave.leave_type[leaveEntry.leave_type]}}:</strong> {{leaveEntry.leave_amount}} day(s)<br></span>
                                 </p>
                             </div>
                             <div class="col-sm-2">

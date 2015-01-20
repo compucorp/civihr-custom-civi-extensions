@@ -100,6 +100,9 @@ require([
             }).then(function(results){
                 results.pension.is_enrolled = ['No','Yes','Opted out'];
 
+                console.log('======================');
+                console.info('OPTIONS:');
+                console.log(results);
                 $rootScope.options = results;
 
             });

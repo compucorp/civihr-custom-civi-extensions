@@ -50,7 +50,7 @@ define(['services/services',
                     var data = settings.CRM.options.HRJobLeave || {};
 
                     if (fieldName && typeof fieldName === 'string') {
-                        data = data[optionGroup];
+                        data = data[fieldName];
                     }
 
                     deffered.resolve(data || {});
@@ -89,25 +89,75 @@ define(['services/services',
 
                 return deffered.promise;
             },
-            model: function (leaveType, params) {
+            model: function(params, leaveType){
 
-                if (!leaveType || typeof leaveType !== 'object') {
-                    //TODO UtilsService.getAbsenceType()
+                if (params && typeof params !== 'object') {
                     return null;
                 }
 
-                var model = [],
-                    params = params || {};
+                if (!params || typeof params !== 'object') {
+                    params = {};
+                }
 
-                angular.forEach(leaveType, function (value) {
-                    model.push(angular.extend({
-                        "jobcontract_id": 0,
-                        "leave_type": value.id,
-                        "leave_amount": 0
-                    },params));
+                var deffered = $q.defer(),
+                    i = 0, len, modelEntry = {}, model = [], val;
+
+                function createModel(leaveType, modelEntry) {
+                    var model = [];
+
+                    if ((!leaveType || typeof leaveType !== 'object') ||
+                        (!modelEntry || typeof modelEntry !== 'object' || typeof modelEntry.leave_type === 'undefined')) {
+                        return null;
+                    }
+
+                    angular.forEach(leaveType, function(type, typeId){
+                        modelEntry.leave_type = typeId;
+                        model.push(angular.copy(modelEntry));
+                    });
+
+                    return model;
+                }
+
+                params.sequential = 1;
+
+                ContractLeave.get({
+                    action: 'getfields',
+                    json: params
+                }, function(data){
+
+                    if (!data.values) {
+                        deffered.reject('Unable to fetch contract leave fields');
+                    }
+
+                    i = 0, val = data.values, len = val.length;
+
+                    for (i; i < len; i++) {
+                        modelEntry[val[i].name] = '';
+                    }
+
+                    if (typeof modelEntry.id !== 'undefined') {
+                        modelEntry.id = null;
+                    }
+
+                    if (typeof modelEntry.jobcontract_revision_id !== 'undefined') {
+                        modelEntry.jobcontract_revision_id = null;
+                    }
+
+                    if (leaveType && typeof leaveType == 'object') {
+                        deffered.resolve(createModel(leaveType,modelEntry));
+                        return
+                    }
+
+                    this.getOptions('leave_type').then(function(options){
+                        deffered.resolve(createModel(options,modelEntry));
+                        return
+                    });
+
+                }.bind(this),function(){
+                    deffered.reject('Unable to fetch contract details fields');
                 });
 
-                return model;
+                return deffered.promise;
             }
         }
 

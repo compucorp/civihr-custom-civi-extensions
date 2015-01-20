@@ -49,7 +49,7 @@ define(['services/services',
                     var data = settings.CRM.options.HRJobDetails || {};
 
                     if (fieldName && typeof fieldName === 'string') {
-                        data = data[optionGroup];
+                        data = data[fieldName];
                     }
 
                     deffered.resolve(data || {});

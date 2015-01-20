@@ -9,10 +9,10 @@ define(['controllers/controllers',
         'services/contractPension',
         'services/utils'], function(controllers){
     controllers.controller('ContractListCtrl',['$scope','$rootElement','$modal','$q', '$filter', 'contractList','ContractService',
-        'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractInsuranceService',
+        'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService', 'ContractInsuranceService',
         'ContractPensionService', 'UtilsService','settings',
         function($scope, $rootElement, $modal, $q, $filter, contractList, ContractService, ContractDetailsService,
-                 ContractHoursService, ContractPayService, ContractInsuranceService, ContractPensionService,
+                 ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService, ContractPensionService,
                  UtilsService, settings){
 
             $scope.contractListLoaded = false;
@@ -28,10 +28,15 @@ define(['controllers/controllers',
                 details: ContractDetailsService.model(),
                 hours: ContractHoursService.model(),
                 pay: ContractPayService.model(),
+                leave: ContractLeaveService.model(),
                 insurance: ContractInsuranceService.model(),
                 pension: ContractPensionService.model()
             }).then(function(model){
                 $scope.model = model;
+
+                console.log('======================');
+                console.info('MODEL:');
+                console.log(model);
 
                 contractList = $filter('orderBy')(contractList,'-is_primary');
 

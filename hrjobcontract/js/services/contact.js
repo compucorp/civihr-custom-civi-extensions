@@ -5,7 +5,7 @@ define(['services/services',
     services.factory('ContactService', ['$resource', 'settings', '$q', 'UtilsService',
         function ($resource, settings, $q, UtilsService) {
         var Contact = $resource(settings.pathRest, {
-            action: 'get',
+            action: 'getlist',
             entity: 'contact',
             json: {},
             api_key: settings.keyApi,

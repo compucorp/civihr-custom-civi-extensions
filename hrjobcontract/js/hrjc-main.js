@@ -55,6 +55,7 @@ require([
     'controllers/modal/modalRevision',
     'controllers/form/formGeneral',
     'controllers/form/formHours',
+    'controllers/form/formInsurance',
     'controllers/form/formPay',
     'filters/capitalize',
     'filters/getObjById',

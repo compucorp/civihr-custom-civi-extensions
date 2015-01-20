@@ -527,10 +527,10 @@
                             </div>
                         </div>
                         <div class="form-group" ng-repeat="leaveEntry in contract.leave">
-                            <label for="leave-{{leaveEntry.leave_type}}" class="col-sm-4 control-label">{{utils.absenceType[leaveEntry.leave_type].title}}</label>
+                            <label for="{{prefix}}leave-{{leaveEntry.leave_type}}" class="col-sm-4 control-label">{{options.leave.leave_type[leaveEntry.leave_type]}}</label>
 
                             <div class="col-sm-2">
-                                <input type="text" id="leave-{{leaveEntry.leave_type}}" name="leave-{{leaveEntry.leave_type}}" class="form-control" ng-model="leaveEntry.leave_amount" ng-disabled="isDisabled">
+                                <input type="text" id="{{prefix}}leave-{{leaveEntry.leave_type}}" name="leave-{{leaveEntry.leave_type}}" class="form-control" ng-model="leaveEntry.leave_amount" ng-disabled="isDisabled">
                             </div>
                         </div>
                     </div>

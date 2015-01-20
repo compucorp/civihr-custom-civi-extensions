@@ -112,6 +112,7 @@ define(['services/services',
 
                     angular.forEach(leaveType, function(type, typeId){
                         modelEntry.leave_type = typeId;
+                        modelEntry.leave_amount = 0;
                         model.push(angular.copy(modelEntry));
                     });
 

@@ -20,7 +20,6 @@ define(['controllers/controllers',
             $scope.contractCurrent = [];
             $scope.contractPast = [];
             $scope.utils = {
-                absenceType: {},
                 contractListLen: contractList.length
             };
 
@@ -57,13 +56,6 @@ define(['controllers/controllers',
                 });
 
                 $scope.contractListLoaded = true;
-            });
-
-            //TODO remove and use the fieldOptions
-            UtilsService.getAbsenceType().then(function(absenceType){
-                $scope.utils.absenceType = absenceType;
-            },function(reason){
-                console.log('Failed: ' + reason);
             });
 
             UtilsService.getHoursLocation().then(function(hoursLocation){

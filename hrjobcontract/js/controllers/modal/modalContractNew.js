@@ -25,8 +25,6 @@ define(['controllers/controllers',
 
             angular.copy(model,$scope.contract);
 
-            $scope.contract.leave = ContractLeaveService.model($scope.utils.absenceType);
-
             $scope.uploaderContractFile = new FileUploader({
                 url: settings.pathFile,
                 formData: [

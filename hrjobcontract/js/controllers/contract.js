@@ -41,7 +41,9 @@ define(['controllers/controllers',
                 angular.extend($scope.details, results.details);
                 angular.extend($scope.hours, results.hours || contractRevisionIdObj);
                 angular.extend($scope.pay, results.pay || contractRevisionIdObj);
-                $scope.leave = results.leave.length ? results.leave : ContractLeaveService.model($scope.utils.absenceType, contractRevisionIdObj);
+                angular.forEach($scope.leave, function(leaveType, leaveTypeId){
+                    angular.extend(leaveType, results.leave[leaveTypeId] || contractRevisionIdObj);
+                });
                 angular.extend($scope.insurance, results.insurance || contractRevisionIdObj);
                 angular.extend($scope.pension, results.pension || contractRevisionIdObj);
 
@@ -102,7 +104,9 @@ define(['controllers/controllers',
                                     angular.extend(contract.details, results.details);
                                     angular.extend(contract.hours, results.hours || contractRevisionIdObj);
                                     angular.extend(contract.pay, results.pay || contractRevisionIdObj);
-                                    contract.leave = results.leave.length ? results.leave : ContractLeaveService.model($scope.utils.absenceType, contractRevisionIdObj);
+                                    angular.forEach(contract.leave, function(leaveType, leaveTypeId){
+                                        angular.extend(leaveType, results.leave[leaveTypeId] || contractRevisionIdObj);
+                                    });
                                     angular.extend(contract.insurance, results.insurance || contractRevisionIdObj);
                                     angular.extend(contract.pension, results.pension || contractRevisionIdObj);
 
@@ -199,7 +203,7 @@ define(['controllers/controllers',
                         entity = 'hours';
                         break;
                     case 'leave':
-                        CRM.alert(null, 'Soon!');
+                        CRM.alert('Soon!');
                         return
                         break;
                 }

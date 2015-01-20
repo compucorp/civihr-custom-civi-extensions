@@ -11,6 +11,19 @@ class CRM_Hrjobcontract_BAO_HRJobDetails extends CRM_Hrjobcontract_DAO_HRJobDeta
      */
     public static function create($params) {
         $hook = empty($params['id']) ? 'create' : 'edit';
+        $previousDetailsRevisionId = null;
+        
+        if ($hook == 'create') {
+            $previousRevisionResult = civicrm_api3('HRJobContractRevision', 'get', array(
+              'sequential' => 1,
+              'jobcontract_id' => $params['jobcontract_id'],
+            ));
+            if (!empty($previousRevisionResult['values'])) {
+                $previousRevision = CRM_Utils_Array::first($previousRevisionResult['values']);
+                $previousDetailsRevisionId = (int)$previousRevision['details_revision_id'];
+            }
+        }
+        
         $instance = parent::create($params);
         
         if (is_numeric(CRM_Utils_Array::value('is_primary', $params)) || empty($params['id'])) {
@@ -28,6 +41,10 @@ class CRM_Hrjobcontract_BAO_HRJobDetails extends CRM_Hrjobcontract_DAO_HRJobDeta
         if ($hook == 'create' && empty($revision['role_revision_id']) && $duplicate != 'duplicate') {
             //civicrm_api3('HRJobRole', 'create', array('jobcontract_id' => $revision['jobcontract_id'],'title' => $instance->title, 'location'=> $instance->location, 'percent_pay_role' => 100, 'jobcontract_revision_id' => $instance->jobcontract_revision_id));
             CRM_Hrjobcontract_BAO_HRJobRole::create(array('jobcontract_id' => $revision['jobcontract_id'],'title' => $instance->title, 'location'=> $instance->location, 'percent_pay_role' => 100, 'jobcontract_revision_id' => $instance->jobcontract_revision_id));
+        }
+        
+        if ($previousDetailsRevisionId) {
+            CRM_Core_BAO_File::copyEntityFile('civicrm_hrjobcontract_details', $previousDetailsRevisionId, 'civicrm_hrjobcontract_details', $revision['details_revision_id']);
         }
         
         return $instance;

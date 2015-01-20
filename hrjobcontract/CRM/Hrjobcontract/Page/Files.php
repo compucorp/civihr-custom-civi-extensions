@@ -28,9 +28,50 @@
 require_once 'CRM/Core/Page.php';
 
 class CRM_Hrjobcontract_Page_Files extends CRM_Core_Page {
-  function fileDisplay() {// Display evidence file
+  public static function fileList() {
+    $postParams = $_POST;
+    $result = array();
+    $fileID = CRM_Core_BAO_File::getEntityFile( $postParams['entityTable'], $postParams['entityID'] );
+    
+    if($fileID) {
+      foreach($fileID as $k => $v) {
+        $fileType = $v['mime_type'];
+        $fid = $v['fileID'];
+        $eid = $postParams['entityID'];
+        $url = null;
+        $uri = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_File', $fid, 'uri');
+        
+        if ($fileType == 'image/jpeg' ||
+          $fileType == 'image/pjpeg' ||
+          $fileType == 'image/gif' ||
+          $fileType == 'image/x-png' ||
+          $fileType == 'image/png'
+        ) {
+          $url = CRM_Utils_System::url('civicrm/file',
+                 "reset=1&id=$fid&eid=$eid",
+                 FALSE, NULL, TRUE, TRUE
+          );
+        } else {
+          $url = CRM_Utils_System::url('civicrm/file', "reset=1&id=$fid&eid=$eid");
+        }
+        
+        $result[] = array(
+          'entityTable' => $postParams['entityTable'],
+          'entityID' => $eid,
+          'fileID' => $fid,
+          'name' => $uri,
+          'url' => $url,
+        );
+      }
+    }
+    
+    CRM_Utils_JSON::output(array('result' => $result));
+    CRM_Utils_System::civiExit( );
+  }
+  public static function fileDisplay() {// Display evidence file
     $postParams = $_POST;
     $fileID = CRM_Core_BAO_File::getEntityFile( $postParams['entityTable'], $postParams['entityID'] );
+    
     if($fileID) {
       foreach($fileID as $k => $v) {
         $fileType = $v['mime_type'];
@@ -69,16 +110,28 @@ class CRM_Hrjobcontract_Page_Files extends CRM_Core_Page {
     CRM_Utils_System::civiExit( );
   }
 
-  function fileDelete() {// delete file
+  public static function fileDelete() {
     $postParams = $_POST;
     $fileId = $postParams['fileID'];
+    $result = 0;
+    
     CRM_Core_BAO_File::deleteEntityFile( $postParams['entityTable'], $postParams['entityID'], $fileTypeID = NULL, $fileId );
+    
+    list($path) = CRM_Core_BAO_File::path($fileId, $postParams['entityID'], NULL, NULL);
+    if ($path === null)
+    {
+        $result = 1;
+    }
+    
+    CRM_Utils_JSON::output(array('result' => $result));
     CRM_Utils_System::civiExit( );
   }
 
-  function fileUpload() {
+  public static function fileUpload() {
     $config = CRM_Core_Config::singleton();
     $postParams = $_POST;
+    $result = 0;
+    
     if($postParams['entityID'] == 'undefined') {
       $result = civicrm_api3('HRJobContract','get',array('options' => array('sort' => "id DESC")));
       foreach($result['values'] as $key=>$val) {
@@ -118,10 +171,13 @@ class CRM_Hrjobcontract_Page_Files extends CRM_Core_Page {
             $newEntityFile->file_id = $file_save['id'];
             $newEntityFile->save();
             $fileName = basename($v['name']);
+            $result = 1;
           }
         }
       }
     }
+    
+    CRM_Utils_JSON::output(array('result' => $result));
     CRM_Utils_System::civiExit( );
   }
 }

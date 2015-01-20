@@ -19,6 +19,12 @@
     <access_arguments>access CiviCRM</access_arguments>
   </item>
   <item>
+    <path>civicrm/hrjobcontract/file/list</path>
+    <page_callback>CRM_Hrjobcontract_Page_Files::fileList</page_callback>
+    <title>FileList</title>
+    <!--<access_arguments>edit HRJobs</access_arguments>-->
+  </item>
+  <item>
     <path>civicrm/hrjobcontract/file/upload</path>
     <page_callback>CRM_Hrjobcontract_Page_Files::fileUpload</page_callback>
     <title>FileSave</title>

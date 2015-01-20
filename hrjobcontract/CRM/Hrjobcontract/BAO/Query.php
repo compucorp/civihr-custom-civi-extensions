@@ -216,39 +216,41 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
   }
 
   function from($name, $mode, $side) {
-    $from = NULL;
+    $from = "
+            $side JOIN civicrm_hrjobcontract hrjobcontract ON hrjobcontract.contact_id = contact_a.id
+            $side JOIN civicrm_hrjobcontract_revision rev ON rev.jobcontract_id = hrjobcontract.id AND rev.status = 1
+            ";
+    
     switch ($name) {
       case 'civicrm_hrjob':
-        $from = " $side JOIN civicrm_hrjob ON civicrm_hrjob.contact_id = contact_a.id AND civicrm_hrjob.is_primary = 1";
+        $from .= " $side JOIN civicrm_hrjob ON civicrm_hrjob.contact_id = contact_a.id AND civicrm_hrjob.is_primary = 1";
         break;
       case 'civicrm_hrjob_role_manager':
-        $from = "
-         $side JOIN civicrm_hrjobcontract hrjobcontract ON hrjobcontract.contact_id = contact_a.id
-         $side JOIN civicrm_hrjobcontract_revision rev ON rev.jobcontract_id = hrjobcontract.id AND rev.status = 1
+        $from .= "
          $side JOIN civicrm_hrjobcontract_role civicrm_hrjob_role_manager_contact ON civicrm_hrjob_role_manager_contact.jobcontract_revision_id = rev.role_revision_id
          $side JOIN civicrm_contact civicrm_hrjob_role_manager ON civicrm_hrjob_role_manager_contact.manager_contact_id = civicrm_hrjob_role_manager.id
         ";
         break;
       case 'civicrm_hrjobcontract_details':
-          $from = " $side JOIN civicrm_hrjobcontract_details ON rev.details_revision_id = civicrm_hrjobcontract_details.jobcontract_revision_id ";
+          $from .= " $side JOIN civicrm_hrjobcontract_details ON rev.details_revision_id = civicrm_hrjobcontract_details.jobcontract_revision_id ";
         break;
       case 'civicrm_hrjobcontract_hour':
-        $from = " $side JOIN civicrm_hrjobcontract_hour ON rev.hour_revision_id = civicrm_hrjobcontract_hour.jobcontract_revision_id ";
+        $from .= " $side JOIN civicrm_hrjobcontract_hour ON rev.hour_revision_id = civicrm_hrjobcontract_hour.jobcontract_revision_id ";
         break;
       case 'civicrm_hrjobcontract_health':
-        $from = " $side JOIN civicrm_hrjobcontract_health ON rev.health_revision_id = civicrm_hrjobcontract_health.jobcontract_revision_id ";
+        $from .= " $side JOIN civicrm_hrjobcontract_health ON rev.health_revision_id = civicrm_hrjobcontract_health.jobcontract_revision_id ";
         break;
       case 'civicrm_hrjobcontract_pension':
-        $from = " $side JOIN civicrm_hrjobcontract_pension ON rev.pension_revision_id = civicrm_hrjobcontract_pension.jobcontract_revision_id ";
+        $from .= " $side JOIN civicrm_hrjobcontract_pension ON rev.pension_revision_id = civicrm_hrjobcontract_pension.jobcontract_revision_id ";
         break;
       case 'civicrm_hrjobcontract_pay':
-        $from = " $side JOIN civicrm_hrjobcontract_pay ON rev.pay_revision_id = civicrm_hrjobcontract_pay.jobcontract_revision_id ";
+        $from .= " $side JOIN civicrm_hrjobcontract_pay ON rev.pay_revision_id = civicrm_hrjobcontract_pay.jobcontract_revision_id ";
         break;
       case 'civicrm_hrjob_role':
-        $from = " $side JOIN civicrm_hrjob_role ON civicrm_hrjob.id = civicrm_hrjob_role.job_id ";
+        $from .= " $side JOIN civicrm_hrjob_role ON civicrm_hrjob.id = civicrm_hrjob_role.job_id ";
         break;
       case 'civicrm_hrjobcontract_role':
-        $from = " $side JOIN civicrm_hrjobcontract_role ON rev.role_revision_id = civicrm_hrjobcontract_role.jobcontract_revision_id ";
+        $from .= " $side JOIN civicrm_hrjobcontract_role ON rev.role_revision_id = civicrm_hrjobcontract_role.jobcontract_revision_id ";
         break;
     }
     return $from;

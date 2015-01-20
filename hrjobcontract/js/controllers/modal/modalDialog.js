@@ -3,8 +3,6 @@ define(['controllers/controllers'], function(controllers){
     controllers.controller('ModalDialogCtrl',['$scope','$modalInstance','content',
         function($scope, $modalInstance, content){
 
-            console.log($modalInstance);
-
             $scope.title = content.title || 'CiviHR Job Contract';
             $scope.msg = content.msg || '';
             $scope.copyConfirm = content.copyConfirm || 'Yes';

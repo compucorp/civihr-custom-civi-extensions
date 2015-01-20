@@ -56,6 +56,19 @@ define(['controllers/controllers',
                     return;
                 }
 
+                //DEBUG
+                angular.forEach(contract, function(entity, entityName){
+                    if (!angular.equals(entity,$scope.contract[entityName])) {
+                        console.log('======================');
+                        console.info('Changed entity: '+entityName);
+                        console.log('Before:');
+                        console.log(entity);
+                        console.log('After:');
+                        console.log($scope.contract[entityName]);
+                    }
+
+                });
+
                 var modalInstance = $modal.open({
                     targetDomEl: $rootElement.find('div').eq(0),
                     templateUrl: settings.pathApp+'views/modalDialog.html?v='+(new Date()).getTime(),

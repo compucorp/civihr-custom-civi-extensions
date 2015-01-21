@@ -47,7 +47,12 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
         $this->_autoIncludeIndexedFieldsAsOrderBys = 1;
         $this->_groupFilter = TRUE;
         $this->_tagFilter = TRUE;
-        $_POST = $_GET;
+        
+        if (empty($_POST))
+        {
+            $_POST = $_GET;
+        }
+        
         parent::__construct();
         
         $this->_columns = array(

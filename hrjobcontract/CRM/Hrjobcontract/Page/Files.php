@@ -66,7 +66,7 @@ class CRM_Hrjobcontract_Page_Files extends CRM_Core_Page {
       }
     }
     
-    echo stripcslashes(json_encode(array('values' => $result)));
+    echo html_entity_decode(stripcslashes(json_encode(array('values' => $result))));
     CRM_Utils_System::civiExit( );
   }
   public static function fileDisplay() {// Display evidence file

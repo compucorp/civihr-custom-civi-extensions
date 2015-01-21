@@ -65,7 +65,7 @@ class CRM_Hrjobcontract_Page_Files extends CRM_Core_Page {
       }
     }
     
-    CRM_Utils_JSON::output(array('result' => $result));
+    CRM_Utils_JSON::output(array('values' => array('result' => $result)));
     CRM_Utils_System::civiExit( );
   }
   public static function fileDisplay() {// Display evidence file
@@ -123,7 +123,7 @@ class CRM_Hrjobcontract_Page_Files extends CRM_Core_Page {
         $result = 1;
     }
     
-    CRM_Utils_JSON::output(array('result' => $result));
+    CRM_Utils_JSON::output(array('values' => array('result' => $result)));
     CRM_Utils_System::civiExit( );
   }
 
@@ -177,7 +177,7 @@ class CRM_Hrjobcontract_Page_Files extends CRM_Core_Page {
       }
     }
     
-    CRM_Utils_JSON::output(array('result' => $result));
+    CRM_Utils_JSON::output(array('values' => array('result' => $result)));
     CRM_Utils_System::civiExit( );
   }
 }

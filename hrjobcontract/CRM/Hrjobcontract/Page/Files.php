@@ -29,7 +29,7 @@ require_once 'CRM/Core/Page.php';
 
 class CRM_Hrjobcontract_Page_Files extends CRM_Core_Page {
   public static function fileList() {
-    $postParams = $_POST;
+    $postParams = $_GET;
     $result = array();
     $fileID = CRM_Core_BAO_File::getEntityFile( $postParams['entityTable'], $postParams['entityID'] );
     

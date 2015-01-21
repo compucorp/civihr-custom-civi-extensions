@@ -9982,18 +9982,23 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
   table-layout: fixed;
 }
 /* line 49, ../sass/partials/_tables.scss */
+#hrjob-contract .hrjobcont-table-upload td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* line 54, ../sass/partials/_tables.scss */
 #hrjob-contract .hrjobcont-table-upload .col-index {
   width: 30px;
 }
-/* line 53, ../sass/partials/_tables.scss */
+/* line 58, ../sass/partials/_tables.scss */
 #hrjob-contract .hrjobcont-table-upload .col-size {
   width: 80px;
 }
-/* line 57, ../sass/partials/_tables.scss */
+/* line 62, ../sass/partials/_tables.scss */
 #hrjob-contract .hrjobcont-table-upload .col-action {
   width: 82px;
 }
-/* line 61, ../sass/partials/_tables.scss */
+/* line 66, ../sass/partials/_tables.scss */
 #hrjob-contract .hrjobcont-table-upload .progress {
   margin-bottom: 0;
 }

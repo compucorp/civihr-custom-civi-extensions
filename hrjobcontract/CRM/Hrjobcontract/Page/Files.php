@@ -59,13 +59,14 @@ class CRM_Hrjobcontract_Page_Files extends CRM_Core_Page {
           'entityTable' => $postParams['entityTable'],
           'entityID' => $eid,
           'fileID' => $fid,
+          'fileType' => $fileType,
           'name' => $uri,
           'url' => $url,
         );
       }
     }
     
-    CRM_Utils_JSON::output(array('values' => array('result' => $result)));
+    CRM_Utils_JSON::output(array('values' => $result));
     CRM_Utils_System::civiExit( );
   }
   public static function fileDisplay() {// Display evidence file

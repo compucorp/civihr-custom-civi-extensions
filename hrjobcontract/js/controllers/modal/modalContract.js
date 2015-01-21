@@ -7,21 +7,24 @@ define(['controllers/controllers',
         'services/contractLeave',
         'services/contractInsurance',
         'services/contractPension',
+        'services/contractFiles',
         'services/utils'], function(controllers){
 
     controllers.controller('ModalContractCtrl',['$scope','$modal', '$modalInstance','$q', '$rootElement',
         'ContractService', 'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
-        'ContractInsuranceService', 'ContractPensionService', 'FileUploader', 'action', 'contract', 'content', 'UtilsService', 'utils',
-        'settings',
+        'ContractInsuranceService', 'ContractPensionService', 'ContractFilesService', 'FileUploader', 'action', 'contract',
+        'content', 'files', 'UtilsService', 'utils', 'settings',
         function($scope, $modal, $modalInstance, $q, $rootElement, ContractService, ContractDetailsService,
                  ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService,
-                 ContractPensionService, FileUploader, action, contract, content, UtilsService, utils, settings){
+                 ContractPensionService, ContractFilesService, FileUploader, action, contract, content, files,
+                 UtilsService, utils, settings){
 
             var content = content || {},
                 action = action || 'view';
 
             $scope.allowSave = typeof content.allowSave !== 'undefined' ? content.allowSave : false;
             $scope.contract = {};
+            $scope.files = {};
             $scope.isDisabled = typeof content.isDisabled !== 'undefined' ? content.isDisabled : true;
             $scope.isPrimaryDisabled = +contract.details.is_primary;
             $scope.showIsPrimary = utils.contractListLen > 1;
@@ -29,7 +32,11 @@ define(['controllers/controllers',
             $scope.utils = utils;
 
             angular.copy(contract,$scope.contract);
+            angular.copy(files,$scope.files);
 
+            console.log($scope.files);
+
+            //TODO - start
             $scope.uploaderContractFile = new FileUploader({
                 url: settings.pathFile,
                 formData: [
@@ -38,6 +45,10 @@ define(['controllers/controllers',
                     }
                 ]
             });
+
+            $scope.uploaderContractFile.onAfterAddingFile = function(item) {
+                console.log($scope.uploaderContractFile.queue);
+            }
 
             $scope.uploaderEvidenceFile = new FileUploader({
                 url: settings.pathFile,
@@ -48,6 +59,7 @@ define(['controllers/controllers',
                 ],
                 queueLimit: 1
             });
+            //TODO - end
 
             $scope.cancel = function () {
 
@@ -91,6 +103,10 @@ define(['controllers/controllers',
                     }
                 });
             };
+
+            $scope.itemRemove = function(index, array) {
+                array.splice(index, 1);
+            }
 
             if ($scope.allowSave) {
                 function changeReason(){

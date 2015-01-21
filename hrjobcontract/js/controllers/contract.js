@@ -9,10 +9,10 @@ define(['controllers/controllers',
         'services/utils',], function(controllers){
     controllers.controller('ContractCtrl',['$timeout','$scope', '$route', '$filter', '$modal', '$rootElement', '$q', 'settings',
         'API', 'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
-        'ContractInsuranceService', 'ContractPensionService',
+        'ContractInsuranceService', 'ContractPensionService','ContractFilesService',
         function($timeout, $scope, $route, $filter, $modal, $rootElement, $q, settings, API, ContractDetailsService,
                  ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService,
-                 ContractPensionService){
+                 ContractPensionService, ContractFilesService){
 
             var contractId = $scope.contract.id, contractRevisionIdObj;
 
@@ -112,6 +112,12 @@ define(['controllers/controllers',
 
                                     return contract;
                                 });
+                            },
+                            files: function(){
+                                return $q.all({
+                                    details: ContractFilesService.get($scope.details.id,'civicrm_hrjobcontract_details'),
+                                    pension: ContractFilesService.get($scope.pension.id,'civicrm_hrjobcontract_pension')
+                                })
                             },
                             utils: function(){
                                 return $scope.utils

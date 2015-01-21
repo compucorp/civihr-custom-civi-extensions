@@ -26,7 +26,7 @@ define(['controllers/controllers',
             angular.copy(model,$scope.contract);
 
             $scope.uploaderContractFile = new FileUploader({
-                url: settings.pathFile,
+                url: settings.pathFile+'upload',
                 formData: [
                     {
                         entityTable: 'civicrm_hrjobcontract_details'
@@ -35,7 +35,7 @@ define(['controllers/controllers',
             });
 
             $scope.uploaderEvidenceFile = new FileUploader({
-                url: settings.pathFile,
+                url: settings.pathFile+'upload',
                 formData: [
                     {
                         entityTable: 'civicrm_hrjobcontract_pension'

@@ -118,7 +118,7 @@ require([
             contactId: +CRM.cid||null,
             debug: 1,
             pathApp: CRM.jobContractTabApp.path,
-            pathFile: CRM.url('civicrm/hrjobcontract/file/upload'),
+            pathFile: CRM.url('civicrm/hrjobcontract/file/'),
             pathRest: CRM.config.resourceBase + '/extern/rest.php',
             pathTpl: CRM.jobContractTabApp.path + 'views/',
             keyApi: e.detail.keyApi,

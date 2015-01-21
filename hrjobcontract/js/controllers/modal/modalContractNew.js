@@ -7,42 +7,29 @@ define(['controllers/controllers',
         'services/contractLeave',
         'services/contractInsurance',
         'services/contractPension',
+        'services/contractFiles',
         'services/utils'], function(controllers){
 
     controllers.controller('ModalContractNewCtrl', ['$scope', '$modalInstance', '$q', 'Contract','ContractService',
         'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
-        'ContractInsuranceService', 'ContractPensionService', 'FileUploader', 'model', 'UtilsService', 'utils', 'settings',
+        'ContractInsuranceService', 'ContractPensionService', 'ContractFilesService', 'model', 'UtilsService', 'utils',
+        'settings',
         function($scope, $modalInstance, $q, Contract, ContractService, ContractDetailsService, ContractHoursService,
-                 ContractPayService, ContractLeaveService, ContractInsuranceService, ContractPensionService, FileUploader,
-                 model, UtilsService, utils, settings){
+                 ContractPayService, ContractLeaveService, ContractInsuranceService, ContractPensionService,
+                 ContractFilesService, model, UtilsService, utils, settings){
 
             $scope.allowSave = true;
             $scope.contract = {};
             $scope.isDisabled = false;
             $scope.showIsPrimary = utils.contractListLen;
             $scope.title = 'Add New Job Contract';
+            $scope.uploaderContractFile = ContractFilesService.uploader('civicrm_hrjobcontract_details');
+            $scope.uploaderEvidenceFile = ContractFilesService.uploader('civicrm_hrjobcontract_pension',1);
             $scope.utils = utils;
 
+            console.log($scope.uploaderContractFile);
+
             angular.copy(model,$scope.contract);
-
-            $scope.uploaderContractFile = new FileUploader({
-                url: settings.pathFile+'upload',
-                formData: [
-                    {
-                        entityTable: 'civicrm_hrjobcontract_details'
-                    }
-                ]
-            });
-
-            $scope.uploaderEvidenceFile = new FileUploader({
-                url: settings.pathFile+'upload',
-                formData: [
-                    {
-                        entityTable: 'civicrm_hrjobcontract_pension'
-                    }
-                ],
-                queueLimit: 1
-            });
 
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
@@ -81,7 +68,6 @@ define(['controllers/controllers',
                         $modalInstance.dismiss();
                         return $q.reject();
                     }).then(function(revisionId){
-                        var defferedUploadContractFile, defferedUploadEvidenceFile;
 
                         angular.forEach($scope.contract, function(entity){
                             UtilsService.prepareEntityIds(entity, contractId, revisionId);
@@ -96,81 +82,11 @@ define(['controllers/controllers',
                         ];
 
                         if ($scope.uploaderContractFile.queue.length) {
-                            defferedUploadContractFile = $q.defer();
-
-                            $scope.uploaderContractFile.onBeforeUploadItem = function(item){
-                                item.formData.push({
-                                    entityID: revisionId
-                                });
-                            };
-
-                            $scope.uploaderContractFile.onErrorItem = function(item, response, status, headers){
-                                defferedUploadContractFile.reject('Could not upload file: '+item.file.name);
-                                console.error(' ===== Item Error: ' + status + ' ======');
-                                console.error(' =====  - item ======');
-                                console.error(item);
-                                console.error(' =====  - response ======');
-                                console.error(response);
-                                console.error(' =====  - headers ======');
-                                console.error(headers);
-                            };
-
-                            $scope.uploaderContractFile.onCompleteItem = function(item, response, status, headers){
-                                console.info(' ===== Item Complete: ' + status + ' ======');
-                                console.info(' =====  - item ======');
-                                console.info(item);
-                                console.info(' =====  - response ======');
-                                console.info(response);
-                                console.info(' =====  - headers ======');
-                                console.info(headers);
-                            };
-
-                            $scope.uploaderContractFile.onCompleteAll = function(){
-                                defferedUploadContractFile.resolve(true);
-                            };
-
-                            promiseContractNew.push(defferedUploadContractFile.promise);
-
-                            $scope.uploaderContractFile.uploadAll();
+                            promiseContractNew.push(ContractFilesService.upload($scope.uploaderContractFile, revisionId));
                         }
 
                         if ($scope.uploaderEvidenceFile.queue.length) {
-                            defferedUploadEvidenceFile = $q.defer();
-
-                            $scope.uploaderEvidenceFile.onBeforeUploadItem = function(item){
-                                item.formData.push({
-                                    entityID: revisionId
-                                });
-                            };
-
-                            $scope.uploaderEvidenceFile.onErrorItem = function(item, response, status, headers){
-                                defferedUploadEvidenceFile.reject('Could not upload file: '+item.file.name);
-                                console.error(' ===== Item Error: ' + status + ' ======');
-                                console.error(' =====  - item ======');
-                                console.error(item);
-                                console.error(' =====  - response ======');
-                                console.error(response);
-                                console.error(' =====  - headers ======');
-                                console.error(headers);
-                            };
-
-                            $scope.uploaderEvidenceFile.onCompleteItem = function(item, response, status, headers){
-                                console.info(' ===== Item Complete: ' + status + ' ======');
-                                console.info(' =====  - item ======');
-                                console.info(item);
-                                console.info(' =====  - response ======');
-                                console.info(response);
-                                console.info(' =====  - headers ======');
-                                console.info(headers);
-                            };
-
-                            $scope.uploaderEvidenceFile.onCompleteAll = function(){
-                                defferedUploadEvidenceFile.resolve(true);
-                            };
-
-                            promiseContractNew.push(defferedUploadEvidenceFile.promise);
-
-                            $scope.uploaderEvidenceFile.uploadAll();
+                            promiseContractNew.push(ContractFilesService.upload($scope.uploaderEvidenceFile, revisionId));
                         }
 
                         return $q.all(promiseContractNew);

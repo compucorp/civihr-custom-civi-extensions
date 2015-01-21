@@ -12,11 +12,11 @@ define(['controllers/controllers',
 
     controllers.controller('ModalContractCtrl',['$scope','$modal', '$modalInstance','$q', '$rootElement',
         'ContractService', 'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
-        'ContractInsuranceService', 'ContractPensionService', 'ContractFilesService', 'FileUploader', 'action', 'contract',
+        'ContractInsuranceService', 'ContractPensionService', 'ContractFilesService', 'action', 'contract',
         'content', 'files', 'UtilsService', 'utils', 'settings',
         function($scope, $modal, $modalInstance, $q, $rootElement, ContractService, ContractDetailsService,
                  ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService,
-                 ContractPensionService, ContractFilesService, FileUploader, action, contract, content, files,
+                 ContractPensionService, ContractFilesService, action, contract, content, files,
                  UtilsService, utils, settings){
 
             var content = content || {},
@@ -29,41 +29,18 @@ define(['controllers/controllers',
             $scope.isPrimaryDisabled = +contract.details.is_primary;
             $scope.showIsPrimary = utils.contractListLen > 1;
             $scope.title = typeof content.title !== 'undefined' ? content.title : 'Contract';
+            $scope.uploaderContractFile = ContractFilesService.uploader('civicrm_hrjobcontract_details');
+            $scope.uploaderEvidenceFile = ContractFilesService.uploader('civicrm_hrjobcontract_pension',1)
             $scope.utils = utils;
 
             angular.copy(contract,$scope.contract);
             angular.copy(files,$scope.files);
 
-            console.log($scope.files);
-
-            //TODO - start
-            $scope.uploaderContractFile = new FileUploader({
-                url: settings.pathFile,
-                formData: [
-                    {
-                        entityTable: 'civicrm_hrjobcontract_details'
-                    }
-                ]
-            });
-
-            $scope.uploaderContractFile.onAfterAddingFile = function(item) {
-                console.log($scope.uploaderContractFile.queue);
-            }
-
-            $scope.uploaderEvidenceFile = new FileUploader({
-                url: settings.pathFile,
-                formData: [
-                    {
-                        entityTable: 'civicrm_hrjobcontract_pension'
-                    }
-                ],
-                queueLimit: 1
-            });
-            //TODO - end
-
             $scope.cancel = function () {
 
-                if (action == 'view' || angular.equals(contract,$scope.contract)) {
+                if (action == 'view' ||
+                    (angular.equals(contract,$scope.contract) && angular.equals(files,$scope.files) &&
+                    !$scope.uploaderContractFile.queue.length && !$scope.uploaderEvidenceFile.queue.length)) {
                     $modalInstance.dismiss('cancel');
                     return;
                 }
@@ -139,14 +116,29 @@ define(['controllers/controllers',
 
                 function contractEdit(){
 
-                    $q.all({
-                        details: ContractDetailsService.save($scope.contract.details),
-                        hours: ContractHoursService.save($scope.contract.hours),
-                        pay: ContractPayService.save($scope.contract.pay),
-                        leave: ContractLeaveService.save($scope.contract.leave),
-                        insurance: ContractInsuranceService.save($scope.contract.insurance),
-                        pension: ContractPensionService.save($scope.contract.pension)
-                    }).then(function(results){
+                    var promiseContractEdit = {
+                            details: ContractDetailsService.save($scope.contract.details),
+                            hours: ContractHoursService.save($scope.contract.hours),
+                            pay: ContractPayService.save($scope.contract.pay),
+                            leave: ContractLeaveService.save($scope.contract.leave),
+                            insurance: ContractInsuranceService.save($scope.contract.insurance),
+                            pension: ContractPensionService.save($scope.contract.pension)
+                        },
+                        promiseFilesEdit = [];
+
+                    if ($scope.uploaderContractFile.queue.length) {
+                        promiseFilesEdit.push(ContractFilesService.upload($scope.uploaderContractFile, $scope.contract.details.jobcontract_revision_id));
+                    }
+
+                    if ($scope.uploaderEvidenceFile.queue.length) {
+                        promiseFilesEdit.push(ContractFilesService.upload($scope.uploaderEvidenceFile, $scope.contract.pension.jobcontract_revision_id));
+                    }
+
+                    if (promiseFilesEdit.length) {
+                        promiseContractEdit.files = $q.all(promiseFilesEdit);
+                    }
+
+                    $q.all(promiseContractEdit).then(function(results){
 
                         //TODO (incorrect date format in the API response)
                         results.details.period_start_date = $scope.contract.details.period_start_date;
@@ -250,7 +242,10 @@ define(['controllers/controllers',
 
                 $scope.save = function () {
 
-                    if (angular.equals(contract,$scope.contract)) {
+                    if (angular.equals(contract,$scope.contract) &&
+                        angular.equals(files,$scope.files) &&
+                        !$scope.uploaderContractFile.queue.length &&
+                        !$scope.uploaderEvidenceFile.queue.length) {
                         $modalInstance.dismiss('cancel');
                         return;
                     }

@@ -57,6 +57,7 @@ require([
     'controllers/form/formHours',
     'controllers/form/formInsurance',
     'controllers/form/formPay',
+    'controllers/form/formPension',
     'filters/capitalize',
     'filters/getObjById',
     'filters/formatAmount',

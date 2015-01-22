@@ -165,7 +165,7 @@
                                             <td><strong><a ng-href="{{file.url}}">{{file.name}}</a></strong></td>
                                             <td ng-show="uploaderContractFile.isHTML5" nowrap><span>{{ file.size ? (file.size/1024/1024|number:2) : '0.00' }} MB</span></td>
                                             <td nowrap>
-                                                <button type="button" class="btn btn-danger btn-xs" ng-click="itemRemove($index, files.details)" ng-disabled="isDisabled">
+                                                <button type="button" class="btn btn-danger btn-xs" ng-click="fileMoveToTrash($index, files.details)" ng-disabled="isDisabled">
                                                     <span class="glyphicon glyphicon-trash"></span> Remove
                                                 </button>
                                             </td>

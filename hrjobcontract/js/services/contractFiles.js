@@ -5,6 +5,7 @@ define(['services/services',
     services.factory('ContractFilesService', ['$resource', 'settings', '$q', 'UtilsService','FileUploader',
         function ($resource, settings, $q, UtilsService, FileUploader) {
             var ContractFiles = $resource(settings.pathFile+':action');
+                FileUploader.prototype.queueDelete = [];
 
             return {
                 delete: function(fileId, entityId, entityTable){
@@ -18,7 +19,8 @@ define(['services/services',
                     var deffered = $q.defer();
 
                     ContractFiles.save({
-                        action: 'delete',
+                        action: 'delete'
+                    }, {
                         entityTable: entityTable,
                         entityID: entityId,
                         fileID: fileId
@@ -34,7 +36,7 @@ define(['services/services',
 
                         deffered.resolve(data.values);
                     },function(){
-                        deffered.reject('Unable to delete filee');
+                        deffered.reject('Unable to delete file');
                     });
 
                     return deffered.promise;

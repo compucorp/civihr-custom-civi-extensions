@@ -10,11 +10,11 @@ define(['controllers/controllers',
         'services/contractFiles',
         'services/utils'], function(controllers){
 
-    controllers.controller('ModalContractCtrl',['$scope','$modal', '$modalInstance','$q', '$rootElement',
+    controllers.controller('ModalContractCtrl',['$scope','$modal', '$modalInstance','$q', '$rootElement','$filter',
         'ContractService', 'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
         'ContractInsuranceService', 'ContractPensionService', 'ContractFilesService', 'action', 'contract',
         'content', 'files', 'UtilsService', 'utils', 'settings',
-        function($scope, $modal, $modalInstance, $q, $rootElement, ContractService, ContractDetailsService,
+        function($scope, $modal, $modalInstance, $q, $rootElement, $filter, ContractService, ContractDetailsService,
                  ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService,
                  ContractPensionService, ContractFilesService, action, contract, content, files,
                  UtilsService, utils, settings){
@@ -25,6 +25,7 @@ define(['controllers/controllers',
             $scope.allowSave = typeof content.allowSave !== 'undefined' ? content.allowSave : false;
             $scope.contract = {};
             $scope.files = {};
+            $scope.filesTrash = [];
             $scope.isDisabled = typeof content.isDisabled !== 'undefined' ? content.isDisabled : true;
             $scope.isPrimaryDisabled = +contract.details.is_primary;
             $scope.showIsPrimary = utils.contractListLen > 1;
@@ -81,7 +82,8 @@ define(['controllers/controllers',
                 });
             };
 
-            $scope.itemRemove = function(index, array) {
+            $scope.fileMoveToTrash = function(index, array) {
+                $scope.filesTrash.push(array[index]);
                 array.splice(index, 1);
             }
 
@@ -133,6 +135,10 @@ define(['controllers/controllers',
                     if ($scope.uploaderEvidenceFile.queue.length) {
                         promiseFilesEdit.push(ContractFilesService.upload($scope.uploaderEvidenceFile, $scope.contract.pension.jobcontract_revision_id));
                     }
+
+                    angular.forEach($scope.filesTrash, function(file){
+                        promiseFilesEdit.push(ContractFilesService.delete(file.fileID, file.entityID, file.entityTable));
+                    });
 
                     if (promiseFilesEdit.length) {
                         promiseContractEdit.files = $q.all(promiseFilesEdit);

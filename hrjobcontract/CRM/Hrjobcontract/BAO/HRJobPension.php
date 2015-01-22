@@ -39,20 +39,37 @@ class CRM_Hrjobcontract_BAO_HRJobPension extends CRM_Hrjobcontract_DAO_HRJobPens
    *
    * @param array $params key-value pairs
    * @return CRM_HRJob_DAO_HRJobPension|NULL
-   *
-  public static function create($params) {
-    $className = 'CRM_HRJob_DAO_HRJobPension';
-    $entityName = 'HRJobPension';
-    $hook = empty($params['id']) ? 'create' : 'edit';
+   * 
+   */
+    public static function create($params) {
+        $hook = empty($params['id']) ? 'create' : 'edit';
+        $previousPensionRevisionId = null;
 
-    CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);
-    $instance = new $className();
-    $instance->copyValues($params);
-    $instance->save();
-    CRM_Utils_Hook::post($hook, $entityName, $instance->id, $instance);
+        if ($hook == 'create') {
+            $previousRevisionResult = civicrm_api3('HRJobContractRevision', 'get', array(
+              'sequential' => 1,
+              'jobcontract_id' => $params['jobcontract_id'],
+            ));
+            if (!empty($previousRevisionResult['values'])) {
+                $previousRevision = CRM_Utils_Array::first($previousRevisionResult['values']);
+                $previousPensionRevisionId = (int)$previousRevision['pension_revision_id'];
+            }
+        }
 
-    return $instance;
-  } */
+        $instance = parent::create($params);
+        
+        $revisionResult = civicrm_api3('HRJobContractRevision', 'get', array(
+            'sequential' => 1,
+            'id' => $instance->jobcontract_revision_id,
+        ));
+        $revision = CRM_Utils_Array::first($revisionResult['values']);
+        
+        if ($previousPensionRevisionId) {
+            CRM_Core_BAO_File::copyEntityFile('civicrm_hrjobcontract_pension', $previousPensionRevisionId, 'civicrm_hrjobcontract_pension', $revision['pension_revision_id']);
+        }
+        
+        return $instance;
+    }
 
 
   /**

@@ -25,23 +25,27 @@ define(['controllers/controllers',
             $scope.allowSave = typeof content.allowSave !== 'undefined' ? content.allowSave : false;
             $scope.contract = {};
             $scope.files = {};
-            $scope.filesTrash = [];
+            $scope.filesTrash = {};
             $scope.isDisabled = typeof content.isDisabled !== 'undefined' ? content.isDisabled : true;
             $scope.isPrimaryDisabled = +contract.details.is_primary;
             $scope.showIsPrimary = utils.contractListLen > 1;
             $scope.title = typeof content.title !== 'undefined' ? content.title : 'Contract';
-            $scope.uploaderContractFile = ContractFilesService.uploader('civicrm_hrjobcontract_details');
-            $scope.uploaderEvidenceFile = ContractFilesService.uploader('civicrm_hrjobcontract_pension',1)
+            $scope.uploader.details.contract_file = ContractFilesService.uploader('civicrm_hrjobcontract_details');
+            $scope.uploader.pension.evidence_file = ContractFilesService.uploader('civicrm_hrjobcontract_pension',1)
             $scope.utils = utils;
 
             angular.copy(contract,$scope.contract);
             angular.copy(files,$scope.files);
 
+            angular.forEach($scope.files, function(entityFiles, entityName){
+                $scope.filesTrash[entityName] = [];
+            })
+
             $scope.cancel = function () {
 
                 if (action == 'view' ||
                     (angular.equals(contract,$scope.contract) && angular.equals(files,$scope.files) &&
-                    !$scope.uploaderContractFile.queue.length && !$scope.uploaderEvidenceFile.queue.length)) {
+                    !$scope.uploader.details.contract_file.queue.length && !$scope.uploader.pension.evidence_file.queue.length)) {
                     $modalInstance.dismiss('cancel');
                     return;
                 }
@@ -82,9 +86,12 @@ define(['controllers/controllers',
                 });
             };
 
-            $scope.fileMoveToTrash = function(index, array) {
-                $scope.filesTrash.push(array[index]);
-                array.splice(index, 1);
+            $scope.fileMoveToTrash = function(index, entityName) {
+                var entityFiles = $scope.files[entityName],
+                    entityFilesTrash = $scope.filesTrash[entityName];
+
+                entityFilesTrash.push(entityFiles[index]);
+                entityFiles.splice(index, 1);
             }
 
             if ($scope.allowSave) {
@@ -128,16 +135,18 @@ define(['controllers/controllers',
                         },
                         promiseFilesEdit = [];
 
-                    if ($scope.uploaderContractFile.queue.length) {
-                        promiseFilesEdit.push(ContractFilesService.upload($scope.uploaderContractFile, $scope.contract.details.jobcontract_revision_id));
+                    if ($scope.uploader.details.contract_file.queue.length) {
+                        promiseFilesEdit.push(ContractFilesService.upload($scope.uploader.details.contract_file, $scope.contract.details.jobcontract_revision_id));
                     }
 
-                    if ($scope.uploaderEvidenceFile.queue.length) {
-                        promiseFilesEdit.push(ContractFilesService.upload($scope.uploaderEvidenceFile, $scope.contract.pension.jobcontract_revision_id));
+                    if ($scope.uploader.pension.evidence_file.queue.length) {
+                        promiseFilesEdit.push(ContractFilesService.upload($scope.uploader.pension.evidence_file, $scope.contract.pension.jobcontract_revision_id));
                     }
 
-                    angular.forEach($scope.filesTrash, function(file){
-                        promiseFilesEdit.push(ContractFilesService.delete(file.fileID, file.entityID, file.entityTable));
+                    angular.forEach($scope.filesTrash, function(entityFilesTrash){
+                        angular.forEach(entityFilesTrash, function(file){
+                            promiseFilesEdit.push(ContractFilesService.delete(file.fileID, file.entityID, file.entityTable));
+                        });
                     });
 
                     if (promiseFilesEdit.length) {
@@ -168,8 +177,12 @@ define(['controllers/controllers',
                 function contractChange(reasonId, date){
 
                     var contractNew = $scope.contract,
-                        entityName, entityChangedList = [], entityChangedListLen = 0, i = 0, isChanged,
-                        promiseEntityService = {}, revisionId, entityServices = {
+                        filesNew = $scope.files,
+                        filesTrash = $scope.filesTrash,
+                        uploader = $scope.uploader,
+                        entityName, fieldName, entityChangedList = [], entityChangedListLen = 0, filesChangedList = [],
+                        filesChangedListLen = 0, i = 0, isChanged, promiseContractChange = {}, promiseFilesChange = [],
+                        revisionId, entityServices = {
                             details: ContractDetailsService,
                             hours: ContractHoursService,
                             pay: ContractPayService,
@@ -178,8 +191,27 @@ define(['controllers/controllers',
                             pension: ContractPensionService
                         }
 
+                    //angular.equals(files,$scope.files) &&
+                    //!$scope.uploaderContractFile.queue.length &&
+                    //!$scope.uploaderEvidenceFile.queue.length)
+
                     for (entityName in contractNew) {
-                        isChanged = !angular.equals(contract[entityName], contractNew[entityName])
+                        isChanged = !angular.equals(contract[entityName], contractNew[entityName]);
+
+                        if (!isChanged) {
+
+                            isChanged = filesTrash[entityName] && filesTrash[entityName].length;
+
+                            if (!isChanged && uploader[entityName]) {
+                                angular.forEach(uploader[entityName], function(field){
+                                    if (field.queue.length) {
+                                        isChanged = true;
+                                        break;
+                                    }
+                                });
+                            }
+
+                        }
 
                         if (isChanged) {
                             entityChangedList[i] = {};
@@ -197,14 +229,36 @@ define(['controllers/controllers',
                         revisionId = !angular.isArray(results) ? results.jobcontract_revision_id : results[0].jobcontract_revision_id,
                         i = 1;
 
-                        promiseEntityService[entityChangedList[0].name] = results;
+                        promiseContractChange[entityChangedList[0].name] = results;
 
                         for (i; i < entityChangedListLen; i++) {
+
+                            entityName = filesTrash[entityChangedList[i].name];
+
                             UtilsService.prepareEntityIds(entityChangedList[i].data,contract.id,revisionId);
-                            promiseEntityService[entityChangedList[i].name] = entityChangedList[i].service.save(entityChangedList[i].data);
+                            promiseContractChange[entityName] = entityChangedList[i].service.save(entityChangedList[i].data);
+
+                            if (uploader[entityName]) {
+                                angular.forEach(uploader[entityName], function(field){
+                                    if (field.queue.length) {
+                                        promiseFilesChange.push(ContractFilesService.upload(field, revisionId));
+                                    }
+                                });
+                            }
+
+                            if (filesTrash[entityName] && filesTrash[entityName].length) {
+                                angular.forEach(filesTrash[entityName], function(file) {
+                                    promiseFilesChange.push(ContractFilesService.delete(file.fileID, revisionId, file.entityTable));
+                                });
+                            }
+
                         }
 
-                        return $q.all(angular.extend(promiseEntityService,{
+                        if (promiseFilesChange.length) {
+                            promiseContractChange.files = $q.all(promiseFilesChange);
+                        }
+
+                        return $q.all(angular.extend(promiseContractChange,{
                             revisionCreated: ContractService.saveRevision({
                                 id: revisionId,
                                 change_reason: reasonId,
@@ -250,8 +304,8 @@ define(['controllers/controllers',
 
                     if (angular.equals(contract,$scope.contract) &&
                         angular.equals(files,$scope.files) &&
-                        !$scope.uploaderContractFile.queue.length &&
-                        !$scope.uploaderEvidenceFile.queue.length) {
+                        !$scope.uploader.details.contract_file.queue.length &&
+                        !$scope.uploader.pension.evidence_file.queue.length) {
                         $modalInstance.dismiss('cancel');
                         return;
                     }

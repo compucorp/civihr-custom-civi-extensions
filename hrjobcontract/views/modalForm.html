@@ -141,21 +141,21 @@
                             <div class="col-sm-8">
                                 <input type="file" class="form-control-file" id="{{prefix}}contract-file"
                                        nv-file-select
-                                       uploader="uploaderContractFile"
+                                       uploader="uploader.details.contract_file"
                                        multiple
                                        ng-disabled="isDisabled">
-                                <table class="table table-condensed {{prefix}}table-upload" ng-show="uploaderContractFile.queue.length || files.details.length">
+                                <table class="table table-condensed {{prefix}}table-upload" ng-show="uploader.details.contract_file.queue.length || files.details.length">
                                     <colgroup>
                                         <col class="col-index">
                                         <col class="col-name">
-                                        <col class="col-size" ng-show="uploaderContractFile.isHTML5">
+                                        <col class="col-size" ng-show="uploader.details.contract_file.isHTML5">
                                         <col class="col-action">
                                     </colgroup>
                                     <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>Name</th>
-                                            <th ng-show="uploaderContractFile.isHTML5">Size</th>
+                                            <th ng-show="uploader.details.contract_file.isHTML5">Size</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -163,17 +163,17 @@
                                         <tr ng-repeat="file in files.details">
                                             <td><strong>{{$index+1}}</strong></td>
                                             <td><strong><a ng-href="{{file.url}}">{{file.name}}</a></strong></td>
-                                            <td ng-show="uploaderContractFile.isHTML5" nowrap><span>{{ file.size ? (file.size/1024/1024|number:2) : '0.00' }} MB</span></td>
+                                            <td ng-show="uploader.details.contract_file.isHTML5" nowrap><span>{{ file.size ? (file.size/1024/1024|number:2) : '0.00' }} MB</span></td>
                                             <td nowrap>
-                                                <button type="button" class="btn btn-danger btn-xs" ng-click="fileMoveToTrash($index, files.details)" ng-disabled="isDisabled">
+                                                <button type="button" class="btn btn-danger btn-xs" ng-click="fileMoveToTrash($index, details)" ng-disabled="isDisabled">
                                                     <span class="glyphicon glyphicon-trash"></span> Remove
                                                 </button>
                                             </td>
                                         </tr>
-                                        <tr ng-repeat="item in uploaderContractFile.queue">
+                                        <tr ng-repeat="item in uploader.details.contract_file.queue">
                                             <td><strong>{{files.details.length + $index+1}}</strong></td>
                                             <td><strong>{{ item.file.name }}</strong></td>
-                                            <td ng-show="uploaderContractFile.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                                            <td ng-show="uploader.details.contract_file.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
                                             <td nowrap>
                                                 <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
                                                     <span class="glyphicon glyphicon-trash"></span> Remove
@@ -726,28 +726,38 @@
                             <div class="col-sm-8">
                                 <input type="file" class="form-control-file" id="{{prefix}}pension-evidence-file"
                                        nv-file-select
-                                       uploader="uploaderEvidenceFile"
+                                       uploader="uploader.pension.evidence_file"
                                        ng-disabled="isDisabled">
-                                <table class="table table-condensed {{prefix}}table-upload" ng-show="uploaderEvidenceFile.queue.length">
+                                <table class="table table-condensed {{prefix}}table-upload" ng-show="uploader.pension.evidence_file.queue.length">
                                     <colgroup>
                                         <col class="col-index">
                                         <col class="col-name">
-                                        <col class="col-size" ng-show="uploaderEvidenceFile.isHTML5">
+                                        <col class="col-size" ng-show="uploader.pension.evidence_file.isHTML5">
                                         <col class="col-action">
                                     </colgroup>
                                     <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th ng-show="uploaderEvidenceFile.isHTML5">Size</th>
+                                        <th ng-show="uploader.pension.evidence_file.isHTML5">Size</th>
                                         <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="item in uploaderEvidenceFile.queue">
+                                    <tr ng-repeat="file in files.pension">
+                                        <td><strong>{{$index+1}}</strong></td>
+                                        <td><strong><a ng-href="{{file.url}}">{{file.name}}</a></strong></td>
+                                        <td ng-show="uploader.pension.contract_file.isHTML5" nowrap><span>{{ file.size ? (file.size/1024/1024|number:2) : '0.00' }} MB</span></td>
+                                        <td nowrap>
+                                            <button type="button" class="btn btn-danger btn-xs" ng-click="fileMoveToTrash($index, pension)" ng-disabled="isDisabled">
+                                                <span class="glyphicon glyphicon-trash"></span> Remove
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="item in uploader.pension.evidence_file.queue">
                                         <td><strong>{{$index+1}}</strong></td>
                                         <td><strong>{{ item.file.name }}</strong></td>
-                                        <td ng-show="uploaderEvidenceFile.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                                        <td ng-show="uploader.pension.evidence_file.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
                                         <td nowrap>
                                             <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
                                                 <span class="glyphicon glyphicon-trash"></span> Remove

@@ -19,12 +19,11 @@ define(['services/services',
                     var deffered = $q.defer();
 
                     ContractFiles.save({
-                        action: 'delete'
-                    }, {
+                        action: 'delete',
                         entityTable: entityTable,
                         entityID: entityId,
                         fileID: fileId
-                    }, function(data){
+                    }, null, function(data){
 
                         if (data.values && !+data.values[0].result) {
                             data.is_error = 1;

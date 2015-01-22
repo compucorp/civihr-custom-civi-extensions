@@ -115,8 +115,8 @@ define(['controllers/controllers',
                             },
                             files: function(){
                                 return $q.all({
-                                    details: ContractFilesService.get($scope.details.id,'civicrm_hrjobcontract_details'),
-                                    pension: ContractFilesService.get($scope.pension.id,'civicrm_hrjobcontract_pension')
+                                    details: ContractFilesService.get(!revisionEntityIdObj ? $scope.details.id : revisionEntityIdObj.details_revision_id,'civicrm_hrjobcontract_details'),
+                                    pension: ContractFilesService.get(!revisionEntityIdObj ? $scope.pension.id : revisionEntityIdObj.pension_revision_id,'civicrm_hrjobcontract_pension')
                                 })
                             },
                             utils: function(){

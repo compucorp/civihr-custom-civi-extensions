@@ -112,7 +112,7 @@ class CRM_Hrjobcontract_Page_Files extends CRM_Core_Page {
   }
 
   public static function fileDelete() {
-    $postParams = $_POST;
+    $postParams = $_GET;
     $fileId = $postParams['fileID'];
     $result = 0;
     

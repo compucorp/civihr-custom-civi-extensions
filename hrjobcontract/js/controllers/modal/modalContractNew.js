@@ -23,8 +23,14 @@ define(['controllers/controllers',
             $scope.isDisabled = false;
             $scope.showIsPrimary = utils.contractListLen;
             $scope.title = 'Add New Job Contract';
-            $scope.uploaderContractFile = ContractFilesService.uploader('civicrm_hrjobcontract_details');
-            $scope.uploaderEvidenceFile = ContractFilesService.uploader('civicrm_hrjobcontract_pension',1);
+            $scope.uploader = {
+                details: {
+                    contract_file: ContractFilesService.uploader('civicrm_hrjobcontract_details')
+                },
+                pension: {
+                    evidence_file: ContractFilesService.uploader('civicrm_hrjobcontract_pension',1)
+                }
+            };
             $scope.utils = utils;
 
             console.log($scope.uploaderContractFile);
@@ -53,7 +59,8 @@ define(['controllers/controllers',
                         contractLeave = $scope.contract.leave,
                         contractInsurance = $scope.contract.insurance,
                         contractPension = $scope.contract.pension,
-                        promiseContractNew = [];
+                        promiseUpload = [],
+                        revisionId;
 
                     contract.is_current = !contractDetails.period_end_date || new Date(contractDetails.period_end_date) > new Date();
 
@@ -61,41 +68,41 @@ define(['controllers/controllers',
 
                     ContractDetailsService.save(contractDetails).then(function(results){
                         contract.is_primary = results.is_primary;
-                        return results.jobcontract_revision_id;
+                        revisionId = results.jobcontract_revision_id;
                     },function(reason){
                         CRM.alert(reason, 'Error', 'error');
                         ContractService.delete(contractId);
                         $modalInstance.dismiss();
                         return $q.reject();
-                    }).then(function(revisionId){
+                    }).then(function(){
 
                         angular.forEach($scope.contract, function(entity){
                             UtilsService.prepareEntityIds(entity, contractId, revisionId);
                         });
 
-                        promiseContractNew = [
+                        return $q.all([
                             ContractHoursService.save(contractHours),
                             ContractPayService.save(contractPay),
                             ContractLeaveService.save(contractLeave),
                             ContractInsuranceService.save(contractInsurance),
                             ContractPensionService.save(contractPension)
-                        ];
-
-                        if ($scope.uploaderContractFile.queue.length) {
-                            promiseContractNew.push(ContractFilesService.upload($scope.uploaderContractFile, revisionId));
-                        }
-
-                        if ($scope.uploaderEvidenceFile.queue.length) {
-                            promiseContractNew.push(ContractFilesService.upload($scope.uploaderEvidenceFile, revisionId));
-                        }
-
-                        return $q.all(promiseContractNew);
+                        ]);
                     }).then(function(){
-                        $modalInstance.close(contract);
+
+                        if ($scope.uploader.details.contract_file.queue.length) {
+                            promiseUpload.push(ContractFilesService.upload($scope.uploader.details.contract_file, revisionId));
+                        }
+
+                        if ($scope.uploader.pension.evidence_file.queue.length) {
+                            promiseUpload.push(ContractFilesService.upload($scope.uploader.pension.evidence_file, revisionId));
+                        }
+
                     },function(reason){
                         CRM.alert(reason, 'Error', 'error');
                         $modalInstance.dismiss();
                         return $q.reject();
+                    }).then(function(){
+                        $modalInstance.close(contract);
                     });
 
                 });

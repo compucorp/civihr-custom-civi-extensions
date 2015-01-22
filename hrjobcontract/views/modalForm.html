@@ -165,7 +165,7 @@
                                             <td><strong><a ng-href="{{file.url}}">{{file.name}}</a></strong></td>
                                             <td ng-show="uploader.details.contract_file.isHTML5" nowrap><span>{{ file.size ? (file.size/1024/1024|number:2) : '0.00' }} MB</span></td>
                                             <td nowrap>
-                                                <button type="button" class="btn btn-danger btn-xs" ng-click="fileMoveToTrash($index, details)" ng-disabled="isDisabled">
+                                                <button type="button" class="btn btn-danger btn-xs" ng-click="fileMoveToTrash($index, 'details')" ng-disabled="isDisabled">
                                                     <span class="glyphicon glyphicon-trash"></span> Remove
                                                 </button>
                                             </td>
@@ -728,7 +728,7 @@
                                        nv-file-select
                                        uploader="uploader.pension.evidence_file"
                                        ng-disabled="isDisabled">
-                                <table class="table table-condensed {{prefix}}table-upload" ng-show="uploader.pension.evidence_file.queue.length">
+                                <table class="table table-condensed {{prefix}}table-upload" ng-show="uploader.pension.evidence_file.queue.length || files.pension.length">
                                     <colgroup>
                                         <col class="col-index">
                                         <col class="col-name">
@@ -749,7 +749,7 @@
                                         <td><strong><a ng-href="{{file.url}}">{{file.name}}</a></strong></td>
                                         <td ng-show="uploader.pension.contract_file.isHTML5" nowrap><span>{{ file.size ? (file.size/1024/1024|number:2) : '0.00' }} MB</span></td>
                                         <td nowrap>
-                                            <button type="button" class="btn btn-danger btn-xs" ng-click="fileMoveToTrash($index, pension)" ng-disabled="isDisabled">
+                                            <button type="button" class="btn btn-danger btn-xs" ng-click="fileMoveToTrash($index, 'pension')" ng-disabled="isDisabled">
                                                 <span class="glyphicon glyphicon-trash"></span> Remove
                                             </button>
                                         </td>

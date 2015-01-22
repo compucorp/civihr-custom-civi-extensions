@@ -14,7 +14,7 @@ class CRM_Hrjobcontract_BAO_HRJobDetails extends CRM_Hrjobcontract_DAO_HRJobDeta
         $previousDetailsRevisionId = null;
         
         if ($hook == 'create') {
-            $previousRevisionResult = civicrm_api3('HRJobContractRevision', 'get', array(
+            $previousRevisionResult = civicrm_api3('HRJobContractRevision', 'getcurrentrevision', array(
               'sequential' => 1,
               'jobcontract_id' => $params['jobcontract_id'],
             ));
@@ -44,7 +44,7 @@ class CRM_Hrjobcontract_BAO_HRJobDetails extends CRM_Hrjobcontract_DAO_HRJobDeta
         }
         
         if ($previousDetailsRevisionId) {
-            CRM_Core_BAO_File::copyEntityFile('civicrm_hrjobcontract_details', $previousDetailsRevisionId, 'civicrm_hrjobcontract_details', $revision['details_revision_id']);
+            CRM_Core_BAO_File::copyEntityFile('civicrm_hrjobcontract_details', $previousDetailsRevisionId, 'civicrm_hrjobcontract_detailsaaa', $revision['details_revision_id']);
         }
         
         return $instance;

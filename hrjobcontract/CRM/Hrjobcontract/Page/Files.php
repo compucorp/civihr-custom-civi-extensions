@@ -133,15 +133,6 @@ class CRM_Hrjobcontract_Page_Files extends CRM_Core_Page {
     $postParams = $_POST;
     $result = 0;
     
-    if($postParams['entityID'] == 'undefined') {
-      $result = civicrm_api3('HRJobContract','get',array('options' => array('sort' => "id DESC")));
-      foreach($result['values'] as $key=>$val) {
-        $id= $val['id'];
-        break;
-      }
-      $postParams['entityID'] = ++$id;
-    }
-
     $files = $_FILES;
     if(is_array($files) && !empty($files)) {
       foreach($files as $k => $v) {

@@ -46,7 +46,7 @@ class CRM_Hrjobcontract_BAO_HRJobPension extends CRM_Hrjobcontract_DAO_HRJobPens
         $previousPensionRevisionId = null;
 
         if ($hook == 'create') {
-            $previousRevisionResult = civicrm_api3('HRJobContractRevision', 'get', array(
+            $previousRevisionResult = civicrm_api3('HRJobContractRevision', 'getcurrentrevision', array(
               'sequential' => 1,
               'jobcontract_id' => $params['jobcontract_id'],
             ));

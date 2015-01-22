@@ -93,7 +93,7 @@ function _civicrm_hrjobcontract_api3_get_current_revision($jobContractId)
         $revision = civicrm_api3('HRJobContractRevision', 'get', array(
           'sequential' => 1,
           'jobcontract_id' => $jobContractId,
-          'options' => array('sort' => 'id DESC', 'limit' => 1),
+          'status' => 1,
         ));
 
         if (!empty($revision)) {

@@ -41,9 +41,12 @@ define(['controllers/controllers',
                 angular.extend($scope.details, results.details);
                 angular.extend($scope.hours, results.hours || contractRevisionIdObj);
                 angular.extend($scope.pay, results.pay || contractRevisionIdObj);
+
                 angular.forEach($scope.leave, function(leaveType, leaveTypeId){
-                    angular.extend(leaveType, results.leave[leaveTypeId] || contractRevisionIdObj);
+                    angular.extend(leaveType, results.leave ? results.leave[leaveTypeId] || contractRevisionIdObj : contractRevisionIdObj);
                 });
+
+
                 angular.extend($scope.insurance, results.insurance || contractRevisionIdObj);
                 angular.extend($scope.pension, results.pension || contractRevisionIdObj);
 
@@ -105,7 +108,7 @@ define(['controllers/controllers',
                                     angular.extend(contract.hours, results.hours || contractRevisionIdObj);
                                     angular.extend(contract.pay, results.pay || contractRevisionIdObj);
                                     angular.forEach(contract.leave, function(leaveType, leaveTypeId){
-                                        angular.extend(leaveType, results.leave[leaveTypeId] || contractRevisionIdObj);
+                                        angular.extend(leaveType, results.leave ? results.leave[leaveTypeId] || contractRevisionIdObj : contractRevisionIdObj);
                                     });
                                     angular.extend(contract.insurance, results.insurance || contractRevisionIdObj);
                                     angular.extend(contract.pension, results.pension || contractRevisionIdObj);

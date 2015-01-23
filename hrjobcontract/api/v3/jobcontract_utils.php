@@ -71,7 +71,7 @@ function _civicrm_hrjobcontract_api3_create_revision($jobContractId)
         ));
     }
     
-    $currentRevision = _civicrm_hrjobcontract_api3_get_current_revision((int)$jobContractId);
+    $currentRevision = _civicrm_hrjobcontract_api3_get_latest_revision((int)$jobContractId);
     if (empty($currentRevision))
     {
         $currentRevision = array('values' => array('jobcontract_id' => $jobContractId));
@@ -94,6 +94,26 @@ function _civicrm_hrjobcontract_api3_get_current_revision($jobContractId)
           'sequential' => 1,
           'jobcontract_id' => $jobContractId,
           'status' => 1,
+        ));
+
+        if (!empty($revision)) {
+            $row = array_shift($revision['values']);
+            if (!empty($row)) {
+                return civicrm_api3_create_success($row);
+            }
+        }
+    }
+    return null;
+}
+
+function _civicrm_hrjobcontract_api3_get_latest_revision($jobContractId)
+{
+    if ($jobContractId)
+    {
+        $revision = civicrm_api3('HRJobContractRevision', 'get', array(
+           'sequential' => 1,
+           'jobcontract_id' => $jobContractId,
+           'options' => array('sort' => 'id DESC', 'limit' => 1),
         ));
 
         if (!empty($revision)) {

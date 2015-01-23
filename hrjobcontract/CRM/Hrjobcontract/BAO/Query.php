@@ -238,9 +238,9 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
         ";
         break;
       case 'civicrm_hrjob_role_manager':
+         /*$side JOIN civicrm_hrjobcontract hrjobcontract ON hrjobcontract.contact_id = contact_a.id
+         $side JOIN civicrm_hrjobcontract_revision rev ON rev.jobcontract_id = hrjobcontract.id AND rev.status = 1*/
         $from .= "
-         $side JOIN civicrm_hrjobcontract hrjobcontract ON hrjobcontract.contact_id = contact_a.id
-         $side JOIN civicrm_hrjobcontract_revision rev ON rev.jobcontract_id = hrjobcontract.id AND rev.status = 1
          $side JOIN civicrm_hrjobcontract_role civicrm_hrjob_role_manager_contact ON civicrm_hrjob_role_manager_contact.jobcontract_revision_id = rev.role_revision_id
          $side JOIN civicrm_contact civicrm_hrjob_role_manager ON civicrm_hrjob_role_manager_contact.manager_contact_id = civicrm_hrjob_role_manager.id
         ";

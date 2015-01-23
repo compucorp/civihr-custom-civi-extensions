@@ -50,9 +50,8 @@ class CRM_Hrjobcontract_BAO_HRJobPension extends CRM_Hrjobcontract_DAO_HRJobPens
               'sequential' => 1,
               'jobcontract_id' => $params['jobcontract_id'],
             ));
-            if (!empty($previousRevisionResult['values'])) {
-                $previousRevision = CRM_Utils_Array::first($previousRevisionResult['values']);
-                $previousPensionRevisionId = (int)$previousRevision['pension_revision_id'];
+            if (!empty($previousRevisionResult['values']['pension_revision_id'])) {
+                $previousPensionRevisionId = $previousRevisionResult['values']['pension_revision_id'];
             }
         }
 

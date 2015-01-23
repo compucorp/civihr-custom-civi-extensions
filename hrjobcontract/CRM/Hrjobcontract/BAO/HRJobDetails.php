@@ -18,9 +18,8 @@ class CRM_Hrjobcontract_BAO_HRJobDetails extends CRM_Hrjobcontract_DAO_HRJobDeta
               'sequential' => 1,
               'jobcontract_id' => $params['jobcontract_id'],
             ));
-            if (!empty($previousRevisionResult['values'])) {
-                $previousRevision = CRM_Utils_Array::first($previousRevisionResult['values']);
-                $previousDetailsRevisionId = (int)$previousRevision['details_revision_id'];
+            if (!empty($previousRevisionResult['values']['details_revision_id'])) {
+                $previousDetailsRevisionId = $previousRevisionResult['values']['details_revision_id'];
             }
         }
         
@@ -44,7 +43,7 @@ class CRM_Hrjobcontract_BAO_HRJobDetails extends CRM_Hrjobcontract_DAO_HRJobDeta
         }
         
         if ($previousDetailsRevisionId) {
-            CRM_Core_BAO_File::copyEntityFile('civicrm_hrjobcontract_details', $previousDetailsRevisionId, 'civicrm_hrjobcontract_detailsaaa', $revision['details_revision_id']);
+            CRM_Core_BAO_File::copyEntityFile('civicrm_hrjobcontract_details', $previousDetailsRevisionId, 'civicrm_hrjobcontract_details', $revision['details_revision_id']);
         }
         
         return $instance;

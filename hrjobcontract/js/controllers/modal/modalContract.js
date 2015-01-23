@@ -130,27 +130,27 @@ define(['controllers/controllers',
                 }
 
                 function contractEdit(){
-                    var contract = $scope.contract,
+                    var contractNew = $scope.contract,
                         filesTrash = $scope.filesTrash,
                         uploader = $scope.uploader,
                         entityName, file, i = 0, len;
 
                     var promiseContractEdit = {
-                            details: ContractDetailsService.save(contract.details),
-                            hours: ContractHoursService.save(contract.hours),
-                            pay: ContractPayService.save(contract.pay),
-                            leave: ContractLeaveService.save(contract.leave),
-                            insurance: ContractInsuranceService.save(contract.insurance),
-                            pension: ContractPensionService.save(contract.pension)
+                            details: ContractDetailsService.save(contractNew.details),
+                            hours: ContractHoursService.save(contractNew.hours),
+                            pay: ContractPayService.save(contractNew.pay),
+                            leave: ContractLeaveService.save(contractNew.leave),
+                            insurance: ContractInsuranceService.save(contractNew.insurance),
+                            pension: ContractPensionService.save(contractNew.pension)
                         },
                         promiseFilesEdit = [];
 
                     if (uploader.details.contract_file.queue.length) {
-                        promiseFilesEdit.push(ContractFilesService.upload(uploader.details.contract_file, contract.details.jobcontract_revision_id));
+                        promiseFilesEdit.push(ContractFilesService.upload(uploader.details.contract_file, contractNew.details.jobcontract_revision_id));
                     }
 
                     if (uploader.pension.evidence_file.queue.length) {
-                        promiseFilesEdit.push(ContractFilesService.upload(uploader.pension.evidence_file, contract.pension.jobcontract_revision_id));
+                        promiseFilesEdit.push(ContractFilesService.upload(uploader.pension.evidence_file, contractNew.pension.jobcontract_revision_id));
                     }
 
                     for (entityName in filesTrash) {
@@ -168,13 +168,14 @@ define(['controllers/controllers',
                     $q.all(promiseContractEdit).then(function(results){
 
                         //TODO (incorrect date format in the API response)
-                        results.details.period_start_date = $scope.contract.details.period_start_date;
-                        results.details.period_end_date = $scope.contract.details.period_end_date;
+                        results.details.period_start_date = contractNew.details.period_start_date;
+                        results.details.period_end_date = contractNew.details.period_end_date;
                         //
 
                         //TODO (incorrect JSON format in the API response)
-                        results.pay.annual_benefits = $scope.contract.pay.annual_benefits;
-                        results.pay.annual_deductions = $scope.contract.pay.annual_deductions;
+                        results.pay.annual_benefits = contractNew.pay.annual_benefits;
+                        results.pay.annual_deductions = contractNew.pay.annual_deductions;
+
 
                         results.isPrimarySet = results.details.is_primary != contract.details.is_primary && +results.details.is_primary,
                         results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;

@@ -116,7 +116,7 @@ require([
 
         app.constant('settings', {
             classNamePrefix: 'hrjobcont-',
-            contactId: +CRM.cid||null,
+            contactId: decodeURIComponent((new RegExp('[?|&]cid=([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null,
             debug: 1,
             pathApp: CRM.jobContractTabApp.path,
             pathFile: CRM.url('civicrm/hrjobcontract/file/'),

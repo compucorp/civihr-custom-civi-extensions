@@ -10,7 +10,7 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
     // Example: Assign a variable for use in a template
     $this->assign('currentTime', date('Y-m-d H:i:s'));
 
-    self::registerScripts();
+//    self::registerScripts();
     parent::run();
   }
   
@@ -29,19 +29,18 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
           'locationType' => CRM_Core_PseudoConstant::get('CRM_Core_DAO_Address', 'location_type_id'),
           'job_hours_time' => CRM_Hrjobcontract_Page_JobContractTab::getJobHoursTime(),
           'working_days' => CRM_Hrjobcontract_Page_JobContractTab::getDaysPerTime(),
-          //'pay_scale' => CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_pay_scale'),
         ),
         'FieldOptions' => CRM_Hrjobcontract_Page_JobContractTab::getFieldOptions(),
         'jobContractTabApp' => array(
-          'contact_id' => CRM_Utils_Request::retrieve('cid', 'Integer'),
-          'domain_id' => CRM_Core_Config::domainID(),
+          'contactId' => CRM_Utils_Request::retrieve('cid', 'Integer'),
+          'domainId' => CRM_Core_Config::domainID(),
           'isLogEnabled'    => (bool) $config->logging,
           'loggingReportId' => CRM_Report_Utils_Report::getInstanceIDForValue('logging/contact/summary'),
           'currencies' => CRM_Hrjobcontract_Page_JobContractTab::getCurrencyFormats(),
           'defaultCurrency' => $config->defaultCurrency,
           'path' => CRM_Core_Resources::singleton()->getUrl('org.civicrm.hrjobcontract'),
           'fields' => CRM_Hrjobcontract_Page_JobContractTab::getFields(),
-           'contract_list' => CRM_Hrjobcontract_Page_JobContractTab::getContractList()
+           'contractList' => CRM_Hrjobcontract_Page_JobContractTab::getContractList()
         ),
       );
     });

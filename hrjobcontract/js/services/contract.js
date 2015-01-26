@@ -27,7 +27,7 @@ define(['services/services'], function (services) {
             get: function(contactId) {
                 var deffered = $q.defer(), params = {};
 
-                if (!CRM || !CRM.jobContractTabApp || !CRM.jobContractTabApp.contract_list) {
+                if (!CRM || !CRM.jobContractTabApp || !CRM.jobContractTabApp.contractList) {
                     params = {
                         sequential: 1,
                         contact_id: settings.contactId
@@ -48,7 +48,7 @@ define(['services/services'], function (services) {
                         deffered.reject('Unable to fetch contract list');
                     });
                 } else {
-                    deffered.resolve(CRM.jobContractTabApp.contract_list);
+                    deffered.resolve(CRM.jobContractTabApp.contractList);
                 }
 
                 return deffered.promise;

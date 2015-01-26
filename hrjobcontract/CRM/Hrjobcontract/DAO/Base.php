@@ -131,24 +131,22 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
    */
   static function &fields()
   {
-    if (!(self::$_fields)) {
-      self::$_fields = array(
-        'jobcontract_revision_id' => array(
-          'name' => 'jobcontract_revision_id',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Job Contract Revision Id') ,
-          'required' => true,
-          //'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJobContractRevision',
-        ) ,
-      );
-    }
     return self::$_fields;
   }
   
   static function setFields(array $fields)
   {
-      self::$_fields = array_merge($fields, self::fields());
-      return self::$_fields;
+    self::$_fields = array_merge($fields, array(
+      'jobcontract_revision_id' => array(
+        'name' => 'jobcontract_revision_id',
+        'type' => CRM_Utils_Type::T_INT,
+        'title' => ts('Job Contract Revision Id') ,
+        'required' => true,
+        //'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJobContractRevision',
+      ) ,
+    ));
+
+    return self::$_fields;
   }
   
   /**

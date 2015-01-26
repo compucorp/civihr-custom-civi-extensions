@@ -61,9 +61,7 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
           'sequential' => 1,
       ));
 
-      foreach ($result['values'] as $val) {
-        $fields[$entityName][$val['name']] = '';
-      }
+      $fields[$entityName] = $result['values'];
     }
 
     return $fields;

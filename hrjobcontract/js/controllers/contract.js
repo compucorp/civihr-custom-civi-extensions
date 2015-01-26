@@ -14,7 +14,7 @@ define(['controllers/controllers',
                  ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService,
                  ContractPensionService, ContractFilesService){
 
-            var contractId = $scope.contract.id, contractRevisionIdObj;
+            var contractId = $scope.contract.id, contractRevisionIdObj, promiseFiles;
 
             $scope.contractLoaded = false;
             $scope.isCollapsed = true;
@@ -58,6 +58,11 @@ define(['controllers/controllers',
 
                 $scope.$broadcast('hrjc-loader-hide');
 
+            }).then(function(){
+                promiseFiles = $q.all({
+                    details: ContractFilesService.get($scope.details.jobcontract_revision_id,'civicrm_hrjobcontract_details'),
+                    pension: ContractFilesService.get($scope.pension.jobcontract_revision_id,'civicrm_hrjobcontract_pension')
+                });
             });
 
             $scope.modalContract = function(action, revisionEntityIdObj){
@@ -120,10 +125,16 @@ define(['controllers/controllers',
                                 });
                             },
                             files: function(){
+
+                                if (!revisionEntityIdObj) {
+                                    return promiseFiles;
+                                }
+
                                 return $q.all({
-                                    details: ContractFilesService.get(!revisionEntityIdObj ? $scope.details.jobcontract_revision_id : revisionEntityIdObj.details_revision_id,'civicrm_hrjobcontract_details'),
-                                    pension: ContractFilesService.get(!revisionEntityIdObj ? $scope.pension.jobcontract_revision_id : revisionEntityIdObj.pension_revision_id,'civicrm_hrjobcontract_pension')
+                                    details: ContractFilesService.get(revisionEntityIdObj.details_revision_id,'civicrm_hrjobcontract_details'),
+                                    pension: ContractFilesService.get(revisionEntityIdObj.pension_revision_id,'civicrm_hrjobcontract_pension')
                                 })
+
                             },
                             utils: function(){
                                 return $scope.utils
@@ -188,6 +199,13 @@ define(['controllers/controllers',
 
                     if (results.isPrimarySet) {
                         $scope.$parent.$parent.toggleIsPrimary(contractId);
+                    }
+
+                    if (results.files) {
+                        promiseFiles = $q.all({
+                            details: ContractFilesService.get($scope.details.jobcontract_revision_id,'civicrm_hrjobcontract_details'),
+                            pension: ContractFilesService.get($scope.pension.jobcontract_revision_id,'civicrm_hrjobcontract_pension')
+                        });
                     }
 
                 });

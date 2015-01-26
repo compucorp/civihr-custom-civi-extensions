@@ -96,6 +96,8 @@ define(['controllers/controllers',
                             promiseUpload.push(ContractFilesService.upload($scope.uploader.pension.evidence_file, revisionId));
                         }
 
+                        return $q.all(promiseUpload);
+
                     },function(reason){
                         CRM.alert(reason, 'Error', 'error');
                         $modalInstance.dismiss();

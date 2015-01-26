@@ -21,24 +21,35 @@ define(['services/services'], function (services) {
         })
     }]);
 
-    services.factory('ContractService', ['Contract','ContractRevision','settings','$q', function (Contract, ContractRevision, settings, $q) {
+    services.factory('ContractService', ['Contract','ContractRevision','settings','$q','UtilsService',
+        function (Contract, ContractRevision, settings, $q, UtilsService) {
         return {
             get: function(contactId) {
-                var deffered = $q.defer(),
+                var deffered = $q.defer(), params = {};
+
+                if (!CRM || !CRM.jobContractTabApp || !CRM.jobContractTabApp.contract_list) {
                     params = {
                         sequential: 1,
                         contact_id: settings.contactId
                     };
 
-                if (contactId && typeof +contactId === 'number') {
-                    params.contact_id = contactId;
-                }
+                    if (contactId && typeof +contactId === 'number') {
+                        params.contact_id = contactId;
+                    }
 
-                Contract.get({json: params}, function(data){
-                    deffered.resolve(data.values);
-                },function(){
-                    deffered.reject('Unable to fetch contract list');
-                });
+                    Contract.get({json: params}, function(data){
+
+                        if (UtilsService.errorHandler(data,'Unable to fetch contract list',deffered)) {
+                            return
+                        }
+
+                        deffered.resolve(data.values);
+                    },function(){
+                        deffered.reject('Unable to fetch contract list');
+                    });
+                } else {
+                    deffered.resolve(CRM.jobContractTabApp.contract_list);
+                }
 
                 return deffered.promise;
             },

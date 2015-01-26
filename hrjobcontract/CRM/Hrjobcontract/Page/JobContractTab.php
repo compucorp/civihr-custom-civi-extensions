@@ -40,7 +40,8 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
           'currencies' => CRM_Hrjobcontract_Page_JobContractTab::getCurrencyFormats(),
           'defaultCurrency' => $config->defaultCurrency,
           'path' => CRM_Core_Resources::singleton()->getUrl('org.civicrm.hrjobcontract'),
-          'fields' => CRM_Hrjobcontract_Page_JobContractTab::getFields()
+          'fields' => CRM_Hrjobcontract_Page_JobContractTab::getFields(),
+           'contract_list' => CRM_Hrjobcontract_Page_JobContractTab::getContractList()
         ),
       );
     });
@@ -132,6 +133,24 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
     $fieldOptions['HRJobPay']['deduction_type'] = CRM_Hrjobcontract_Page_JobContractTab::getCustomOptions('hrjc_deduction_type');
     
     return $fieldOptions;
+  }
+
+  /**
+   * Get initial contact contract list
+   */
+  public static function getContractList () {
+    $contract_list = [];
+
+     $result = civicrm_api3('HRJobContract', 'get', array(
+        'contact_id' => CRM_Utils_Request::retrieve('cid', 'Integer'),
+        'sequential' => 1,
+    ));
+
+    if ($result['is_error'] || empty($result['values'])) {
+      return $contract_list;
+    }
+
+    return $contract_list = $result['values'];
   }
 
   /**

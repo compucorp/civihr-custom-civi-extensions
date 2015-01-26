@@ -60,6 +60,41 @@ define(['services/services',
 
                 return deffered.promise;
             },
+            getFields: function(params){
+
+                if (params && typeof params !== 'object') {
+                    return null;
+                }
+
+                if (!params || typeof params !== 'object') {
+                    params = {};
+                }
+
+                var deffered = $q.defer(),
+                    crmFields = settings.CRM.fields;
+
+                if (crmFields && crmFields.HRJobPay) {
+                    deffered.resolve(crmFields.HRJobPay);
+                } else {
+                    params.sequential = 1;
+
+                    ContractPay.get({
+                        action: 'getfields',
+                        json: params
+                    }, function(data){
+
+                        if (!data.values) {
+                            deffered.reject('Unable to fetch contract pay fields');
+                        }
+
+                        deffered.resolve(data.values);
+                    },function(){
+                        deffered.reject('Unable to fetch contract pay fields');
+                    });
+                }
+
+                return deffered.promise;
+            },
             save: function(contractPay){
 
                 if (!contractPay || typeof contractPay !== 'object') {
@@ -90,18 +125,9 @@ define(['services/services',
 
                 return deffered.promise;
             },
-            model: function(params){
+            model: function(){
 
-                if (params && typeof params !== 'object') {
-                    return null;
-                }
-
-                if (!params || typeof params !== 'object') {
-                    params = {};
-                }
-
-                var deffered = $q.defer(),
-                    crmFields = settings.CRM.fields;
+                var deffered = $q.defer();
 
                 function createModel(fields) {
                     var i = 0, len = fields.length, model = {};
@@ -129,29 +155,9 @@ define(['services/services',
                     return model;
                 }
 
-                if (crmFields && crmFields.HRJobPay) {
-
-                    deffered.resolve(createModel(crmFields.HRJobPay));
-
-                } else {
-
-                    params.sequential = 1;
-
-                    ContractPay.get({
-                        action: 'getfields',
-                        json: params
-                    }, function(data){
-
-                        if (!data.values) {
-                            deffered.reject('Unable to fetch contract pay fields');
-                        }
-
-                        deffered.resolve(createModel(data.values));
-                    },function(){
-                        deffered.reject('Unable to fetch contract pay fields');
-                    });
-
-                }
+                this.getFields().then(function(fields){
+                    deffered.resolve(createModel(fields));
+                });
 
                 return deffered.promise;
             }

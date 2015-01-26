@@ -60,6 +60,41 @@ define(['services/services',
 
                 return deffered.promise;
             },
+            getFields: function(params){
+
+                if (params && typeof params !== 'object') {
+                    return null;
+                }
+
+                if (!params || typeof params !== 'object') {
+                    params = {};
+                }
+
+                var deffered = $q.defer(),
+                    crmFields = settings.CRM.fields;
+
+                if (crmFields && crmFields.HRJobHour) {
+                    deffered.resolve(crmFields.HRJobHour);
+                } else {
+                    params.sequential = 1;
+
+                    ContractHours.get({
+                        action: 'getfields',
+                        json: params
+                    }, function(data){
+
+                        if (!data.values) {
+                            deffered.reject('Unable to fetch contract hours fields');
+                        }
+
+                        deffered.resolve(data.values);
+                    },function(){
+                        deffered.reject('Unable to fetch contract hours fields');
+                    });
+                }
+
+                return deffered.promise;
+            },
             save: function(contractHours){
 
                 if (!contractHours || typeof contractHours !== 'object') {
@@ -90,18 +125,9 @@ define(['services/services',
 
                 return deffered.promise;
             },
-            model: function(params){
+            model: function(){
 
-                if (params && typeof params !== 'object') {
-                    return null;
-                }
-
-                if (!params || typeof params !== 'object') {
-                    params = {};
-                }
-
-                var deffered = $q.defer(),
-                    crmFields = settings.CRM.fields;
+                var deffered = $q.defer();
 
                 function createModel(fields) {
                     var i = 0, len = fields.length, model = {};
@@ -121,28 +147,9 @@ define(['services/services',
                     return model;
                 }
 
-                if (crmFields && crmFields.HRJobHour) {
-
-                    deffered.resolve(createModel(crmFields.HRJobHour));
-
-                } else {
-
-                    params.sequential = 1;
-
-                    ContractHours.get({
-                        action: 'getfields',
-                        json: params
-                    }, function(data){
-
-                        if (!data.values) {
-                            deffered.reject('Unable to fetch contract hours fields');
-                        }
-
-                        deffered.resolve(createModel(data.values));
-                    },function(){
-                        deffered.reject('Unable to fetch contract hours fields');
-                    });
-                }
+                this.getFields().then(function(fields){
+                    deffered.resolve(createModel(fields));
+                });
 
                 return deffered.promise;
             }

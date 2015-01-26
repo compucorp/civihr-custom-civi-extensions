@@ -60,6 +60,41 @@ define(['services/services',
 
                 return deffered.promise;
             },
+            getFields: function(params){
+
+                if (params && typeof params !== 'object') {
+                    return null;
+                }
+
+                if (!params || typeof params !== 'object') {
+                    params = {};
+                }
+
+                var deffered = $q.defer(),
+                    crmFields = settings.CRM.fields;
+
+                if (crmFields && crmFields.HRJobLeave) {
+                    deffered.resolve(crmFields.HRJobLeave);
+                } else {
+                    params.sequential = 1;
+
+                    ContractLeave.get({
+                        action: 'getfields',
+                        json: params
+                    }, function(data){
+
+                        if (!data.values) {
+                            deffered.reject('Unable to fetch contract leave fields');
+                        }
+
+                        deffered.resolve(data.values);
+                    },function(){
+                        deffered.reject('Unable to fetch contract leave fields');
+                    });
+                }
+
+                return deffered.promise;
+            },
             save: function (contractLeave) {
 
                 if (!contractLeave || typeof contractLeave !== 'object') {
@@ -91,16 +126,7 @@ define(['services/services',
             },
             model: function(params, leaveType){
 
-                if (params && typeof params !== 'object') {
-                    return null;
-                }
-
-                if (!params || typeof params !== 'object') {
-                    params = {};
-                }
-
-                var deffered = $q.defer(),
-                    crmFields = settings.CRM.fields;
+                var deffered = $q.defer(), model;
 
                 function createModel(leaveType, fields) {
                     var i = 0, len = fields.length, model = [], modelEntry = {};
@@ -135,42 +161,18 @@ define(['services/services',
                     return model;
                 }
 
-                if (crmFields && crmFields.HRJobLeave) {
-
+                this.getFields().then(function(fields){
                     if (leaveType && typeof leaveType == 'object') {
-                        deffered.resolve(createModel(leaveType,crmFields.HRJobLeave));
-                    } else {
-                        this.getOptions('leave_type').then(function(options){
-                            deffered.resolve(createModel(options,crmFields.HRJobLeave));
-                        });
+                        deffered.resolve(createModel(leaveType,fields));
+                        return
                     }
 
-                } else {
-                    params.sequential = 1;
-
-                    ContractLeave.get({
-                        action: 'getfields',
-                        json: params
-                    }, function(data){
-
-                        if (!data.values) {
-                            deffered.reject('Unable to fetch contract leave fields');
-                        }
-
-                        if (leaveType && typeof leaveType == 'object') {
-                            deffered.resolve(createModel(leaveType,data.values));
-                            return
-                        }
-
-                        this.getOptions('leave_type').then(function(options){
-                            deffered.resolve(createModel(options,data.values));
-                            return
-                        });
-
-                    }.bind(this),function(){
-                        deffered.reject('Unable to fetch contract details fields');
+                    this.getOptions('leave_type').then(function(options){
+                        deffered.resolve(createModel(options,fields));
+                        return
                     });
-                }
+
+                }.bind(this));
 
                 return deffered.promise;
             }

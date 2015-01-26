@@ -15,8 +15,6 @@ define(['controllers/controllers',
                  ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService, ContractPensionService,
                  UtilsService, settings){
 
-            console.log(contractList);
-
             $scope.contractListLoaded = false;
             $scope.contractIdPrimary = 0;
             $scope.contractCurrent = [];

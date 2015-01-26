@@ -46,7 +46,7 @@ define(['services/services',
                 var deffered = $q.defer(), data;
 
                 if (!callAPI) {
-                    var data = settings.CRM.options.HRJobDetails || {};
+                    data = settings.CRM.options.HRJobDetails || {};
 
                     if (fieldName && typeof fieldName === 'string') {
                         data = data[fieldName];
@@ -55,6 +55,41 @@ define(['services/services',
                     deffered.resolve(data || {});
                 } else {
                     //TODO call2API
+                }
+
+                return deffered.promise;
+            },
+            getFields: function(params){
+
+                if (params && typeof params !== 'object') {
+                    return null;
+                }
+
+                if (!params || typeof params !== 'object') {
+                    params = {};
+                }
+
+                var deffered = $q.defer(),
+                    crmFields = settings.CRM.fields;
+
+                if (crmFields && crmFields.HRJobDetails) {
+                    deffered.resolve(crmFields.HRJobDetails);
+                } else {
+                    params.sequential = 1;
+
+                    ContractDetails.get({
+                        action: 'getfields',
+                        json: params
+                    }, function(data){
+
+                        if (!data.values) {
+                            deffered.reject('Unable to fetch contract details fields');
+                        }
+
+                        deffered.resolve(data.values);
+                    },function(){
+                        deffered.reject('Unable to fetch contract details fields');
+                    });
                 }
 
                 return deffered.promise;
@@ -89,18 +124,9 @@ define(['services/services',
 
                 return deffered.promise;
             },
-            model: function(params){
+            model: function(){
 
-                if (params && typeof params !== 'object') {
-                    return null;
-                }
-
-                if (!params || typeof params !== 'object') {
-                    params = {};
-                }
-
-                var deffered = $q.defer(),
-                    crmFields = settings.CRM.fields;
+                var deffered = $q.defer();
 
                 function createModel(fields) {
                     var i = 0, len = fields.length, model = {};
@@ -124,28 +150,9 @@ define(['services/services',
                     return model;
                 }
 
-                if (crmFields && crmFields.HRJobDetails) {
-
-                    deffered.resolve(createModel(crmFields.HRJobDetails));
-
-                } else {
-
-                    params.sequential = 1;
-
-                    ContractDetails.get({
-                        action: 'getfields',
-                        json: params
-                    }, function(data){
-
-                        if (!data.values) {
-                            deffered.reject('Unable to fetch contract details fields');
-                        }
-
-                        deffered.resolve(createModel(data.values));
-                    },function(){
-                        deffered.reject('Unable to fetch contract details fields');
-                    });
-                }
+                this.getFields().then(function(fields){
+                    deffered.resolve(createModel(fields));
+                });
 
                 return deffered.promise;
             }

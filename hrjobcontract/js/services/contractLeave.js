@@ -100,6 +100,7 @@ define(['services/services',
                 }
 
                 var deffered = $q.defer(),
+                    crmFields = settings.CRM.fields,
                     i = 0, len, modelEntry = {}, model = [], val;
 
                 function createModel(leaveType, modelEntry) {
@@ -119,23 +120,7 @@ define(['services/services',
                     return model;
                 }
 
-                params.sequential = 1;
-
-                ContractLeave.get({
-                    action: 'getfields',
-                    json: params
-                }, function(data){
-
-                    if (!data.values) {
-                        deffered.reject('Unable to fetch contract leave fields');
-                    }
-
-                    i = 0, val = data.values, len = val.length;
-
-                    for (i; i < len; i++) {
-                        modelEntry[val[i].name] = '';
-                    }
-
+                function clearFields(modelEntry) {
                     if (typeof modelEntry.id !== 'undefined') {
                         modelEntry.id = null;
                     }
@@ -144,19 +129,59 @@ define(['services/services',
                         modelEntry.jobcontract_revision_id = null;
                     }
 
-                    if (leaveType && typeof leaveType == 'object') {
-                        deffered.resolve(createModel(leaveType,modelEntry));
-                        return
+                    if (typeof modelEntry.location !== 'undefined') {
+                        modelEntry.location = null;
                     }
 
-                    this.getOptions('leave_type').then(function(options){
-                        deffered.resolve(createModel(options,modelEntry));
-                        return
-                    });
+                    return modelEntry;
+                }
 
-                }.bind(this),function(){
-                    deffered.reject('Unable to fetch contract details fields');
-                });
+                if (crmFields && crmFields.HRJobLeave) {
+
+                    modelEntry = clearFields(crmFields.HRJobLeave);
+
+                    if (leaveType && typeof leaveType == 'object') {
+                        deffered.resolve(createModel(leaveType,modelEntry));
+                    } else {
+                        this.getOptions('leave_type').then(function(options){
+                            deffered.resolve(createModel(options,modelEntry));
+                        });
+                    }
+
+                } else {
+                    params.sequential = 1;
+
+                    ContractLeave.get({
+                        action: 'getfields',
+                        json: params
+                    }, function(data){
+
+                        if (!data.values) {
+                            deffered.reject('Unable to fetch contract leave fields');
+                        }
+
+                        i = 0, val = data.values, len = val.length;
+
+                        for (i; i < len; i++) {
+                            modelEntry[val[i].name] = '';
+                        }
+
+                        modelEntry = clearFields(modelEntry);
+
+                        if (leaveType && typeof leaveType == 'object') {
+                            deffered.resolve(createModel(leaveType,modelEntry));
+                            return
+                        }
+
+                        this.getOptions('leave_type').then(function(options){
+                            deffered.resolve(createModel(options,modelEntry));
+                            return
+                        });
+
+                    }.bind(this),function(){
+                        deffered.reject('Unable to fetch contract details fields');
+                    });
+                }
 
                 return deffered.promise;
             }

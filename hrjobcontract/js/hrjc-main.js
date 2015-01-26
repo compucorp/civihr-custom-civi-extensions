@@ -129,7 +129,8 @@ require([
             CRM: {
                 options: CRM.FieldOptions || {},
                 defaultCurrency: CRM.jobContractTabApp.defaultCurrency,
-                apiTsFmt: 'YYYY-MM-DD HH:mm:ss'
+                apiTsFmt: 'YYYY-MM-DD HH:mm:ss',
+                fields: CRM.jobContractTabApp.fields
             },
             entityHistoryFields: {
                 details: [

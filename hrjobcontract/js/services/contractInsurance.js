@@ -101,25 +101,10 @@ define(['services/services',
                 }
 
                 var deffered = $q.defer(),
+                    crmFields = settings.CRM.fields,
                     i = 0, len, model = {}, val;
 
-                params.sequential = 1;
-
-                ContractInsurance.get({
-                    action: 'getfields',
-                    json: params
-                }, function(data){
-
-                    if (!data.values) {
-                        deffered.reject('Unable to fetch contract insurance fields');
-                    }
-
-                    i = 0, val = data.values, len = val.length;
-
-                    for (i; i < len; i++) {
-                        model[val[i].name] = '';
-                    }
-
+                function clearFields(model) {
                     if (typeof model.id !== 'undefined') {
                         model.id = null;
                     }
@@ -128,10 +113,37 @@ define(['services/services',
                         model.jobcontract_revision_id = null;
                     }
 
-                    deffered.resolve(model);
-                },function(){
-                    deffered.reject('Unable to fetch contract insurance fields');
-                });
+                    return model;
+                }
+
+                if (crmFields && crmFields.HRJobHealth) {
+
+                    deffered.resolve(clearFields(crmFields.HRJobHealth));
+
+                } else {
+
+                    params.sequential = 1;
+
+                    ContractInsurance.get({
+                        action: 'getfields',
+                        json: params
+                    }, function(data){
+
+                        if (!data.values) {
+                            deffered.reject('Unable to fetch contract insurance fields');
+                        }
+
+                        i = 0, val = data.values, len = val.length;
+
+                        for (i; i < len; i++) {
+                            model[val[i].name] = '';
+                        }
+
+                        deffered.resolve(clearFields(model));
+                    },function(){
+                        deffered.reject('Unable to fetch contract insurance fields');
+                    });
+                }
 
                 return deffered.promise;
             }

@@ -39,23 +39,34 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
           'loggingReportId' => CRM_Report_Utils_Report::getInstanceIDForValue('logging/contact/summary'),
           'currencies' => CRM_Hrjobcontract_Page_JobContractTab::getCurrencyFormats(),
           'defaultCurrency' => $config->defaultCurrency,
-          'path' => CRM_Core_Resources::singleton()->getUrl('org.civicrm.hrjobcontract')
+          'path' => CRM_Core_Resources::singleton()->getUrl('org.civicrm.hrjobcontract'),
+          'fields' => CRM_Hrjobcontract_Page_JobContractTab::getFields()
         ),
       );
     });
+  }
 
-    $templateDir = CRM_Extension_System::singleton()->getMapper()->keyToBasePath('org.civicrm.hrjobcontract') . '/templates/';
-    $region = CRM_Core_Region::instance('page-header');
-    foreach (glob($templateDir . 'CRM/Hrjobcontract/Underscore/*.tpl') as $file) {
-      $fileName = substr($file, strlen($templateDir));
-      $region->add(array(
-          'template' => $fileName
-        ));
+
+  /**
+   * Get a list of all fields to create model
+   *
+   * @return array e.g. $fields[$entityName][$fieldName] = ''
+   */
+  public static function getFields () {
+    $entity = array('HRJobDetails','HRJobHour','HRJobPay','HRJobPension','HRJobHealth','HRJobLeave');
+    $fields = array();
+
+    foreach ($entity as $entityName) {
+      $result = civicrm_api3($entityName, 'getfields', array(
+          'sequential' => 1,
+      ));
+
+      foreach ($result['values'] as $val) {
+        $fields[$entityName][$val['name']] = '';
+      }
     }
 
-    $region->add(array(
-      'template' => 'CRM/Form/validate.tpl'
-    ));
+    return $fields;
   }
 
   /**

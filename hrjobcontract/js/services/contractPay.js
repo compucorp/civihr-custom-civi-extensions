@@ -101,43 +101,58 @@ define(['services/services',
                 }
 
                 var deffered = $q.defer(),
+                    crmFields = settings.CRM.fields,
                     i = 0, len, model = {}, val;
 
-                params.sequential = 1;
+                function clearFields(model) {
+                    if (typeof model.id !== 'undefined') {
+                        model.id = null;
+                    }
 
-                ContractPay.get({
-                    action: 'getfields',
-                    json: params
-                }, function(data){
+                    if (typeof model.jobcontract_revision_id !== 'undefined') {
+                        model.jobcontract_revision_id = null;
+                    }
 
-                    if (!data.values) {
+                    if (typeof model.annual_benefits !== 'undefined') {
+                        model.annual_benefits = [];
+                    }
+
+                    if (typeof model.annual_deductions !== 'undefined') {
+                        model.annual_deductions = [];
+                    }
+
+                    return model;
+                }
+
+                if (crmFields && crmFields.HRJobPay) {
+
+                    deffered.resolve(clearFields(crmFields.HRJobPay));
+
+                } else {
+
+                    params.sequential = 1;
+
+                    ContractPay.get({
+                        action: 'getfields',
+                        json: params
+                    }, function(data){
+
+                        if (!data.values) {
+                            deffered.reject('Unable to fetch contract pay fields');
+                        }
+
+                        i = 0, val = data.values, len = val.length;
+
+                        for (i; i < len; i++) {
+                            model[val[i].name] = '';
+                        }
+
+                        deffered.resolve(clearFields(model));
+                    },function(){
                         deffered.reject('Unable to fetch contract pay fields');
-                    }
+                    });
 
-                    i = 0, val = data.values, len = val.length;
-
-                    for (i; i < len; i++) {
-                        //TODO
-                        if (val[i].callback && val[i].callback == 'CRM_Hrjobcontract_Callback::getJSON') {
-                            model[val[i].name] = [];
-                            continue;
-                        }
-
-                        model[val[i].name] = '';
-
-                        if (typeof model.id !== 'undefined') {
-                            model.id = null;
-                        }
-
-                        if (typeof model.jobcontract_revision_id !== 'undefined') {
-                            model.jobcontract_revision_id = null;
-                        }
-                    }
-
-                    deffered.resolve(model);
-                },function(){
-                    deffered.reject('Unable to fetch contract pay fields');
-                });
+                }
 
                 return deffered.promise;
             }

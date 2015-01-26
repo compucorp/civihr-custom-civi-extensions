@@ -8,10 +8,10 @@ define(['controllers/controllers',
         'services/contractPay',
         'services/contractPension',
         'services/utils'], function(controllers){
-    controllers.controller('ContractListCtrl',['$scope','$rootElement','$modal','$q', '$filter', 'contractList','ContractService',
+    controllers.controller('ContractListCtrl',['$scope','$rootElement','$rootScope','$modal','$q', '$filter', 'contractList','ContractService',
         'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService', 'ContractInsuranceService',
         'ContractPensionService', 'UtilsService','settings',
-        function($scope, $rootElement, $modal, $q, $filter, contractList, ContractService, ContractDetailsService,
+        function($scope, $rootElement, $rootScope, $modal, $q, $filter, contractList, ContractService, ContractDetailsService,
                  ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService, ContractPensionService,
                  UtilsService, settings){
 
@@ -55,6 +55,7 @@ define(['controllers/controllers',
                     $scope.utils.contractListLen = $scope.contractCurrent.length + $scope.contractPast.length;
                 });
 
+                $rootScope.$broadcast('hrjc-loader-hide');
                 $scope.contractListLoaded = true;
             });
 
@@ -137,6 +138,7 @@ define(['controllers/controllers',
 
                 modalInstance.result.then(function(confirm){
                     if (confirm) {
+                        $scope.$emit('hrjc-loader-show');
                         ContractService.delete(contractId).then(function(result){
 
                             if (!result.is_error) {
@@ -147,6 +149,7 @@ define(['controllers/controllers',
 
                                     for (i; i < len; i++){
                                         if (+contractArray[i].id == id) {
+                                            $scope.$emit('hrjc-loader-hide');
                                             contractArray.splice(i,1);
                                             return id;
                                         }

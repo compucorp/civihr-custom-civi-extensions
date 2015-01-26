@@ -83,7 +83,6 @@ define(['services/services',
 
                     val = data.values;
                     deffered.resolve(val.length == 1 ? val[0] : null);
-
                 },function(){
                     deffered.reject('Unable to create contract details');
                 });

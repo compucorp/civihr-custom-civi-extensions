@@ -10,11 +10,11 @@ define(['controllers/controllers',
         'services/contractFiles',
         'services/utils'], function(controllers){
 
-    controllers.controller('ModalContractCtrl',['$scope','$modal', '$modalInstance','$q', '$rootElement','$filter',
+    controllers.controller('ModalContractCtrl',['$scope','$modal', '$modalInstance','$q', '$rootElement','$rootScope','$filter',
         'ContractService', 'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
         'ContractInsuranceService', 'ContractPensionService', 'ContractFilesService', 'action', 'contract',
         'content', 'files', 'UtilsService', 'utils', 'settings',
-        function($scope, $modal, $modalInstance, $q, $rootElement, $filter, ContractService, ContractDetailsService,
+        function($scope, $modal, $modalInstance, $q, $rootElement, $rootScope, $filter, ContractService, ContractDetailsService,
                  ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService,
                  ContractPensionService, ContractFilesService, action, contract, content, files,
                  UtilsService, utils, settings){
@@ -47,11 +47,16 @@ define(['controllers/controllers',
                 $scope.filesTrash[entityName] = [];
             })
 
+            $modalInstance.opened.then(function(){
+                $rootScope.$broadcast('hrjc-loader-hide');
+            });
+
             $scope.cancel = function () {
 
                 if (action == 'view' ||
                     (angular.equals(contract,$scope.contract) && angular.equals(files,$scope.files) &&
                     !$scope.uploader.details.contract_file.queue.length && !$scope.uploader.pension.evidence_file.queue.length)) {
+                    $scope.$broadcast('hrjc-loader-hide');
                     $modalInstance.dismiss('cancel');
                     return;
                 }
@@ -87,6 +92,7 @@ define(['controllers/controllers',
 
                 modalInstance.result.then(function(confirm){
                     if (confirm) {
+                        $scope.$broadcast('hrjc-loader-hide');
                         $modalInstance.dismiss('cancel');
                     }
                 });
@@ -130,6 +136,8 @@ define(['controllers/controllers',
                 }
 
                 function contractEdit(){
+                    $scope.$broadcast('hrjc-loader-show');
+
                     var contractNew = $scope.contract,
                         filesTrash = $scope.filesTrash,
                         uploader = $scope.uploader,
@@ -180,14 +188,17 @@ define(['controllers/controllers',
                         results.isPrimarySet = results.details.is_primary != contract.details.is_primary && +results.details.is_primary,
                         results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
 
+                        $scope.$broadcast('hrjc-loader-hide');
                         $modalInstance.close(results);
                     },function(reason){
+                        $scope.$broadcast('hrjc-loader-hide');
                         CRM.alert(reason, 'Error', 'error');
                         $modalInstance.dismiss();
                     });
                 }
 
                 function contractChange(reasonId, date){
+                    $scope.$broadcast('hrjc-loader-show');
 
                     var contractNew = $scope.contract,
                         filesTrash = $scope.filesTrash,
@@ -310,6 +321,7 @@ define(['controllers/controllers',
                         return $q.all(results);
 
                     }).then(function(results){
+                        $scope.$broadcast('hrjc-loader-hide');
                         $modalInstance.close(results);
                     });
 
@@ -321,6 +333,7 @@ define(['controllers/controllers',
                         angular.equals(files,$scope.files) &&
                         !$scope.uploader.details.contract_file.queue.length &&
                         !$scope.uploader.pension.evidence_file.queue.length) {
+                        $scope.$broadcast('hrjc-loader-hide');
                         $modalInstance.dismiss('cancel');
                         return;
                     }
@@ -349,6 +362,7 @@ define(['controllers/controllers',
 
                             break;
                         default:
+                            $scope.$broadcast('hrjc-loader-hide');
                             $modalInstance.dismiss('cancel');
                             return;
                     }

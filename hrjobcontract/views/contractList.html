@@ -1,10 +1,10 @@
 <ul class="{{prefix}}list-contract">
-    <li class="{{prefix}}list-contract-item" ng-class="{'ng-active': contractLoaded}" ng-repeat="contract in contractCurrent" ng-controller="ContractCtrl" ng-include src="'contract.html'"></li>
+    <li class="{{prefix}}list-contract-item" hrjc-loader hrjc-loader-show="true" ng-class="{'ng-active': contractLoaded}" ng-repeat="contract in contractCurrent" ng-controller="ContractCtrl" ng-include src="'contract.html'"></li>
 </ul>
 
 <h3 ng-show="contractPast.length">Past Job Contracts:</h3>
 <ul class="{{prefix}}list-contract">
-    <li class="{{prefix}}list-contract-item" ng-class="{'ng-active': contractLoaded}" ng-repeat="contract in contractPast" ng-controller="ContractCtrl" ng-include src="'contract.html'"></li>
+    <li class="{{prefix}}list-contract-item" hrjc-loader hrjc-loader-show="true" ng-class="{'ng-active': contractLoaded}" ng-repeat="contract in contractPast" ng-controller="ContractCtrl" ng-include src="'contract.html'"></li>
 </ul>
 <p class="{{prefix}}btn-add-contract"  ng-class="{'ng-active': contractListLoaded}">
     <button class="btn btn-default btn-sm btn-primary" ng-click="modalContract('new')">

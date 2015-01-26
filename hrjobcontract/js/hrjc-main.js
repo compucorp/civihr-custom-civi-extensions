@@ -58,6 +58,8 @@ require([
     'controllers/form/formInsurance',
     'controllers/form/formPay',
     'controllers/form/formPension',
+    'directives/directives',
+    'directives/loader',
     'filters/capitalize',
     'filters/getObjById',
     'filters/formatAmount',
@@ -115,7 +117,7 @@ require([
     document.addEventListener('hrjcLoad', function(e){
 
         app.constant('settings', {
-            classNamePrefix: 'hrjobcont-',
+            classNamePrefix: 'hrjc-',
             contactId: decodeURIComponent((new RegExp('[?|&]cid=([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null,
             debug: 1,
             pathApp: CRM.jobContractTabApp.path,

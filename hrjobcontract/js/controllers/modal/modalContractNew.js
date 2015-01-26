@@ -33,8 +33,6 @@ define(['controllers/controllers',
             };
             $scope.utils = utils;
 
-            console.log($scope.uploaderContractFile);
-
             angular.copy(model,$scope.contract);
 
             $scope.cancel = function () {
@@ -42,6 +40,7 @@ define(['controllers/controllers',
             };
 
             $scope.save = function () {
+                $scope.$broadcast('hrjc-loader-show');
                 var contract = new Contract();
 
                 contract.$save({
@@ -102,6 +101,7 @@ define(['controllers/controllers',
                         $modalInstance.dismiss();
                         return $q.reject();
                     }).then(function(){
+                        $scope.$broadcast('hrjc-loader-hide');
                         $modalInstance.close(contract);
                     });
 

@@ -7,10 +7,10 @@ define(['controllers/controllers',
         'services/contractPension',
         'services/contractInsurance',
         'services/utils',], function(controllers){
-    controllers.controller('ContractCtrl',['$timeout','$scope', '$route', '$filter', '$modal', '$rootElement', '$q', 'settings',
+    controllers.controller('ContractCtrl',['$scope', '$route', '$filter', '$modal', '$rootElement', '$q', 'settings',
         'API', 'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
         'ContractInsuranceService', 'ContractPensionService','ContractFilesService',
-        function($timeout, $scope, $route, $filter, $modal, $rootElement, $q, settings, API, ContractDetailsService,
+        function($scope, $route, $filter, $modal, $rootElement, $q, settings, API, ContractDetailsService,
                  ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService,
                  ContractPensionService, ContractFilesService){
 
@@ -56,9 +56,12 @@ define(['controllers/controllers',
                     $scope.isCollapsed = !+$scope.contract.is_primary;
                 });
 
+                $scope.$broadcast('hrjc-loader-hide');
+
             });
 
             $scope.modalContract = function(action, revisionEntityIdObj){
+                $scope.$broadcast('hrjc-loader-show');
 
                 var modalInstance,
                     options = {
@@ -191,7 +194,7 @@ define(['controllers/controllers',
             };
 
             $scope.modalRevision = function(entity){
-
+                $scope.$broadcast('hrjc-loader-show');
                 if (!entity) {
                     return null;
                 }
@@ -237,7 +240,6 @@ define(['controllers/controllers',
                         }
                     }
                 };
-
                 return $modal.open(options);
             }
 

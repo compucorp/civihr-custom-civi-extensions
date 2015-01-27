@@ -243,9 +243,13 @@ define(['controllers/controllers',
                     size: 'lg',
                     controller: 'ModalRevisionCtrl',
                     templateUrl: settings.pathApp+'views/modalRevision.html?v='+(new Date()).getTime(),
+                    windowClass: 'modal-revision',
                     resolve: {
                         entity: function(){
                             return entity;
+                        },
+                        fields: function(){
+                            return $scope.$parent.$parent.fields[entity];
                         },
                         revisionDataList: function(){
                             return $q.all(promiseEntityRevisionDataList);

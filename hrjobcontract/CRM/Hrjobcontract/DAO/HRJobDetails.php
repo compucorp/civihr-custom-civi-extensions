@@ -217,7 +217,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                 'hrjob_position' => array(
                   'name' => 'position',
                   'type' => CRM_Utils_Type::T_STRING,
-                  'title' => ts('Job Contract Position') ,
+                  'title' => ts('Position') ,
                   'maxlength' => 127,
                   'size' => CRM_Utils_Type::HUGE,
                   'export' => true,
@@ -229,7 +229,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                 'hrjob_title' => array(
                   'name' => 'title',
                   'type' => CRM_Utils_Type::T_STRING,
-                  'title' => ts('Job Contract Title') ,
+                  'title' => ts('Title') ,
                   'maxlength' => 127,
                   'size' => CRM_Utils_Type::HUGE,
                   'export' => true,
@@ -248,7 +248,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                 'hrjob_contract_type' => array(
                   'name' => 'contract_type',
                   'type' => CRM_Utils_Type::T_STRING,
-                  'title' => ts('Job Contract Type') ,
+                  'title' => ts('Contract Type') ,
                   'maxlength' => 63,
                   'size' => CRM_Utils_Type::BIG,
                   'export' => true,
@@ -263,7 +263,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                 'period_type' => array(
                   'name' => 'period_type',
                   'type' => CRM_Utils_Type::T_STRING,
-                  'title' => ts('Job Contract Duration') ,
+                  'title' => ts('Duration') ,
                   'export' => true,
                   'maxlength' => 63,
                   'size' => CRM_Utils_Type::BIG,
@@ -278,7 +278,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                 'hrjob_period_start_date' => array(
                   'name' => 'period_start_date',
                   'type' => CRM_Utils_Type::T_DATE,
-                  'title' => ts('Job Contract Start Date') ,
+                  'title' => ts('Contract Start Date') ,
                   'export' => true,
                   'import' => true,
                   'where' => 'civicrm_hrjobcontract_details.period_start_date',
@@ -288,7 +288,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                 'hrjob_period_end_date' => array(
                   'name' => 'period_end_date',
                   'type' => CRM_Utils_Type::T_DATE,
-                  'title' => ts('Job Contract End Date') ,
+                  'title' => ts('Contract End Date') ,
                   'export' => true,
                   'import' => true,
                   'where' => 'civicrm_hrjobcontract_details.period_end_date',
@@ -348,7 +348,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                 'hrjob_location' => array(
                   'name' => 'location',
                   'type' => CRM_Utils_Type::T_STRING,
-                  'title' => ts('Job Contract Normal Place of Work') ,
+                  'title' => ts('Normal Place of Work') ,
                   'maxlength' => 127,
                   'size' => CRM_Utils_Type::HUGE,
                   'export' => true,
@@ -363,7 +363,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                 'hrjob_is_primary' => array(
                   'name' => 'is_primary',
                   'type' => CRM_Utils_Type::T_BOOLEAN,
-                  'title' => ts('Job Contract Is Primary') ,
+                  'title' => ts('Is Primary?') ,
                   'export' => true,
                   'import' => true,
                   'where' => 'civicrm_hrjobcontract_details.is_primary',

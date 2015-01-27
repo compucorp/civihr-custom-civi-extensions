@@ -124,7 +124,7 @@ define(['services/services',
 
                 return deffered.promise;
             },
-            model: function(){
+            model: function(fields){
 
                 var deffered = $q.defer();
 
@@ -150,9 +150,13 @@ define(['services/services',
                     return model;
                 }
 
-                this.getFields().then(function(fields){
+                if (fields) {
                     deffered.resolve(createModel(fields));
-                });
+                } else {
+                    this.getFields().then(function(fields){
+                        deffered.resolve(createModel(fields));
+                    });
+                }
 
                 return deffered.promise;
             }

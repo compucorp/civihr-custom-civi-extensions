@@ -15,6 +15,15 @@ define(['controllers/controllers',
                  ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService, ContractPensionService,
                  UtilsService, settings){
 
+            var entityServices = {
+                    details: ContractDetailsService,
+                    hours: ContractHoursService,
+                    pay: ContractPayService,
+                    leave: ContractLeaveService,
+                    insurance: ContractInsuranceService,
+                    pension: ContractPensionService
+                }, entityName, promiseFields = {}, promiseModel = {};
+
             $scope.contractListLoaded = false;
             $scope.contractIdPrimary = 0;
             $scope.contractCurrent = [];
@@ -23,13 +32,23 @@ define(['controllers/controllers',
                 contractListLen: contractList.length
             };
 
-            $q.all({
-                details: ContractDetailsService.model(),
-                hours: ContractHoursService.model(),
-                pay: ContractPayService.model(),
-                leave: ContractLeaveService.model(),
-                insurance: ContractInsuranceService.model(),
-                pension: ContractPensionService.model()
+            for (entityName in entityServices) {
+                promiseFields[entityName] = entityServices[entityName].getFields();
+            }
+
+            $q.all(promiseFields).then(function(fields){
+                $scope.fields = fields;
+
+                console.log('======================');
+                console.info('FIELDS:');
+                console.log(fields);
+
+                for (entityName in entityServices) {
+                    promiseModel[entityName] = entityServices[entityName].model(fields[entityName]);
+                }
+
+                return $q.all(promiseModel);
+
             }).then(function(model){
                 $scope.model = model;
 

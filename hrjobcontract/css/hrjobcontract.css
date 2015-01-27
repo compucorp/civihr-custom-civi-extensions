@@ -9987,10 +9987,26 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 #hrjob-contract .hrjc-summary .form-group {
   margin-bottom: 10px;
 }
+/* line 2, ../sass/partials/_modals.scss */
+#hrjob-contract .modal-header .close {
+  margin-top: 2px;
+}
+/* line 9, ../sass/partials/_modals.scss */
+#hrjob-contract .modal-revision .modal-header .btn-group-action {
+  float: right;
+  margin-right: 20px;
+  margin-top: -2px;
+}
 @media (min-width: 768px) {
-  /* line 2, ../sass/partials/_modals.scss */
+  /* line 18, ../sass/partials/_modals.scss */
   #hrjob-contract .modal-dialog {
     margin: 60px auto;
+  }
+}
+@media (min-width: 992px) {
+  /* line 24, ../sass/partials/_modals.scss */
+  #hrjob-contract .modal-revision .modal-dialog {
+    width: 1140px;
   }
 }
 /* line 1, ../sass/partials/_tables.scss */

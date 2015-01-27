@@ -1,28 +1,47 @@
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <div class="btn-group btn-group-sm btn-group-action">
+        <button class="btn btn-default btn-sm">
+            <span class="fa fa-download" aria-hidden="true"></span> Export to CSV
+        </button>
+        <div class="btn-group btn-group-sm" dropdown>
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+                Fields <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </div>
+    </div>
     <h4 class="modal-title">Contract {{entity | capitalize}}</h4>
 </div>
 <div class="modal-body">
-    <table class="table table-striped">
-        <thead>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
             <tr>
                 <th>Effective Date</th>
-                <th ng-repeat="field in entityHistoryFields[entity]">{{field.label}}</th>
+                <th ng-repeat="field in fields">{{field.title}}</th>
                 <th>Change Recorded By</th>
                 <th>Reason For Change</th>
                 <th>&nbsp;</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             <tr ng-repeat="revision in revisionDataList" ng-if="(revision.jobcontract_revision_id != revisionDataList[$index + 1].jobcontract_revision_id)">
                 <td>{{revisionList[$index].effective_date | date: 'yyyy/MM/dd' || '-'}}</td>
-                <td ng-repeat="field in entityHistoryFields[entity]">{{(!field.isOption ? revision[field.name] : options[entity][field.name][revision[field.name]]) || '-'}}</td>
+                <td ng-repeat="field in fields">{{(!field.pseudoconstant ? revision[field.name] : options[entity][field.name][revision[field.name]]) || '-'}}</td>
                 <td>-</td>
                 <td>{{options.contract.change_reason[revisionList[$index].change_reason] || '-'}}</td>
                 <td><a class="cursor-pointer" ng-click="modalContract('view',revisionList[$index])">view this contract revision</a></td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>

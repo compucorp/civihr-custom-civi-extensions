@@ -124,12 +124,14 @@ define(['services/services',
 
                 return deffered.promise;
             },
-            model: function(params, leaveType){
+            model: function(fields, leaveType){
 
-                var deffered = $q.defer(), model;
+                var deffered = $q.defer(),
+                    leaveTypePromise = !leaveType || typeof leaveType != 'object' ? this.getOptions('leave_type') : leaveType;
 
                 function createModel(leaveType, fields) {
-                    var i = 0, len = fields.length, model = [], modelEntry = {};
+                    var i = 0, len = fields.length,
+                        model = [], modelEntry = {};
 
                     for (i; i < len; i++) {
                         modelEntry[fields[i].name] = '';
@@ -161,18 +163,17 @@ define(['services/services',
                     return model;
                 }
 
-                this.getFields().then(function(fields){
-                    if (leaveType && typeof leaveType == 'object') {
-                        deffered.resolve(createModel(leaveType,fields));
-                        return
-                    }
-
-                    this.getOptions('leave_type').then(function(options){
+                if (fields) {
+                    $q.when(leaveTypePromise).then(function(options){
                         deffered.resolve(createModel(options,fields));
-                        return
-                    });
-
-                }.bind(this));
+                    })
+                } else {
+                    this.getFields().then(function(fields){
+                        $q.when(leaveTypePromise).then(function(options){
+                            deffered.resolve(createModel(options,fields));
+                        })
+                    }.bind(this));
+                }
 
                 return deffered.promise;
             }

@@ -136,12 +136,12 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                         'dbAlias' => 'hrjobcontract_revision_civireport.id',
                     ),
               ),
-              /*'group_bys' => array(
+              'group_bys' => array(
                     'civicrm_hrjobcontract_revision_revision_id' => array(
                         'title' => ts('Revision Id'),
                         'dbAlias' => 'hrjobcontract_revision_civireport.id',
                     ),
-              ),*/
+              ),
             ),
 
             'civicrm_hrjobcontract_details' => array(
@@ -207,6 +207,12 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                 ),
               ),
               'grouping' => 'details-fields',
+              'group_bys' => array(
+                    'civicrm_hrjobcontract_details_jobcontract_revision_id' => array(
+                        'title' => ts('Details Revision Id'),
+                        'dbAlias' => 'hrjobcontract_details_civireport.jobcontract_revision_id',
+                    ),
+              ),
             ),
             
             'civicrm_hrjobcontract_health' => array(
@@ -251,6 +257,12 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                 ),
               ),
               'grouping' => 'health-fields',
+              'group_bys' => array(
+                    'civicrm_hrjobcontract_health_jobcontract_revision_id' => array(
+                        'title' => ts('Health Revision Id'),
+                        'dbAlias' => 'hrjobcontract_health_civireport.jobcontract_revision_id',
+                    ),
+              ),
             ),
             
             'civicrm_hrjobcontract_hour' => array(
@@ -287,6 +299,12 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                 ),
               ),
               'grouping' => 'hour-fields',
+              'group_bys' => array(
+                    'civicrm_hrjobcontract_hour_jobcontract_revision_id' => array(
+                        'title' => ts('Hour Revision Id'),
+                        'dbAlias' => 'hrjobcontract_hour_civireport.jobcontract_revision_id',
+                    ),
+              ),
             ),
             
             'civicrm_hrjobcontract_leave' => array(
@@ -307,6 +325,12 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                 ),
               ),
               'grouping' => 'leave-fields',
+              'group_bys' => array(
+                    'civicrm_hrjobcontract_leave_jobcontract_revision_id' => array(
+                        'title' => ts('Leave Revision Id'),
+                        'dbAlias' => 'hrjobcontract_leave_civireport.jobcontract_revision_id',
+                    ),
+              ),
             ),
             
             'civicrm_hrjobcontract_pay' => array(
@@ -347,6 +371,12 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                 ),
               ),
               'grouping' => 'pay-fields',
+              'group_bys' => array(
+                    'civicrm_hrjobcontract_pay_jobcontract_revision_id' => array(
+                        'title' => ts('Pay Revision Id'),
+                        'dbAlias' => 'hrjobcontract_pay_civireport.jobcontract_revision_id',
+                    ),
+              ),
             ),
             
             'civicrm_hrjobcontract_pension' => array(
@@ -383,6 +413,12 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                 ),
               ),
               'grouping' => 'pension-fields',
+              'group_bys' => array(
+                    'civicrm_hrjobcontract_pension_jobcontract_revision_id' => array(
+                        'title' => ts('Pension Revision Id'),
+                        'dbAlias' => 'hrjobcontract_pension_civireport.jobcontract_revision_id',
+                    ),
+              ),
             ),
             
             'civicrm_hrjobcontract_role' => array(
@@ -454,8 +490,17 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                     'title' => ts('Location'),
                     'no_repeat' => TRUE,
                 ),
+                /*'jobcontract_revision_id' => array(
+                    'title' => ts('Job')
+                )*/
               ),
               'grouping' => 'role-fields',
+              'group_bys' => array(
+                    'civicrm_hrjobcontract_role_jobcontract_revision_id' => array(
+                        'title' => ts('Role Revision Id'),
+                        'dbAlias' => 'hrjobcontract_role_civireport.jobcontract_revision_id',
+                    ),
+              ),
             ),
             
         );
@@ -510,21 +555,6 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
     LEFT JOIN civicrm_hrjobcontract_pension AS {$this->_aliases['civicrm_hrjobcontract_pension']} ON {$this->_aliases['civicrm_hrjobcontract_revision']}.pension_revision_id = {$this->_aliases['civicrm_hrjobcontract_pension']}.jobcontract_revision_id
     LEFT JOIN civicrm_hrjobcontract_role AS {$this->_aliases['civicrm_hrjobcontract_role']} ON {$this->_aliases['civicrm_hrjobcontract_revision']}.role_revision_id = {$this->_aliases['civicrm_hrjobcontract_role']}.jobcontract_revision_id
     ";
-  }
-  
-  function groupBy() {
-      parent::groupBy();
-      $groupBy = $this->_groupBy;
-      if (!empty($groupBy)) {
-          $groupBy .= ', ' . $this->_aliases['civicrm_hrjobcontract_revision'] . '.id ';
-      } else {
-          $groupBy = 'GROUP BY ' . $this->_aliases['civicrm_hrjobcontract_revision'] . '.id ';
-      }
-      $this->_groupBy = $groupBy;
-  }
-  
-  function orderBy() {
-      parent::orderBy();
   }
 
   function postProcess() {

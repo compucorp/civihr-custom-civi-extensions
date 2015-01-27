@@ -112,7 +112,7 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                 'grouping' => 'contract-fields',
                 'order_bys' => array(
                     'contact_id' => array(
-                        'title' => ts('Contact2 Id'),
+                        'title' => ts('Contact Id'),
                     ),
                     'id' => array(
                         'title' => ts('Contract Id'),
@@ -130,6 +130,18 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                 ),
               ),
               'grouping' => 'revision-fields',
+              'order_bys' => array(
+                    'civicrm_hrjobcontract_revision_revision_id' => array(
+                        'title' => ts('Revision Id'),
+                        'dbAlias' => 'hrjobcontract_revision_civireport.id',
+                    ),
+              ),
+              /*'group_bys' => array(
+                    'civicrm_hrjobcontract_revision_revision_id' => array(
+                        'title' => ts('Revision Id'),
+                        'dbAlias' => 'hrjobcontract_revision_civireport.id',
+                    ),
+              ),*/
             ),
 
             'civicrm_hrjobcontract_details' => array(
@@ -498,6 +510,21 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
     LEFT JOIN civicrm_hrjobcontract_pension AS {$this->_aliases['civicrm_hrjobcontract_pension']} ON {$this->_aliases['civicrm_hrjobcontract_revision']}.pension_revision_id = {$this->_aliases['civicrm_hrjobcontract_pension']}.jobcontract_revision_id
     LEFT JOIN civicrm_hrjobcontract_role AS {$this->_aliases['civicrm_hrjobcontract_role']} ON {$this->_aliases['civicrm_hrjobcontract_revision']}.role_revision_id = {$this->_aliases['civicrm_hrjobcontract_role']}.jobcontract_revision_id
     ";
+  }
+  
+  function groupBy() {
+      parent::groupBy();
+      $groupBy = $this->_groupBy;
+      if (!empty($groupBy)) {
+          $groupBy .= ', ' . $this->_aliases['civicrm_hrjobcontract_revision'] . '.id ';
+      } else {
+          $groupBy = 'GROUP BY ' . $this->_aliases['civicrm_hrjobcontract_revision'] . '.id ';
+      }
+      $this->_groupBy = $groupBy;
+  }
+  
+  function orderBy() {
+      parent::orderBy();
   }
 
   function postProcess() {

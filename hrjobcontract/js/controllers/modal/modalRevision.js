@@ -6,6 +6,7 @@ define(['controllers/controllers'], function(controllers){
 
             $scope.entity = entity;
             $scope.fields = angular.copy(fields);
+            $scope.subFields = {};
             $scope.revisionDataList = revisionDataList;
             $scope.revisionList = revisionList;
             $scope.modalContract = modalContract;

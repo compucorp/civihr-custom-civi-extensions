@@ -19,10 +19,14 @@ define(['controllers/controllers',
                  ContractFilesService, model, UtilsService, utils, settings){
 
             $scope.allowSave = true;
+            $scope.copy = {
+                close: 'Cancel',
+                save: 'Add New Job Contract',
+                title: 'Add New Job Contract'
+            };
             $scope.contract = {};
             $scope.isDisabled = false;
             $scope.showIsPrimary = utils.contractListLen;
-            $scope.title = 'Add New Job Contract';
             $scope.uploader = {
                 details: {
                     contract_file: ContractFilesService.uploader('civicrm_hrjobcontract_details')

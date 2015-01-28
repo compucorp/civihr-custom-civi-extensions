@@ -20,16 +20,21 @@ define(['controllers/controllers',
                  UtilsService, utils, settings){
 
             var content = content || {},
+                copy = content.copy || {},
                 action = action || 'view';
+
+                copy.close = copy.close || 'Close',
+                copy.save = copy.save || 'Save changes',
+                copy.title = copy.title || 'Contract',
 
             $scope.allowSave = typeof content.allowSave !== 'undefined' ? content.allowSave : false;
             $scope.contract = {};
+            $scope.copy = copy;
             $scope.files = {};
             $scope.filesTrash = {};
             $scope.isDisabled = typeof content.isDisabled !== 'undefined' ? content.isDisabled : true;
             $scope.isPrimaryDisabled = +contract.details.is_primary;
             $scope.showIsPrimary = utils.contractListLen > 1;
-            $scope.title = typeof content.title !== 'undefined' ? content.title : 'Contract';
             $scope.uploader = {
                 details: {
                     contract_file: ContractFilesService.uploader('civicrm_hrjobcontract_details')

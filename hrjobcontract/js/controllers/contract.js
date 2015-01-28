@@ -79,7 +79,7 @@ define(['controllers/controllers',
                                 return action || 'view'
                             },
                             content: function(){
-                                return null
+                                return null;
                             },
                             contract: function(){
 
@@ -148,7 +148,11 @@ define(['controllers/controllers',
                             return {
                                 allowSave: true,
                                 isDisabled: false,
-                                title: 'Edit contract'
+                                copy: {
+                                    close: 'Cancel',
+                                    save: 'Save without making a new revision',
+                                    title: 'Edit contract'
+                                }
                             }
                         };
                         break;
@@ -157,14 +161,17 @@ define(['controllers/controllers',
                             return {
                                 allowSave: true,
                                 isDisabled: false,
-                                title: 'Change contract terms'
+                                copy: {
+                                    close: 'Cancel',
+                                    save: 'Save and make a new revision',
+                                    title: 'Change contract terms'
+                                }
                             }
                         };
                         break;
                 }
 
                 modalInstance = $modal.open(options);
-
 
                 modalInstance.result.then(function(results){
 

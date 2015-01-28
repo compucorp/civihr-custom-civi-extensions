@@ -113,7 +113,6 @@ require([
         }
     ]);
 
-    //TODO
     document.addEventListener('hrjcLoad', function(e){
 
         app.constant('settings', {
@@ -122,6 +121,7 @@ require([
             debug: 1,
             pathApp: CRM.jobContractTabApp.path,
             pathFile: CRM.url('civicrm/hrjobcontract/file/'),
+            pathReport: CRM.url('civicrm/report/hrjobcontract/summary'),
             pathRest: CRM.config.resourceBase + '/extern/rest.php',
             pathTpl: CRM.jobContractTabApp.path + 'views/',
             keyApi: e.detail.keyApi,
@@ -131,83 +131,6 @@ require([
                 defaultCurrency: CRM.jobContractTabApp.defaultCurrency,
                 apiTsFmt: 'YYYY-MM-DD HH:mm:ss',
                 fields: CRM.jobContractTabApp.fields
-            },
-            entityHistoryFields: {
-                details: [
-                    {
-                        label: 'Position',
-                        name: 'position',
-                        isOption: false
-                    },
-                    {
-                        label: 'Title',
-                        name: 'title',
-                        isOption: false
-                    },
-                    {
-                        label: 'Contract type',
-                        name: 'contract_type',
-                        isOption: false
-                    }
-                ],
-                hours: [
-                    {
-                        label: 'Hours type',
-                        name: 'hours_type',
-                        isOption: true
-                    },
-                    {
-                        label: 'Actual hours',
-                        name: 'hours_amount',
-                        isOption: false
-                    },
-                    {
-                        label: 'Time unit',
-                        name: 'hours_unit',
-                        isOption: false
-                    }
-                ],
-                pay: [
-                    {
-                        label: 'Pay Scale / Grade',
-                        name: 'pay_scale',
-                        isOption: true
-                    },
-                    {
-                        label: 'Pay Amount',
-                        name: 'pay_amount',
-                        isOption: false
-                    },
-                    {
-                        label: 'Pay Unit',
-                        name: 'pay_unit',
-                        isOption: true
-                    }
-                ],
-                leave: [],
-                insurance: [
-                    {
-                        label: 'Health Insurance Provider',
-                        name: 'provider',
-                        isOption: false
-                    },
-                    {
-                        label: 'Health Insurance Plan Type',
-                        name: 'plan_type',
-                        isOption: true
-                    },
-                    {
-                        label: 'Life Insurance Provider',
-                        name: 'provider_life_insurance',
-                        isOption: false
-                    },
-                    {
-                        label: 'Life Insurance Plan Type',
-                        name: 'plan_type_life_insurance',
-                        isOption: true
-                    },
-                ],
-                pension: []
             }
         });
 

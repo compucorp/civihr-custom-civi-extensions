@@ -1,19 +1,18 @@
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
     <div class="btn-group btn-group-sm btn-group-action">
-        <button class="btn btn-default btn-sm">
+        <a ng-href="{{urlCSV}}" class="btn btn-default btn-sm">
             <span class="fa fa-download" aria-hidden="true"></span> Export to CSV
-        </button>
+        </a>
         <div class="btn-group btn-group-sm" dropdown>
-            <button type="button" class="btn btn-default btn-sm dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" dropdown-toggle
+                    ng-disabled="disabled">
                 Fields <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
+            <ul class="dropdown-menu dropdown-menu-right" ng-click="$event.stopPropagation()" role="menu">
+                <li ng-repeat="field in fields" ng-if="field.display"><div class="checkbox"><label><input type="checkbox"
+                                                                                    ng-checked="!!field.selected"
+                                                                                    ng-click="toggleFieldsSelected(field)"> {{field.title}}</label></div></li>
             </ul>
         </div>
     </div>
@@ -25,7 +24,7 @@
             <thead>
             <tr>
                 <th>Effective Date</th>
-                <th ng-repeat="field in fields">{{field.title}}</th>
+                <th ng-repeat="field in fields" ng-if="field.selected && field.display">{{field.title}}</th>
                 <th>Change Recorded By</th>
                 <th>Reason For Change</th>
                 <th>&nbsp;</th>
@@ -33,12 +32,13 @@
             </thead>
             <tbody>
             <tr ng-repeat="revision in revisionDataList" ng-if="(revision.jobcontract_revision_id != revisionDataList[$index + 1].jobcontract_revision_id)">
-                <td>{{revisionList[$index].effective_date | date: 'yyyy/MM/dd' || '-'}}</td>
-                <td ng-repeat="field in fields">{{(!field.pseudoconstant ? revision[field.name] : options[entity][field.name][revision[field.name]]) || '-'}}</td>
-                <td>-</td>
-                <td>{{options.contract.change_reason[revisionList[$index].change_reason] || '-'}}</td>
-                <td><a class="cursor-pointer" ng-click="modalContract('view',revisionList[$index])">view this contract revision</a></td>
-            </tr>
+                <!--<tr ng-repeat="revision in revisionDataList">-->
+                    <td>{{revisionList[$index].effective_date | date: 'yyyy/MM/dd' || '-'}}</td>
+                    <td ng-repeat="field in fields" ng-if="field.selected && field.display">{{(!field.pseudoconstant ? revision[field.name] : options[entity][field.name][revision[field.name]]) || '-'}}</td>
+                    <td>-</td>
+                    <td>{{options.contract.change_reason[revisionList[$index].change_reason] || '-'}}</td>
+                    <td><a class="cursor-pointer" ng-click="modalContract('view',revisionList[$index])">view this contract revision</a></td>
+                </tr>
             </tbody>
         </table>
     </div>

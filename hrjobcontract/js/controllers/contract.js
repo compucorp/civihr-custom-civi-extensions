@@ -217,9 +217,13 @@ define(['controllers/controllers',
                     return null;
                 }
 
-                var i = 0, len = $scope.revisionList.length, promiseEntityRevisionDataList = [];
+                var promiseEntityRevisionDataList = [],
+                    apiMethod = entity != 'leave' ? 'getOne' : 'get',
+                    i = 0, len = $scope.revisionList.length;
+
                 for (i; i < len; i++){
-                    promiseEntityRevisionDataList.push(API.getOne('HRJob'+$filter('capitalize')(entity),{
+
+                    promiseEntityRevisionDataList.push(API[apiMethod]('HRJob'+$filter('capitalize')(entity),{
                         jobcontract_revision_id: $scope.revisionList[i][entity+'_revision_id']
                     }));
                 }
@@ -231,10 +235,6 @@ define(['controllers/controllers',
                         break;
                     case 'hour':
                         entity = 'hours';
-                        break;
-                    case 'leave':
-                        CRM.alert('Soon!');
-                        return
                         break;
                 }
 

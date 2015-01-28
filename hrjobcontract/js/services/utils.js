@@ -40,6 +40,26 @@ define(['services/services'], function (services) {
                 });
 
                 return deffered.promise;
+            },
+            get: function(entity, params) {
+
+                if ((!entity || typeof entity !== 'string') ||
+                    (params && typeof params !== 'object')) {
+                    return null;
+                }
+
+                var deffered = $q.defer(),
+                    json = angular.extend({
+                        sequential: 1
+                    },params);
+
+                this.resource(entity,'get', json).get(function(data){
+                    deffered.resolve(data.values);
+                },function(){
+                    deffered.reject('Unable to fetch data');
+                });
+
+                return deffered.promise;
             }
         }
     }]);

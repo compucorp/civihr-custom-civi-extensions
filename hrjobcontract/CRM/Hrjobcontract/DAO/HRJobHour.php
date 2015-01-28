@@ -178,7 +178,7 @@ class CRM_Hrjobcontract_DAO_HRJobHour extends CRM_Hrjobcontract_DAO_Base
                 'location_standard_hours' => array(
                   'name' => 'location_standard_hours',
                   'type' => CRM_Utils_Type::T_INT,
-                  'title' => ts('Location Type') ,
+                  'title' => ts('Location/Standard hours') ,
                   'export' => true,
                   'import' => true,
                   'where' => 'civicrm_hrjobcontract_hour.location_standard_hours',
@@ -203,7 +203,7 @@ class CRM_Hrjobcontract_DAO_HRJobHour extends CRM_Hrjobcontract_DAO_Base
                 'hrjob_hours_amount' => array(
                   'name' => 'hours_amount',
                   'type' => CRM_Utils_Type::T_FLOAT,
-                  'title' => ts('Actual Hours') ,
+                  'title' => ts('Actual Hours (Amount)'),
                   'export' => true,
                   'import' => true,
                   'where' => 'civicrm_hrjobcontract_hour.hours_amount',
@@ -213,7 +213,7 @@ class CRM_Hrjobcontract_DAO_HRJobHour extends CRM_Hrjobcontract_DAO_Base
                 'hrjob_hours_unit' => array(
                   'name' => 'hours_unit',
                   'type' => CRM_Utils_Type::T_STRING,
-                  'title' => ts('Hours Unit') ,
+                  'title' => ts('Actual Hours (Unit)'),
                   'export' => true,
                   'maxlength' => 63,
                   'size' => CRM_Utils_Type::BIG,

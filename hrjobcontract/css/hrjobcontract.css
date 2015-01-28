@@ -9997,14 +9997,33 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
   margin-right: 20px;
   margin-top: -2px;
 }
+/* line 14, ../sass/partials/_modals.scss */
+#hrjob-contract .modal-revision .modal-header .btn-group-action .checkbox {
+  font-size: 12px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding: 0px 10px;
+}
+/* line 20, ../sass/partials/_modals.scss */
+#hrjob-contract .modal-revision .modal-header .btn-group-action .checkbox input[type="checkbox"] {
+  margin-top: 1px;
+}
+/* line 24, ../sass/partials/_modals.scss */
+#hrjob-contract .modal-revision .modal-header .btn-group-action .checkbox label {
+  min-height: 17px;
+}
+/* line 32, ../sass/partials/_modals.scss */
+#hrjob-contract .modal-revision table {
+  font-size: 13px;
+}
 @media (min-width: 768px) {
-  /* line 18, ../sass/partials/_modals.scss */
+  /* line 38, ../sass/partials/_modals.scss */
   #hrjob-contract .modal-dialog {
     margin: 60px auto;
   }
 }
 @media (min-width: 992px) {
-  /* line 24, ../sass/partials/_modals.scss */
+  /* line 44, ../sass/partials/_modals.scss */
   #hrjob-contract .modal-revision .modal-dialog {
     width: 1140px;
   }

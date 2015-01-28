@@ -29,8 +29,17 @@
     }
   }
 
-  table {
+  .table {
     font-size: 13px;
+
+    .table {
+      background-color: transparent;
+      font-size: 12px;
+
+      th {
+        font-size: 12px;
+      }
+    }
   }
 }
 

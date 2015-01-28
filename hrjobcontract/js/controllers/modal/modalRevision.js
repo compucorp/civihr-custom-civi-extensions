@@ -9,16 +9,13 @@ define(['controllers/controllers'], function(controllers){
             $scope.revisionDataList = revisionDataList;
             $scope.revisionList = revisionList;
             $scope.modalContract = modalContract;
-
-            console.log($scope.entity);
-            console.log($scope.fields);
-            console.log($scope.revisionDataList);
-            console.log($scope.revisionList);
+            $scope.isMultiDim = false;
 
             var i = 0, len = $scope.fields.length, field;
             for (i; i < len; i++) {
                 field = $scope.fields[i];
                 field.selected = true;
+                field.isArray = false;
 
                 if (field.name == 'id' || field.name == 'jobcontract_revision_id') {
                     field.display = false;
@@ -26,6 +23,50 @@ define(['controllers/controllers'], function(controllers){
                 }
 
                 field.display = true;
+            }
+
+            switch (entity) {
+                case 'leave':
+                    $scope.isMultiDim = true;
+                    break
+                case 'pay':
+                    $scope.subFields = {
+                        annual_benefits: [{
+                            name: 'name',
+                            title: 'Benefit',
+                            pseudoconstant: 'benefit_name'
+                        },{
+                            name: 'type',
+                            title: 'Type',
+                            pseudoconstant: 'benefit_type'
+                        },{
+                            name: 'amount_pct',
+                            title: '% amount',
+                            pseudoconstant: false
+                        },{
+                            name: 'amount_abs',
+                            title: 'Absolute amount',
+                            pseudoconstant: false
+                        }],
+                        annual_deductions: [{
+                            name: 'name',
+                            title: 'Deduction',
+                            pseudoconstant: 'deduction_name'
+                        },{
+                            name: 'type',
+                            title: 'Type',
+                            pseudoconstant: 'deduction_type'
+                        },{
+                            name: 'amount_pct',
+                            title: '% amount',
+                            pseudoconstant: false
+                        },{
+                            name: 'amount_abs',
+                            title: 'Absolute amount',
+                            pseudoconstant: false
+                        }]
+                    }
+                    break;
             }
 
             function urlCSVBuild(){

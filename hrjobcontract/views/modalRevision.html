@@ -30,11 +30,39 @@
                 <th>&nbsp;</th>
             </tr>
             </thead>
-            <tbody>
-            <tr ng-repeat="revision in revisionDataList" ng-if="(revision.jobcontract_revision_id != revisionDataList[$index + 1].jobcontract_revision_id)">
-                <!--<tr ng-repeat="revision in revisionDataList">-->
+            <tbody ng-if="!isMultiDim">
+                <tr ng-repeat="revisionData in revisionDataList" ng-if="(revisionData.jobcontract_revision_id != revisionDataList[$index + 1].jobcontract_revision_id)">
                     <td>{{revisionList[$index].effective_date | date: 'yyyy/MM/dd' || '-'}}</td>
-                    <td ng-repeat="field in fields" ng-if="field.selected && field.display">{{(!field.pseudoconstant ? revision[field.name] : options[entity][field.name][revision[field.name]]) || '-'}}</td>
+                    <td ng-repeat="field in fields" ng-if="field.selected && field.display">
+                        {{!subFields[field.name] ? ((!field.pseudoconstant ? revisionData[field.name] : options[entity][field.name][revisionData[field.name]]) || '-') : (revisionData[field.name].length ? '' : '-')}}
+                        <table ng-if="!!subFields[field.name] && revisionData[field.name].length" class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th ng-repeat="subField in subFields[field.name]">{{subField.title}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="revisionDataEntry in revisionData[field.name]">
+                                    <td ng-repeat="subField in subFields[field.name]">{{!subField.pseudoconstant ? revisionDataEntry[subField.name] : options[entity][subField.pseudoconstant][revisionDataEntry[subField.name]] }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>-</td>
+                    <td>{{options.contract.change_reason[revisionList[$index].change_reason] || '-'}}</td>
+                    <td><a class="cursor-pointer" ng-click="modalContract('view',revisionList[$index])">view this contract revision</a></td>
+                </tr>
+            </tbody>
+            <tbody ng-if="isMultiDim">
+                <tr ng-repeat="revisionData in revisionDataList" ng-if="(!!revisionData.length && revisionData[0].jobcontract_revision_id != revisionDataList[$index + 1][0].jobcontract_revision_id)">
+                    <td>{{revisionList[$index].effective_date | date: 'yyyy/MM/dd' || '-'}}</td>
+                    <td ng-repeat="field in fields" ng-if="field.selected && field.display">
+                        <table>
+                            <tr ng-repeat="revisionDataEntry in revisionData">
+                                <td>{{(!field.pseudoconstant ? revisionDataEntry[field.name] : options[entity][field.name][revisionDataEntry[field.name]]) || '-'}}</td>
+                            </tr>
+                        </table>
+                    </td>
                     <td>-</td>
                     <td>{{options.contract.change_reason[revisionList[$index].change_reason] || '-'}}</td>
                     <td><a class="cursor-pointer" ng-click="modalContract('view',revisionList[$index])">view this contract revision</a></td>

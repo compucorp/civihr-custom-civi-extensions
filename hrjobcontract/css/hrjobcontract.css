@@ -10013,17 +10013,26 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
   min-height: 17px;
 }
 /* line 32, ../sass/partials/_modals.scss */
-#hrjob-contract .modal-revision table {
+#hrjob-contract .modal-revision .table {
   font-size: 13px;
 }
+/* line 35, ../sass/partials/_modals.scss */
+#hrjob-contract .modal-revision .table .table {
+  background-color: transparent;
+  font-size: 12px;
+}
+/* line 39, ../sass/partials/_modals.scss */
+#hrjob-contract .modal-revision .table .table th {
+  font-size: 12px;
+}
 @media (min-width: 768px) {
-  /* line 38, ../sass/partials/_modals.scss */
+  /* line 47, ../sass/partials/_modals.scss */
   #hrjob-contract .modal-dialog {
     margin: 60px auto;
   }
 }
 @media (min-width: 992px) {
-  /* line 44, ../sass/partials/_modals.scss */
+  /* line 53, ../sass/partials/_modals.scss */
   #hrjob-contract .modal-revision .modal-dialog {
     width: 1140px;
   }

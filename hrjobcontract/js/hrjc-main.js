@@ -10,17 +10,7 @@ require.config({
         angularRoute: 'vendor/angular/angular-route.min',
         bootstrap: 'vendor/bootstrap',
         fraction: 'vendor/fraction',
-        moment: 'vendor/moment.min',
-        jquery: 'vendor/jquery/jquery.min',
-        jqueryPrivate: 'vendor/jquery/jquery-private'
-    },
-    map: {
-        '*': {
-            jquery: 'jqueryPrivate'
-        },
-        jqueryPrivate: {
-            jquery: 'jquery'
-        }
+        moment: 'vendor/moment.min'
     },
     shim: {
         angular: {

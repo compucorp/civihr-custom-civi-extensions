@@ -2,7 +2,7 @@ console.log('Service: ContactService');
 define(['services/services',
         'services/utils'], function (services) {
 
-    services.factory('ContactService', ['$resource', 'settings', '$q', 'UtilsService','$timeout',
+    services.factory('ContactService', ['$resource', 'settings', '$q', 'UtilsService',
         function ($resource, settings, $q, UtilsService,$timeout) {
         var Contact = $resource(settings.pathRest, {
             action: 'getlist',
@@ -58,9 +58,9 @@ define(['services/services',
                     if (UtilsService.errorHandler(data,'Unable to fetch contact list',deffered)) {
                         return
                     }
-                    $timeout(function(){
-                        deffered.resolve(data.values);
-                    },3000)
+
+                    deffered.resolve(data.values);
+
                 },function(){
                     deffered.reject('Unable to fetch contact list');
                 });

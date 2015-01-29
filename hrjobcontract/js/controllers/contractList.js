@@ -80,8 +80,6 @@ define(['controllers/controllers',
 
             UtilsService.getHoursLocation().then(function(hoursLocation){
                 $scope.utils.hoursLocation = hoursLocation;
-                console.log('hoursLocation');
-                console.log(hoursLocation);
             },function(reason){
                 console.log('Failed: ' + reason);
             });

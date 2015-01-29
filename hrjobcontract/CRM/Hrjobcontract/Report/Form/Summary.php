@@ -123,7 +123,7 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
             'civicrm_hrjobcontract_revision' => array(
               'dao' => 'CRM_Hrjobcontract_DAO_HRJobContractRevision',
               'fields' => array(
-                'revision_id' => array(
+                'jobcontract_revision_id' => array(
                     'title' => ts('Revision ID'),
                     'no_repeat' => TRUE,
                     'name' => 'id',
@@ -147,6 +147,12 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
             'civicrm_hrjobcontract_details' => array(
               'dao' => 'CRM_Hrjobcontract_DAO_HRJobDetails',
               'fields' => array(
+                'details_revision_id' => array(
+                    'title' => ts('Details Revision ID'),
+                    'no_repeat' => TRUE,
+                    'name' => 'details_revision_id',
+                    'dbAlias' => 'hrjobcontract_details_civireport.jobcontract_revision_id',
+                ),
                 'details_id' => array(
                     'title' => ts('Details ID'),
                     'no_repeat' => TRUE,
@@ -218,6 +224,12 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
             'civicrm_hrjobcontract_health' => array(
               'dao' => 'CRM_Hrjobcontract_DAO_HRJobHealth',
               'fields' => array(
+                'health_revision_id' => array(
+                    'title' => ts('Health Revision ID'),
+                    'no_repeat' => TRUE,
+                    'name' => 'health_revision_id',
+                    'dbAlias' => 'hrjobcontract_health_civireport.jobcontract_revision_id',
+                ),
                 'health_id' => array(
                     'title' => ts('Health ID'),
                     'no_repeat' => TRUE,
@@ -268,6 +280,12 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
             'civicrm_hrjobcontract_hour' => array(
               'dao' => 'CRM_Hrjobcontract_DAO_HRJobHour',
               'fields' => array(
+                'hour_revision_id' => array(
+                    'title' => ts('Hour Revision ID'),
+                    'no_repeat' => TRUE,
+                    'name' => 'hour_revision_id',
+                    'dbAlias' => 'hrjobcontract_hour_civireport.jobcontract_revision_id',
+                ),
                 'hour_id' => array(
                     'title' => ts('Hour ID'),
                     'no_repeat' => TRUE,
@@ -310,6 +328,12 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
             'civicrm_hrjobcontract_leave' => array(
               'dao' => 'CRM_Hrjobcontract_DAO_HRJobLeave',
               'fields' => array(
+                'leave_revision_id' => array(
+                    'title' => ts('Leave Revision ID'),
+                    'no_repeat' => TRUE,
+                    'name' => 'leave_revision_id',
+                    'dbAlias' => 'hrjobcontract_leave_civireport.jobcontract_revision_id',
+                ),
                 'leave_id' => array(
                     'title' => ts('Leave ID'),
                     'no_repeat' => TRUE,
@@ -336,6 +360,12 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
             'civicrm_hrjobcontract_pay' => array(
               'dao' => 'CRM_Hrjobcontract_DAO_HRJobPay',
               'fields' => array(
+                'pay_revision_id' => array(
+                    'title' => ts('Pay Revision ID'),
+                    'no_repeat' => TRUE,
+                    'name' => 'pay_revision_id',
+                    'dbAlias' => 'hrjobcontract_pay_civireport.jobcontract_revision_id',
+                ),
                 'pay_id' => array(
                     'title' => ts('Pay ID'),
                     'no_repeat' => TRUE,
@@ -382,6 +412,12 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
             'civicrm_hrjobcontract_pension' => array(
               'dao' => 'CRM_Hrjobcontract_DAO_HRJobPension',
               'fields' => array(
+                'pension_revision_id' => array(
+                    'title' => ts('Pension Revision ID'),
+                    'no_repeat' => TRUE,
+                    'name' => 'pension_revision_id',
+                    'dbAlias' => 'hrjobcontract_pension_civireport.jobcontract_revision_id',
+                ),
                 'pension_id' => array(
                     'title' => ts('Pension ID'),
                     'no_repeat' => TRUE,
@@ -424,6 +460,12 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
             'civicrm_hrjobcontract_role' => array(
               'dao' => 'CRM_Hrjobcontract_DAO_HRJobRole',
               'fields' => array(
+                'role_revision_id' => array(
+                    'title' => ts('Role Revision ID'),
+                    'no_repeat' => TRUE,
+                    'name' => 'role_revision_id',
+                    'dbAlias' => 'hrjobcontract_role_civireport.jobcontract_revision_id',
+                ),
                 'role_id' => array(
                     'title' => ts('Role ID'),
                     'no_repeat' => TRUE,

@@ -3,7 +3,7 @@ define(['services/services',
         'services/utils'], function (services) {
 
     services.factory('ContactService', ['$resource', 'settings', '$q', 'UtilsService',
-        function ($resource, settings, $q, UtilsService) {
+        function ($resource, settings, $q, UtilsService,$timeout) {
         var Contact = $resource(settings.pathRest, {
             action: 'getlist',
             entity: 'contact',
@@ -60,6 +60,7 @@ define(['services/services',
                     }
 
                     deffered.resolve(data.values);
+
                 },function(){
                     deffered.reject('Unable to fetch contact list');
                 });

@@ -110,7 +110,6 @@ define(['controllers/controllers'], function(controllers){
                 $scope.urlCSV = urlCSVBuild();
             };
 
-
             $modalInstance.opened.then(function(){
                 $rootScope.$broadcast('hrjc-loader-hide');
             });

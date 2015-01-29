@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/* line 6, ../sass/hrjobcontract.scss */
+/* line 7, ../sass/hrjobcontract.scss */
 #hrjob-contract {
   /**
    * Unset Eric Meyer's Reset CSS styles.
@@ -7236,7 +7236,7 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
   position: fixed;
 }
 @-ms-viewport {
-  /* line 6, ../sass/hrjobcontract.scss */
+  /* line 7, ../sass/hrjobcontract.scss */
   #hrjob-contract {
     width: device-width;
   }
@@ -9823,6 +9823,16 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
   -webkit-animation: fadein 0.3s;
   -o-animation: fadein 0.3s;
   animation: fadein 0.3s;
+}
+/* line 14, ../sass/partials/_loader.scss */
+#hrjob-contract .fa-spin-loading {
+  position: absolute;
+  right: 25px;
+  top: 10px;
+}
+/* line 19, ../sass/partials/_loader.scss */
+#hrjob-contract .fa-spin-loading.ng-hide {
+  display: none !important;
 }
 /* line 1, ../sass/partials/_navs.scss */
 #hrjob-contract .nav-tabs {

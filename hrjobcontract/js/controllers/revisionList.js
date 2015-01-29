@@ -5,38 +5,52 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
         function($scope, $filter, $q, settings, ContractService, ContractDetailsService, ContractHoursService,
                  ContractPayService){
 
-            var contractId = $scope.contract.id,
-                promiseContractService = ContractService.getRevision(contractId);
+            var contractId = $scope.contract.id;
 
-            promiseContractService.then(function(revisionList){
-                var promiseRevisionList = [];
+            function fetchRevisions(contractId){
+                $scope.revisionList.length = 0;
+                $scope.revisionDataList.length = 0;
 
-                revisionList = $filter('orderBy')(revisionList, 'id', true);
+                ContractService.getRevision(contractId).then(function(revisionList){
+                    var promiseRevisionList = [];
 
-                $scope.revisionList.push.apply($scope.revisionList,revisionList);
+                    revisionList = $filter('orderBy')(revisionList, 'id', true);
 
-                angular.forEach(revisionList, function(revision){
-                    promiseRevisionList.push($q.all({
-                        revisionEntityIdObj: revision,
-                        details: ContractDetailsService.getOne({
-                            jobcontract_revision_id: revision.details_revision_id,
-                            return: 'position, location'
-                        }),
-                        hours: ContractHoursService.getOne({
-                            jobcontract_revision_id: revision.hour_revision_id,
-                            return: 'hours_type'
-                        }),
-                        pay: ContractPayService.getOne({
-                            jobcontract_revision_id: revision.pay_revision_id,
-                            return: 'pay_scale, pay_annualized_est, pay_currency'
-                        })
-                    }));
+                    $scope.revisionList.push.apply($scope.revisionList,revisionList);
+
+                    angular.forEach(revisionList, function(revision){
+                        promiseRevisionList.push($q.all({
+                            revisionEntityIdObj: revision,
+                            details: ContractDetailsService.getOne({
+                                jobcontract_revision_id: revision.details_revision_id,
+                                return: 'position, location'
+                            }),
+                            hours: ContractHoursService.getOne({
+                                jobcontract_revision_id: revision.hour_revision_id,
+                                return: 'hours_type'
+                            }),
+                            pay: ContractPayService.getOne({
+                                jobcontract_revision_id: revision.pay_revision_id,
+                                return: 'pay_scale, pay_annualized_est, pay_currency'
+                            })
+                        }));
+                    });
+
+                    return $q.all(promiseRevisionList);
+
+                }).then(function(results){
+                    $scope.revisionDataList.push.apply($scope.revisionDataList,results);
                 });
+            };
+            fetchRevisions(contractId);
 
-                return $q.all(promiseRevisionList);
-
-            }).then(function(results){
-                $scope.revisionDataList.push.apply($scope.revisionDataList,results);
+            $scope.$on('unsetIsPrimary',function(e, excludeContractId, revisionCreated){
+                if (contractId == excludeContractId) {
+                    if (revisionCreated) {
+                        console.log('unsetIsPrimary: ' + excludeContractId);
+                        fetchRevisions(contractId);
+                    }
+                }
             });
 
         }]);

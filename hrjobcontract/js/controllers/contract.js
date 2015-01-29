@@ -205,7 +205,7 @@ define(['controllers/controllers',
                     }
 
                     if (results.isPrimarySet) {
-                        $scope.$parent.$parent.toggleIsPrimary(contractId);
+                        $scope.$parent.$parent.toggleIsPrimary(contractId, !!results.revisionCreated);
                     }
 
                     if (results.files) {

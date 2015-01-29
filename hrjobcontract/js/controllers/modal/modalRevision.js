@@ -1,8 +1,8 @@
 console.log('Controller: ModalRevisionCtrl');
 define(['controllers/controllers'], function(controllers){
-    controllers.controller('ModalRevisionCtrl',['$scope', '$rootScope', '$modalInstance', 'settings', 'revisionDataList',
+    controllers.controller('ModalRevisionCtrl',['$scope', '$rootScope', '$modalInstance', '$filter','settings', 'revisionDataList',
         'revisionList', 'entity', 'fields', 'modalContract',
-        function($scope, $rootScope, $modalInstance, settings, revisionDataList, revisionList, entity, fields, modalContract){
+        function($scope, $rootScope, $modalInstance, $filter, settings, revisionDataList, revisionList, entity, fields, modalContract){
 
             $scope.entity = entity;
             $scope.fields = angular.copy(fields);
@@ -27,6 +27,9 @@ define(['controllers/controllers'], function(controllers){
             }
 
             switch (entity) {
+                case 'details':
+                    $filter('filter')($scope.fields,{name: 'is_primary'})[0].pseudoconstant = true;
+                    break;
                 case 'leave':
                     $scope.isMultiDim = true;
                     break

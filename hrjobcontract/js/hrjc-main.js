@@ -92,6 +92,7 @@ require([
                 insurance: ContractInsuranceService.getOptions(),
                 pension: ContractPensionService.getOptions()
             }).then(function(results){
+                results.details.is_primary = ['No','Yes'];
                 results.pension.is_enrolled = ['No','Yes','Opted out'];
 
                 console.log('======================');

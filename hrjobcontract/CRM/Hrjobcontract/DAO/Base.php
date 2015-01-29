@@ -312,13 +312,17 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
             $previousEntityData = array();
             foreach ($previousEntity as $key => $value)
             {
-                if (is_array($value))
-                {
-                    $value = json_encode($previousInstance->$key);
-                }
                 $previousEntityData[$key] = $previousInstance->$key;
             }
             $params = array_merge($previousEntityData, $params);
+        }
+    }
+    
+    foreach ($params as $key => $value)
+    {
+        if (is_array($value))
+        {
+            $params[$key] = json_encode($value);
         }
     }
     

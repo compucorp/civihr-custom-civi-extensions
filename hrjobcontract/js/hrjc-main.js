@@ -93,6 +93,7 @@ require([
                 pension: ContractPensionService.getOptions()
             }).then(function(results){
                 results.details.is_primary = ['No','Yes'];
+                results.pay.pay_is_auto_est = ['No','Yes'];
                 results.pension.is_enrolled = ['No','Yes','Opted out'];
 
                 console.log('======================');

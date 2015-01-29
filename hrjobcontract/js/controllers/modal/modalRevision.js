@@ -1,9 +1,10 @@
 console.log('Controller: ModalRevisionCtrl');
 define(['controllers/controllers'], function(controllers){
-    controllers.controller('ModalRevisionCtrl',['$scope', '$rootScope', '$modalInstance', '$filter','settings', 'revisionDataList',
-        'revisionList', 'entity', 'fields', 'modalContract',
-        function($scope, $rootScope, $modalInstance, $filter, settings, revisionDataList, revisionList, entity, fields, modalContract){
-
+    controllers.controller('ModalRevisionCtrl',['$scope', '$rootScope', '$modalInstance', '$filter','$q','settings',
+        'revisionDataList', 'revisionList', 'entity', 'fields', 'modalContract','utils','ContactService',
+        function($scope, $rootScope, $modalInstance, $filter, $q, settings, revisionDataList, revisionList, entity,
+                 fields, modalContract, utils, ContactService){
+            $scope.$broadcast('hrjc-loader-show');
             $scope.entity = entity;
             $scope.fields = angular.copy(fields);
             $scope.subFields = {};
@@ -30,10 +31,54 @@ define(['controllers/controllers'], function(controllers){
                 case 'details':
                     $filter('filter')($scope.fields,{name: 'is_primary'})[0].pseudoconstant = true;
                     break;
+                case 'hours':
+                    (function(){
+                        var hoursLocation;
+                        angular.forEach($scope.revisionDataList, function(revisionData){
+                            if (revisionData.location_standard_hours) {
+                                hoursLocation = $filter('filter')(utils.hoursLocation,{id: revisionData.location_standard_hours})[0];
+                                revisionData.location_standard_hours = hoursLocation.location + ': ' +
+                                hoursLocation.standard_hours + 'h per ' +
+                                hoursLocation.periodicity;
+                            }
+                        });
+                    })();
+                    break;
+                case 'insurance':
+                    angular.forEach($scope.revisionDataList, function(revisionData){
+                        if (revisionData.provider) {
+                            ContactService.getOne(revisionData.provider).then(function(contact){
+                                revisionData.provider = contact.label;
+                            });
+                        }
+
+                        if (revisionData.provider_life_insurance) {
+                            ContactService.getOne(revisionData.provider_life_insurance).then(function(contact){
+                                revisionData.provider_life_insurance = contact.label;
+                            });
+                        }
+                    });
+                    break;
                 case 'leave':
                     $scope.isMultiDim = true;
                     break
                 case 'pay':
+                    (function(){
+                        var payScaleGrade;
+                        angular.forEach($scope.revisionDataList, function(revisionData){
+                            if (revisionData.pay_scale) {
+                                payScaleGrade = $filter('filter')(utils.payScaleGrade,{id: revisionData.pay_scale})[0];
+                                revisionData.pay_scale = payScaleGrade.pay_scale +
+                                (payScaleGrade.pay_grade ? ' - ' + payScaleGrade.pay_grade : '') +
+                                (payScaleGrade.currency ? ' - ' + $rootScope.options.pay.pay_currency[payScaleGrade.currency] : '') +
+                                (payScaleGrade.amount ? ' ' + payScaleGrade.amount : '') +
+                                (payScaleGrade.periodicity ? ' per ' + payScaleGrade.periodicity : '');
+                            }
+                        });
+                    })();
+
+                    $filter('filter')($scope.fields,{name: 'pay_is_auto_est'})[0].pseudoconstant = true;
+
                     $scope.subFields = {
                         annual_benefits: [{
                             name: 'name',
@@ -70,6 +115,9 @@ define(['controllers/controllers'], function(controllers){
                             pseudoconstant: false
                         }]
                     }
+                    break;
+                case 'pension':
+                    $filter('filter')($scope.fields,{name: 'is_enrolled'})[0].pseudoconstant = true;
                     break;
             }
 

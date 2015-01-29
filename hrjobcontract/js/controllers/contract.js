@@ -100,7 +100,7 @@ define(['controllers/controllers',
                                     hours: ContractHoursService.getOne({ jobcontract_revision_id: revisionEntityIdObj.hour_revision_id }),
                                     pay: ContractPayService.getOne({ jobcontract_revision_id: revisionEntityIdObj.pay_revision_id }),
                                     leave: ContractLeaveService.get({ jobcontract_revision_id: revisionEntityIdObj.leave_revision_id }),
-                                    insurance: ContractInsuranceService.getOne({ jobcontract_revision_id: revisionEntityIdObj.insurance_revision_id }),
+                                    insurance: ContractInsuranceService.getOne({ jobcontract_revision_id: revisionEntityIdObj.health_revision_id }),
                                     pension: ContractPensionService.getOne({ jobcontract_revision_id: revisionEntityIdObj.pension_revision_id })
                                 }).then(function(results){
 

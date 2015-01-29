@@ -47,7 +47,6 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
             $scope.$on('unsetIsPrimary',function(e, excludeContractId, revisionCreated){
                 if (contractId == excludeContractId) {
                     if (revisionCreated) {
-                        console.log('unsetIsPrimary: ' + excludeContractId);
                         fetchRevisions(contractId);
                     }
                 }

@@ -1,7 +1,7 @@
-console.log('Controller: ModalChangeReasonCtrl');
 define(['controllers/controllers'], function(controllers){
-    controllers.controller('ModalChangeReasonCtrl',['$scope','$modalInstance',
-        function($scope, $modalInstance){
+    controllers.controller('ModalChangeReasonCtrl',['$scope','$modalInstance', '$log',
+        function($scope, $modalInstance, $log){
+            $log.debug('Controller: ModalChangeReasonCtrl');
 
             $scope.dpDateEffectiveMin = new Date();
 

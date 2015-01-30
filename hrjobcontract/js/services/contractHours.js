@@ -1,9 +1,9 @@
-console.log('Service: ContractHoursService');
 define(['services/services',
         'services/utils'], function (services) {
 
-    services.factory('ContractHoursService', ['$resource', 'settings', '$q', 'UtilsService',
-        function ($resource, settings, $q, UtilsService) {
+    services.factory('ContractHoursService', ['$resource', 'settings', '$q', 'UtilsService', '$log',
+        function ($resource, settings, $q, UtilsService, $log) {
+            $log.debug('Service: ContractHoursService');
 
         var ContractHours = $resource(settings.pathRest, {
             action: 'get',

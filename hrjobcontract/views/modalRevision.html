@@ -49,7 +49,7 @@
                                 </tbody>
                             </table>
                         </td>
-                        <td>-</td>
+                        <td>{{revisionList[$index].editor_name || '-'}}</td>
                         <td>{{options.contract.change_reason[revisionList[$index].change_reason] || '-'}}</td>
                         <td><a class="cursor-pointer" ng-click="modalContract('view',revisionList[$index])">view this contract revision</a></td>
                     </tr>
@@ -64,7 +64,7 @@
                                 </tr>
                             </table>
                         </td>
-                        <td>-</td>
+                        <td>{{revisionList[$index].editor_name || '-'}}</td>
                         <td>{{options.contract.change_reason[revisionList[$index].change_reason] || '-'}}</td>
                         <td><a class="cursor-pointer" ng-click="modalContract('view',revisionList[$index])">view this contract revision</a></td>
                     </tr>

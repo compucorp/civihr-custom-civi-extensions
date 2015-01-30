@@ -1,1 +1,1 @@
-console.log('Controller: FormPensionCtrl');define(['controllers/controllers',        'services/contact'], function(controllers){    controllers.controller('FormPensionCtrl',['$scope','settings',        function($scope, settings){        }]);});
+define(['controllers/controllers',        'services/contact'], function(controllers){    controllers.controller('FormPensionCtrl',['$scope','settings','$log',        function($scope, settings, $log){            $log.debug('Controller: FormPensionCtrl');        }]);});

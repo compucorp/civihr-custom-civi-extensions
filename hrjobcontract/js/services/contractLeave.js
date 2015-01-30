@@ -1,9 +1,9 @@
-console.log('Service: ContractLeaveService');
 define(['services/services',
         'services/utils'], function (services) {
 
-    services.factory('ContractLeaveService', ['$resource', '$q', 'settings', 'UtilsService',
-        function ($resource, $q, settings, UtilsService) {
+    services.factory('ContractLeaveService', ['$resource', '$q', 'settings', 'UtilsService', '$log',
+        function ($resource, $q, settings, UtilsService, $log) {
+            $log.debug('Service: ContractLeaveService');
 
         var ContractLeave = $resource(settings.pathRest, {
             action: 'get',

@@ -1,9 +1,9 @@
-console.log('Controller: RevisionListCtrl');
 define(['controllers/controllers', 'services/contract'], function(controllers){
     controllers.controller('RevisionListCtrl',['$scope', '$filter', '$q', 'settings', 'ContractService',
-        'ContractDetailsService', 'ContractHoursService', 'ContractPayService',
+        'ContractDetailsService', 'ContractHoursService', 'ContractPayService', '$log',
         function($scope, $filter, $q, settings, ContractService, ContractDetailsService, ContractHoursService,
-                 ContractPayService){
+                 ContractPayService, $log){
+            $log.debug('Controller: RevisionListCtrl');
 
             var contractId = $scope.contract.id;
 

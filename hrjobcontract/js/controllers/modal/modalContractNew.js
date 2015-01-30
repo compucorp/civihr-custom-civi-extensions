@@ -1,4 +1,3 @@
-console.log('Controller: ModalContractNewCtrl');
 define(['controllers/controllers',
         'services/contract',
         'services/contractDetails',
@@ -13,10 +12,11 @@ define(['controllers/controllers',
     controllers.controller('ModalContractNewCtrl', ['$scope', '$modalInstance', '$q', 'Contract','ContractService',
         'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
         'ContractInsuranceService', 'ContractPensionService', 'ContractFilesService', 'model', 'UtilsService', 'utils',
-        'settings',
+        'settings', '$log',
         function($scope, $modalInstance, $q, Contract, ContractService, ContractDetailsService, ContractHoursService,
                  ContractPayService, ContractLeaveService, ContractInsuranceService, ContractPensionService,
-                 ContractFilesService, model, UtilsService, utils, settings){
+                 ContractFilesService, model, UtilsService, utils, settings, $log){
+            $log.debug('Controller: ModalContractNewCtrl');
 
             $scope.allowSave = true;
             $scope.copy = {
@@ -111,6 +111,11 @@ define(['controllers/controllers',
                         $modalInstance.close(contract);
                     });
 
+                },function(reason){
+                    $scope.$broadcast('hrjc-loader-hide');
+                    $modalInstance.dismiss();
+                    CRM.alert((reason.statusText || 'Unknown error'), 'Error', 'error');
+                    return $q.reject();
                 });
             };
 

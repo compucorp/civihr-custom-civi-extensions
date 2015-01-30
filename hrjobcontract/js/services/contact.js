@@ -1,9 +1,10 @@
-console.log('Service: ContactService');
 define(['services/services',
         'services/utils'], function (services) {
 
-    services.factory('ContactService', ['$resource', 'settings', '$q', 'UtilsService','$timeout',
-        function ($resource, settings, $q, UtilsService,$timeout) {
+    services.factory('ContactService', ['$resource', 'settings', '$q', 'UtilsService','$log',
+        function ($resource, settings, $q, UtilsService,$log) {
+            $log.debug('Service: ContactService');
+
         var Contact = $resource(settings.pathRest, {
             action: 'getlist',
             entity: 'contact',

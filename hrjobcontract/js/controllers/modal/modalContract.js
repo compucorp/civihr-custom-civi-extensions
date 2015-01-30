@@ -1,4 +1,3 @@
-console.log('Controller: ModalContractCtrl');
 define(['controllers/controllers',
         'services/contract',
         'services/contractDetails',
@@ -13,11 +12,12 @@ define(['controllers/controllers',
     controllers.controller('ModalContractCtrl',['$scope','$modal', '$modalInstance','$q', '$rootElement','$rootScope','$filter',
         'ContractService', 'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
         'ContractInsuranceService', 'ContractPensionService', 'ContractFilesService', 'action', 'contract',
-        'content', 'files', 'UtilsService', 'utils', 'settings',
+        'content', 'files', 'UtilsService', 'utils', 'settings', '$log',
         function($scope, $modal, $modalInstance, $q, $rootElement, $rootScope, $filter, ContractService, ContractDetailsService,
                  ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService,
                  ContractPensionService, ContractFilesService, action, contract, content, files,
-                 UtilsService, utils, settings){
+                 UtilsService, utils, settings, $log){
+            $log.debug('Controller: ModalContractCtrl');
 
             var content = content || {},
                 copy = content.copy || {},
@@ -69,12 +69,12 @@ define(['controllers/controllers',
                 //DEBUG
                 angular.forEach(contract, function(entity, entityName){
                     if (!angular.equals(entity,$scope.contract[entityName])) {
-                        console.log('======================');
-                        console.info('Changed entity: '+entityName);
-                        console.log('Before:');
-                        console.log(entity);
-                        console.log('After:');
-                        console.log($scope.contract[entityName]);
+                        $log.debug('======================');
+                        $log.debug('Changed entity: '+entityName);
+                        $log.debug('Before:');
+                        $log.debug(entity);
+                        $log.debug('After:');
+                        $log.debug($scope.contract[entityName]);
                     }
 
                 });

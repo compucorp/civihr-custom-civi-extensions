@@ -1,4 +1,3 @@
-console.log('Controller: ContractListCtrl');
 define(['controllers/controllers',
         'filters/getObjById',
         'services/contractDetails',
@@ -10,10 +9,11 @@ define(['controllers/controllers',
         'services/utils'], function(controllers){
     controllers.controller('ContractListCtrl',['$scope','$rootElement','$rootScope','$modal','$q', '$filter', 'contractList','ContractService',
         'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService', 'ContractInsuranceService',
-        'ContractPensionService', 'UtilsService','settings',
+        'ContractPensionService', 'UtilsService','settings', '$log',
         function($scope, $rootElement, $rootScope, $modal, $q, $filter, contractList, ContractService, ContractDetailsService,
                  ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService, ContractPensionService,
-                 UtilsService, settings){
+                 UtilsService, settings, $log){
+            $log.debug('Controller: ContractListCtrl');
 
             var entityServices = {
                     details: ContractDetailsService,
@@ -39,9 +39,8 @@ define(['controllers/controllers',
             $q.all(promiseFields).then(function(fields){
                 $scope.fields = fields;
 
-                console.log('======================');
-                console.info('FIELDS:');
-                console.log(fields);
+                $log.debug('FIELDS:');
+                $log.debug(fields);
 
                 for (entityName in entityServices) {
                     promiseModel[entityName] = entityServices[entityName].model(fields[entityName]);
@@ -52,9 +51,8 @@ define(['controllers/controllers',
             }).then(function(model){
                 $scope.model = model;
 
-                console.log('======================');
-                console.info('MODEL:');
-                console.log(model);
+                $log.debug('MODEL:');
+                $log.debug(model);
 
                 contractList = $filter('orderBy')(contractList,'-is_primary');
 
@@ -81,13 +79,13 @@ define(['controllers/controllers',
             UtilsService.getHoursLocation().then(function(hoursLocation){
                 $scope.utils.hoursLocation = hoursLocation;
             },function(reason){
-                console.log('Failed: ' + reason);
+                $log.error('Failed: ' + reason);
             });
 
             UtilsService.getPayScaleGrade().then(function(payScaleGrade){
                 $scope.utils.payScaleGrade = payScaleGrade;
             },function(reason){
-                console.log('Failed: ' + reason);
+                $log.error('Failed: ' + reason);
             });
 
             $scope.toggleIsPrimary = function(contractId, revisionCreated) {
@@ -116,7 +114,7 @@ define(['controllers/controllers',
                 var modalInstance,
                     options = {
                         targetDomEl: $rootElement.find('div').eq(0),
-                        templateUrl: settings.pathApp+'views/modalForm.html?v='+(new Date()).getTime(),
+                        templateUrl: settings.pathApp+'views/modalForm.html',
                         size: 'lg',
                         controller: 'ModalContractNewCtrl',
                         resolve: {
@@ -143,7 +141,7 @@ define(['controllers/controllers',
 
                 var modalInstance = $modal.open({
                     targetDomEl: $rootElement.find('div').eq(0),
-                    templateUrl: settings.pathApp+'views/modalDialog.html?v='+(new Date()).getTime(),
+                    templateUrl: settings.pathApp+'views/modalDialog.html',
                     size: 'sm',
                     controller: 'ModalDialogCtrl',
                     resolve: {

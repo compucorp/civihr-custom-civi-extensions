@@ -1,7 +1,7 @@
-console.log('Controller: ModalDialogCtrl');
 define(['controllers/controllers'], function(controllers){
-    controllers.controller('ModalDialogCtrl',['$scope','$modalInstance','content',
-        function($scope, $modalInstance, content){
+    controllers.controller('ModalDialogCtrl',['$scope','$modalInstance','content', '$log',
+        function($scope, $modalInstance, content, $log){
+            $log.debug('Controller: ModalDialogCtrl');
 
             $scope.title = content.title || 'CiviHR Job Contract';
             $scope.msg = content.msg || '';

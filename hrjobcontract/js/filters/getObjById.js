@@ -1,6 +1,7 @@
-console.log('Filter: getObjById');
 define(['filters/filters'], function(filters){
-    filters.filter('getObjById',function(){
+    filters.filter('getObjById',function($log){
+        $log.debug('Filter: getObjById');
+
         return function(input, id, key) {
             var i=0, len=input.length;
             for (; i<len; i++) {

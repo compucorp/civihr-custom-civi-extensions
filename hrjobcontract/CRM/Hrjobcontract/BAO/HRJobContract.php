@@ -22,7 +22,9 @@ class CRM_Hrjobcontract_BAO_HRJobContract extends CRM_Hrjobcontract_DAO_HRJobCon
     $instance->save();
     CRM_Utils_Hook::post($hook, $entityName, $instance->id, $instance);
     
-    rules_invoke_event('hrjobcontract_after_create', $instance);
+    if (module_exists('rules')) {
+        rules_invoke_event('hrjobcontract_after_create', $instance);
+    }
 
     return $instance;
   }
@@ -37,7 +39,7 @@ class CRM_Hrjobcontract_BAO_HRJobContract extends CRM_Hrjobcontract_DAO_HRJobCon
   public function delete($useWhere = false) {
       $id = $this->id;
       $result = parent::delete($useWhere);
-      if ($result !== false) {
+      if ($result !== false && module_exists('rules')) {
           rules_invoke_event('hrjobcontract_after_delete', $id);
       }
   }

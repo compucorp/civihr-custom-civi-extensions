@@ -16,7 +16,8 @@ class CRM_Hrjobcontract_BAO_HRJobContractRevision extends CRM_Hrjobcontract_DAO_
     $className = 'CRM_Hrjobcontract_DAO_HRJobContractRevision';
     $entityName = 'HRJobContractRevision';
     $hook = empty($params['id']) ? 'create' : 'edit';
-    /*$now = date('Y-m-d H:i:s');
+    
+    $now = CRM_Utils_Date::currentDBDate();
     if ($hook === 'create')
     {
         $params['created_date'] = $now;
@@ -24,7 +25,7 @@ class CRM_Hrjobcontract_BAO_HRJobContractRevision extends CRM_Hrjobcontract_DAO_
     else
     {
         $params['modified_date'] = $now;
-    }*/
+    }
 
     CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);
     $instance = new $className();

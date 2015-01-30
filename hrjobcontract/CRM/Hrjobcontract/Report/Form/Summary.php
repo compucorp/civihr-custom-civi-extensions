@@ -128,6 +128,36 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                     'no_repeat' => TRUE,
                     'name' => 'id',
                 ),
+                'editor_uid' => array(
+                    'title' => ts('Editor UID'),
+                    'no_repeat' => TRUE,
+                    'name' => 'editor_uid',
+                ),
+                'created_date' => array(
+                    'title' => ts('Created date'),
+                    'no_repeat' => TRUE,
+                    'name' => 'created_date',
+                ),
+                'modified_date' => array(
+                    'title' => ts('Modified date'),
+                    'no_repeat' => TRUE,
+                    'name' => 'modified_date',
+                ),
+                'effective_date' => array(
+                    'title' => ts('Effective date'),
+                    'no_repeat' => TRUE,
+                    'name' => 'effective_date',
+                ),
+                'change_reason' => array(
+                    'title' => ts('Change reason'),
+                    'no_repeat' => TRUE,
+                    'name' => 'change_reason',
+                ),
+                'status' => array(
+                    'title' => ts('Revision status'),
+                    'no_repeat' => TRUE,
+                    'name' => 'status',
+                ),
               ),
               'grouping' => 'revision-fields',
               'order_bys' => array(
@@ -157,59 +187,73 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                     'title' => ts('Details ID'),
                     'no_repeat' => TRUE,
                     'name' => 'id',
+                    'dbAlias' => 'hrjobcontract_details_civireport.id',
                 ),
-                'position' => array(
+                'details_position' => array(
                     'title' => ts('Position'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_details_civireport.position',
                 ),
                 'details_title' => array(
                     'title' => ts('Title'),
                     'no_repeat' => TRUE,
                     'name' => 'title',
+                    'dbAlias' => 'hrjobcontract_details_civireport.title',
                 ),
-                'funding_notes' => array(
+                'details_funding_notes' => array(
                     'title' => ts('Funding notes'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_details_civireport.funding_notes',
                 ),
-                'contract_type' => array(
+                'details_contract_type' => array(
                     'title' => ts('Contract type'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_details_civireport.contract_type',
                 ),
-                'period_type' => array(
+                'details_period_type' => array(
                     'title' => ts('Period type'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_details_civireport.period_type',
                 ),
-                'period_start_date' => array(
+                'details_period_start_date' => array(
                     'title' => ts('Period start date'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_details_civireport.period_start_date',
                 ),
-                'period_end_date' => array(
+                'details_period_end_date' => array(
                     'title' => ts('Period end date'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_details_civireport.period_end_date',
                 ),
-                'notice_amount' => array(
+                'details_notice_amount' => array(
                     'title' => ts('Notice amount'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_details_civireport.notice_amount',
                 ),
-                'notice_unit' => array(
+                'details_notice_unit' => array(
                     'title' => ts('Notice unit'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_details_civireport.notice_unit',
                 ),
-                'notice_amount_employee' => array(
+                'details_notice_amount_employee' => array(
                     'title' => ts('Notice amount employee'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_details_civireport.notice_amount_employee',
                 ),
-                'notice_unit_employee' => array(
+                'details_notice_unit_employee' => array(
                     'title' => ts('Notice unit employee'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_details_civireport.notice_unit_employee',
                 ),
-                'location' => array(
+                'details_location' => array(
                     'title' => ts('Location'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_details_civireport.location',
                 ),
-                'is_primary' => array(
+                'details_is_primary' => array(
                     'title' => ts('Is primary'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_details_civireport.is_primary',
                 ),
               ),
               'grouping' => 'details-fields',
@@ -234,38 +278,47 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                     'title' => ts('Health ID'),
                     'no_repeat' => TRUE,
                     'name' => 'id',
+                    'dbAlias' => 'hrjobcontract_health_civireport.id',
                 ),
-                'provider' => array(
+                'health_provider' => array(
                     'title' => ts('Provider'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_health_civireport.provider',
                 ),
-                'plan_type' => array(
+                'health_plan_type' => array(
                     'title' => ts('Plan type'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_health_civireport.plan_type',
                 ),
-                'description' => array(
+                'health_description' => array(
                     'title' => ts('Description'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_health_civireport.description',
                 ),
-                'dependents' => array(
+                'health_dependents' => array(
                     'title' => ts('Dependents'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_health_civireport.dependents',
                 ),
-                'provider_life_insurance' => array(
+                'health_provider_life_insurance' => array(
                     'title' => ts('Provider life insurance'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_health_civireport.provider_life_insurance',
                 ),
-                'plan_type_life_insurance' => array(
+                'health_plan_type_life_insurance' => array(
                     'title' => ts('Plan type life insurance'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_health_civireport.plan_type_life_insurance',
                 ),
-                'description_life_insurance' => array(
+                'health_description_life_insurance' => array(
                     'title' => ts('Description life insurance'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_health_civireport.description_life_insurance',
                 ),
-                'dependents_life_insurance' => array(
+                'health_dependents_life_insurance' => array(
                     'title' => ts('Dependents life insurance'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_health_civireport.dependents_life_insurance',
                 ),
               ),
               'grouping' => 'health-fields',
@@ -290,30 +343,42 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                     'title' => ts('Hour ID'),
                     'no_repeat' => TRUE,
                     'name' => 'id',
+                    'dbAlias' => 'hrjobcontract_hour_civireport.id',
                 ),
-                'hours_type' => array(
+                'hour_location_standard_hours' => array(
+                    'title' => ts('Location/Standard hours'),
+                    'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_hour_civireport.location_standard_hours',
+                ),
+                'hour_hours_type' => array(
                     'title' => ts('Hours type'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_hour_civireport.hours_type',
                 ),
-                'hours_amount' => array(
+                'hour_hours_amount' => array(
                     'title' => ts('Hours amount'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_hour_civireport.hours_amount',
                 ),
-                'hours_unit' => array(
+                'hour_hours_unit' => array(
                     'title' => ts('Hours unit'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_hour_civireport.hours_unit',
                 ),
-                'hours_fte' => array(
+                'hour_hours_fte' => array(
                     'title' => ts('Hours FTE'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_hour_civireport.hours_fte',
                 ),
-                'fte_num' => array(
+                'hour_fte_num' => array(
                     'title' => ts('FTE num'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_hour_civireport.fte_num',
                 ),
-                'fte_denom' => array(
+                'hour_fte_denom' => array(
                     'title' => ts('FTE denom'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_hour_civireport.fte_denom',
                 ),
               ),
               'grouping' => 'hour-fields',
@@ -338,14 +403,17 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                     'title' => ts('Leave ID'),
                     'no_repeat' => TRUE,
                     'name' => 'id',
+                    'dbAlias' => 'hrjobcontract_leave_civireport.id',
                 ),
-                'leave_type' => array(
+                'leave_leave_type' => array(
                     'title' => ts('Leave type'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_leave_civireport.leave_type',
                 ),
-                'leave_amount' => array(
+                'leave_leave_amount' => array(
                     'title' => ts('Leave amount'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_leave_civireport.leave_amount',
                 ),
               ),
               'grouping' => 'leave-fields',
@@ -370,42 +438,67 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                     'title' => ts('Pay ID'),
                     'no_repeat' => TRUE,
                     'name' => 'id',
+                    'dbAlias' => 'hrjobcontract_pay_civireport.id',
                 ),
-                'pay_scale' => array(
+                'pay_pay_scale' => array(
                     'title' => ts('Pay scale'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_pay_civireport.pay_scale',
                 ),
-                'is_paid' => array(
+                'pay_is_paid' => array(
                     'title' => ts('Is paid'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_pay_civireport.is_paid',
                 ),
-                'pay_amount' => array(
+                'pay_pay_amount' => array(
                     'title' => ts('Pay amount'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_pay_civireport.pay_amount',
                 ),
-                'pay_unit' => array(
+                'pay_pay_unit' => array(
                     'title' => ts('Pay unit'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_pay_civireport.pay_unit',
                 ),
-                'pay_currency' => array(
+                'pay_pay_currency' => array(
                     'title' => ts('Pay currency'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_pay_civireport.pay_currency',
                 ),
-                'pay_annualized_est' => array(
+                'pay_pay_annualized_est' => array(
                     'title' => ts('Pay annualized est'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_pay_civireport.pay_annualized_est',
                 ),
-                'pay_is_auto_est' => array(
+                'pay_pay_is_auto_est' => array(
                     'title' => ts('Pay is auto est'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_pay_civireport.pay_is_auto_est',
                 ),
-                'annual_benefits' => array(
+                'pay_annual_benefits' => array(
                     'title' => ts('Annual benefits'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_pay_civireport.annual_benefits',
                 ),
-                'annual_deductions' => array(
+                'pay_annual_deductions' => array(
                     'title' => ts('Annual deductions'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_pay_civireport.annual_deductions',
+                ),
+                'pay_pay_cycle' => array(
+                    'title' => ts('Pay cycle'),
+                    'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_pay_civireport.pay_cycle',
+                ),
+                'pay_pay_per_cycle_gross' => array(
+                    'title' => ts('Pay per cycle gross'),
+                    'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_pay_civireport.pay_per_cycle_gross',
+                ),
+                'pay_pay_per_cycle_net' => array(
+                    'title' => ts('Pay per cycle net'),
+                    'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_pay_civireport.pay_per_cycle_net',
                 ),
               ),
               'grouping' => 'pay-fields',
@@ -430,30 +523,37 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                     'title' => ts('Pension ID'),
                     'no_repeat' => TRUE,
                     'name' => 'id',
+                    'dbAlias' => 'hrjobcontract_pension_civireport.id',
                 ),
-                'is_enrolled' => array(
+                'pension_is_enrolled' => array(
                     'title' => ts('Is enrolled'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_pension_civireport.is_enrolled',
                 ),
-                'ee_contrib_pct' => array(
+                'pension_ee_contrib_pct' => array(
                     'title' => ts('EE contrib pct'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_pension_civireport.ee_contrib_pct',
                 ),
-                'er_contrib_pct' => array(
+                'pension_er_contrib_pct' => array(
                     'title' => ts('ER contrib pct'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_pension_civireport.er_contrib_pct',
                 ),
-                'pension_type' => array(
+                'pension_pension_type' => array(
                     'title' => ts('Pension type'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_pension_civireport.pension_type',
                 ),
-                'ee_contrib_abs' => array(
+                'pension_ee_contrib_abs' => array(
                     'title' => ts('EE contrib abs'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_pension_civireport.ee_contrib_abs',
                 ),
-                'ee_evidence_note' => array(
+                'pension_ee_evidence_note' => array(
                     'title' => ts('EE evidence note'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_pension_civireport.ee_evidence_note',
                 ),
               ),
               'grouping' => 'pension-fields',
@@ -478,71 +578,84 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                     'title' => ts('Role ID'),
                     'no_repeat' => TRUE,
                     'name' => 'id',
+                    'dbAlias' => 'hrjobcontract_role_civireport.id',
                 ),
                 'role_title' => array(
                     'title' => ts('Title'),
                     'no_repeat' => TRUE,
                     'name' => 'title',
+                    'dbAlias' => 'hrjobcontract_role_civireport.title',
                 ),
-                'description' => array(
+                'role_description' => array(
                     'title' => ts('Description'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_role_civireport.description',
                 ),
-                'hours' => array(
+                'role_hours' => array(
                     'title' => ts('Hours'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_role_civireport.hours',
                 ),
-                'role_hours_unit' => array(
+                'role_role_hours_unit' => array(
                     'title' => ts('Role hours unit'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_role_civireport.role_hours_unit',
                 ),
-                'region' => array(
+                'role_region' => array(
                     'title' => ts('Region'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_role_civireport.region',
                 ),
-                'department' => array(
+                'role_department' => array(
                     'title' => ts('Department'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_role_civireport.department',
                 ),
-                'level_type' => array(
+                'role_level_type' => array(
                     'title' => ts('Level type'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_role_civireport.level_type',
                 ),
-                'manager_contact_id' => array(
+                'role_manager_contact_id' => array(
                     'title' => ts('Manager contact ID'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_role_civireport.manager_contact_id',
                 ),
-                'functional_area' => array(
+                'role_functional_area' => array(
                     'title' => ts('Functional area'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_role_civireport.functional_area',
                 ),
-                'organization' => array(
+                'role_organization' => array(
                     'title' => ts('Organization'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_role_civireport.organization',
                 ),
-                'cost_center' => array(
+                'role_cost_center' => array(
                     'title' => ts('Cost center'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_role_civireport.cost_center',
                 ),
-                'funder' => array(
+                'role_funder' => array(
                     'title' => ts('Funder'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_role_civireport.funder',
                 ),
-                'percent_pay_funder' => array(
+                'role_percent_pay_funder' => array(
                     'title' => ts('Percent pay funder'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_role_civireport.percent_pay_funder',
                 ),
-                'percent_pay_role' => array(
+                'role_percent_pay_role' => array(
                     'title' => ts('Percent pay role'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_role_civireport.percent_pay_role',
                 ),
-                'location' => array(
+                'role_location' => array(
                     'title' => ts('Location'),
                     'no_repeat' => TRUE,
+                    'dbAlias' => 'hrjobcontract_role_civireport.location',
                 ),
-                /*'jobcontract_revision_id' => array(
-                    'title' => ts('Job')
-                )*/
               ),
               'grouping' => 'role-fields',
               'group_bys' => array(

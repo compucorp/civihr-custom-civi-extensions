@@ -334,8 +334,15 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
         $instance->find(true);
     }
     $instance->copyValues($params);
+    rules_invoke_event('hrjobcontract_' . $tableName .'_presave', $instance);
     $instance->save();
     CRM_Utils_Hook::post($hook, $entityName, $instance->id, $instance);
+    
+    if ($hook == 'create') {
+        rules_invoke_event('hrjobcontract_' . $tableName . '_insert', $instance);
+    } else {
+        rules_invoke_event('hrjobcontract_' . $tableName .'_update', $instance);
+    }
     
     return $instance;
   }

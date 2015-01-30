@@ -205,7 +205,7 @@ define(['controllers/controllers',
                     }
 
                     if (results.isPrimarySet) {
-                        $scope.$parent.$parent.toggleIsPrimary(contractId);
+                        $scope.$parent.$parent.toggleIsPrimary(contractId, !!results.revisionCreated);
                     }
 
                     if (results.files) {
@@ -257,6 +257,9 @@ define(['controllers/controllers',
                         },
                         fields: function(){
                             return $scope.$parent.$parent.fields[entity];
+                        },
+                        utils: function(){
+                            return $scope.utils
                         },
                         revisionDataList: function(){
                             return $q.all(promiseEntityRevisionDataList);

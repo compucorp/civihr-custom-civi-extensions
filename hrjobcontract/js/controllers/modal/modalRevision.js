@@ -34,8 +34,10 @@ define(['controllers/controllers'], function(controllers){
                     break;
                 case 'hours':
                     (function(){
+                        alert('ok');
                         var hoursLocation;
                         angular.forEach($scope.revisionDataList, function(revisionData){
+                            console.log(revisionData.location_standard_hours);
                             if (revisionData.location_standard_hours) {
                                 hoursLocation = $filter('filter')(utils.hoursLocation,{id: revisionData.location_standard_hours})[0];
                                 revisionData.location_standard_hours = hoursLocation.location + ': ' +
@@ -68,7 +70,7 @@ define(['controllers/controllers'], function(controllers){
                         var payScaleGrade;
                         angular.forEach($scope.revisionDataList, function(revisionData){
                             if (revisionData.pay_scale) {
-                                payScaleGrade = $filter('filter')(utils.payScaleGrade,{id: revisionData.pay_scale})[0];
+                                payScaleGrade = $filter('filter')(utils.payScaleGrade,{id: revisionData.pay_scale})[0] || $filter('filter')(utils.payScaleGrade,{pay_scale: revisionData.pay_scale})[0];
                                 revisionData.pay_scale = payScaleGrade.pay_scale +
                                 (payScaleGrade.pay_grade ? ' - ' + payScaleGrade.pay_grade : '') +
                                 (payScaleGrade.currency ? ' - ' + $rootScope.options.pay.pay_currency[payScaleGrade.currency] : '') +

@@ -1,7 +1,8 @@
-console.log('Service: UtilsService');
 define(['services/services'], function (services) {
 
-    services.factory('API', ['$resource','$q','settings', function ($resource, $q, settings) {
+    services.factory('API', ['$resource','$q','settings','$log', function ($resource, $q, settings, $log) {
+        $log.debug('Service: UtilsService');
+
         return {
             resource: function(entity, action, json) {
 
@@ -85,7 +86,7 @@ define(['services/services'], function (services) {
         }
     }]);
 
-    services.factory('UtilsService', ['API','testAPI','settings','$q', function (API, testAPI, settings, $q) {
+    services.factory('UtilsService', ['API','testAPI','settings','$q','$log', function (API, testAPI, settings, $q, $log) {
         return {
             getAbsenceType: function(){
                 var deffered = $q.defer();
@@ -150,20 +151,20 @@ define(['services/services'], function (services) {
             },
             errorHandler: function(data, msg, deffered){
                 if (data.is_error) {
-                    console.error(data.error_code + '\n'+data.error_message);
+                    $log.error(data.error_code + '\n'+data.error_message);
 
                     if (deffered) {
                         deffered.reject(data.error_code + '\n'+data.error_message);
                     }
 
                     if (data.trace) {
-                        console.error(data.trace);
+                        $log.error(data.trace);
                     }
                     return true;
                 }
 
                 if (!data.values) {
-                    console.error(msg || 'Unknown Error');
+                    $log.error(msg || 'Unknown Error');
 
                     if (deffered) {
                         deffered.reject(msg || 'Unknown Error');

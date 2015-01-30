@@ -1,6 +1,7 @@
-console.log('Directive: hrjcLoader');
 define(['directives/directives'], function(directives){
-    directives.directive('hrjcLoader',function($rootScope){
+    directives.directive('hrjcLoader',function($rootScope, $log){
+        $log.debug('Directive: hrjcLoader');
+
         return {
             link: function ($scope, el, attrs) {
                 var loader = document.createElement('div'),

@@ -1,6 +1,5 @@
-console.log('Init: hrjc-main');
 require.config({
-    urlArgs: "bust=" + (new Date()).getTime(),
+    //urlArgs: "bust=" + (new Date()).getTime(),
     paths: {
         angular: 'vendor/angular/angular.min',
         angularAnimate: 'vendor/angular/angular-animate.min',
@@ -8,7 +7,6 @@ require.config({
         angularFileUpload: 'vendor/angular/angular-file-upload',
         angularResource: 'vendor/angular/angular-resource.min',
         angularRoute: 'vendor/angular/angular-route.min',
-        bootstrap: 'vendor/bootstrap',
         fraction: 'vendor/fraction',
         moment: 'vendor/moment.min'
     },
@@ -59,12 +57,14 @@ require([
 ],function(angular, app){
     'use strict';
 
-    app.config(['settings','$routeProvider','$resourceProvider',
-        function(settings, $routeProvider, $resourceProvider){
+    app.config(['settings','$routeProvider','$resourceProvider','$logProvider',
+        function(settings, $routeProvider, $resourceProvider, $logProvider){
+            $logProvider.debugEnabled(settings.debug);
+
             $routeProvider.
                 when('/', {
                     controller: 'ContractListCtrl',
-                    templateUrl: settings.pathApp+'views/contractList.html?v='+(new Date()).getTime(),
+                    templateUrl: settings.pathApp+'views/contractList.html?v=wefwef',
                     resolve: {
                         contractList: function(ContractService){
                             return ContractService.get()
@@ -77,10 +77,12 @@ require([
         }
     ]);
 
-    app.run(['settings','$rootScope','$q', 'ContractService', 'ContractDetailsService', 'ContractHoursService',
+    app.run(['settings','$rootScope','$q', '$log', 'ContractService', 'ContractDetailsService', 'ContractHoursService',
         'ContractPayService', 'ContractLeaveService', 'ContractInsuranceService', 'ContractPensionService',
-        function(settings, $rootScope, $q, ContractService, ContractDetailsService, ContractHoursService, ContractPayService,
+        function(settings, $rootScope, $q, $log, ContractService, ContractDetailsService, ContractHoursService, ContractPayService,
                  ContractLeaveService, ContractInsuranceService, ContractPensionService){
+            $log.debug('app.run');
+
             $rootScope.pathTpl = settings.pathTpl;
             $rootScope.prefix = settings.classNamePrefix;
 
@@ -97,9 +99,8 @@ require([
                 results.pay.pay_is_auto_est = ['No','Yes'];
                 results.pension.is_enrolled = ['No','Yes','Opted out'];
 
-                console.log('======================');
-                console.info('OPTIONS:');
-                console.log(results);
+                $log.debug('OPTIONS:');
+                $log.debug(results);
                 $rootScope.options = results;
 
             });
@@ -107,11 +108,10 @@ require([
     ]);
 
     document.addEventListener('hrjcLoad', function(e){
-
         app.constant('settings', {
             classNamePrefix: 'hrjc-',
             contactId: CRM.jobContractTabApp.contactId,
-            debug: 1,
+            debug: CRM.debug,
             pathApp: CRM.jobContractTabApp.path,
             pathFile: CRM.url('civicrm/hrjobcontract/file/'),
             pathReport: CRM.url('civicrm/report/hrjobcontract/summary'),

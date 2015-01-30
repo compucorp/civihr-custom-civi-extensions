@@ -1,9 +1,10 @@
-console.log('Controller: ModalRevisionCtrl');
 define(['controllers/controllers'], function(controllers){
     controllers.controller('ModalRevisionCtrl',['$scope', '$rootScope', '$modalInstance', '$filter','$q','settings',
-        'revisionDataList', 'revisionList', 'entity', 'fields', 'modalContract','utils','ContactService',
+        'revisionDataList', 'revisionList', 'entity', 'fields', 'modalContract','utils','ContactService','$log',
         function($scope, $rootScope, $modalInstance, $filter, $q, settings, revisionDataList, revisionList, entity,
-                 fields, modalContract, utils, ContactService){
+                 fields, modalContract, utils, ContactService,$log){
+            $log.debug('Controller: ModalRevisionCtrl');
+
             $scope.$broadcast('hrjc-loader-show');
             $scope.entity = entity;
             $scope.fields = angular.copy(fields);

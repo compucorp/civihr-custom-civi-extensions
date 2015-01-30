@@ -1,7 +1,8 @@
-console.log('Service: ContractService');
 define(['services/services'], function (services) {
 
-    services.factory('Contract',['$resource', 'settings', function($resource, settings){
+    services.factory('Contract',['$resource', 'settings', '$log', function($resource, settings, $log){
+        $log.debug('Service: Contract');
+
         return $resource(settings.pathRest,{
                 action: 'get',
                 entity: 'HRJobContract',
@@ -11,7 +12,9 @@ define(['services/services'], function (services) {
             })
     }]);
 
-    services.factory('ContractRevision',['$resource', 'settings', function($resource, settings){
+    services.factory('ContractRevision',['$resource', 'settings', '$log', function($resource, settings, $log){
+        $log.debug('Service: ContractRevision');
+
         return $resource(settings.pathRest,{
             action: 'get',
             entity: 'HRJobContractRevision',
@@ -21,8 +24,10 @@ define(['services/services'], function (services) {
         })
     }]);
 
-    services.factory('ContractService', ['Contract','ContractRevision','settings','$q','UtilsService',
-        function (Contract, ContractRevision, settings, $q, UtilsService) {
+    services.factory('ContractService', ['Contract','ContractRevision','settings','$q','UtilsService','$log',
+        function (Contract, ContractRevision, settings, $q, UtilsService, $log) {
+            $log.debug('Service: ContractRevision');
+
         return {
             get: function(contactId) {
                 var deffered = $q.defer(), params = {};

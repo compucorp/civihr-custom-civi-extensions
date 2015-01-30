@@ -1,9 +1,9 @@
-console.log('Service: ContractInsuranceService');
 define(['services/services',
         'services/utils'], function (services) {
 
-    services.factory('ContractInsuranceService', ['$resource', 'settings', '$q', 'UtilsService',
-        function ($resource, settings, $q, UtilsService) {
+    services.factory('ContractInsuranceService', ['$resource', 'settings', '$q', 'UtilsService', '$log',
+        function ($resource, settings, $q, UtilsService, $log) {
+            $log.debug('Service: ContractInsuranceService');
 
         var ContractInsurance = $resource(settings.pathRest, {
             action: 'get',

@@ -23,7 +23,7 @@
             <td>{{revision.pay.pay_annualized_est || '-'}} {{options.pay.pay_currency[revision.pay.pay_currency]}}</td>
             <td>{{options.hours.hours_type[revision.hours.hours_type] || '-'}}</td>
             <td>{{options.details.location[revision.details.location] || '-'}}</td>
-            <td>-</td>
+            <td>{{revision.revisionEntityIdObj.editor_name || '-'}}</td>
             <td></td>
             <td><a class="cursor-pointer" ng-click="modalContract('view',revision.revisionEntityIdObj)">view this contract revision</a></td>
         </tr>

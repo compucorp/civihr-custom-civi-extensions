@@ -1,4 +1,3 @@
-console.log('Controller: ContractCtrl');
 define(['controllers/controllers',
         'services/contractDetails',
         'services/contractHours',
@@ -9,10 +8,11 @@ define(['controllers/controllers',
         'services/utils',], function(controllers){
     controllers.controller('ContractCtrl',['$scope', '$route', '$filter', '$modal', '$rootElement', '$q', 'settings',
         'API', 'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
-        'ContractInsuranceService', 'ContractPensionService','ContractFilesService',
+        'ContractInsuranceService', 'ContractPensionService','ContractFilesService','$log',
         function($scope, $route, $filter, $modal, $rootElement, $q, settings, API, ContractDetailsService,
                  ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService,
-                 ContractPensionService, ContractFilesService){
+                 ContractPensionService, ContractFilesService, $log){
+            $log.debug('Controller: ContractCtrl');
 
             var contractId = $scope.contract.id, contractRevisionIdObj, promiseFiles;
 
@@ -72,7 +72,7 @@ define(['controllers/controllers',
                     options = {
                         controller: 'ModalContractCtrl',
                         targetDomEl: $rootElement.find('div').eq(0),
-                        templateUrl: settings.pathApp+'views/modalForm.html?v='+(new Date()).getTime(),
+                        templateUrl: settings.pathApp+'views/modalForm.html',
                         size: 'lg',
                         resolve: {
                             action: function(){
@@ -249,7 +249,7 @@ define(['controllers/controllers',
                     targetDomEl: $rootElement.find('div').eq(0),
                     size: 'lg',
                     controller: 'ModalRevisionCtrl',
-                    templateUrl: settings.pathApp+'views/modalRevision.html?v='+(new Date()).getTime(),
+                    templateUrl: settings.pathApp+'views/modalRevision.html',
                     windowClass: 'modal-revision',
                     resolve: {
                         entity: function(){

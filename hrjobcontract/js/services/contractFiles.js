@@ -1,9 +1,10 @@
-console.log('Service: ContractFilesService');
 define(['services/services',
         'services/utils'], function (services) {
 
-    services.factory('ContractFilesService', ['$resource', 'settings', '$q', 'UtilsService','FileUploader',
-        function ($resource, settings, $q, UtilsService, FileUploader) {
+    services.factory('ContractFilesService', ['$resource', 'settings', '$q', 'UtilsService','FileUploader', '$log',
+        function ($resource, settings, $q, UtilsService, FileUploader, $log) {
+            $log.debug('Service: ContractFilesService');
+
             var ContractFiles = $resource(settings.pathFile+':action');
                 FileUploader.prototype.queueDelete = [];
 
@@ -103,24 +104,24 @@ define(['services/services',
                     };
 
                     uploaderInsance.onCompleteItem = function(item, response, status, headers){
-                        console.info(' ===== Item Complete: ' + status + ' ======');
-                        console.info(' =====  - item ======');
-                        console.info(item);
-                        console.info(' =====  - response ======');
-                        console.info(response);
-                        console.info(' =====  - headers ======');
-                        console.info(headers);
+                        $log.debug(' ===== Item Complete: ' + status + ' ======');
+                        $log.debug(' =====  - item ======');
+                        $log.debug(item);
+                        $log.debug(' =====  - response ======');
+                        $log.debug(response);
+                        $log.debug(' =====  - headers ======');
+                        $log.debug(headers);
                     };
 
                     uploaderInsance.onErrorItem = function(item, response, status, headers){
                         deffered.reject('Could not upload file: '+item.file.name);
-                        console.error(' ===== Item Error: ' + status + ' ======');
-                        console.error(' =====  - item ======');
-                        console.error(item);
-                        console.error(' =====  - response ======');
-                        console.error(response);
-                        console.error(' =====  - headers ======');
-                        console.error(headers);
+                        $log.error(' ===== Item Error: ' + status + ' ======');
+                        $log.error(' =====  - item ======');
+                        $log.error(item);
+                        $log.error(' =====  - response ======');
+                        $log.error(response);
+                        $log.error(' =====  - headers ======');
+                        $log.error(headers);
                     };
 
                     uploaderInsance.onCompleteAll = function(){

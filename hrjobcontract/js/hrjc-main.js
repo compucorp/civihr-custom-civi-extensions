@@ -1,5 +1,5 @@
 require.config({
-    //urlArgs: "bust=" + (new Date()).getTime(),
+    urlArgs: "bust=" + (new Date()).getTime(),
     paths: {
         angular: 'vendor/angular/angular.min',
         angularAnimate: 'vendor/angular/angular-animate.min',

@@ -21,8 +21,25 @@ class CRM_Hrjobcontract_BAO_HRJobContract extends CRM_Hrjobcontract_DAO_HRJobCon
     $instance->copyValues($params);
     $instance->save();
     CRM_Utils_Hook::post($hook, $entityName, $instance->id, $instance);
+    
+    rules_invoke_event('hrjobcontract_after_create', $instance);
 
     return $instance;
+  }
+  
+  /**
+   * Delete current HRJobContract based on array-data
+   *
+   * @param array $params key-value pairs
+   * @return CRM_HRJob_DAO_HRJobContract|NULL
+   *
+   */
+  public function delete($useWhere = false) {
+      $id = $this->id;
+      $result = parent::delete($useWhere);
+      if ($result !== false) {
+          rules_invoke_event('hrjobcontract_after_delete', $id);
+      }
   }
   
   /**

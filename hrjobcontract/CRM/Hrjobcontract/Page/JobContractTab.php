@@ -42,6 +42,7 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
           'fields' => CRM_Hrjobcontract_Page_JobContractTab::getFields(),
            'contractList' => CRM_Hrjobcontract_Page_JobContractTab::getContractList()
         ),
+        'debug' => $config->debug,
       );
     });
   }

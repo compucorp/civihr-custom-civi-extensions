@@ -50,6 +50,7 @@ require([
     'controllers/form/formPension',
     'directives/directives',
     'directives/loader',
+    'directives/number',
     'filters/capitalize',
     'filters/getObjById',
     'filters/formatAmount',

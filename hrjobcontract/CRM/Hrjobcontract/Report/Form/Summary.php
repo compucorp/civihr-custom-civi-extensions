@@ -399,6 +399,14 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                     'title' => ts('Pay is auto est'),
                     'no_repeat' => TRUE,
                 ),
+                'annual_benefits' => array(
+                    'title' => ts('Annual benefits'),
+                    'no_repeat' => TRUE,
+                ),
+                'annual_deductions' => array(
+                    'title' => ts('Annual deductions'),
+                    'no_repeat' => TRUE,
+                ),
               ),
               'grouping' => 'pay-fields',
               'group_bys' => array(

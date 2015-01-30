@@ -44,7 +44,19 @@ function civicrm_api3_h_r_job_contract_revision_delete($params) {
  * @throws API_Exception
  */
 function civicrm_api3_h_r_job_contract_revision_get($params) {
-    return _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params);
+    $revisions = _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params);
+    foreach ($revisions['values'] as $key => $revision)
+    {
+        $editorName = '';
+        
+        if (!empty($revision['editor_uid'])) {
+            $civiUser = civicrm_custom_user_profile_get_contact($revision['editor_uid']);
+            $editorName = $civiUser['sort_name'];
+        }
+        
+        $revisions['values'][$key]['editor_name'] = $editorName;
+    }
+    return $revisions;
 }
 
 /**

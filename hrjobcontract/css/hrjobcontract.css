@@ -9936,6 +9936,10 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
   border-color: #ddd #ddd #ddd transparent;
   *border-left-color: #fff;
 }
+/* line 1, ../sass/partials/_pagination.scss */
+#hrjob-contract .pagination {
+  margin-top: 0;
+}
 /* line 1, ../sass/partials/_panels.scss */
 #hrjob-contract .panel {
   display: block;

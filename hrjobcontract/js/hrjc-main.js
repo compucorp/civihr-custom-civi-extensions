@@ -64,7 +64,7 @@ require([
             $routeProvider.
                 when('/', {
                     controller: 'ContractListCtrl',
-                    templateUrl: settings.pathApp+'views/contractList.html?v=wefwef',
+                    templateUrl: settings.pathApp+'views/contractList.html?v='+(new Date().getTime()),
                     resolve: {
                         contractList: function(ContractService){
                             return ContractService.get()

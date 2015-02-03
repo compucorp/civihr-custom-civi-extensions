@@ -93,6 +93,9 @@ define(['services/services'], function (services) {
 
                 var deffered = $q.defer(),
                     params = {
+                        options: {
+                            limit: 0
+                        },
                         sequential: 1,
                         jobcontract_id: contractId
                     };

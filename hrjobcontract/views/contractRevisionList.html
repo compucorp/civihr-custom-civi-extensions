@@ -1,34 +1,45 @@
-<button class="btn btn-default btn-xs pull-right">
-    <span class="fa fa-download" aria-hidden="true"></span> Export to CSV
-</button>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Effective Date</th>
-            <th>Position</th>
-            <th>Pay Scale</th>
-            <th>Total Salary</th>
-            <th>Hours<br>(Full time/ Part time)</th>
-            <th>Location</th>
-            <th>Change<br>Recorded By</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="revision in $parent.revisionDataList">
-            <td>{{(revision.revisionEntityIdObj.effective_date | date: 'yyyy/MM/dd') || '-'}}</td>
-            <td>{{revision.details.position || '-'}}</td>
-            <td>{{revision.pay.pay_scale ? (((utils.payScaleGrade | getObjById:revision.pay.pay_scale:'pay_scale') || '-') + ' ' + ((utils.payScaleGrade | getObjById:revision.pay.pay_scale:'pay_grade') || '' )) : '-'}}</td>
-            <td>{{revision.pay.pay_annualized_est || '-'}} {{options.pay.pay_currency[revision.pay.pay_currency]}}</td>
-            <td>{{options.hours.hours_type[revision.hours.hours_type] || '-'}}</td>
-            <td>{{options.details.location[revision.details.location] || '-'}}</td>
-            <td>{{revision.revisionEntityIdObj.editor_name || '-'}}</td>
-            <td></td>
-            <td><a class="cursor-pointer" ng-click="modalContract('view',revision.revisionEntityIdObj)">view this contract revision</a></td>
-        </tr>
-    </tbody>
-</table>
-<button class="btn btn-default btn-sm btn-danger" ng-click="delete(contract.id)">
-    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete this job contract
-</button>
+<div ng-controller="RevisionListCtrl">
+    <button class="btn btn-default btn-xs pull-right">
+        <span class="fa fa-download" aria-hidden="true"></span> Export to CSV
+    </button>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Effective Date</th>
+                <th>Position</th>
+                <th>Pay Scale</th>
+                <th>Total Salary</th>
+                <th>Hours<br>(Full time/ Part time)</th>
+                <th>Location</th>
+                <th>Change<br>Recorded By</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="revision in revisionDataListPage">
+                <td>{{(revision.revisionEntityIdObj.effective_date | date: 'yyyy/MM/dd') || '-'}}</td>
+                <td>{{revision.details.position || '-'}}</td>
+                <td>{{revision.pay.pay_scale ? (((utils.payScaleGrade | getObjById:revision.pay.pay_scale:'pay_scale') || '-') + ' ' + ((utils.payScaleGrade | getObjById:revision.pay.pay_scale:'pay_grade') || '' )) : '-'}}</td>
+                <td>{{revision.pay.pay_annualized_est || '-'}} {{options.pay.pay_currency[revision.pay.pay_currency]}}</td>
+                <td>{{options.hours.hours_type[revision.hours.hours_type] || '-'}}</td>
+                <td>{{options.details.location[revision.details.location] || '-'}}</td>
+                <td>{{revision.revisionEntityIdObj.editor_name || '-'}}</td>
+                <td></td>
+                <td><a class="cursor-pointer" ng-click="modalContract('view',revision.revisionEntityIdObj)">view this contract revision</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row" ng-show="(revisionDataList.length > itemsPerPage)">
+        <div class="col-xs-12 text-center">
+            <pagination boundary-links="true" total-items="revisionDataList.length" rotate="false" items-per-page="itemsPerPage" max-size="maxSize" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-default btn-sm btn-danger" ng-click="delete(contract.id)">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete this job contract
+            </button>
+        </div>
+    </div>
+</div>

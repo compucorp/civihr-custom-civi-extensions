@@ -300,7 +300,7 @@ define(['controllers/controllers',
                         //TODO (incorrect date format in the API response)
                         results.details.period_start_date = contractNew.details.period_start_date;
                         results.details.period_end_date = contractNew.details.period_end_date;
-                        results.revisionCreated.effective_date = date;
+                        date ? results.revisionCreated.effective_date = date : delete results.revisionCreated.effective_date;
                         //
 
                         //TODO (incorrect JSON format in the API response)

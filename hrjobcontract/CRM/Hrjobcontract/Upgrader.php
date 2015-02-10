@@ -14,7 +14,7 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
     $userEmail = 'apiclient@compucorp.co.uk';
     $userName = 'apiclient';
     exec('drush -y user-create --password="' . $userPassword . '" --mail="' . $userEmail . '" "' . $userName . '"', $output);
-    exec('drush -y user-add-role civicrm_webtest_user "' . $userName . '"', $output);
+    exec('drush -y user-add-role civihr_admin "' . $userName . '"', $output);
     CRM_Core_DAO::executeQuery("UPDATE civicrm_contact SET api_key = '" . $userApiKey . "' WHERE sort_name = '{$userEmail}'");
     
     $this->migrateData();

@@ -6,15 +6,30 @@
 class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
 
   public function install() {
+      
     // $this->executeCustomDataFile('xml/customdata.xml');
     $this->executeSqlFile('sql/install.sql');
-    
-    $userPassword = md5(date('YmdHis') . rand(1, 99999));
+     
     $userApiKey = 'hrjc9c9jwe5v7upfzb40f6aq';
     $userEmail = 'apiclient@compucorp.co.uk';
     $userName = 'apiclient';
-    exec('drush -y user-create --password="' . $userPassword . '" --mail="' . $userEmail . '" "' . $userName . '"', $output);
-    exec('drush -y user-add-role civihr_admin "' . $userName . '"', $output);
+    $userPassword = user_password(8);
+ 
+    // Set up the user fields
+    $fields = array(
+        'name' => $userName,
+        'mail' => $userEmail,
+        'pass' => $userPassword,
+        'status' => 1,
+        'init' => 'email address',
+        'roles' => array(
+            DRUPAL_AUTHENTICATED_RID => 'authenticated user',
+            4 => 'civihr_admin' // @TODO -> don't hardcode RID as it could be potentionally different, when we upgrading sites
+        ),
+    );
+
+    // The first parameter is left blank so a new user is created
+    $account = user_save('', $fields);
     CRM_Core_DAO::executeQuery("UPDATE civicrm_contact SET api_key = '" . $userApiKey . "' WHERE sort_name = '{$userEmail}'");
     
     $this->migrateData();

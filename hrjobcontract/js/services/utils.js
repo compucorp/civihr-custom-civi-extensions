@@ -15,9 +15,7 @@ define(['services/services'], function (services) {
                 return $resource(settings.pathRest,{
                     action: action,
                     entity: entity,
-                    json: json,
-                    api_key: settings.keyApi,
-                    key: settings.key
+                    json: json
                 })
             },
             getOne: function(entity, params) {
@@ -78,9 +76,7 @@ define(['services/services'], function (services) {
                 return $resource(settings.pathApp+'js/data/'+entity+'.json',{
                     action: action,
                     entity: entity,
-                    json: json,
-                    api_key: settings.keyApi,
-                    key: settings.key
+                    json: json
                 })
             }
         }

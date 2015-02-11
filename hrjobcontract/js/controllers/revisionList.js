@@ -7,6 +7,17 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
 
             var contractId = $scope.contract.id;
 
+            $scope.currentPage = 1;
+            $scope.itemsPerPage = 10;
+            $scope.maxSize = 5;
+
+            $scope.$watch('currentPage + revisionDataList.length', function() {
+                var start = (($scope.currentPage - 1) * $scope.itemsPerPage),
+                    end = start + $scope.itemsPerPage;
+
+                $scope.revisionDataListPage = $scope.revisionDataList.slice(start, end);
+            });
+
             function fetchRevisions(contractId){
                 $scope.revisionList.length = 0;
                 $scope.revisionDataList.length = 0;

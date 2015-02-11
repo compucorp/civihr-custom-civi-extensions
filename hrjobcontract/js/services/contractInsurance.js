@@ -8,9 +8,7 @@ define(['services/services',
         var ContractInsurance = $resource(settings.pathRest, {
             action: 'get',
             entity: 'HRJobHealth',
-            json: {},
-            api_key: settings.keyApi,
-            key: settings.key
+            json: {}
         });
 
         return {

@@ -1,7 +1,6 @@
-<?php
-/*
+{*
  +--------------------------------------------------------------------+
- | CiviHR version 1.4                                                |
+ | CiviCRM version 4.4                                                |
  +--------------------------------------------------------------------+
  | Copyright CiviCRM LLC (c) 2004-2014                                |
  +--------------------------------------------------------------------+
@@ -23,37 +22,12 @@
  | GNU Affero General Public License or the licensing of CiviCRM,     |
  | see the CiviCRM license FAQ at http://civicrm.org/licensing        |
  +--------------------------------------------------------------------+
-*/
+*}
+{htxt id="upload-title"}
+  {ts}Import File Format{/ts}
+{/htxt}
 
-/**
- *
- * @package CRM
- * @copyright CiviCRM LLC (c) 2004-2013
- * $Id$
- *
- */
+{htxt id="id-onDuplicate-title"}
+  {ts}Duplicate Matching{/ts}
+{/htxt}
 
-/**
- * This class gets the name of the file to upload
- */
-class CRM_Hrjobcontract_Import_Form_DataSource extends CRM_Hrjobcontract_Import_Form_DataSourceBaseClass {
-  public $_parser = 'CRM_Hrjobcontract_Import_Parser_Api';
-  protected $_enableContactOptions = FALSE;
-  protected $_userContext = 'civicrm/job/import';
-  protected $_mappingType = 'Import Job';
-  protected $_entity = array('HRJobContract', 'HRJobContractRevision', 'HRJobDetails', 'HRJobPay', 'HRJobHealth', 'HRJobPension', 'HRJobHour', 'HRJobLeave', 'HRJobRole');
-  /**
-  * Include duplicate options
-  */
-  protected $isDuplicateOptions = FALSE;
-
-    /**
-   * Function to actually build the form - this appears to be entirely code that should be in a shared baseclass in core
-   *
-   * @return None
-   * @access public
-   */
-  public function buildQuickForm() {
-    parent::buildQuickForm();
-  }
-}

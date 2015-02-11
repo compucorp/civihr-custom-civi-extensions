@@ -131,8 +131,9 @@ class CRM_Hrjobcontract_DAO_PayScale extends CRM_Core_DAO
         ) ,
         'pay_grade' => array(
           'name' => 'pay_grade',
-          'type' => CRM_Utils_Type::T_INT,
+          'type' => CRM_Utils_Type::T_STRING,
           'title' => ts('Pay Grade') ,
+          'maxlength' => 63,
           'export' => true,
           'where' => 'civicrm_hrpay_scale.pay_grade',
           'headerPattern' => '',
@@ -140,8 +141,9 @@ class CRM_Hrjobcontract_DAO_PayScale extends CRM_Core_DAO
         ) ,
         'currency' => array(
           'name' => 'currency',
-          'type' => CRM_Utils_Type::T_INT,
+          'type' => CRM_Utils_Type::T_STRING,
           'title' => ts('Currency') ,
+          'maxlength' => 63,
           'export' => true,
           'where' => 'civicrm_hrpay_scale.currency',
           'headerPattern' => '',

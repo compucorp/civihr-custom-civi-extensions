@@ -126,7 +126,9 @@ function hrjobcontract_civicrm_uninstall() {
   }
   
   $jobContractMenu = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'job_contracts', 'id', 'name');
-  CRM_Core_BAO_Navigation::processDelete($jobContractMenu);
+  if (!empty($jobContractMenu)) {
+    CRM_Core_BAO_Navigation::processDelete($jobContractMenu);
+  }
   CRM_Core_DAO::executeQuery("DELETE FROM civicrm_navigation WHERE name IN ('pay_scale','hours_location')");
   CRM_Core_BAO_Navigation::resetNavigation();
 

@@ -71,7 +71,7 @@ class CRM_Hrjobcontract_BAO_HRJobLeave extends CRM_Hrjobcontract_DAO_HRJobLeave 
 
     if (!$fields) {
       $fields = CRM_Hrjobcontract_DAO_HRJobLeave::import();
-      $fields = array_merge($fields, CRM_Hrjobcontract_DAO_HRJOBLEAVE::import());
+      $fields = array_merge($fields, CRM_Hrjobcontract_DAO_HRJobLeave::import());
       foreach ($fields as $key => $v) {
         $fields[$key]['hasLocationType'] = TRUE;
       }

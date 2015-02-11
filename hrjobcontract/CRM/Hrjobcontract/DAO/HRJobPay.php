@@ -192,6 +192,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'type' => CRM_Utils_Type::T_INT,
                 'title' => ts('Job Pay Id') ,
                 'required' => true,
+                //'export' => true, // TODO: make 'export' = true, but set 'name' of the field to unique in DB, maybe with 'where' parameter??
               ) ,
               'hrjob_pay_scale' => array(
                 'name' => 'pay_scale',
@@ -279,6 +280,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'name' => 'annual_benefits',
                 'type' => CRM_Utils_Type::T_STRING,
                 'title' => ts('Annual Benefits') ,
+                'maxlength' => 4096,
                 'size' => CRM_Utils_Type::HUGE,
                 'export' => true,
                 'import' => true,
@@ -291,6 +293,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'name' => 'annual_deductions',
                 'type' => CRM_Utils_Type::T_STRING,
                 'title' => ts('Annual Deductions') ,
+                'maxlength' => 4096,
                 'size' => CRM_Utils_Type::HUGE,
                 'export' => true,
                 'import' => true,

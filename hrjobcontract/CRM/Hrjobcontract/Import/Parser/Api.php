@@ -6,6 +6,8 @@ class CRM_Hrjobcontract_Import_Parser_Api extends CRM_Hrjobcontract_Import_Parse
   protected $_dateFields = array();
   protected $_entityFields = array();
   protected $_allFields = array();
+  protected $_jobContractIds = array();
+  protected $_revisionIds = array();
 
   /**
    * Params for the current entity being prepared for the api
@@ -59,11 +61,18 @@ class CRM_Hrjobcontract_Import_Parser_Api extends CRM_Hrjobcontract_Import_Parse
     $errorMessages = array();
 
     foreach ($this->_entity as $entity) {
+        $zzz = 'Entity: ' . $entity . '; ' . print_r($this->_requiredFields, true) . "\n";
+        $missingField .= $zzz;
       $this->_params = $this->getActiveFieldParams();
       foreach ($this->_requiredFields as $requiredFieldKey => $requiredFieldVal) {
+          // TODO: code below is TEMPORARY!
+          if ($requiredFieldVal === 'jobcontract_id') {
+              continue;
+          }
+          
         if (empty($this->_params[$requiredFieldVal])) {
           $errorRequired = TRUE;
-          $missingField .= ' ' . $requiredField;
+          $missingField .= ' ' . $requiredFieldVal; //// TODO: BUG? previously: $requiredField;
           CRM_Contact_Import_Parser_Contact::addToErrorMsg($entity, $requiredFieldVal);
         }
       }
@@ -99,31 +108,78 @@ class CRM_Hrjobcontract_Import_Parser_Api extends CRM_Hrjobcontract_Import_Parse
    * @return boolean      the result of this processing
    * @access public
    */
-  function import($onDuplicate, &$values) {
+  function import($onDuplicate, &$values) { // TODO: rewrite to suport HRJobContract extension!
+    
     $response = $this->summary($values);
     $this->formatDateParams();
     $this->_params['skipRecentView'] = TRUE;
     $this->_params['check_permissions'] = TRUE;
     //JOB ID
     $params = $this->getActiveFieldParams();
-
-    for ($i = 0; $i < $this->_activeFieldCount; $i++) {
-      if (!isset($this->_activeEntityFields['HRJob'][$this->_activeFields[$i]->_name])) {
+    
+    $importedJobContractId = null;
+    if (!empty($params['id'])) {
+        $importedJobContractId = (int)$params['id'];
+    }
+    if (!empty($params['jobcontract_id'])) {
+        $importedJobContractId = (int)$params['jobcontract_id'];
+    }
+    
+    if (!$importedJobContractId) {
+        $error = "Missing 'id' or 'jobcontract_id' value.";
+        array_unshift($values, $error);
+        return CRM_Import_Parser::ERROR;
+    }
+    
+    if (empty($this->_jobContractIds[$importedJobContractId])) {
+        try {
+            $jobContractCreateResponse = civicrm_api3('HRJobContract', 'create', array('contact_id' => $params['contact_id']));
+        }
+        catch (CiviCRM_API3_Exception $e) {
+            $error = $e->getMessage();
+            array_unshift($values, $error);
+            return CRM_Import_Parser::ERROR;
+        }
+        $this->_jobContractIds[$importedJobContractId] = (int)$jobContractCreateResponse['id'];
+    }
+    $localJobContractId = $this->_jobContractIds[$importedJobContractId];
+    
+      //echo 'params2?:';var_dump($this->getActiveFieldParams());
+      //die;
+    
+    /*for ($i = 0; $i < $this->_activeFieldCount; $i++) {
+      if (!isset($this->_activeEntityFields['HRJobContract'][$this->_activeFields[$i]->_name])) { //// HRJob
         unset($params[$this->_activeFields[$i]->_name]);
       }
     }
     self::formatData($params);
     try{
-      $fieldJob = civicrm_api3('HRJob', 'create', $params);
+        echo "\n" . 'creating HRJobContract';var_dump($params);
+        die;
+      $fieldJob = civicrm_api3('HRJobContract', 'create', $params); //// HRJob
     }
     catch(CiviCRM_API3_Exception $e) {
       $error = $e->getMessage();
       array_unshift($values, $error);
       return CRM_Import_Parser::ERROR;
-    }
-    try{
+    }*/
+    try {
       foreach ($this->_entity as $entity) {
-        if ($entity != 'HRJob') {
+        
+        /*
+         * 1. create Details entity with jobcontract_id
+         * 2. get revision_id from created Details entity
+         * 3. 
+         */
+        
+        $params = $this->getEntityParams('HRJobContractRevision');
+        echo 'HRJobContractRevision entity params:';var_dump($params);
+        $params = $this->getEntityParams('HRJobContractDetails');
+        echo 'HRJobContractDetails entity params:';var_dump($params);
+        
+        continue;
+        
+        if ($entity != 'HRJobContract') { //// HRJob
           $params = $this->getActiveFieldParams();
           for ($i = 0; $i < $this->_activeFieldCount; $i++) {
             if (!isset($this->_activeEntityFields[$entity][$this->_activeFields[$i]->_name])) {
@@ -205,5 +261,20 @@ class CRM_Hrjobcontract_Import_Parser_Api extends CRM_Hrjobcontract_Import_Parse
    */
   function setEntity($entity) {
     $this->_entity = $entity;
+  }
+  
+  /**
+   * Return params for specified entity
+   * @param string $entity
+   * @return array params
+   */
+  function getEntityParams($entity) {
+    $params = $this->getActiveFieldParams();
+    for ($i = 0; $i < $this->_activeFieldCount; $i++) {
+      if (!isset($this->_activeEntityFields[$entity][$this->_activeFields[$i]->_name])) {
+        unset($params[$this->_activeFields[$i]->_name]);
+      }
+    }
+    return $params;
   }
 }

@@ -64,8 +64,7 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                     $scope.revisionList.push.apply($scope.revisionList,revisionList);
 
                     angular.forEach(revisionList, function(revision){
-
-                        console.log(revision);
+                        revision.effective_date = revision.effective_date || '';
 
                         promiseRevisionList.push($q.all({
                             revisionEntityIdObj: revision,

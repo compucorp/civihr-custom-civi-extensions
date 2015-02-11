@@ -10105,6 +10105,18 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 #hrjob-contract .hrjc-table-upload .progress {
   margin-bottom: 0;
 }
+/* line 73, ../sass/partials/_tables.scss */
+#hrjob-contract .hrjc-table-sort th > a {
+  padding-right: 15px;
+  position: relative;
+}
+/* line 77, ../sass/partials/_tables.scss */
+#hrjob-contract .hrjc-table-sort th > a .fa {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -6px;
+}
 /* line 1, ../sass/partials/_tooltip.scss */
 #hrjob-contract .tooltip-inner {
   text-align: left;

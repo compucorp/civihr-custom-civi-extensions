@@ -2,6 +2,8 @@
 
 class CRM_Hrjobcontract_BAO_HRJobContractRevision extends CRM_Hrjobcontract_DAO_HRJobContractRevision {
 
+  static $_importableFields = array();  
+  
   /**
    * Create a new HRJobContractRevision based on array-data
    *
@@ -35,4 +37,46 @@ class CRM_Hrjobcontract_BAO_HRJobContractRevision extends CRM_Hrjobcontract_DAO_
 
     return $instance;
   }
+  
+  static function importableFields($contactType = 'HRJobContractRevision',
+    $status          = FALSE,
+    $showAll         = FALSE,
+    $isProfile       = FALSE,
+    $checkPermission = TRUE,
+    $withMultiCustomFields = FALSE
+  ) {
+    if (empty($contactType)) {
+      $contactType = 'HRJobContractRevision';
+    }
+
+    $cacheKeyString = "";
+    $cacheKeyString .= $status ? '_1' : '_0';
+    $cacheKeyString .= $showAll ? '_1' : '_0';
+    $cacheKeyString .= $isProfile ? '_1' : '_0';
+    $cacheKeyString .= $checkPermission ? '_1' : '_0';
+
+    $fields = CRM_Utils_Array::value($cacheKeyString, self::$_importableFields);
+
+    if (!$fields) {
+      $fields = CRM_Hrjobcontract_DAO_HRJobContractRevision::import();
+
+      $fields = array_merge($fields, CRM_Hrjobcontract_DAO_HRJobContractRevision::import());
+
+      //Sorting fields in alphabetical order(CRM-1507)
+      $fields = CRM_Utils_Array::crmArraySortByField($fields, 'title');
+      $fields = CRM_Utils_Array::index(array('name'), $fields);
+
+      CRM_Core_BAO_Cache::setItem($fields, 'contact fields', $cacheKeyString);
+     }
+
+    self::$_importableFields[$cacheKeyString] = $fields;
+
+    if (!$isProfile) {
+        $fields = array_merge(array('do_not_import' => array('title' => ts('- do not import -'))),
+          self::$_importableFields[$cacheKeyString]
+        );
+    }
+    return $fields;
+  }
+  
 }

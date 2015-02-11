@@ -93,7 +93,7 @@ class CRM_Hrjobcontract_BAO_HRJobHealth extends CRM_Hrjobcontract_DAO_HRJobHealt
     if (!$fields) {
       $fields = CRM_Hrjobcontract_DAO_HRJobHealth::import();
 
-      $fields = array_merge($fields, CRM_HRJOB_DAO_HRJOBHealth::import());
+      $fields = array_merge($fields, CRM_Hrjobcontract_DAO_HRJobHealth::import());
 
       //Sorting fields in alphabetical order(CRM-1507)
       $fields = CRM_Utils_Array::crmArraySortByField($fields, 'title');

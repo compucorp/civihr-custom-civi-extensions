@@ -111,7 +111,7 @@ class CRM_Hrjobcontract_BAO_HRJobHour extends CRM_Hrjobcontract_DAO_HRJobHour {
     if (!$fields) {
       $fields = CRM_Hrjobcontract_DAO_HRJobHour::import();
 
-      $fields = array_merge($fields, CRM_HRJOB_DAO_HRJOBHour::import());
+      $fields = array_merge($fields, CRM_Hrjobcontract_DAO_HRJobHour::import());
 
       //Sorting fields in alphabetical order(CRM-1507)
       $fields = CRM_Utils_Array::crmArraySortByField($fields, 'title');

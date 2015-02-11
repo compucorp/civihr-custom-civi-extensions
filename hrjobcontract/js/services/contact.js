@@ -8,9 +8,7 @@ define(['services/services',
         var Contact = $resource(settings.pathRest, {
             action: 'getlist',
             entity: 'contact',
-            json: {},
-            api_key: settings.keyApi,
-            key: settings.key
+            json: {}
         });
 
         return {

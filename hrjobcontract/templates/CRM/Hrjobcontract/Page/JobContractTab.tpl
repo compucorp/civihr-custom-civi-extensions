@@ -7,17 +7,6 @@
 </div>
 {literal}
 <script type="text/javascript">
-    /**
-     * TODO
-     */
-    document.dispatchEvent(new CustomEvent('hrjcLoad', {
-        detail: {
-            keyApi: "hrjc9c9jwe5v7upfzb40f6aq",
-            key: "{/literal}{$smarty.const.CIVICRM_SITE_KEY}{literal}"
-        }
-    }));
-    /**
-     *
-     */
+    document.dispatchEvent(new CustomEvent('hrjcLoad'));
 </script>
 {/literal}

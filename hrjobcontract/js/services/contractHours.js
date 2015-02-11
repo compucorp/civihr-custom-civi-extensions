@@ -8,9 +8,7 @@ define(['services/services',
         var ContractHours = $resource(settings.pathRest, {
             action: 'get',
             entity: 'HRJobHour',
-            json: {},
-            api_key: settings.keyApi,
-            key: settings.key
+            json: {}
         });
 
         return {

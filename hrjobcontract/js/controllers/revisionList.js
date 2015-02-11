@@ -5,17 +5,49 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                  ContractPayService, $log){
             $log.debug('Controller: RevisionListCtrl');
 
-            var contractId = $scope.contract.id;
+            var contractId = $scope.contract.id,
+                revisionDataListCurrent = $scope.revisionDataList = $scope.$parent.$parent.$parent.$parent.revisionDataList;
 
             $scope.currentPage = 1;
-            $scope.itemsPerPage = 10;
+            $scope.itemsPerPage = 5;
             $scope.maxSize = 5;
+            $scope.sortCol = 'revisionEntityIdObj.effective_date'
+            $scope.sortReverse = true;
 
-            $scope.$watch('currentPage + revisionDataList.length', function() {
+            $scope.createPage = function(){
                 var start = (($scope.currentPage - 1) * $scope.itemsPerPage),
                     end = start + $scope.itemsPerPage;
 
-                $scope.revisionDataListPage = $scope.revisionDataList.slice(start, end);
+                $scope.revisionDataListPage = revisionDataListCurrent.slice(start, end);
+            }
+
+            $scope.sortBy = function(sortCol, sortReverse){
+
+                if (typeof sortCol !== 'undefined') {
+
+                    if ($scope.sortCol == sortCol) {
+                        $scope.sortReverse = !$scope.sortReverse;
+                    } else {
+                        $scope.sortCol = sortCol;
+                    }
+
+                }
+
+                if (typeof sortReverse !== 'undefined') {
+                    $scope.sortReverse = sortReverse;
+                }
+
+                revisionDataListCurrent = $filter('orderBy')($scope.revisionDataList, $scope.sortCol, $scope.sortReverse);
+            };
+
+            $scope.$watch('currentPage', function() {
+                $scope.createPage();
+            });
+
+            $scope.$watch('revisionDataList.length', function() {
+                revisionDataListCurrent = $scope.revisionDataList;
+                $scope.sortBy();
+                $scope.createPage();
             });
 
             function fetchRevisions(contractId){
@@ -30,6 +62,8 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                     $scope.revisionList.push.apply($scope.revisionList,revisionList);
 
                     angular.forEach(revisionList, function(revision){
+                        revision.effective_date = revision.effective_date || '';
+
                         promiseRevisionList.push($q.all({
                             revisionEntityIdObj: revision,
                             details: ContractDetailsService.getOne({

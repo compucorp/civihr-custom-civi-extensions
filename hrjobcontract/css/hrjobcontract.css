@@ -10039,14 +10039,19 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 #hrjob-contract .modal-revision .table .table th {
   font-size: 12px;
 }
+/* line 45, ../sass/partials/_modals.scss */
+#hrjob-contract .modal-revision .pagination {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 @media (min-width: 768px) {
-  /* line 47, ../sass/partials/_modals.scss */
+  /* line 53, ../sass/partials/_modals.scss */
   #hrjob-contract .modal-dialog {
     margin: 60px auto;
   }
 }
 @media (min-width: 992px) {
-  /* line 53, ../sass/partials/_modals.scss */
+  /* line 59, ../sass/partials/_modals.scss */
   #hrjob-contract .modal-revision .modal-dialog {
     width: 1140px;
   }
@@ -10104,6 +10109,18 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 /* line 66, ../sass/partials/_tables.scss */
 #hrjob-contract .hrjc-table-upload .progress {
   margin-bottom: 0;
+}
+/* line 73, ../sass/partials/_tables.scss */
+#hrjob-contract .hrjc-table-sort th > a {
+  padding-right: 15px;
+  position: relative;
+}
+/* line 77, ../sass/partials/_tables.scss */
+#hrjob-contract .hrjc-table-sort th > a .fa {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -6px;
 }
 /* line 1, ../sass/partials/_tooltip.scss */
 #hrjob-contract .tooltip-inner {

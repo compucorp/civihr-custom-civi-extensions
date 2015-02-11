@@ -6,27 +6,49 @@ define(['controllers/controllers'], function(controllers){
             $log.debug('Controller: ModalRevisionCtrl');
 
             $scope.$broadcast('hrjc-loader-show');
+            $scope.currentPage = 1;
             $scope.entity = entity;
             $scope.fields = angular.copy(fields);
+            $scope.itemsPerPage = 5;
+            $scope.revisionDataList = [];
+            $scope.revisionList = [];
             $scope.subFields = {};
-            $scope.revisionDataList = revisionDataList;
-            $scope.revisionList = revisionList;
+            $scope.maxSize = 5;
             $scope.modalContract = modalContract;
             $scope.isMultiDim = false;
 
-            var i = 0, len = $scope.fields.length, field;
-            for (i; i < len; i++) {
-                field = $scope.fields[i];
-                field.selected = true;
-                field.isArray = false;
+            (function(){
+                var i = 0, len = $scope.fields.length, field;
+                for (i; i < len; i++) {
+                    field = $scope.fields[i];
+                    field.selected = true;
+                    field.isArray = false;
 
-                if (field.name == 'id' || field.name == 'jobcontract_revision_id') {
-                    field.display = false;
-                    continue;
+                    if (field.name == 'id' || field.name == 'jobcontract_revision_id') {
+                        field.display = false;
+                        continue;
+                    }
+
+                    field.display = true;
                 }
+            })();
 
-                field.display = true;
-            }
+            (function(){
+                var i = 0, iNext, isLast, len = revisionDataList.length, isUnique;
+                for (i; i < len; i++){
+                    iNext = i+1;
+                    isLast = iNext == len;
+
+                    isUnique = !angular.isArray(revisionDataList[i]) ?
+                        (isLast || revisionDataList[i].jobcontract_revision_id != revisionDataList[iNext].jobcontract_revision_id) :
+                        (isLast || revisionDataList[i][0].jobcontract_revision_id != revisionDataList[iNext][0].jobcontract_revision_id);
+
+                    if (isUnique) {
+                        $scope.revisionDataList.push(revisionDataList[i]);
+                        $scope.revisionList.push(revisionList[i]);
+                    }
+                }
+            })();
 
             switch (entity) {
                 case 'details':
@@ -34,10 +56,8 @@ define(['controllers/controllers'], function(controllers){
                     break;
                 case 'hours':
                     (function(){
-                        alert('ok');
                         var hoursLocation;
                         angular.forEach($scope.revisionDataList, function(revisionData){
-                            console.log(revisionData.location_standard_hours);
                             if (revisionData.location_standard_hours) {
                                 hoursLocation = $filter('filter')(utils.hoursLocation,{id: revisionData.location_standard_hours})[0];
                                 revisionData.location_standard_hours = hoursLocation.location + ': ' +
@@ -159,6 +179,14 @@ define(['controllers/controllers'], function(controllers){
             };
             $scope.urlCSV = urlCSVBuild();
 
+            $scope.createPage = function(){
+                var start = (($scope.currentPage - 1) * $scope.itemsPerPage),
+                    end = start + $scope.itemsPerPage;
+
+                $scope.revisionListPage = $scope.revisionList.slice(start, end);
+                $scope.revisionDataListPage = $scope.revisionDataList.slice(start, end);
+            }
+
             $scope.toggleFieldsSelected = function (field) {
                 field.selected = !field.selected;
                 $scope.urlCSV = urlCSVBuild();
@@ -171,5 +199,9 @@ define(['controllers/controllers'], function(controllers){
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
             };
+
+            $scope.$watch('currentPage', function() {
+                $scope.createPage();
+            });
         }]);
 });

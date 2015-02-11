@@ -74,8 +74,8 @@ require([
         }
     });
 
-    app.config(['settings','$routeProvider','$resourceProvider','$logProvider',
-        function(settings, $routeProvider, $resourceProvider, $logProvider){
+    app.config(['settings','$routeProvider','$resourceProvider','$logProvider','$httpProvider',
+        function(settings, $routeProvider, $resourceProvider, $logProvider, $httpProvider){
             $logProvider.debugEnabled(settings.debug);
 
             $routeProvider.
@@ -91,6 +91,8 @@ require([
             ).otherwise({redirectTo:'/'});
 
             $resourceProvider.defaults.stripTrailingSlashes = false;
+
+            $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
         }
     ]);
 

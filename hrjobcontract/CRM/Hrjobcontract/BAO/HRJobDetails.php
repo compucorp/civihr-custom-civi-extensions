@@ -1,7 +1,9 @@
 <?php
 
 class CRM_Hrjobcontract_BAO_HRJobDetails extends CRM_Hrjobcontract_DAO_HRJobDetails {
-
+    
+    static $_importableFields = array();
+    
     /**
      * Create a new HRJobDetails based on array-data
      *

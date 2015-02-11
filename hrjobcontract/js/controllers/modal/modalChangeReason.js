@@ -1,4 +1,4 @@
-define(['controllers/controllers'], function(controllers){
+define(['controllers/controllers', 'moment'], function(controllers, moment){
     controllers.controller('ModalChangeReasonCtrl',['$scope','$modalInstance', '$log',
         function($scope, $modalInstance, $log){
             $log.debug('Controller: ModalChangeReasonCtrl');
@@ -15,7 +15,7 @@ define(['controllers/controllers'], function(controllers){
             $scope.save = function () {
                 $modalInstance.close({
                     reasonId: $scope.change_reason,
-                    date: $scope.effective_date
+                    date: $scope.effective_date ? moment($scope.effective_date).format('YYYY-MM-DD') : ''
                 });
             };
 

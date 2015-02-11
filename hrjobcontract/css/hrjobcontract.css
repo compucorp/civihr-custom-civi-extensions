@@ -10039,14 +10039,19 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 #hrjob-contract .modal-revision .table .table th {
   font-size: 12px;
 }
+/* line 45, ../sass/partials/_modals.scss */
+#hrjob-contract .modal-revision .pagination {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 @media (min-width: 768px) {
-  /* line 47, ../sass/partials/_modals.scss */
+  /* line 53, ../sass/partials/_modals.scss */
   #hrjob-contract .modal-dialog {
     margin: 60px auto;
   }
 }
 @media (min-width: 992px) {
-  /* line 53, ../sass/partials/_modals.scss */
+  /* line 59, ../sass/partials/_modals.scss */
   #hrjob-contract .modal-revision .modal-dialog {
     width: 1140px;
   }

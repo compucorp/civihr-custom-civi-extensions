@@ -249,7 +249,7 @@ define(['controllers/controllers',
                     targetDomEl: $rootElement.find('div').eq(0),
                     size: 'lg',
                     controller: 'ModalRevisionCtrl',
-                    templateUrl: settings.pathApp+'views/modalRevision.html',
+                    templateUrl: settings.pathApp+'views/modalRevision.html?v=123',
                     windowClass: 'modal-revision',
                     resolve: {
                         entity: function(){

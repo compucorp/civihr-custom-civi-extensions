@@ -37,8 +37,6 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                     $scope.sortReverse = sortReverse;
                 }
 
-                console.log(sortCol);
-
                 revisionDataListCurrent = $filter('orderBy')($scope.revisionDataList, $scope.sortCol, $scope.sortReverse);
             };
 

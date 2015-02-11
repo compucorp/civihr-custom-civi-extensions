@@ -61,8 +61,8 @@ class CRM_Hrjobcontract_Import_Parser_Api extends CRM_Hrjobcontract_Import_Parse
     $errorMessages = array();
 
     foreach ($this->_entity as $entity) {
-        $zzz = 'Entity: ' . $entity . '; ' . print_r($this->_requiredFields, true) . "\n";
-        $missingField .= $zzz;
+        //$zzz = 'Entity: ' . $entity . '; ' . print_r($this->_requiredFields, true) . "\n";
+        //$missingField .= $zzz;
       $this->_params = $this->getActiveFieldParams();
       foreach ($this->_requiredFields as $requiredFieldKey => $requiredFieldVal) {
           // TODO: code below is TEMPORARY!
@@ -144,9 +144,6 @@ class CRM_Hrjobcontract_Import_Parser_Api extends CRM_Hrjobcontract_Import_Parse
     }
     $localJobContractId = $this->_jobContractIds[$importedJobContractId];
     
-      //echo 'params2?:';var_dump($this->getActiveFieldParams());
-      //die;
-    
     /*for ($i = 0; $i < $this->_activeFieldCount; $i++) {
       if (!isset($this->_activeEntityFields['HRJobContract'][$this->_activeFields[$i]->_name])) { //// HRJob
         unset($params[$this->_activeFields[$i]->_name]);
@@ -173,9 +170,9 @@ class CRM_Hrjobcontract_Import_Parser_Api extends CRM_Hrjobcontract_Import_Parse
          */
         
         $params = $this->getEntityParams('HRJobContractRevision');
-        echo 'HRJobContractRevision entity params:';var_dump($params);
+        //echo 'HRJobContractRevision entity params:';var_dump($params);
         $params = $this->getEntityParams('HRJobContractDetails');
-        echo 'HRJobContractDetails entity params:';var_dump($params);
+        //echo 'HRJobContractDetails entity params:';var_dump($params);
         
         continue;
         

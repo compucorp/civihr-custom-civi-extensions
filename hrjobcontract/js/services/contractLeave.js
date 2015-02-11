@@ -8,9 +8,7 @@ define(['services/services',
         var ContractLeave = $resource(settings.pathRest, {
             action: 'get',
             entity: 'HRJobLeave',
-            json: {},
-            api_key: settings.keyApi,
-            key: settings.key
+            json: {}
         });
 
         return {

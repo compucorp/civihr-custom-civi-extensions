@@ -6,9 +6,7 @@ define(['services/services'], function (services) {
         return $resource(settings.pathRest,{
                 action: 'get',
                 entity: 'HRJobContract',
-                json: {},
-                api_key: settings.keyApi,
-                key: settings.key
+                json: {}
             })
     }]);
 
@@ -18,9 +16,7 @@ define(['services/services'], function (services) {
         return $resource(settings.pathRest,{
             action: 'get',
             entity: 'HRJobContractRevision',
-            json: {},
-            api_key: settings.keyApi,
-            key: settings.key
+            json: {}
         })
     }]);
 

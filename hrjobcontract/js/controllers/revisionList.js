@@ -11,7 +11,7 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
             $scope.currentPage = 1;
             $scope.itemsPerPage = 5;
             $scope.maxSize = 5;
-            $scope.sortCol = 'revisionEntityIdObj.effective_date'
+            $scope.sortCol = 'revisionEntityIdObj.effective_date';
             $scope.sortReverse = true;
 
             $scope.createPage = function(){

@@ -1,8 +1,8 @@
 define(['controllers/controllers'], function(controllers){
     controllers.controller('ModalRevisionCtrl',['$scope', '$rootScope', '$modalInstance', '$filter','$q','settings',
-        'revisionDataList', 'revisionList', 'entity', 'fields', 'modalContract','utils','ContactService','$log',
+        'revisionDataList', 'revisionList', 'entity', 'fields', 'model', 'modalContract','utils','ContactService','$log',
         function($scope, $rootScope, $modalInstance, $filter, $q, settings, revisionDataList, revisionList, entity,
-                 fields, modalContract, utils, ContactService,$log){
+                 fields, model, modalContract, utils, ContactService, $log){
             $log.debug('Controller: ModalRevisionCtrl');
 
             $scope.$broadcast('hrjc-loader-show');
@@ -12,17 +12,18 @@ define(['controllers/controllers'], function(controllers){
             $scope.itemsPerPage = 5;
             $scope.revisionDataList = [];
             $scope.revisionList = [];
+            $scope.sortCol = 'effective_date';
             $scope.subFields = {};
             $scope.maxSize = 5;
             $scope.modalContract = modalContract;
-            $scope.isMultiDim = false;
+            $scope.sortReverse = true;
 
             (function(){
                 var i = 0, len = $scope.fields.length, field;
                 for (i; i < len; i++) {
                     field = $scope.fields[i];
                     field.selected = true;
-                    field.isArray = false;
+                    field.isArray = field.name == 'leave_type' || field.name == 'leave_amount';
 
                     if (field.name == 'id' || field.name == 'jobcontract_revision_id') {
                         field.display = false;
@@ -31,6 +32,29 @@ define(['controllers/controllers'], function(controllers){
 
                     field.display = true;
                 }
+
+                $scope.fields.unshift({
+                    name: 'effective_date',
+                    title: 'Effective Date',
+                    display: true,
+                    selected: true,
+                    isArray: false
+                });
+
+                $scope.fields.push({
+                    name: 'editor_name',
+                    title: 'Change Recorded By',
+                    display: true,
+                    selected: true,
+                    isArray: false
+                },{
+                    name: 'change_reason',
+                    title: 'Reason For Change',
+                    display: true,
+                    selected: true,
+                    isArray: false
+                })
+
             })();
 
             (function(){
@@ -39,13 +63,32 @@ define(['controllers/controllers'], function(controllers){
                     iNext = i+1;
                     isLast = iNext == len;
 
-                    isUnique = !angular.isArray(revisionDataList[i]) ?
-                        (isLast || revisionDataList[i].jobcontract_revision_id != revisionDataList[iNext].jobcontract_revision_id) :
-                        (isLast || revisionDataList[i][0].jobcontract_revision_id != revisionDataList[iNext][0].jobcontract_revision_id);
+                    if (!revisionDataList[i]) {
+                        revisionDataList[i] = model;
+                    }
+
+                    if (!isLast && !revisionDataList[iNext]) {
+                        revisionDataList[iNext] = model;
+                    }
+
+                    if (!angular.isArray(revisionDataList[i])) {
+                        isUnique = isLast || revisionDataList[i].jobcontract_revision_id != revisionDataList[iNext].jobcontract_revision_id;
+                    } else {
+                        isUnique = isLast || revisionDataList[i][0].jobcontract_revision_id != revisionDataList[iNext][0].jobcontract_revision_id;
+
+                        revisionDataList[i] = {
+                            jobcontract_revision_id: revisionDataList[i][0].jobcontract_revision_id,
+                            data: revisionDataList[i]
+                        }
+                    }
 
                     if (isUnique) {
+                        angular.extend(revisionDataList[i],{
+                            effective_date: $filter('date')(revisionList[i].effective_date, 'yyyy/MM/dd') || '',
+                            editor_name: revisionList[i].editor_name || '',
+                            change_reason: $rootScope.options.contract.change_reason[revisionList[i].change_reason] || ''
+                        })
                         $scope.revisionDataList.push(revisionDataList[i]);
-                        $scope.revisionList.push(revisionList[i]);
                     }
                 }
             })();
@@ -82,9 +125,6 @@ define(['controllers/controllers'], function(controllers){
                         }
                     });
                     break;
-                case 'leave':
-                    $scope.isMultiDim = true;
-                    break
                 case 'pay':
                     (function(){
                         var payScaleGrade;
@@ -173,7 +213,7 @@ define(['controllers/controllers'], function(controllers){
                         '&row_count=' +
                         '&_qf_Summary_submit_csv=Preview+CSV' +
                         '&groups=' +
-                        '&contract_id_value='+$scope.revisionList[0].jobcontract_id
+                        '&contract_id_value='+revisionList[0].jobcontract_id;
 
                 return url;
             };
@@ -183,9 +223,28 @@ define(['controllers/controllers'], function(controllers){
                 var start = (($scope.currentPage - 1) * $scope.itemsPerPage),
                     end = start + $scope.itemsPerPage;
 
-                $scope.revisionListPage = $scope.revisionList.slice(start, end);
                 $scope.revisionDataListPage = $scope.revisionDataList.slice(start, end);
             }
+
+            $scope.sortBy = function(sortCol, sortReverse){
+
+                if (typeof sortCol !== 'undefined') {
+
+                    if ($scope.sortCol == sortCol) {
+                        $scope.sortReverse = !$scope.sortReverse;
+                    } else {
+                        $scope.sortCol = sortCol;
+                    }
+
+                }
+
+                if (typeof sortReverse !== 'undefined') {
+                    $scope.sortReverse = sortReverse;
+                }
+
+                $scope.revisionDataList = $filter('orderBy')($scope.revisionDataList, $scope.sortCol, $scope.sortReverse);
+            };
+            $scope.sortBy();
 
             $scope.toggleFieldsSelected = function (field) {
                 field.selected = !field.selected;

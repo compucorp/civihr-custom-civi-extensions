@@ -627,7 +627,10 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
           
   function decToFraction($fte) {
     $fteDecimalPart = explode('.', $fte);
-    $array  = str_split($fteDecimalPart[1]);
+    $array = array();
+    if (!empty($fteDecimalPart[1])) {
+        $array  = str_split($fteDecimalPart[1]);
+    }
     $numerators = array(0, 1);
     $denominators = array(1, 0);
     $tempFte = $fte;
@@ -646,14 +649,19 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
         $floorFte = floor($tempFte);
         $numerators[$i] = $floorFte * $numerators[$i-1] + $numerators[$i-2];
         $denominators[$i] = $floorFte * $denominators[$i-1] + $denominators[$i-2];
-        $result = $numerators[$i] / $denominators[$i];
+        $result = '';
+        if ($denominators[$i] != 0) {
+          $result = $numerators[$i] / $denominators[$i];
+        }
         if ((string)$result == (string)$fte) {
           $num = $numerators[$i];
           $denom = $denominators[$i];
           $val = array($num, $denom);
           return $val;
         }
-        $tempFte = 1/($tempFte-$floorFte);
+        if ($tempFte-$floorFte != 0) {
+          $tempFte = 1/($tempFte-$floorFte);
+        }
       }
     }
   }

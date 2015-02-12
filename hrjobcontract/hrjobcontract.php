@@ -50,41 +50,61 @@ function hrjobcontract_civicrm_install() {
       }
     }
   }
-
-  //Add job import navigation menu
-  $weight = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'Import Contacts', 'weight', 'name');
-  $contactNavId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'Contacts', 'id', 'name');
-  $administerNavId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'Dropdown Options', 'id', 'name');
-
-  $importJobNavigation = new CRM_Core_DAO_Navigation();
+  
+  // Add Job Contract top menu
+  $contactsWeight = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'Contacts', 'weight', 'name');
+  $jobContractNavigation = new CRM_Core_DAO_Navigation();
   $params = array (
-    'domain_id'  => CRM_Core_Config::domainID(),
-    'label'      => ts('Import Jobs'),
-    'name'       => 'jobImport',
-    'url'        => null,
-    'parent_id'  => $contactNavId,
-    'weight'     => $weight+1,
-    'permission' => 'access HRJobs',
-    'separator'  => 1,
-    'is_active'  => 1
+    'domain_id' => CRM_Core_Config::domainID(),
+    'label' => ts('Job Contracts'),
+    'name' => 'job_contracts',
+    'url' => null,
+    'operator' => null,
+    'weight' => $contactsWeight + 1,
+    'is_active' => 1,
   );
-  $importJobNavigation->copyValues($params);
-  $importJobNavigation->save();
-  $importJobMenuTree = array(
+  $jobContractNavigation->copyValues($params);
+  $jobContractNavigation->save();
+  $jobContractMenuTree = array(
     array(
-      'label'      => ts('Hours Types'),
-      'name'       => 'hoursType',
-      'url'        => 'civicrm/hour/editoption',
+      'label' => ts('Import / Export'),
+      'name' => 'import_export_job_contracts',
+    ),
+  );
+
+  foreach ($jobContractMenuTree as $key => $menuItems) {
+    $menuItems['is_active'] = 1;
+    $menuItems['parent_id'] = $jobContractNavigation->id;
+    $menuItems['weight'] = $key;
+    CRM_Core_BAO_Navigation::add($menuItems);
+  }
+  
+  // Add administer options
+  $administerNavId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'Dropdown Options', 'id', 'name');
+  
+  $jobContractOptionsMenuTree = array(
+    array(
+      'label'      => ts('Job Contract Pay Scale'),
+      'name'       => 'pay_scale',
+      'url'        => 'civicrm/pay_scale',
+      'permission' => 'administer CiviCRM',
+      'parent_id'  => $administerNavId,
+    ),
+    array(
+      'label'      => ts('Job Contract Hours/Location'),
+      'name'       => 'hours_location',
+      'url'        => 'civicrm/hours_location',
       'permission' => 'administer CiviCRM',
       'parent_id'  => $administerNavId,
     ),
   );
-  foreach ($importJobMenuTree as $key => $menuItems) {
+  foreach ($jobContractOptionsMenuTree as $key => $menuItems) {
     $menuItems['is_active'] = 1;
     CRM_Core_BAO_Navigation::add($menuItems);
   }
+  
   CRM_Core_BAO_Navigation::resetNavigation();
-    
+
   return _hrjobcontract_civix_civicrm_install();
 }
 
@@ -104,8 +124,12 @@ function hrjobcontract_civicrm_uninstall() {
       CRM_Contact_BAO_ContactType::del($id);
     }
   }
-  //delete job import navigation menu
-  CRM_Core_DAO::executeQuery("DELETE FROM civicrm_navigation WHERE name IN ('jobImport','hoursType')");
+  
+  $jobContractMenu = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'job_contracts', 'id', 'name');
+  if (!empty($jobContractMenu)) {
+    CRM_Core_BAO_Navigation::processDelete($jobContractMenu);
+  }
+  CRM_Core_DAO::executeQuery("DELETE FROM civicrm_navigation WHERE name IN ('pay_scale','hours_location')");
   CRM_Core_BAO_Navigation::resetNavigation();
 
   //delete custom groups and field
@@ -128,6 +152,11 @@ function hrjobcontract_civicrm_uninstall() {
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_enable
  */
 function hrjobcontract_civicrm_enable() {
+  //Enable the Navigation menu and submenus
+  $sql = "UPDATE civicrm_navigation SET is_active=1 WHERE name IN ('job_contracts', 'hours_location', 'pay_scale')";
+  CRM_Core_DAO::executeQuery($sql);
+  CRM_Core_BAO_Navigation::resetNavigation();
+    
   _hrjobcontract_setActiveFields(1);
   return _hrjobcontract_civix_civicrm_enable();
 }
@@ -138,12 +167,17 @@ function hrjobcontract_civicrm_enable() {
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_disable
  */
 function hrjobcontract_civicrm_disable() {
+  //Disable the Navigation menu and submenus
+  $sql = "UPDATE civicrm_navigation SET is_active=0 WHERE name IN ('job_contracts', 'hours_location', 'pay_scale')";
+  CRM_Core_DAO::executeQuery($sql);
+  CRM_Core_BAO_Navigation::resetNavigation();
+  
   _hrjobcontract_setActiveFields(0);
   return _hrjobcontract_civix_civicrm_disable();
 }
 
 function _hrjobcontract_setActiveFields($setActive) {
-  $sql = "UPDATE civicrm_navigation SET is_active= {$setActive} WHERE name IN ('jobs','jobImport','hoursType')";
+  $sql = "UPDATE civicrm_navigation SET is_active= {$setActive} WHERE name IN ('jobs','jobImport','hoursType', 'job_contracts')";
   CRM_Core_DAO::executeQuery($sql);
   CRM_Core_BAO_Navigation::resetNavigation();
 
@@ -205,6 +239,69 @@ function hrjobcontract_civicrm_caseTypes(&$caseTypes) {
  */
 function hrjobcontract_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
   _hrjobcontract_civix_civicrm_alterSettingsFolders($metaDataFolders);
+}
+
+function hrjobcontract_civicrm_navigationMenu( &$params ) {
+/*  $vacancyMenuItems = array();
+  $vacancyStatus = CRM_Core_OptionGroup::values('vacancy_status');
+  $vacancyID = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'Vacancies', 'id', 'name');
+  $parentID =  CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'find_vacancies', 'id', 'name');
+  $count = 0;
+  foreach ($vacancyStatus as $value => $status) {
+    $vacancyMenuItems[$count] = array(
+      'attributes' => array(
+        'label' => "{$status}",
+        'name' => "{$status}",
+        'url' => "civicrm/vacancy/find?force=1&status={$value}&reset=1",
+        'permission' => NULL,
+        'operator' => 'OR',
+        'separator' => NULL,
+        'parentID' => $parentID,
+        'navID' => 1,
+        'active' => 1
+      )
+    );
+    $count++;
+  }
+  if (!empty($vacancyMenuItems)) {
+    $params[$vacancyID]['child'][$parentID]['child'] = $vacancyMenuItems;
+  }
+*/
+    
+  // Add sub-menu
+  $submenuItems = array();
+  $topMenuID =  CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'job_contracts', 'id', 'name');
+  $parentID =  CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'import_export_job_contracts', 'id', 'name');
+  $submenuItems[] = array(
+      'attributes' => array(
+        'label' => "Import Job Contracts",
+        'name' => "import_job_contracts",
+        'url' => "civicrm/job/import",
+        'permission' => NULL,
+        'operator' => 'OR',
+        'separator' => NULL,
+        'parentID' => $parentID,
+        'navID' => 1,
+        'active' => 1
+      )
+  );
+  $submenuItems[] = array(
+      'attributes' => array(
+        //'label' => "Export Job Contracts",
+        'label' => 'Job Contract Report',
+        'name' => "export_job_contracts",
+        'url' => "civicrm/report/hrjobcontract/summary",
+        'permission' => NULL,
+        'operator' => 'OR',
+        'separator' => NULL,
+        'parentID' => $parentID,
+        'navID' => 2,
+        'active' => 1
+      )
+  );
+  if (!empty($submenuItems)) {
+    $params[$topMenuID]['child'][$parentID]['child'] = $submenuItems;
+  }
 }
 
 /**

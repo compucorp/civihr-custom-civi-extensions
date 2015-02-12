@@ -21,21 +21,20 @@
     </div>
     <div class="modal-body">
         <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped {{prefix}}table-sort">
                 <thead>
                 <tr>
-                    <th>Effective Date</th>
-                    <th ng-repeat="field in fields" ng-if="field.selected && field.display">{{field.title}}</th>
-                    <th>Change Recorded By</th>
-                    <th>Reason For Change</th>
+                    <th ng-repeat="field in fields" ng-if="field.selected && field.display">
+                        <a href="" ng-click="sortBy(field.name);createPage();">{{field.title}} <i class="fa"
+                                                                                        ng-class="{'fa-sort-asc': !sortReverse, 'fa-sort-desc': sortReverse}"
+                                                                                        ng-show="sortCol == field.name"></i></a></th>
                     <th>&nbsp;</th>
                 </tr>
                 </thead>
                 <tbody ng-if="!isMultiDim">
                     <tr ng-repeat="revisionData in revisionDataListPage">
-                        <td>{{revisionListPage[$index].effective_date | date: 'yyyy/MM/dd' || '-'}}</td>
                         <td ng-repeat="field in fields" ng-if="field.selected && field.display">
-                            {{!subFields[field.name] ? ((!field.pseudoconstant ? revisionData[field.name] : options[entity][field.name][revisionData[field.name]]) || '-') : (revisionData[field.name].length ? '' : '-')}}
+                            {{!field.isArray ? (!subFields[field.name] ? ((!field.pseudoconstant ? revisionData[field.name] : options[entity][field.name][revisionData[field.name]]) || '-') : (revisionData[field.name].length ? '' : '-')) : ''}}
                             <table ng-if="!!subFields[field.name] && revisionData[field.name].length" class="table table-condensed">
                                 <thead>
                                     <tr>
@@ -48,24 +47,12 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </td>
-                        <td>{{revisionListPage[$index].editor_name || '-'}}</td>
-                        <td>{{options.contract.change_reason[revisionListPage[$index].change_reason] || '-'}}</td>
-                        <td><a class="cursor-pointer" ng-click="modalContract('view',revisionListPage[$index])">view this contract revision</a></td>
-                    </tr>
-                </tbody>
-                <tbody ng-if="isMultiDim">
-                    <tr ng-repeat="revisionData in revisionDataListPage">
-                        <td>{{revisionListPage[$index].effective_date | date: 'yyyy/MM/dd' || '-'}}</td>
-                        <td ng-repeat="field in fields" ng-if="field.selected && field.display">
-                            <table>
-                                <tr ng-repeat="revisionDataEntry in revisionData">
+                            <table ng-if="field.isArray && revisionData.data">
+                                <tr ng-repeat="revisionDataEntry in revisionData.data">
                                     <td>{{(!field.pseudoconstant ? revisionDataEntry[field.name] : options[entity][field.name][revisionDataEntry[field.name]]) || '-'}}</td>
                                 </tr>
                             </table>
                         </td>
-                        <td>{{revisionListPage[$index].editor_name || '-'}}</td>
-                        <td>{{options.contract.change_reason[revisionListPage[$index].change_reason] || '-'}}</td>
                         <td><a class="cursor-pointer" ng-click="modalContract('view',revisionListPage[$index])">view this contract revision</a></td>
                     </tr>
                 </tbody>

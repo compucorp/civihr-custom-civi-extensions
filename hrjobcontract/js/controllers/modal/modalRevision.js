@@ -1,8 +1,8 @@
 define(['controllers/controllers'], function(controllers){
     controllers.controller('ModalRevisionCtrl',['$scope', '$rootScope', '$modalInstance', '$filter','$q','settings',
-        'revisionDataList', 'revisionList', 'entity', 'fields', 'modalContract','utils','ContactService','$log',
+        'revisionDataList', 'revisionList', 'entity', 'fields', 'model', 'modalContract','utils','ContactService','$log',
         function($scope, $rootScope, $modalInstance, $filter, $q, settings, revisionDataList, revisionList, entity,
-                 fields, modalContract, utils, ContactService, $log){
+                 fields, model, modalContract, utils, ContactService, $log){
             $log.debug('Controller: ModalRevisionCtrl');
 
             $scope.$broadcast('hrjc-loader-show');
@@ -62,6 +62,14 @@ define(['controllers/controllers'], function(controllers){
                 for (i; i < len; i++){
                     iNext = i+1;
                     isLast = iNext == len;
+
+                    if (!revisionDataList[i]) {
+                        revisionDataList[i] = model;
+                    }
+
+                    if (!isLast && !revisionDataList[iNext]) {
+                        revisionDataList[iNext] = model;
+                    }
 
                     if (!angular.isArray(revisionDataList[i])) {
                         isUnique = isLast || revisionDataList[i].jobcontract_revision_id != revisionDataList[iNext].jobcontract_revision_id;

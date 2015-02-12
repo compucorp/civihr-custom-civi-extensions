@@ -38,7 +38,8 @@ define(['controllers/controllers'], function(controllers){
                     title: 'Effective Date',
                     display: true,
                     selected: true,
-                    isArray: false
+                    isArray: false,
+                    extends: true
                 });
 
                 $scope.fields.push({
@@ -46,13 +47,15 @@ define(['controllers/controllers'], function(controllers){
                     title: 'Change Recorded By',
                     display: true,
                     selected: true,
-                    isArray: false
+                    isArray: false,
+                    extends: true
                 },{
                     name: 'change_reason',
                     title: 'Reason For Change',
                     display: true,
                     selected: true,
-                    isArray: false
+                    isArray: false,
+                    extends: true
                 })
 
             })();
@@ -185,7 +188,7 @@ define(['controllers/controllers'], function(controllers){
             }
 
             function urlCSVBuild(){
-                var url = settings.pathReport + '?', entityName;
+                var url = settings.pathReport + '?', fieldName, entityName, prefix;
 
                 //TODO
                 switch($scope.entity){
@@ -195,11 +198,17 @@ define(['controllers/controllers'], function(controllers){
                     case 'hours':
                         entityName = 'hour';
                         break;
+                    default:
+                        entityName = $scope.entity;
                 }
 
                 angular.forEach($scope.fields, function(field){
+
+                    fieldName = field.name != 'editor_name' ? field.name : 'editor_uid';
+                    prefix = !field.extends ? entityName : '';
+
                     if (field.selected) {
-                        url += 'fields['+field.name+']=1&';
+                        url += 'fields['+prefix+'_'+fieldName+']=1&';
                     }
                 });
 

@@ -205,10 +205,10 @@ define(['controllers/controllers'], function(controllers){
                 angular.forEach($scope.fields, function(field){
 
                     fieldName = field.name != 'editor_name' ? field.name : 'editor_uid';
-                    prefix = !field.extends ? entityName : '';
+                    prefix = !field.extends ? (entityName + '_') : '';
 
                     if (field.selected) {
-                        url += 'fields['+prefix+'_'+fieldName+']=1&';
+                        url += 'fields['+prefix+fieldName+']=1&';
                     }
                 });
 

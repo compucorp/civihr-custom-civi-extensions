@@ -63,6 +63,7 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
             $revisionId
         );
         
+        $healthRevisionId = 0;
         $hrJobHealth = CRM_Core_DAO::executeQuery('SELECT * FROM civicrm_hrjob_health WHERE job_id = %1', array(1 => array($hrJob->id, 'Integer')));
         while ($hrJobHealth->fetch())
         {
@@ -81,8 +82,10 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
                 ),
                 $revisionId
             );
+            $healthRevisionId = $revisionId;
         }
         
+        $hourRevisionId = 0;
         $hrJobHour = CRM_Core_DAO::executeQuery('SELECT * FROM civicrm_hrjob_hour WHERE job_id = %1', array(1 => array($hrJob->id, 'Integer')));
         while ($hrJobHour->fetch())
         {
@@ -99,9 +102,11 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
                 ),
                 $revisionId
             );
+            $hourRevisionId = $revisionId;
         }
         
         // MULTIPLE
+        $leaveRevisionId = 0;
         $hrJobLeave = CRM_Core_DAO::executeQuery('SELECT * FROM civicrm_hrjob_leave WHERE job_id = %1', array(1 => array($hrJob->id, 'Integer')));
         while ($hrJobLeave->fetch())
         {
@@ -114,8 +119,10 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
                 ),
                 $revisionId
             );
+            $leaveRevisionId = $revisionId;
         }
         
+        $payRevisionId = 0;
         $hrJobPay = CRM_Core_DAO::executeQuery('SELECT * FROM civicrm_hrjob_pay WHERE job_id = %1', array(1 => array($hrJob->id, 'Integer')));
         while ($hrJobPay->fetch())
         {
@@ -133,8 +140,10 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
                 ),
                 $revisionId
             );
+            $payRevisionId = $revisionId;
         }
         
+        $pensionRevisionId = 0;
         $hrJobPension = CRM_Core_DAO::executeQuery('SELECT * FROM civicrm_hrjob_pension WHERE job_id = %1', array(1 => array($hrJob->id, 'Integer')));
         while ($hrJobPension->fetch())
         {
@@ -151,9 +160,11 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
                 ),
                 $revisionId
             );
+            $pensionRevisionId = $revisionId;
         }
         
         // MULTIPLE
+        $roleRevisionId = 0;
         $hrJobRole = CRM_Core_DAO::executeQuery('SELECT * FROM civicrm_hrjob_role WHERE job_id = %1', array(1 => array($hrJob->id, 'Integer')));
         while ($hrJobRole->fetch())
         {
@@ -179,6 +190,37 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
                 ),
                 $revisionId
             );
+            $roleRevisionId = $revisionId;
+        }
+        
+        // Creating entities entries with default values for non existing entities.
+        if (!$healthRevisionId)
+        {
+            CRM_Core_DAO::executeQuery(
+                'INSERT INTO civicrm_hrjobcontract_health SET jobcontract_revision_id = %1',
+                array(1 => array($revisionId, 'Integer'))
+            );
+        }
+        if (!$hourRevisionId)
+        {
+            CRM_Core_DAO::executeQuery(
+                'INSERT INTO civicrm_hrjobcontract_hour SET jobcontract_revision_id = %1',
+                array(1 => array($revisionId, 'Integer'))
+            );
+        }
+        if (!$payRevisionId)
+        {
+            CRM_Core_DAO::executeQuery(
+                'INSERT INTO civicrm_hrjobcontract_pay SET jobcontract_revision_id = %1',
+                array(1 => array($revisionId, 'Integer'))
+            );
+        }
+        if (!$pensionRevisionId)
+        {
+            CRM_Core_DAO::executeQuery(
+                'INSERT INTO civicrm_hrjobcontract_pension SET jobcontract_revision_id = %1',
+                array(1 => array($revisionId, 'Integer'))
+            );
         }
         
         // Updating Revision:
@@ -198,15 +240,16 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
             1 => array($revisionId, 'Integer'),
             2 => array($revisionId, 'Integer'),
             3 => array($revisionId, 'Integer'),
-            4 => array($revisionId, 'Integer'),
+            4 => array($leaveRevisionId, 'Integer'),
             5 => array($revisionId, 'Integer'),
             6 => array($revisionId, 'Integer'),
-            7 => array($revisionId, 'Integer'),
+            7 => array($roleRevisionId, 'Integer'),
             8 => array(CRM_Utils_Date::getToday( null, 'YmdHis' ), 'Timestamp'),
             9 => array(CRM_Utils_Date::getToday( null, 'YmdHis' ), 'Timestamp'),
             10 => array(1, 'Integer'),
             11 => array($revisionId, 'Integer'),
         );
+        
         CRM_Core_DAO::executeQuery($updateRevisionQuery, $updateRevisionParams);
 
     }

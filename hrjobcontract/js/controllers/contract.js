@@ -258,6 +258,9 @@ define(['controllers/controllers',
                         fields: function(){
                             return $scope.$parent.$parent.fields[entity];
                         },
+                        model: function(){
+                            return $scope.model[entity];
+                        },
                         utils: function(){
                             return $scope.utils
                         },

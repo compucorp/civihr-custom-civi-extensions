@@ -49,6 +49,7 @@ require([
     'directives/directives',
     'directives/loader',
     'directives/number',
+    'directives/validate',
     'filters/capitalize',
     'filters/getObjById',
     'filters/formatAmount',

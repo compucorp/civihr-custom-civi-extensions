@@ -17,6 +17,16 @@
     }
   }
 
+  .has-feedback {
+    select + .form-control-feedback {
+      right: 25px;
+    }
+
+    [datepicker-popup] + .form-control-feedback {
+      right: 41px;
+    }
+  }
+
   .well {
     padding-left: 0;
     padding-right: 0;

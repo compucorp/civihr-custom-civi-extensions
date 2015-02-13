@@ -5,9 +5,15 @@ define(['directives/directives'], function(directives){
         return {
             require: 'ngModel',
             link: function ($scope, el, attrs, modelCtrl) {
+                var toFixedVal = 2;
+
+                if (attrs.hrjcNumber && typeof +attrs.hrjcNumber === 'number') {
+                    toFixedVal = attrs.hrjcNumber;
+                }
+
                 el.bind('blur', function () {
                     var val = modelCtrl.$viewValue;
-                    modelCtrl.$setViewValue(!!val && !isNaN(val) ? parseFloat(val).toFixed(2) : (0).toFixed(2));
+                    modelCtrl.$setViewValue(!!val && !isNaN(val) ? parseFloat(val).toFixed(toFixedVal) : (0).toFixed(toFixedVal));
                     modelCtrl.$render();
                 });
             }

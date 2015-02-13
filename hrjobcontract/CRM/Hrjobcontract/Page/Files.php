@@ -29,6 +29,7 @@ require_once 'CRM/Core/Page.php';
 
 class CRM_Hrjobcontract_Page_Files extends CRM_Core_Page {
   public static function fileList() {
+    $config = CRM_Core_Config::singleton();
     $postParams = $_GET;
     $result = array();
     $fileID = CRM_Core_BAO_File::getEntityFile( $postParams['entityTable'], $postParams['entityID'] );
@@ -55,11 +56,20 @@ class CRM_Hrjobcontract_Page_Files extends CRM_Core_Page {
           $url = CRM_Utils_System::url('civicrm/file', "reset=1&id=$fid&eid=$eid");
         }
         
+        list($sql, $params) = CRM_Core_BAO_File::sql($postParams['entityTable'], $postParams['entityID'], NULL, $v['fileID']);
+        $dao = CRM_Core_DAO::executeQuery($sql, $params);
+        
+        $fileSize = 0;
+        if ($dao->fetch()) {
+          $fileSize = filesize($config->customFileUploadDir . DIRECTORY_SEPARATOR . $dao->uri);
+        }
+        
         $result[] = array(
           'entityTable' => $postParams['entityTable'],
           'entityID' => $eid,
           'fileID' => $fid,
           'fileType' => $fileType,
+          'fileSize' => $fileSize,
           'name' => $uri,
           'url' => $url,
         );

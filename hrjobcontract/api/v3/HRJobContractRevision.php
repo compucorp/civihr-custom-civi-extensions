@@ -22,7 +22,17 @@ function _civicrm_api3_h_r_job_contract_revision_create_spec(&$spec) {
  * @throws API_Exception
  */
 function civicrm_api3_h_r_job_contract_revision_create($params) {
-  return _civicrm_api3_basic_create(_civicrm_api3_get_BAO(__FUNCTION__), $params);
+  $result = _civicrm_api3_basic_create(_civicrm_api3_get_BAO(__FUNCTION__), $params);
+  $editorName = '';
+  
+  if (!empty($result['values'][0]['editor_uid'])) {
+    $civiUser = civicrm_custom_user_profile_get_contact($result['values'][0]['editor_uid']);
+    $editorName = $civiUser['sort_name'];
+  }
+  
+  $result['values'][0]['editor_name'] = $editorName;
+  
+  return $result;
 }
 
 /**

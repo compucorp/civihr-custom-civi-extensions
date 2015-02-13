@@ -57,7 +57,7 @@ function civicrm_api3_h_r_job_hour_create($params) {
       'options' => array('limit' => 1),
     ));
     
-    CRM_Hrjobcontract_Estimator::updateEstimatesByRevision($revision);
+    //CRM_Hrjobcontract_Estimator::updateEstimatesByRevision($revision);
   }
   return $result;
 }

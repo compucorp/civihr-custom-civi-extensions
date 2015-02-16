@@ -790,7 +790,9 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
           $entryFound = TRUE;
       }
       
-      $rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'] = $rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'] ? 'Yes' : 'No';
+      if (!empty($rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'])) {
+        $rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'] = $rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'] ? 'Yes' : 'No';
+      }
       
       $isEnrolled = (int)$rows[$rowNum]['civicrm_hrjobcontract_pension_pension_is_enrolled'];
       switch ($isEnrolled) {
@@ -805,7 +807,9 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
           break;
       }
       
-      $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'] = $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'] ? 'Yes' : 'No';
+      if (!empty($rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'])) {
+        $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'] = $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'] ? 'Yes' : 'No';
+      }
       
       if (!empty($row['civicrm_hrjobcontract_pay_pay_pay_scale'])) {
           $payScaleId = $row['civicrm_hrjobcontract_pay_pay_pay_scale'];

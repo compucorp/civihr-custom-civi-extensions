@@ -142,6 +142,9 @@ function hrjobcontract_civicrm_uninstall() {
 
   //delete all option group and values
   CRM_Core_DAO::executeQuery("DELETE FROM civicrm_option_group WHERE name IN ('hrjc_contract_type', 'hrjc_level_type', 'hrjc_department', 'hrjc_hours_type', 'hrjc_pay_grade', 'hrjc_health_provider', 'hrjc_life_provider', 'hrjc_location', 'hrjc_pension_type', 'hrjc_region', 'hrjc_pay_scale')");
+  
+  //delete job contract files to entities relations
+  CRM_Core_DAO::executeQuery("DELETE FROM civicrm_entity_file WHERE entity_table LIKE 'civicrm_hrjobcontract_%'");
 
   return _hrjobcontract_civix_civicrm_uninstall();
 }

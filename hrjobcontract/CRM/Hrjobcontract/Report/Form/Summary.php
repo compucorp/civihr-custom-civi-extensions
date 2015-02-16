@@ -750,6 +750,13 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
         $payScaleOptions[$payScale->id] = (array)$payScale;
     }
     
+    $hoursLocationOptions = array();
+    $hoursLocation = new CRM_Hrjobcontract_BAO_HoursLocation();
+    $hoursLocation->find();
+    while ($hoursLocation->fetch()) {
+        $hoursLocationOptions[$hoursLocation->id] = (array)$hoursLocation;
+    }
+    
     $leaveTypes = array();
     $absenceType = new CRM_HRAbsence_BAO_HRAbsenceType();
     $absenceType->find();
@@ -783,7 +790,7 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
           $entryFound = TRUE;
       }
       
-      $rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'] = $rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'] ? 'Yes' : 'No';
+      $rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'] = (int)$rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'] ? 'Yes' : 'No';
       
       $isEnrolled = (int)$rows[$rowNum]['civicrm_hrjobcontract_pension_pension_is_enrolled'];
       switch ($isEnrolled) {
@@ -798,22 +805,21 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
           break;
       }
       
-      $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'] = $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'] ? 'Yes' : 'No';
+      $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'] = (int)$rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'] ? 'Yes' : 'No';
       
       if (!empty($row['civicrm_hrjobcontract_pay_pay_pay_scale'])) {
           $payScaleId = $row['civicrm_hrjobcontract_pay_pay_pay_scale'];
           if ($payScaleId) {
-            $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_pay_scale'] = $payScaleOptions[$payScaleId]['pay_scale'] . ', ' .
-                    $payScaleOptions[$payScaleId]['pay_grade'] . ', ' .
-                    $payScaleOptions[$payScaleId]['amount'] . ' ' .
-                    $payScaleOptions[$payScaleId]['currency'] . ' per ' .
+            $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_pay_scale'] = $payScaleOptions[$payScaleId]['pay_scale'] . ' - ' .
+                    $payScaleOptions[$payScaleId]['pay_grade'] . ' - ' .
+                    $payScaleOptions[$payScaleId]['currency'] . ' ' .
+                    $payScaleOptions[$payScaleId]['amount'] . ' per ' .
                     $payScaleOptions[$payScaleId]['periodicity'];
             $entryFound = TRUE;
           }
       }
       
-      $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_pay_is_auto_est'] = $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_pay_is_auto_est'] ? 'Yes' : 'No';
-      $entryFound = TRUE;
+      $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_pay_is_auto_est'] = (int)$rows[$rowNum]['civicrm_hrjobcontract_pay_pay_pay_is_auto_est'] ? 'Yes' : 'No';
       
       if (!empty($row['civicrm_hrjobcontract_pay_pay_annual_benefits'])) {
           $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_annual_benefits'] = $this->getAnnualReadableValues('benefit', $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_annual_benefits']);
@@ -835,6 +841,16 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
           $hoursTypeId = $rows[$rowNum]['civicrm_hrjobcontract_hour_hour_hours_type'];
           $rows[$rowNum]['civicrm_hrjobcontract_hour_hour_hours_type'] = $hoursTypeOptions[$rows[$rowNum]['civicrm_hrjobcontract_hour_hour_hours_type']]['label'];
           $entryFound = TRUE;
+      }
+      
+      if (!empty($row['civicrm_hrjobcontract_hour_hour_location_standard_hours'])) {
+          $hoursLocationId = $row['civicrm_hrjobcontract_hour_hour_location_standard_hours'];
+          if ($hoursLocationId) {
+            $rows[$rowNum]['civicrm_hrjobcontract_hour_hour_location_standard_hours'] = $hoursLocationOptions[$hoursLocationId]['location'] . ' - ' .
+                    $hoursLocationOptions[$hoursLocationId]['standard_hours'] . ' hours per ' .
+                    $hoursLocationOptions[$hoursLocationId]['periodicity'];
+            $entryFound = TRUE;
+          }
       }
       
       // skip looking further in rows, if first row itself doesn't

@@ -34,7 +34,7 @@
  */
 class CRM_Hrjobcontract_BAO_ReportHook extends CRM_Report_BAO_HookInterface {
 
-  public function alterLogTables(&$reportObj, &$logTables) {
+/*  public function alterLogTables(&$reportObj, &$logTables) {
     if ($reportObj instanceof CRM_Report_Form_Contact_LoggingDetail) {
       $logTables[] = 'civicrm_hrjob';
       $logTables[] = 'civicrm_hrjob_health';
@@ -128,5 +128,5 @@ INNER JOIN civicrm_hrjob hrjob ON hrjob.id = lt.job_id";
       }
     }
     return array($contactIdClause, $join);
-  }
+  }*/
 }

@@ -739,12 +739,35 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
   function alterDisplay(&$rows) {
     // custom code to alter rows
     $entryFound = FALSE;
-
+    
+    $changeReasonOptins = array();
+    CRM_Core_OptionGroup::getAssoc('hrjc_revision_change_reason', $changeReasonOptins);
+    
+    $payScaleOptions = array();
+    $payScale = new CRM_Hrjobcontract_BAO_PayScale();
+    $payScale->find();
+    while ($payScale->fetch()) {
+        $payScaleOptions[$payScale->id] = (array)$payScale;
+    }
+    
+    $leaveTypes = array();
+    $absenceType = new CRM_HRAbsence_BAO_HRAbsenceType();
+    $absenceType->find();
+    while ($absenceType->fetch()) {
+        $leaveTypes[$absenceType->id] = (array)$absenceType;
+    }
+    
+    $hoursTypeOptions = array();
+    CRM_Core_OptionGroup::getAssoc('hrjc_hours_type', $hoursType, true);
+    foreach ($hoursType as $hourType) {
+        $hoursTypeOptions[$hourType['value']] = $hourType;
+    }
+    
     foreach ($rows as $rowNum => $row) {
       // make count columns point to detail report
       // convert sort name to links
-      if (array_key_exists('civicrm_contact_sort_name', $row) &&
-        array_key_exists('civicrm_hrjobcontract_contact_id', $row)
+      if (!empty($row['civicrm_contact_sort_name']) &&
+        !empty($row['civicrm_hrjobcontract_contact_id'])
       ) {
         $url = CRM_Report_Utils_Report::getNextUrl('contact/detail',
           'reset=1&force=1&id_op=eq&id_value=' . $row['civicrm_hrjobcontract_contact_id'],
@@ -754,13 +777,83 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
         $rows[$rowNum]['civicrm_contact_sort_name_hover'] = ts("View Constituent Detail Report for this contact.");
         $entryFound = TRUE;
       }
-
+      
+      if (!empty($row['civicrm_hrjobcontract_revision_change_reason'])) {
+          $rows[$rowNum]['civicrm_hrjobcontract_revision_change_reason'] = $changeReasonOptins['label'][$rows[$rowNum]['civicrm_hrjobcontract_revision_change_reason']];
+          $entryFound = TRUE;
+      }
+      
+      $rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'] = $rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'] ? 'Yes' : 'No';
+      
+      $rows[$rowNum]['civicrm_hrjobcontract_pension_pension_is_enrolled'] = $rows[$rowNum]['civicrm_hrjobcontract_pension_pension_is_enrolled'] ? 'Yes' : 'No';
+      
+      $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'] = $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'] ? 'Yes' : 'No';
+      
+      if (!empty($row['civicrm_hrjobcontract_pay_pay_pay_scale'])) {
+          $payScaleId = $row['civicrm_hrjobcontract_pay_pay_pay_scale'];
+          if ($payScaleId) {
+            $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_pay_scale'] = $payScaleOptions[$payScaleId]['pay_scale'] . ', ' .
+                    $payScaleOptions[$payScaleId]['pay_grade'] . ', ' .
+                    $payScaleOptions[$payScaleId]['amount'] . ' ' .
+                    $payScaleOptions[$payScaleId]['currency'] . ' per ' .
+                    $payScaleOptions[$payScaleId]['periodicity'];
+            $entryFound = TRUE;
+          }
+      }
+      
+      $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_pay_is_auto_est'] = $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_pay_is_auto_est'] ? 'Yes' : 'No';
+      $entryFound = TRUE;
+      
+      if (!empty($row['civicrm_hrjobcontract_pay_pay_annual_benefits'])) {
+          $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_annual_benefits'] = $this->getAnnualReadableValues('benefit', $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_annual_benefits']);
+          $entryFound = TRUE;
+      }
+      
+      if (!empty($row['civicrm_hrjobcontract_pay_pay_annual_deductions'])) {
+          $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_annual_deductions'] = $this->getAnnualReadableValues('deduction', $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_annual_deductions']);
+          $entryFound = TRUE;
+      }
+      
+      if (!empty($row['civicrm_hrjobcontract_leave_leave_leave_type'])) {
+          $leaveTypeId = $row['civicrm_hrjobcontract_leave_leave_leave_type'];
+          $rows[$rowNum]['civicrm_hrjobcontract_leave_leave_leave_type'] = $leaveTypes[$leaveTypeId]['title'];
+          $entryFound = TRUE;
+      }
+      
+      if (!empty($row['civicrm_hrjobcontract_hour_hour_hours_type'])) {
+          $hoursTypeId = $rows[$rowNum]['civicrm_hrjobcontract_hour_hour_hours_type'];
+          $rows[$rowNum]['civicrm_hrjobcontract_hour_hour_hours_type'] = $hoursTypeOptions[$rows[$rowNum]['civicrm_hrjobcontract_hour_hour_hours_type']]['label'];
+          $entryFound = TRUE;
+      }
+      
       // skip looking further in rows, if first row itself doesn't
       // have the column we need
       if (!$entryFound) {
         break;
       }
     }
+  }
+  
+  function getAnnualReadableValues($field, $json) {
+      $list = json_decode($json, true);
+      $output = '';
+      
+      if (!empty($list)) {
+          foreach ($list as $row) {
+            CRM_Core_OptionGroup::getAssoc('hrjc_' . $field . '_name', $benefitNameOptions);
+            CRM_Core_OptionGroup::getAssoc('hrjc_' . $field . '_type', $benefitTypeOptions);
+            $output .= 'name: ' . $benefitNameOptions['name'][$row['name']] . ', ';
+            $output .= 'type: ' . $benefitTypeOptions['name'][$row['type']] . ', ';
+            $output .= 'amount pct: ' . $row['amount_pct'] . ', ';
+            $output .= 'amount abs: ' . $row['amount_abs'] . '; ';
+          }
+      }
+      
+      return $output;
+  }
+  
+  function getDeductionsReadableValues($json) {
+      return 'pup2';
   }
   
   function buildQuickForm() {

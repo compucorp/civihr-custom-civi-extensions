@@ -790,9 +790,7 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
           $entryFound = TRUE;
       }
       
-      if (!empty($rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'])) {
-        $rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'] = $rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'] ? 'Yes' : 'No';
-      }
+      $rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'] = (int)$rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'] ? 'Yes' : 'No';
       
       $isEnrolled = (int)$rows[$rowNum]['civicrm_hrjobcontract_pension_pension_is_enrolled'];
       switch ($isEnrolled) {
@@ -807,9 +805,7 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
           break;
       }
       
-      if (!empty($rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'])) {
-        $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'] = $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'] ? 'Yes' : 'No';
-      }
+      $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'] = (int)$rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'] ? 'Yes' : 'No';
       
       if (!empty($row['civicrm_hrjobcontract_pay_pay_pay_scale'])) {
           $payScaleId = $row['civicrm_hrjobcontract_pay_pay_pay_scale'];
@@ -823,8 +819,7 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
           }
       }
       
-      $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_pay_is_auto_est'] = $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_pay_is_auto_est'] ? 'Yes' : 'No';
-      $entryFound = TRUE;
+      $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_pay_is_auto_est'] = (int)$rows[$rowNum]['civicrm_hrjobcontract_pay_pay_pay_is_auto_est'] ? 'Yes' : 'No';
       
       if (!empty($row['civicrm_hrjobcontract_pay_pay_annual_benefits'])) {
           $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_annual_benefits'] = $this->getAnnualReadableValues('benefit', $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_annual_benefits']);

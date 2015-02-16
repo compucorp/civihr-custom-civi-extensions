@@ -137,7 +137,7 @@ class CRM_Hrjobcontract_DAO_HoursLocation extends CRM_Core_DAO
           'export' => true,
           'where' => 'civicrm_hrhours_location.periodicity',
           'headerPattern' => '',
-          'dataPattern' => '',
+          'dataPattern' => ''
         ) ,
         'is_active' => array(
           'name' => 'is_active',

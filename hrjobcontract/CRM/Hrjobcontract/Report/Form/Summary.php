@@ -739,7 +739,6 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
   function alterDisplay(&$rows) {
     // custom code to alter rows
     $entryFound = FALSE;
-    
     $changeReasonOptins = array();
     CRM_Core_OptionGroup::getAssoc('hrjc_revision_change_reason', $changeReasonOptins);
     
@@ -855,9 +854,9 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
       
       // skip looking further in rows, if first row itself doesn't
       // have the column we need
-      if (!$entryFound) {
+      /*if (!$entryFound) {
         break;
-      }
+      }*/
     }
   }
   
@@ -877,10 +876,6 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
       }
       
       return $output;
-  }
-  
-  function getDeductionsReadableValues($json) {
-      return 'pup2';
   }
   
   function buildQuickForm() {

@@ -231,7 +231,9 @@
                                 <div class="col-sm-8">
                                     <div class="form-inline">
                                         <input type="text" class="form-control input-inline-sm" id="{{prefix}}actual-hours"
-                                               ng-model="contract.hours.hours_amount" ng-disabled="isDisabled || contract.hours.hours_type == 8" ng-required="hrsTypeDefined">
+                                               hrjc-number
+                                               ng-model="contract.hours.hours_amount"
+                                               ng-disabled="isDisabled || contract.hours.hours_type == 8" ng-required="hrsTypeDefined">
                                         per
                                         <input type="text" class="form-control input-inline-sm" ng-model="contract.hours.hours_unit" ng-disabled="true" ng-required="hrsTypeDefined">
                                     </div>
@@ -418,6 +420,7 @@
                                                 <option value="">- select -</option>
                                             </select></td>
                                             <td><input type="text" class="form-control"
+                                                       hrjc-number
                                                        ng-if="benefit.type == '2'"
                                                        ng-model="benefit.amount_pct"
                                                        ng-disabled="isDisabled"></td>
@@ -477,6 +480,7 @@
                                                 <option value="">- select -</option>
                                             </select></td>
                                             <td><input type="text" class="form-control"
+                                                       hrjc-number
                                                        ng-if="deduction.type == '2'"
                                                        ng-model="deduction.amount_pct"
                                                        ng-disabled="isDisabled"></td>
@@ -548,7 +552,9 @@
                             <label for="{{prefix}}leave-{{leaveEntry.leave_type}}" class="col-sm-4 control-label">{{options.leave.leave_type[leaveEntry.leave_type]}}</label>
 
                             <div class="col-sm-2">
-                                <input type="text" id="{{prefix}}leave-{{leaveEntry.leave_type}}" name="leave-{{leaveEntry.leave_type}}" class="form-control" ng-model="leaveEntry.leave_amount" ng-disabled="isDisabled">
+                                <input type="text" id="{{prefix}}leave-{{leaveEntry.leave_type}}" name="leave-{{leaveEntry.leave_type}}" class="form-control"
+                                       hrjc-number="0"
+                                       ng-model="leaveEntry.leave_amount" ng-disabled="isDisabled">
                             </div>
                         </div>
                     </div>
@@ -724,7 +730,9 @@
 
                             <div class="col-sm-3">
                                 <input type="text" id="pension-contrib-emplr" name="pension-contrib-emplr" class="form-control"
-                                       ng-model="contract.pension.er_contrib_pct" ng-disabled="isDisabled">
+                                       hrjc-number="2"
+                                       ng-model="contract.pension.er_contrib_pct"
+                                       ng-disabled="isDisabled">
                             </div>
                         </div>
                         <div class="form-group">
@@ -732,7 +740,9 @@
 
                             <div class="col-sm-3">
                                 <input type="text" id="pension-contrib-emple" name="pension-contrib-emple" class="form-control"
-                                       ng-model="contract.pension.ee_contrib_pct" ng-disabled="isDisabled">
+                                       hrjc-number="2"
+                                       ng-model="contract.pension.ee_contrib_pct"
+                                       ng-disabled="isDisabled">
                             </div>
                         </div>
                         <div class="form-group">

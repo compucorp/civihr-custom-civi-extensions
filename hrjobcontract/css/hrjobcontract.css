@@ -9781,24 +9781,33 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 #hrjob-contract .form-horizontal .has-feedback [datepicker-popup] + .form-control-feedback {
   right: 41px;
 }
-/* line 30, ../sass/partials/_forms.scss */
+/* line 29, ../sass/partials/_forms.scss */
+#hrjob-contract .form-horizontal .has-feedback .form-inline {
+  float: left;
+  position: relative;
+}
+/* line 33, ../sass/partials/_forms.scss */
+#hrjob-contract .form-horizontal .has-feedback .form-inline select + .form-control-feedback {
+  right: 10px;
+}
+/* line 39, ../sass/partials/_forms.scss */
 #hrjob-contract .form-horizontal .well {
   padding-left: 0;
   padding-right: 0;
 }
-/* line 34, ../sass/partials/_forms.scss */
+/* line 43, ../sass/partials/_forms.scss */
 #hrjob-contract .form-horizontal .well .form-group {
   margin-bottom: 0;
 }
-/* line 37, ../sass/partials/_forms.scss */
+/* line 46, ../sass/partials/_forms.scss */
 #hrjob-contract .form-horizontal .well .form-group + .form-group {
   margin-top: 15px;
 }
-/* line 44, ../sass/partials/_forms.scss */
+/* line 53, ../sass/partials/_forms.scss */
 #hrjob-contract .form-control-file {
   padding: 6px 12px;
 }
-/* line 49, ../sass/partials/_forms.scss */
+/* line 58, ../sass/partials/_forms.scss */
 #hrjob-contract .form-control-static .subfield {
   display: block;
 }

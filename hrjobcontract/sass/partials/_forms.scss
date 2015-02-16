@@ -25,6 +25,15 @@
     [datepicker-popup] + .form-control-feedback {
       right: 41px;
     }
+
+    .form-inline {
+      float: left;
+      position: relative;
+
+      select + .form-control-feedback {
+        right: 10px;
+      }
+    }
   }
 
   .well {

@@ -93,9 +93,10 @@ class CRM_Hrjobcontract_Form_HoursLocation extends CRM_Core_Form {
     if ($this->_action & CRM_Core_Action::DELETE) {
       return;
     }
+
     $this->add('text', 'location', ts('Location'), CRM_Core_DAO::getAttribute('CRM_Hrjobcontract_DAO_HoursLocation', 'location'), TRUE);
     $this->add('text', 'standard_hours', ts('Standard Hours'), CRM_Core_DAO::getAttribute('CRM_Hrjobcontract_DAO_HoursLocation', 'standard_hours'), TRUE);
-    $this->add('text', 'periodicity', ts('Periodicity'), CRM_Core_DAO::getAttribute('CRM_Hrjobcontract_DAO_HoursLocation', 'periodicity'), TRUE);
+    $this->add('select', 'periodicity', ts('Periodicity'), array('' => ts('- select -')) + CRM_Hrjobcontract_SelectValues::commonUnit(), TRUE);
 
     $this->add('checkbox', 'is_active', ts('Enabled?'), CRM_Core_DAO::getAttribute('CRM_Hrjobcontract_DAO_HoursLocation', 'is_active'));
 

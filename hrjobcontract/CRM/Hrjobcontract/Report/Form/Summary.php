@@ -785,7 +785,18 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
       
       $rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'] = $rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'] ? 'Yes' : 'No';
       
-      $rows[$rowNum]['civicrm_hrjobcontract_pension_pension_is_enrolled'] = $rows[$rowNum]['civicrm_hrjobcontract_pension_pension_is_enrolled'] ? 'Yes' : 'No';
+      $isEnrolled = (int)$rows[$rowNum]['civicrm_hrjobcontract_pension_pension_is_enrolled'];
+      switch ($isEnrolled) {
+          case 0:
+              $rows[$rowNum]['civicrm_hrjobcontract_pension_pension_is_enrolled'] = 'No';
+          break;
+          case 1:
+              $rows[$rowNum]['civicrm_hrjobcontract_pension_pension_is_enrolled'] = 'Yes';
+          break;
+          case 2:
+              $rows[$rowNum]['civicrm_hrjobcontract_pension_pension_is_enrolled'] = 'Opted out';
+          break;
+      }
       
       $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'] = $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'] ? 'Yes' : 'No';
       

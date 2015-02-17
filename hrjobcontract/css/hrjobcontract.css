@@ -10139,6 +10139,21 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
   top: 50%;
   margin-top: -6px;
 }
+/* line 87, ../sass/partials/_tables.scss */
+#hrjob-contract .table-responsive::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+/* line 91, ../sass/partials/_tables.scss */
+#hrjob-contract .table-responsive::-webkit-scrollbar {
+  height: 10px;
+  background-color: #F5F5F5;
+}
+/* line 96, ../sass/partials/_tables.scss */
+#hrjob-contract .table-responsive::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: rgba(85, 85, 85, 0.85);
+}
 /* line 1, ../sass/partials/_tooltip.scss */
 #hrjob-contract .tooltip-inner {
   text-align: left;

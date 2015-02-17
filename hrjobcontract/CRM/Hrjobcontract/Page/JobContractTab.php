@@ -40,7 +40,7 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
           'defaultCurrency' => $config->defaultCurrency,
           'path' => CRM_Core_Resources::singleton()->getUrl('org.civicrm.hrjobcontract'),
           'fields' => CRM_Hrjobcontract_Page_JobContractTab::getFields(),
-           'contractList' => CRM_Hrjobcontract_Page_JobContractTab::getContractList()
+          'contractList' => CRM_Hrjobcontract_Page_JobContractTab::getContractList()
         ),
         'debug' => $config->debug,
       );
@@ -141,6 +141,7 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
 
      $result = civicrm_api3('HRJobContract', 'get', array(
         'contact_id' => CRM_Utils_Request::retrieve('cid', 'Integer'),
+        'deleted' => 0,
         'sequential' => 1,
     ));
 

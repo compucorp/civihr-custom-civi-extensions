@@ -42,7 +42,7 @@ require([
     'controllers/modal/modalDialog',
     'controllers/modal/modalRevision',
     'controllers/form/formGeneral',
-    'controllers/form/formHours',
+    'controllers/form/formHour',
     'controllers/form/formHealth',
     'controllers/form/formPay',
     'controllers/form/formPension',
@@ -97,9 +97,9 @@ require([
         }
     ]);
 
-    app.run(['settings','$rootScope','$q', '$log', 'ContractService', 'ContractDetailsService', 'ContractHoursService',
+    app.run(['settings','$rootScope','$q', '$log', 'ContractService', 'ContractDetailsService', 'ContractHourService',
         'ContractPayService', 'ContractLeaveService', 'ContractHealthService', 'ContractPensionService',
-        function(settings, $rootScope, $q, $log, ContractService, ContractDetailsService, ContractHoursService, ContractPayService,
+        function(settings, $rootScope, $q, $log, ContractService, ContractDetailsService, ContractHourService, ContractPayService,
                  ContractLeaveService, ContractHealthService, ContractPensionService){
             $log.debug('app.run');
 
@@ -109,7 +109,7 @@ require([
             $q.all({
                 contract: ContractService.getRevisionOptions(),
                 details: ContractDetailsService.getOptions(),
-                hours: ContractHoursService.getOptions(),
+                hour: ContractHourService.getOptions(),
                 pay: ContractPayService.getOptions(),
                 leave: ContractLeaveService.getOptions(),
                 health: ContractHealthService.getOptions(),

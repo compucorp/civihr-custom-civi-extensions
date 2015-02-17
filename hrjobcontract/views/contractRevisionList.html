@@ -17,9 +17,9 @@
                 <th><a href="" ng-click="sortBy('pay.pay_annualized_est');createPage();">Total Salary <i class="fa"
                                                                                                          ng-class="{'fa-sort-asc': !sortReverse, 'fa-sort-desc': sortReverse}"
                                                                                                          ng-show="sortCol == 'pay.pay_annualized_est'"></i></a></th>
-                <th><a href="" ng-click="sortBy('hours.hours_type');createPage();">Hours<br>(Full time/ Part time) <i class="fa"
+                <th><a href="" ng-click="sortBy('hour.hours_type');createPage();">Hours<br>(Full time/ Part time) <i class="fa"
                                                                                                                       ng-class="{'fa-sort-asc': !sortReverse, 'fa-sort-desc': sortReverse}"
-                                                                                                                      ng-show="sortCol == 'hours.hours_type'"></i></a></th>
+                                                                                                                      ng-show="sortCol == 'hour.hours_type'"></i></a></th>
                 <th><a href="" ng-click="sortBy('details.location');createPage();">Location <i class="fa"
                                                                                                ng-class="{'fa-sort-asc': !sortReverse, 'fa-sort-desc': sortReverse}"
                                                                                                ng-show="sortCol == 'details.location'"></i></a></th>
@@ -36,7 +36,7 @@
                 <td>{{revision.details.position || '-'}}</td>
                 <td>{{revision.pay.pay_scale ? (((utils.payScaleGrade | getObjById:revision.pay.pay_scale:'pay_scale') || '-') + ' ' + ((utils.payScaleGrade | getObjById:revision.pay.pay_scale:'pay_grade') || '' )) : '-'}}</td>
                 <td>{{revision.pay.pay_annualized_est || '-'}} {{options.pay.pay_currency[revision.pay.pay_currency]}}</td>
-                <td>{{options.hours.hours_type[revision.hours.hours_type] || '-'}}</td>
+                <td>{{options.hour.hours_type[revision.hour.hours_type] || '-'}}</td>
                 <td>{{options.details.location[revision.details.location] || '-'}}</td>
                 <td>{{revision.revisionEntityIdObj.editor_name || '-'}}</td>
                 <td></td>

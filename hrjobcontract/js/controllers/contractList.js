@@ -1,23 +1,23 @@
 define(['controllers/controllers',
         'filters/getObjById',
         'services/contractDetails',
-        'services/contractHours',
+        'services/contractHour',
         'services/contractHealth',
         'services/contractLeave',
         'services/contractPay',
         'services/contractPension',
         'services/utils'], function(controllers){
     controllers.controller('ContractListCtrl',['$scope','$rootElement','$rootScope','$modal','$q', '$filter', 'contractList','ContractService',
-        'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService', 'ContractHealthService',
+        'ContractDetailsService', 'ContractHourService', 'ContractPayService', 'ContractLeaveService', 'ContractHealthService',
         'ContractPensionService', 'UtilsService','settings', '$log',
         function($scope, $rootElement, $rootScope, $modal, $q, $filter, contractList, ContractService, ContractDetailsService,
-                 ContractHoursService, ContractPayService, ContractLeaveService, ContractHealthService, ContractPensionService,
+                 ContractHourService, ContractPayService, ContractLeaveService, ContractHealthService, ContractPensionService,
                  UtilsService, settings, $log){
             $log.debug('Controller: ContractListCtrl');
 
             var entityServices = {
                     details: ContractDetailsService,
-                    hours: ContractHoursService,
+                    hour: ContractHourService,
                     pay: ContractPayService,
                     leave: ContractLeaveService,
                     health: ContractHealthService,
@@ -114,7 +114,7 @@ define(['controllers/controllers',
                 var modalInstance,
                     options = {
                         targetDomEl: $rootElement.find('div').eq(0),
-                        templateUrl: settings.pathApp+'views/modalForm.html?v=rger',
+                        templateUrl: settings.pathApp+'views/modalForm.html?v=fbwefg',
                         size: 'lg',
                         controller: 'ModalContractNewCtrl',
                         resolve: {

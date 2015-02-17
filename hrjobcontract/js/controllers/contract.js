@@ -1,16 +1,16 @@
 define(['controllers/controllers',
         'services/contractDetails',
-        'services/contractHours',
+        'services/contractHour',
         'services/contractPay',
         'services/contractLeave',
         'services/contractPension',
         'services/contractHealth',
         'services/utils',], function(controllers){
     controllers.controller('ContractCtrl',['$scope', '$route', '$filter', '$modal', '$rootElement', '$q', 'settings',
-        'API', 'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
+        'API', 'ContractDetailsService', 'ContractHourService', 'ContractPayService', 'ContractLeaveService',
         'ContractHealthService', 'ContractPensionService','ContractFilesService','$log',
         function($scope, $route, $filter, $modal, $rootElement, $q, settings, API, ContractDetailsService,
-                 ContractHoursService, ContractPayService, ContractLeaveService, ContractHealthService,
+                 ContractHourService, ContractPayService, ContractLeaveService, ContractHealthService,
                  ContractPensionService, ContractFilesService, $log){
             $log.debug('Controller: ContractCtrl');
 
@@ -25,7 +25,7 @@ define(['controllers/controllers',
 
             $q.all({
                 details: ContractDetailsService.getOne({ jobcontract_id: contractId}),
-                hours: ContractHoursService.getOne({ jobcontract_id: contractId}),
+                hour: ContractHourService.getOne({ jobcontract_id: contractId}),
                 pay: ContractPayService.getOne({ jobcontract_id: contractId}),
                 leave: ContractLeaveService.get({ jobcontract_id: contractId}),
                 health: ContractHealthService.getOne({ jobcontract_id: contractId}),
@@ -39,7 +39,7 @@ define(['controllers/controllers',
                 };
 
                 angular.extend($scope.details, results.details);
-                angular.extend($scope.hours, results.hours || contractRevisionIdObj);
+                angular.extend($scope.hour, results.hour || contractRevisionIdObj);
                 angular.extend($scope.pay, results.pay || contractRevisionIdObj);
 
                 angular.forEach($scope.leave, function(leaveType, leaveTypeId){
@@ -87,7 +87,7 @@ define(['controllers/controllers',
                                     return {
                                         id: contractId,
                                         details: $scope.details,
-                                        hours: $scope.hours,
+                                        hour: $scope.hour,
                                         pay: $scope.pay,
                                         leave: $scope.leave,
                                         health: $scope.health,
@@ -97,7 +97,7 @@ define(['controllers/controllers',
 
                                 return $q.all({
                                     details: ContractDetailsService.getOne({ jobcontract_revision_id: revisionEntityIdObj.details_revision_id }),
-                                    hours: ContractHoursService.getOne({ jobcontract_revision_id: revisionEntityIdObj.hour_revision_id }),
+                                    hour: ContractHourService.getOne({ jobcontract_revision_id: revisionEntityIdObj.hour_revision_id }),
                                     pay: ContractPayService.getOne({ jobcontract_revision_id: revisionEntityIdObj.pay_revision_id }),
                                     leave: ContractLeaveService.get({ jobcontract_revision_id: revisionEntityIdObj.leave_revision_id }),
                                     health: ContractHealthService.getOne({ jobcontract_revision_id: revisionEntityIdObj.health_revision_id }),
@@ -113,7 +113,7 @@ define(['controllers/controllers',
 
                                     angular.extend(contract, angular.copy($scope.model));
                                     angular.extend(contract.details, results.details);
-                                    angular.extend(contract.hours, results.hours || contractRevisionIdObj);
+                                    angular.extend(contract.hour, results.hour || contractRevisionIdObj);
                                     angular.extend(contract.pay, results.pay || contractRevisionIdObj);
                                     angular.forEach(contract.leave, function(leaveType, leaveTypeId){
                                         angular.extend(leaveType, results.leave ? results.leave[leaveTypeId] || contractRevisionIdObj : contractRevisionIdObj);
@@ -180,7 +180,7 @@ define(['controllers/controllers',
                     }
 
                     angular.extend($scope.details, results.details);
-                    angular.extend($scope.hours, results.hours);
+                    angular.extend($scope.hour, results.hour);
                     angular.extend($scope.pay, results.pay);
                     $scope.leave = results.leave;
                     angular.extend($scope.health, results.health);
@@ -192,14 +192,14 @@ define(['controllers/controllers',
                         $scope.revisionDataList.unshift({
                             revisionEntityIdObj: results.revisionCreated,
                             details: results.details,
-                            hours: results.hours,
+                            hour: results.hour,
                             pay: results.pay
                         });
 
                     } else {
                         angular.extend($scope.revisionDataList[0], {
                             details: results.details,
-                            hours: results.hours,
+                            hour: results.hour,
                             pay: results.pay
                         });
                     }
@@ -229,17 +229,9 @@ define(['controllers/controllers',
                     i = 0, len = $scope.revisionList.length;
 
                 for (i; i < len; i++){
-
                     promiseEntityRevisionDataList.push(API[apiMethod]('HRJob'+$filter('capitalize')(entity),{
                         jobcontract_revision_id: $scope.revisionList[i][entity+'_revision_id']
                     }));
-                }
-
-                //TODO
-                switch(entity){
-                    case 'hour':
-                        entity = 'hours';
-                        break;
                 }
 
                 var options = {

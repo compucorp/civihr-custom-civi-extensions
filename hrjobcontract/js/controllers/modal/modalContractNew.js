@@ -1,7 +1,7 @@
 define(['controllers/controllers',
         'services/contract',
         'services/contractDetails',
-        'services/contractHours',
+        'services/contractHour',
         'services/contractPay',
         'services/contractLeave',
         'services/contractHealth',
@@ -10,10 +10,10 @@ define(['controllers/controllers',
         'services/utils'], function(controllers){
 
     controllers.controller('ModalContractNewCtrl', ['$scope', '$modalInstance', '$q', 'Contract','ContractService',
-        'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
+        'ContractDetailsService', 'ContractHourService', 'ContractPayService', 'ContractLeaveService',
         'ContractHealthService', 'ContractPensionService', 'ContractFilesService', 'model', 'UtilsService', 'utils',
         'settings', '$log',
-        function($scope, $modalInstance, $q, Contract, ContractService, ContractDetailsService, ContractHoursService,
+        function($scope, $modalInstance, $q, Contract, ContractService, ContractDetailsService, ContractHourService,
                  ContractPayService, ContractLeaveService, ContractHealthService, ContractPensionService,
                  ContractFilesService, model, UtilsService, utils, settings, $log){
             $log.debug('Controller: ModalContractNewCtrl');
@@ -57,7 +57,7 @@ define(['controllers/controllers',
                     var contract = data.values[0],
                         contractId = contract.id,
                         contractDetails = $scope.contract.details,
-                        contractHours = $scope.contract.hours,
+                        contractHour = $scope.contract.hour,
                         contractPay = $scope.contract.pay,
                         contractLeave = $scope.contract.leave,
                         contractHealth = $scope.contract.health,
@@ -84,7 +84,7 @@ define(['controllers/controllers',
                         });
 
                         return $q.all([
-                            ContractHoursService.save(contractHours),
+                            ContractHourService.save(contractHour),
                             ContractPayService.save(contractPay),
                             ContractLeaveService.save(contractLeave),
                             ContractHealthService.save(contractHealth),

@@ -1,7 +1,7 @@
 define(['controllers/controllers', 'services/contract'], function(controllers){
     controllers.controller('RevisionListCtrl',['$scope', '$filter', '$q', 'settings', 'ContractService',
-        'ContractDetailsService', 'ContractHoursService', 'ContractPayService', '$log',
-        function($scope, $filter, $q, settings, ContractService, ContractDetailsService, ContractHoursService,
+        'ContractDetailsService', 'ContractHourService', 'ContractPayService', '$log',
+        function($scope, $filter, $q, settings, ContractService, ContractDetailsService, ContractHourService,
                  ContractPayService, $log){
             $log.debug('Controller: RevisionListCtrl');
 
@@ -70,7 +70,7 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                                 jobcontract_revision_id: revision.details_revision_id,
                                 return: 'position, location'
                             }),
-                            hours: ContractHoursService.getOne({
+                            hour: ContractHourService.getOne({
                                 jobcontract_revision_id: revision.hour_revision_id,
                                 return: 'hours_type'
                             }),

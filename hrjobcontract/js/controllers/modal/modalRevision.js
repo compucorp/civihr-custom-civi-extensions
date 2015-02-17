@@ -113,7 +113,7 @@ define(['controllers/controllers'], function(controllers){
                         });
                     })();
                     break;
-                case 'insurance':
+                case 'health':
                     angular.forEach($scope.revisionDataList, function(revisionData){
                         if (revisionData.provider) {
                             ContactService.getOne(revisionData.provider).then(function(contact){
@@ -192,9 +192,6 @@ define(['controllers/controllers'], function(controllers){
 
                 //TODO
                 switch($scope.entity){
-                    case 'insurance':
-                        entityName = 'health';
-                        break;
                     case 'hours':
                         entityName = 'hour';
                         break;

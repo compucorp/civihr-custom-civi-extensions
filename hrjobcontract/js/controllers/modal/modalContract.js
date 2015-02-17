@@ -4,17 +4,17 @@ define(['controllers/controllers',
         'services/contractHours',
         'services/contractPay',
         'services/contractLeave',
-        'services/contractInsurance',
+        'services/contractHealth',
         'services/contractPension',
         'services/contractFiles',
         'services/utils'], function(controllers){
 
     controllers.controller('ModalContractCtrl',['$scope','$modal', '$modalInstance','$q', '$rootElement','$rootScope','$filter',
         'ContractService', 'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
-        'ContractInsuranceService', 'ContractPensionService', 'ContractFilesService', 'action', 'contract',
+        'ContractHealthService', 'ContractPensionService', 'ContractFilesService', 'action', 'contract',
         'content', 'files', 'UtilsService', 'utils', 'settings', '$log',
         function($scope, $modal, $modalInstance, $q, $rootElement, $rootScope, $filter, ContractService, ContractDetailsService,
-                 ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService,
+                 ContractHoursService, ContractPayService, ContractLeaveService, ContractHealthService,
                  ContractPensionService, ContractFilesService, action, contract, content, files,
                  UtilsService, utils, settings, $log){
             $log.debug('Controller: ModalContractCtrl');
@@ -153,7 +153,7 @@ define(['controllers/controllers',
                             hours: ContractHoursService.save(contractNew.hours),
                             pay: ContractPayService.save(contractNew.pay),
                             leave: ContractLeaveService.save(contractNew.leave),
-                            insurance: ContractInsuranceService.save(contractNew.insurance),
+                            health: ContractHealthService.save(contractNew.health),
                             pension: ContractPensionService.save(contractNew.pension)
                         },
                         promiseFilesEdit = [];
@@ -215,7 +215,7 @@ define(['controllers/controllers',
                             hours: ContractHoursService,
                             pay: ContractPayService,
                             leave: ContractLeaveService,
-                            insurance: ContractInsuranceService,
+                            health: ContractHealthService,
                             pension: ContractPensionService
                         }
 
@@ -311,7 +311,7 @@ define(['controllers/controllers',
                         results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
                         angular.extend(results.revisionCreated, {
                             details_revision_id: results.details.jobcontract_revision_id,
-                            health_revision_id: results.insurance.jobcontract_revision_id,
+                            health_revision_id: results.health.jobcontract_revision_id,
                             hour_revision_id: results.hours.jobcontract_revision_id,
                             jobcontract_id: contractNew.id,
                             leave_revision_id: results.leave[0].jobcontract_revision_id,

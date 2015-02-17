@@ -100,7 +100,7 @@ define(['controllers/controllers'], function(controllers){
                 case 'details':
                     $filter('filter')($scope.fields,{name: 'is_primary'})[0].pseudoconstant = true;
                     break;
-                case 'hours':
+                case 'hour':
                     (function(){
                         var hoursLocation;
                         angular.forEach($scope.revisionDataList, function(revisionData){
@@ -188,16 +188,9 @@ define(['controllers/controllers'], function(controllers){
             }
 
             function urlCSVBuild(){
-                var url = settings.pathReport + '?', fieldName, entityName, prefix;
-
-                //TODO
-                switch($scope.entity){
-                    case 'hours':
-                        entityName = 'hour';
-                        break;
-                    default:
-                        entityName = $scope.entity;
-                }
+                var url = settings.pathReport + '?',
+                    entityName = $scope.entity,
+                    fieldName, prefix;
 
                 angular.forEach($scope.fields, function(field){
 

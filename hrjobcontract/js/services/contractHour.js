@@ -1,11 +1,11 @@
 define(['services/services',
         'services/utils'], function (services) {
 
-    services.factory('ContractHoursService', ['$resource', 'settings', '$q', 'UtilsService', '$log',
+    services.factory('ContractHourService', ['$resource', 'settings', '$q', 'UtilsService', '$log',
         function ($resource, settings, $q, UtilsService, $log) {
-            $log.debug('Service: ContractHoursService');
+            $log.debug('Service: ContractHourService');
 
-        var ContractHours = $resource(settings.pathRest, {
+        var ContractHour = $resource(settings.pathRest, {
             action: 'get',
             entity: 'HRJobHour',
             json: {}
@@ -27,7 +27,7 @@ define(['services/services',
                 var deffered = $q.defer(),
                     val;
 
-                ContractHours.get({json: params}, function(data){
+                ContractHour.get({json: params}, function(data){
 
                     if (UtilsService.errorHandler(data,'Unable to fetch contract hours',deffered)) {
                         return
@@ -76,7 +76,7 @@ define(['services/services',
                 } else {
                     params.sequential = 1;
 
-                    ContractHours.get({
+                    ContractHour.get({
                         action: 'getfields',
                         json: params
                     }, function(data){
@@ -93,9 +93,9 @@ define(['services/services',
 
                 return deffered.promise;
             },
-            save: function(contractHours){
+            save: function(contractHour){
 
-                if (!contractHours || typeof contractHours !== 'object') {
+                if (!contractHour || typeof contractHour !== 'object') {
                     return null;
                 }
 
@@ -103,10 +103,10 @@ define(['services/services',
                     params = angular.extend({
                         sequential: 1,
                         debug: settings.debug
-                    },contractHours),
+                    },contractHour),
                     val;
 
-                ContractHours.save({
+                ContractHour.save({
                     action: 'create',
                     json: params
                 }, null, function(data){

@@ -195,7 +195,7 @@
                     </div>
                 </div>
             </tab>
-            <tab heading="Hours" ng-controller="FormHoursCtrl">
+            <tab heading="Hours" ng-controller="FormHourCtrl">
                 <div class="row">
                     <div class="col-xs-12">
                         <h4>Hours</h4>
@@ -208,7 +208,7 @@
                             <div class="col-sm-5">
                                 <select id="standard-hours" class="form-control"
                                         ng-options="hoursLocation.id as (hoursLocation.location + ' - ' + hoursLocation.standard_hours + ' hours per ' + hoursLocation.periodicity) for hoursLocation in utils.hoursLocation"
-                                        ng-model="contract.hours.location_standard_hours"
+                                        ng-model="contract.hour.location_standard_hours"
                                         ng-disabled="isDisabled">
                                 </select>
                             </div>
@@ -218,8 +218,8 @@
 
                             <div class="col-sm-5">
                                 <select id="{{prefix}}hours-type" class="form-control"
-                                        ng-options="key as value for (key, value) in options.hours.hours_type"
-                                        ng-model="contract.hours.hours_type"
+                                        ng-options="key as value for (key, value) in options.hour.hours_type"
+                                        ng-model="contract.hour.hours_type"
                                         ng-disabled="isDisabled">
                                     <option value="">- select -</option>
                                 </select>
@@ -233,14 +233,14 @@
                                         <input type="text" class="form-control input-inline-sm" id="{{prefix}}actual-hours"
                                                hrjc-number
                                                hrjc-number-float="true"
-                                               ng-model="contract.hours.hours_amount"
-                                               ng-disabled="isDisabled || contract.hours.hours_type == 8" ng-required="hrsTypeDefined">
+                                               ng-model="contract.hour.hours_amount"
+                                               ng-disabled="isDisabled || contract.hour.hours_type == 8" ng-required="hrsTypeDefined">
                                         per
-                                        <input type="text" class="form-control input-inline-sm" ng-model="contract.hours.hours_unit" ng-disabled="true" ng-required="hrsTypeDefined">
+                                        <input type="text" class="form-control input-inline-sm" ng-model="contract.hour.hours_unit" ng-disabled="true" ng-required="hrsTypeDefined">
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group required" ng-show="+contract.hours.hours_type">
+                            <div class="form-group required" ng-show="+contract.hour.hours_type">
                                 <label for="{{prefix}}fte" class="col-sm-4 control-label">FTE
                                     <a tooltip-placement="right"
                                        tooltip-html-unsafe="<strong>FTE</strong> stands for
@@ -275,11 +275,11 @@
                                                ng-model="fteFraction" ng-disabled="true">
                                         &nbsp;or&nbsp;
                                         <input type="text" class="form-control input-inline-sm"
-                                               ng-model="contract.hours.hours_fte" ng-disabled="true"><br>
+                                               ng-model="contract.hour.hours_fte" ng-disabled="true"><br>
                                         <input type="hidden" class="form-control input-inline-sm"
-                                               ng-model="contract.hours.fte_num" ng-disabled="isDisabled" ng-required="hrsTypeDefined">
+                                               ng-model="contract.hour.fte_num" ng-disabled="isDisabled" ng-required="hrsTypeDefined">
                                         <input type="hidden" class="form-control input-inline-sm"
-                                               ng-model="contract.hours.fte_denom" ng-disabled="isDisabled" ng-required="hrsTypeDefined">
+                                               ng-model="contract.hour.fte_denom" ng-disabled="isDisabled" ng-required="hrsTypeDefined">
                                     </div>
                                 </div>
                             </div>

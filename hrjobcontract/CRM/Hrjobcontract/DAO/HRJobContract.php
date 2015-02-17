@@ -155,6 +155,14 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
           'import' => true,
           'FKClassName' => 'CRM_Contact_DAO_Contact',
         ) ,
+        'deleted' => array(
+          'name' => 'deleted',
+          'type' => CRM_Utils_Type::T_INT,
+          'title' => ts('Is deleted?') ,
+          'export' => true,
+          'import' => true,
+          'where' => 'civicrm_hrjobcontract.deleted',
+        ) ,
       );
     }
     return self::$_fields;
@@ -172,6 +180,7 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
       self::$_fieldKeys = array(
         'id' => 'id',
         'contact_id' => 'contact_id',
+        'deleted' => 'deleted',
       );
     }
     return self::$_fieldKeys;

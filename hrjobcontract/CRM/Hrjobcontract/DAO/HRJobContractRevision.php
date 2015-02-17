@@ -143,8 +143,6 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
           'type' => CRM_Utils_Type::T_INT,
           'title' => ts('Revision Id') ,
           'required' => true,
-          'export' => true,
-          'import' => true,
           'where' => 'civicrm_hrjobcontract_revision.id',
         ) ,
         'jobcontract_id' => array(
@@ -154,12 +152,11 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
           'required' => true,
           'export' => true,
           'import' => true,
-          'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJobContract',
         ) ,
         'editor_uid' => array(
           'name' => 'editor_uid',
           'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Editor Uid') ,
+          'title' => ts('Editor UID') ,
           'required' => true,
           'export' => true,
           'import' => true,
@@ -202,7 +199,7 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
         'status' => array(
           'name' => 'status',
           'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Status') ,
+          'title' => ts('Revision status') ,
           'required' => false,
           'export' => true,
           'import' => true,
@@ -270,6 +267,14 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
           'import' => true,
           'FKClassName' => 'CRM_Hrjobcontract_DAO_HRJobRole',
         ) ,
+        'deleted' => array(
+          'name' => 'deleted',
+          'type' => CRM_Utils_Type::T_INT,
+          'title' => ts('Is deleted?') ,
+          'export' => true,
+          'import' => true,
+          'where' => 'civicrm_hrjobcontract_revision.deleted',
+        ) ,
       );
     }
     return self::$_fields;
@@ -300,6 +305,7 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
         'pay_revision_id' => 'pay_revision_id',
         'pension_revision_id' => 'pension_revision_id',
         'role_revision_id' => 'role_revision_id',
+        'deleted' => 'deleted',
       );
     }
     return self::$_fieldKeys;

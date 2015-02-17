@@ -640,6 +640,12 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
       ");
       return TRUE;
   }
+  
+  function upgrade_0002() {
+      CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract` ADD `deleted` INT(2) UNSIGNED NOT NULL DEFAULT '0'");
+      CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_revision` ADD `deleted` INT(2) UNSIGNED NOT NULL DEFAULT '0'");
+      return TRUE;
+  }
           
   function decToFraction($fte) {
     $fteDecimalPart = explode('.', $fte);

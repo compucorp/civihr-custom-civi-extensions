@@ -83,3 +83,14 @@ function civicrm_api3_h_r_job_contract_get($params) {
 function civicrm_api3_h_r_job_contract_deletecontract($params) {
   return _civicrm_hrjobcontract_api3_deletecontract($params);
 }
+
+/**
+ * HRJobContract.deletecontract API
+ *
+ * @param array $params
+ * @return array API result descriptor
+ * @throws API_Exception
+ */
+function civicrm_api3_h_r_job_contract_deletecontractpermanently($params) {
+  return _civicrm_hrjobcontract_api3_deletecontractpermanently($params);
+}

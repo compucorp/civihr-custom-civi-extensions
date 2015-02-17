@@ -632,11 +632,6 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
 
     CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_revision` ADD `editor_uid` INT(10) NULL DEFAULT NULL AFTER `jobcontract_id`");
     
-      CRM_Core_DAO::executeQuery("
-        INSERT INTO `civicrm_hrpay_scale` (`id`, `pay_scale`, `pay_grade`, `currency`, `amount`, `periodicity`, `is_active`) VALUES
-        (8, 'Not Applicable', NULL, NULL, NULL, NULL, 1)
-      ");
-    
       CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract` ADD `deleted` INT(2) UNSIGNED NOT NULL DEFAULT '0'");
       CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_revision` ADD `deleted` INT(2) UNSIGNED NOT NULL DEFAULT '0'");
   }

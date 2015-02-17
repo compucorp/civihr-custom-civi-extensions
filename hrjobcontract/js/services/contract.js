@@ -31,7 +31,8 @@ define(['services/services'], function (services) {
                 if (!CRM || !CRM.jobContractTabApp || !CRM.jobContractTabApp.contractList) {
                     params = {
                         sequential: 1,
-                        contact_id: settings.contactId
+                        contact_id: settings.contactId,
+                        deleted: 0
                     };
 
                     if (contactId && typeof +contactId === 'number') {
@@ -62,6 +63,7 @@ define(['services/services'], function (services) {
 
                 var deffered = $q.defer(),
                     params = {
+                        deleted: 0,
                         sequential: 1,
                         contact_id: settings.contactId,
                         id: contractId
@@ -89,6 +91,7 @@ define(['services/services'], function (services) {
 
                 var deffered = $q.defer(),
                     params = {
+                        deleted: 0,
                         options: {
                             limit: 0
                         },

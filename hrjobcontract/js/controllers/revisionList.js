@@ -40,16 +40,6 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                 revisionDataListCurrent = $filter('orderBy')($scope.revisionDataList, $scope.sortCol, $scope.sortReverse);
             };
 
-            $scope.$watch('currentPage', function() {
-                $scope.createPage();
-            });
-
-            $scope.$watch('revisionDataList.length', function() {
-                revisionDataListCurrent = $scope.revisionDataList;
-                $scope.sortBy();
-                $scope.createPage();
-            });
-
             function fetchRevisions(contractId){
                 $scope.revisionList.length = 0;
                 $scope.revisionDataList.length = 0;
@@ -90,37 +80,51 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
             fetchRevisions(contractId);
 
             function urlCSVBuild(){
-                var url = settings.pathReport + '?', fieldName, entityName, prefix;
-                console.log($scope.fields);
+                var url = settings.pathReport + '?',
+                    fields = $scope.fields;
 
-
-                /*
-                angular.forEach($scope.fields, function(field){
-
-                    fieldName = field.name != 'editor_name' ? field.name : 'editor_uid';
-                    prefix = !field.extends ? (entityName + '_') : '';
-
-                    if (field.selected) {
-                        url += 'fields['+prefix+fieldName+']=1&';
-                    }
+                angular.forEach(fields, function(entityFields, entityName){
+                    url += 'fields['+entityName+'_revision_id]=1&';
+                    angular.forEach(entityFields, function(field){
+                        url += 'fields['+entityName+'_'+field.name+']=1&';
+                    })
                 });
 
-                url += 'order_bys[1][column]=sort_name&order_bys[1][order]=ASC' +
+
+                url += 'fields[id]=1&' +
+                'fields[change_reason]=1&' +
+                'fields[contact_id]=1&' +
+                'fields[created_date]=1&' +
+                'fields[editor_uid]=1&' +
+                'fields[effective_date]=1&' +
+                'fields[modified_date]=1&' +
+                'fields[status]=1&' +
+                'order_bys[1][column]=sort_name&order_bys[1][order]=ASC' +
                 '&order_bys[2][column]=-&order_bys[2][order]=ASC' +
                 '&order_bys[3][column]=-&order_bys[3][order]=ASC' +
                 '&order_bys[4][column]=-&order_bys[4][order]=ASC' +
                 '&order_bys[5][column]=-&order_bys[5][order]=ASC' +
-                '&group_bys[civicrm_hrjobcontract_'+entityName+'_jobcontract_revision_id]=1' +
                 '&contract_id_op=eq&permission=access+CiviReport' +
                 '&row_count=' +
                 '&_qf_Summary_submit_csv=Preview+CSV' +
                 '&groups=' +
-                '&contract_id_value='+revisionList[0].jobcontract_id;
+                '&contract_id_value='+contractId;
 
                 return url;
-                */
             };
+
             $scope.urlCSV = urlCSVBuild();
+
+
+            $scope.$watch('currentPage', function() {
+                $scope.createPage();
+            });
+
+            $scope.$watch('revisionDataList.length', function() {
+                revisionDataListCurrent = $scope.revisionDataList;
+                $scope.sortBy();
+                $scope.createPage();
+            });
 
             $scope.$on('unsetIsPrimary',function(e, excludeContractId, revisionCreated){
                 if (contractId == excludeContractId) {

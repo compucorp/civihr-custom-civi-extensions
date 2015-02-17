@@ -563,7 +563,7 @@
                     </div>
                 </div>
             </tab>
-            <tab heading="Insurance" ng-controller="FormInsuranceCtrl">
+            <tab heading="Insurance" ng-controller="FormHealthCtrl">
                 <div class="row">
                     <div class="col-xs-12">
                         <h4>Health Insurance</h4>
@@ -573,50 +573,50 @@
                     <div class="col-xs-12">
                         <div class="form-group has-feedback"
                              ng-class="{
-                                'has-error': (contractForm.insuranceProviderHealth.$dirty && (!contract.insurance.provider && contractForm.insuranceProviderHealth.$viewValue)),
-                                'has-success': (contractForm.insuranceProviderHealth.$dirty && (contract.insurance.provider)),
+                                'has-error': (contractForm.healthProviderHealth.$dirty && (!contract.health.provider && contractForm.healthProviderHealth.$viewValue)),
+                                'has-success': (contractForm.healthProviderHealth.$dirty && (contract.health.provider)),
                              }">
-                            <label for="{{prefix}}insurance-health-provider" class="col-sm-4 control-label">Provider
+                            <label for="{{prefix}}health-health-provider" class="col-sm-4 control-label">Provider
                                 <a tooltip-placement="right"
                                    tooltip="The name of the health insurance company.">
                                     <i class="fa fa-question-circle"></i>
                                 </a></label>
 
                             <div class="col-sm-8">
-                                <input type="text" id="{{prefix}}insurance-health-provider" name="insuranceProviderHealth" class="form-control"
+                                <input type="text" id="{{prefix}}health-health-provider" name="healthProviderHealth" class="form-control"
                                        typeahead="provider as provider.label for provider in search($viewValue, 'Health_Insurance_Provider')"
                                        typeahead-editable="false"
                                        typeahead-loading="typeheadLoading.provider"
                                        placeholder="- select -"
                                        ng-model="typehead.provider"
                                        ng-disabled="isDisabled">
-                                <i ng-show="contractForm.insuranceProviderHealth.$dirty && contract.insurance.provider" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></i>
+                                <i ng-show="contractForm.healthProviderHealth.$dirty && contract.health.provider" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></i>
                                 <i ng-show="typeheadLoading.provider" class="fa fa-spin fa-spinner fa-spin-loading"></i>
-                                <input type="hidden" ng-model="contract.insurance.provider">
+                                <input type="hidden" ng-model="contract.health.provider">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="insurance-health-plan" class="col-sm-4 control-label">Plan Type</label>
+                            <label for="health-health-plan" class="col-sm-4 control-label">Plan Type</label>
 
                             <div class="col-sm-4">
-                                <select id="insurance-health-plan" class="form-control"
-                                        ng-model="contract.insurance.plan_type"
-                                        ng-options="key as value for (key, value) in options.insurance.plan_type"
+                                <select id="health-health-plan" class="form-control"
+                                        ng-model="contract.health.plan_type"
+                                        ng-options="key as value for (key, value) in options.health.plan_type"
                                         ng-disabled="isDisabled">
                                     <option value="">- select -</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="insurance-health-desc" class="col-sm-4 control-label">Description</label>
+                            <label for="health-health-desc" class="col-sm-4 control-label">Description</label>
 
                             <div class="col-sm-8">
-                                <textarea id="insurance-health-desc" name="insurance-health-desc" class="form-control"
-                                          rows="3" ng-model="contract.insurance.description" ng-disabled="isDisabled"></textarea>
+                                <textarea id="health-health-desc" name="health-health-desc" class="form-control"
+                                          rows="3" ng-model="contract.health.description" ng-disabled="isDisabled"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="insurance-health-deps" class="col-sm-4 control-label">Dependents
+                            <label for="health-health-deps" class="col-sm-4 control-label">Dependents
                                 <a tooltip-placement="right"
                                    tooltip="For a family plan, please list
                                                        the names of all dependents who are also covered, along
@@ -626,8 +626,8 @@
                             </label>
 
                             <div class="col-sm-8">
-                                <textarea id="insurance-health-deps" name="insurance-health-deps" class="form-control"
-                                          rows="3" ng-model="contract.insurance.dependents" ng-disabled="isDisabled"></textarea>
+                                <textarea id="health-health-deps" name="health-health-deps" class="form-control"
+                                          rows="3" ng-model="contract.health.dependents" ng-disabled="isDisabled"></textarea>
                             </div>
                         </div>
                     </div>
@@ -641,46 +641,46 @@
                     <div class="col-xs-12">
                         <div class="form-group has-feedback"
                              ng-class="{
-                                'has-error': (contractForm.insuranceProviderLife.$dirty && (!contract.insurance.provider_life_insurance && contractForm.insuranceProviderLife.$viewValue)),
-                                'has-success': (contractForm.insuranceProviderLife.$dirty && (contract.insurance.provider_life_insurance)),
+                                'has-error': (contractForm.healthProviderLife.$dirty && (!contract.health.provider_life_insurance && contractForm.healthProviderLife.$viewValue)),
+                                'has-success': (contractForm.healthProviderLife.$dirty && (contract.health.provider_life_insurance)),
                              }">
-                            <label for="{{prefix}}insurance-life-provider" class="col-sm-4 control-label">Provider</label>
+                            <label for="{{prefix}}health-life-provider" class="col-sm-4 control-label">Provider</label>
 
                             <div class="col-sm-8">
-                                <input type="text" id="{{prefix}}insurance-life-provider" name="insuranceProviderLife" class="form-control"
+                                <input type="text" id="{{prefix}}health-life-provider" name="healthProviderLife" class="form-control"
                                 typeahead="provider as provider.label for provider in search($viewValue, 'Life_Insurance_Provider')"
                                 typeahead-editable="false"
                                 typeahead-loading="typeheadLoading.provider_life_insurance"
                                 placeholder="- select -"
                                 ng-model="typehead.provider_life_insurance"
                                 ng-disabled="isDisabled">
-                                <i ng-show="contractForm.insuranceProviderLife.$dirty && contract.insurance.provider_life_insurance" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></i>
+                                <i ng-show="contractForm.healthProviderLife.$dirty && contract.health.provider_life_insurance" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></i>
                                 <i ng-show="typeheadLoading.provider_life_insurance" class="fa fa-spin fa-spinner fa-spin-loading"></i>
-                                <input type="hidden" ng-model="contract.insurance.provider_life_insurance">
+                                <input type="hidden" ng-model="contract.health.provider_life_insurance">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="insurance-life-plan" class="col-sm-4 control-label">Plan Type</label>
+                            <label for="health-life-plan" class="col-sm-4 control-label">Plan Type</label>
 
                             <div class="col-sm-4">
-                                <select id="insurance-life-plan" class="form-control"
-                                        ng-model="contract.insurance.plan_type_life_insurance"
-                                        ng-options="key as value for (key, value) in options.insurance.plan_type_life_insurance"
+                                <select id="health-life-plan" class="form-control"
+                                        ng-model="contract.health.plan_type_life_insurance"
+                                        ng-options="key as value for (key, value) in options.health.plan_type_life_insurance"
                                         ng-disabled="isDisabled">
                                     <option value="">- select -</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="insurance-life-desc" class="col-sm-4 control-label">Description</label>
+                            <label for="health-life-desc" class="col-sm-4 control-label">Description</label>
 
                             <div class="col-sm-8">
-                                <textarea id="insurance-life-desc" name="insurance-life-desc" class="form-control"
-                                          rows="3" ng-model="contract.insurance.description_life_insurance" ng-disabled="isDisabled"></textarea>
+                                <textarea id="health-life-desc" name="health-life-desc" class="form-control"
+                                          rows="3" ng-model="contract.health.description_life_insurance" ng-disabled="isDisabled"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="insurance-life-deps" class="col-sm-4 control-label">Dependents
+                            <label for="health-life-deps" class="col-sm-4 control-label">Dependents
                                 <a tooltip-placement="right"
                                    tooltip="For a family plan, please list
                                                        the names of all dependents who are also covered, along
@@ -690,8 +690,8 @@
                             </label>
 
                             <div class="col-sm-8">
-                                <textarea id="insurance-life-deps" name="insurance-life-deps" class="form-control"
-                                          rows="3" ng-model="contract.insurance.dependents_life_insurance" ng-disabled="isDisabled"></textarea>
+                                <textarea id="health-life-deps" name="health-life-deps" class="form-control"
+                                          rows="3" ng-model="contract.health.dependents_life_insurance" ng-disabled="isDisabled"></textarea>
                             </div>
                         </div>
                     </div>

@@ -2,16 +2,16 @@ define(['controllers/controllers',
         'filters/getObjById',
         'services/contractDetails',
         'services/contractHours',
-        'services/contractInsurance',
+        'services/contractHealth',
         'services/contractLeave',
         'services/contractPay',
         'services/contractPension',
         'services/utils'], function(controllers){
     controllers.controller('ContractListCtrl',['$scope','$rootElement','$rootScope','$modal','$q', '$filter', 'contractList','ContractService',
-        'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService', 'ContractInsuranceService',
+        'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService', 'ContractHealthService',
         'ContractPensionService', 'UtilsService','settings', '$log',
         function($scope, $rootElement, $rootScope, $modal, $q, $filter, contractList, ContractService, ContractDetailsService,
-                 ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService, ContractPensionService,
+                 ContractHoursService, ContractPayService, ContractLeaveService, ContractHealthService, ContractPensionService,
                  UtilsService, settings, $log){
             $log.debug('Controller: ContractListCtrl');
 
@@ -20,7 +20,7 @@ define(['controllers/controllers',
                     hours: ContractHoursService,
                     pay: ContractPayService,
                     leave: ContractLeaveService,
-                    insurance: ContractInsuranceService,
+                    health: ContractHealthService,
                     pension: ContractPensionService
                 }, entityName, promiseFields = {}, promiseModel = {};
 
@@ -114,7 +114,7 @@ define(['controllers/controllers',
                 var modalInstance,
                     options = {
                         targetDomEl: $rootElement.find('div').eq(0),
-                        templateUrl: settings.pathApp+'views/modalForm.html?v=sdfs',
+                        templateUrl: settings.pathApp+'views/modalForm.html?v=rger',
                         size: 'lg',
                         controller: 'ModalContractNewCtrl',
                         resolve: {

@@ -43,7 +43,7 @@ require([
     'controllers/modal/modalRevision',
     'controllers/form/formGeneral',
     'controllers/form/formHours',
-    'controllers/form/formInsurance',
+    'controllers/form/formHealth',
     'controllers/form/formPay',
     'controllers/form/formPension',
     'directives/directives',
@@ -98,9 +98,9 @@ require([
     ]);
 
     app.run(['settings','$rootScope','$q', '$log', 'ContractService', 'ContractDetailsService', 'ContractHoursService',
-        'ContractPayService', 'ContractLeaveService', 'ContractInsuranceService', 'ContractPensionService',
+        'ContractPayService', 'ContractLeaveService', 'ContractHealthService', 'ContractPensionService',
         function(settings, $rootScope, $q, $log, ContractService, ContractDetailsService, ContractHoursService, ContractPayService,
-                 ContractLeaveService, ContractInsuranceService, ContractPensionService){
+                 ContractLeaveService, ContractHealthService, ContractPensionService){
             $log.debug('app.run');
 
             $rootScope.pathTpl = settings.pathTpl;
@@ -112,7 +112,7 @@ require([
                 hours: ContractHoursService.getOptions(),
                 pay: ContractPayService.getOptions(),
                 leave: ContractLeaveService.getOptions(),
-                insurance: ContractInsuranceService.getOptions(),
+                health: ContractHealthService.getOptions(),
                 pension: ContractPensionService.getOptions()
             }).then(function(results){
                 results.details.is_primary = ['No','Yes'];

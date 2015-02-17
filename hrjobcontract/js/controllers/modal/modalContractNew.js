@@ -4,17 +4,17 @@ define(['controllers/controllers',
         'services/contractHours',
         'services/contractPay',
         'services/contractLeave',
-        'services/contractInsurance',
+        'services/contractHealth',
         'services/contractPension',
         'services/contractFiles',
         'services/utils'], function(controllers){
 
     controllers.controller('ModalContractNewCtrl', ['$scope', '$modalInstance', '$q', 'Contract','ContractService',
         'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
-        'ContractInsuranceService', 'ContractPensionService', 'ContractFilesService', 'model', 'UtilsService', 'utils',
+        'ContractHealthService', 'ContractPensionService', 'ContractFilesService', 'model', 'UtilsService', 'utils',
         'settings', '$log',
         function($scope, $modalInstance, $q, Contract, ContractService, ContractDetailsService, ContractHoursService,
-                 ContractPayService, ContractLeaveService, ContractInsuranceService, ContractPensionService,
+                 ContractPayService, ContractLeaveService, ContractHealthService, ContractPensionService,
                  ContractFilesService, model, UtilsService, utils, settings, $log){
             $log.debug('Controller: ModalContractNewCtrl');
 
@@ -60,7 +60,7 @@ define(['controllers/controllers',
                         contractHours = $scope.contract.hours,
                         contractPay = $scope.contract.pay,
                         contractLeave = $scope.contract.leave,
-                        contractInsurance = $scope.contract.insurance,
+                        contractHealth = $scope.contract.health,
                         contractPension = $scope.contract.pension,
                         promiseUpload = [],
                         revisionId;
@@ -87,7 +87,7 @@ define(['controllers/controllers',
                             ContractHoursService.save(contractHours),
                             ContractPayService.save(contractPay),
                             ContractLeaveService.save(contractLeave),
-                            ContractInsuranceService.save(contractInsurance),
+                            ContractHealthService.save(contractHealth),
                             ContractPensionService.save(contractPension)
                         ]);
                     }).then(function(){

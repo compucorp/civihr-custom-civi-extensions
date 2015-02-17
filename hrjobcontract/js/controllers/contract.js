@@ -4,13 +4,13 @@ define(['controllers/controllers',
         'services/contractPay',
         'services/contractLeave',
         'services/contractPension',
-        'services/contractInsurance',
+        'services/contractHealth',
         'services/utils',], function(controllers){
     controllers.controller('ContractCtrl',['$scope', '$route', '$filter', '$modal', '$rootElement', '$q', 'settings',
         'API', 'ContractDetailsService', 'ContractHoursService', 'ContractPayService', 'ContractLeaveService',
-        'ContractInsuranceService', 'ContractPensionService','ContractFilesService','$log',
+        'ContractHealthService', 'ContractPensionService','ContractFilesService','$log',
         function($scope, $route, $filter, $modal, $rootElement, $q, settings, API, ContractDetailsService,
-                 ContractHoursService, ContractPayService, ContractLeaveService, ContractInsuranceService,
+                 ContractHoursService, ContractPayService, ContractLeaveService, ContractHealthService,
                  ContractPensionService, ContractFilesService, $log){
             $log.debug('Controller: ContractCtrl');
 
@@ -28,7 +28,7 @@ define(['controllers/controllers',
                 hours: ContractHoursService.getOne({ jobcontract_id: contractId}),
                 pay: ContractPayService.getOne({ jobcontract_id: contractId}),
                 leave: ContractLeaveService.get({ jobcontract_id: contractId}),
-                insurance: ContractInsuranceService.getOne({ jobcontract_id: contractId}),
+                health: ContractHealthService.getOne({ jobcontract_id: contractId}),
                 pension: ContractPensionService.getOne({ jobcontract_id: contractId})
             }).then(function(results){
 
@@ -47,7 +47,7 @@ define(['controllers/controllers',
                 });
 
 
-                angular.extend($scope.insurance, results.insurance || contractRevisionIdObj);
+                angular.extend($scope.health, results.health || contractRevisionIdObj);
                 angular.extend($scope.pension, results.pension || contractRevisionIdObj);
 
                 $scope.contractLoaded = true;
@@ -90,7 +90,7 @@ define(['controllers/controllers',
                                         hours: $scope.hours,
                                         pay: $scope.pay,
                                         leave: $scope.leave,
-                                        insurance: $scope.insurance,
+                                        health: $scope.health,
                                         pension: $scope.pension
                                     }
                                 }
@@ -100,7 +100,7 @@ define(['controllers/controllers',
                                     hours: ContractHoursService.getOne({ jobcontract_revision_id: revisionEntityIdObj.hour_revision_id }),
                                     pay: ContractPayService.getOne({ jobcontract_revision_id: revisionEntityIdObj.pay_revision_id }),
                                     leave: ContractLeaveService.get({ jobcontract_revision_id: revisionEntityIdObj.leave_revision_id }),
-                                    insurance: ContractInsuranceService.getOne({ jobcontract_revision_id: revisionEntityIdObj.health_revision_id }),
+                                    health: ContractHealthService.getOne({ jobcontract_revision_id: revisionEntityIdObj.health_revision_id }),
                                     pension: ContractPensionService.getOne({ jobcontract_revision_id: revisionEntityIdObj.pension_revision_id })
                                 }).then(function(results){
 
@@ -118,7 +118,7 @@ define(['controllers/controllers',
                                     angular.forEach(contract.leave, function(leaveType, leaveTypeId){
                                         angular.extend(leaveType, results.leave ? results.leave[leaveTypeId] || contractRevisionIdObj : contractRevisionIdObj);
                                     });
-                                    angular.extend(contract.insurance, results.insurance || contractRevisionIdObj);
+                                    angular.extend(contract.health, results.health || contractRevisionIdObj);
                                     angular.extend(contract.pension, results.pension || contractRevisionIdObj);
 
                                     return contract;
@@ -183,7 +183,7 @@ define(['controllers/controllers',
                     angular.extend($scope.hours, results.hours);
                     angular.extend($scope.pay, results.pay);
                     $scope.leave = results.leave;
-                    angular.extend($scope.insurance, results.insurance);
+                    angular.extend($scope.health, results.health);
                     angular.extend($scope.pension, results.pension);
 
                     if (results.revisionCreated) {
@@ -237,9 +237,6 @@ define(['controllers/controllers',
 
                 //TODO
                 switch(entity){
-                    case 'health':
-                        entity = 'insurance';
-                        break;
                     case 'hour':
                         entity = 'hours';
                         break;
@@ -249,7 +246,7 @@ define(['controllers/controllers',
                     targetDomEl: $rootElement.find('div').eq(0),
                     size: 'lg',
                     controller: 'ModalRevisionCtrl',
-                    templateUrl: settings.pathApp+'views/modalRevision.html?v=123',
+                    templateUrl: settings.pathApp+'views/modalRevision.html?v=wfrwe',
                     windowClass: 'modal-revision',
                     resolve: {
                         entity: function(){

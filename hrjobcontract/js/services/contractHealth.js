@@ -1,11 +1,11 @@
 define(['services/services',
         'services/utils'], function (services) {
 
-    services.factory('ContractInsuranceService', ['$resource', 'settings', '$q', 'UtilsService', '$log',
+    services.factory('ContractHealthService', ['$resource', 'settings', '$q', 'UtilsService', '$log',
         function ($resource, settings, $q, UtilsService, $log) {
-            $log.debug('Service: ContractInsuranceService');
+            $log.debug('Service: ContractHealthService');
 
-        var ContractInsurance = $resource(settings.pathRest, {
+        var ContractHealth = $resource(settings.pathRest, {
             action: 'get',
             entity: 'HRJobHealth',
             json: {}
@@ -27,16 +27,16 @@ define(['services/services',
                 var deffered = $q.defer(),
                     val;
 
-                ContractInsurance.get({json: params}, function(data){
+                ContractHealth.get({json: params}, function(data){
 
-                    if (UtilsService.errorHandler(data,'Unable to fetch contract Insurance', deffered)) {
+                    if (UtilsService.errorHandler(data,'Unable to fetch contract Health', deffered)) {
                         return
                     }
 
                     val = data.values;
                     deffered.resolve(val.length == 1 ? val[0] : null);
                 },function(){
-                    deffered.reject('Unable to fetch contract Insurance');
+                    deffered.reject('Unable to fetch contract Health');
                 });
 
                 return deffered.promise;
@@ -76,7 +76,7 @@ define(['services/services',
                 } else {
                     params.sequential = 1;
 
-                    ContractInsurance.get({
+                    ContractHealth.get({
                         action: 'getfields',
                         json: params
                     }, function(data){
@@ -93,9 +93,9 @@ define(['services/services',
 
                 return deffered.promise;
             },
-            save: function(contractInsurance){
+            save: function(contractHealth){
 
-                if (!contractInsurance || typeof contractInsurance !== 'object') {
+                if (!contractHealth || typeof contractHealth !== 'object') {
                     return null;
                 }
 
@@ -103,10 +103,10 @@ define(['services/services',
                     params = angular.extend({
                         sequential: 1,
                         debug: settings.debug
-                    },contractInsurance),
+                    },contractHealth),
                     val;
 
-                ContractInsurance.save({
+                ContractHealth.save({
                     action: 'create',
                     json: params
                 }, null, function(data){

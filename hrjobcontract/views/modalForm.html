@@ -315,7 +315,7 @@
                         <div class="col-sm-5">
                             <select id="{{prefix}}pay-scale-grade" class="form-control"
                                     ng-change="applyPayScaleGradeData()"
-                                    ng-options="payScaleGrade.id as (payScaleGrade.pay_scale + ' - ' + payScaleGrade.pay_grade + ' - ' + payScaleGrade.currency + ' ' + payScaleGrade.amount + ' per ' + payScaleGrade.periodicity) for payScaleGrade in utils.payScaleGrade"
+                                    ng-options="payScaleGrade.id as (payScaleGrade.pay_scale + (payScaleGrade.pay_grade ? ' - ' + payScaleGrade.pay_grade : '') + (payScaleGrade.currency || payScaleGrade.amount ? ' - ' : '') + payScaleGrade.currency + ' ' + payScaleGrade.amount + (payScaleGrade.periodicity ? ' per ' + payScaleGrade.periodicity : '')) for payScaleGrade in utils.payScaleGrade"
                                     ng-model="contract.pay.pay_scale"
                                     ng-disabled="isDisabled">
                                 <option value="">- select -</option>

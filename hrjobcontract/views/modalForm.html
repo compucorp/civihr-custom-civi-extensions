@@ -232,6 +232,7 @@
                                     <div class="form-inline">
                                         <input type="text" class="form-control input-inline-sm" id="{{prefix}}actual-hours"
                                                hrjc-number
+                                               hrjc-number-float="true"
                                                ng-model="contract.hours.hours_amount"
                                                ng-disabled="isDisabled || contract.hours.hours_type == 8" ng-required="hrsTypeDefined">
                                         per
@@ -421,6 +422,7 @@
                                             </select></td>
                                             <td><input type="text" class="form-control"
                                                        hrjc-number
+                                                       hrjc-number-float="true"
                                                        ng-if="benefit.type == '2'"
                                                        ng-model="benefit.amount_pct"
                                                        ng-disabled="isDisabled"></td>
@@ -481,6 +483,7 @@
                                             </select></td>
                                             <td><input type="text" class="form-control"
                                                        hrjc-number
+                                                       hrjc-number-float="true"
                                                        ng-if="deduction.type == '2'"
                                                        ng-model="deduction.amount_pct"
                                                        ng-disabled="isDisabled"></td>
@@ -726,28 +729,41 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="pension-contrib-emplr" class="col-sm-4 control-label">Employer Contribution (%)</label>
+                            <label for="pension-contrib-emplr" class="col-sm-4 control-label">
+                                Employer Contribution (%)
+                                <a tooltip-placement="right" tooltip="The contribution paid by the employer as a percentage of gross salary.">
+                                    <i class="fa fa-question-circle"></i>
+                                </a>
+                            </label>
 
                             <div class="col-sm-3">
                                 <input type="text" id="pension-contrib-emplr" name="pension-contrib-emplr" class="form-control"
-                                       hrjc-number="2"
+                                       hrjc-number
+                                       hrjc-number-float="true"
                                        ng-model="contract.pension.er_contrib_pct"
                                        ng-disabled="isDisabled">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="pension-contrib-emple" class="col-sm-4 control-label">Employee Contribution (%)</label>
+                            <label for="pension-contrib-emple" class="col-sm-4 control-label">
+                                Employee Contribution (%)
+                                <a tooltip-placement="right" tooltip="The contribution paid by the employee as a percentage of gross salary.">
+                                    <i class="fa fa-question-circle"></i>
+                                </a>
+                            </label>
 
                             <div class="col-sm-3">
                                 <input type="text" id="pension-contrib-emple" name="pension-contrib-emple" class="form-control"
-                                       hrjc-number="2"
+                                       hrjc-number
+                                       hrjc-number-float="true"
                                        ng-model="contract.pension.ee_contrib_pct"
                                        ng-disabled="isDisabled">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="pension-contrib-emple-abs" class="col-sm-4 control-label control-label-line-2">Employee
-                                Contribution (absolute amount)</label>
+                            <label for="pension-contrib-emple-abs" class="col-sm-4 control-label control-label-line-2">
+                                Employee Contribution (absolute amount)
+                            </label>
 
                             <div class="col-sm-3">
                                 <input type="text" id="pension-contrib-emple-abs" hrjc-number name="pension-contrib-emple-abs"

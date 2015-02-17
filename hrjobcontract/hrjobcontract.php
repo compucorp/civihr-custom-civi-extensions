@@ -84,6 +84,13 @@ function hrjobcontract_civicrm_install() {
   
   $jobContractOptionsMenuTree = array(
     array(
+      'label'      => ts('Hours Types'),
+      'name'       => 'hoursType',
+      'url'        => 'civicrm/hour/editoption',
+      'permission' => 'administer CiviCRM',
+      'parent_id'  => $administerNavId,
+    ),
+    array(
       'label'      => ts('Job Contract Pay Scale'),
       'name'       => 'pay_scale',
       'url'        => 'civicrm/pay_scale',
@@ -129,7 +136,7 @@ function hrjobcontract_civicrm_uninstall() {
   if (!empty($jobContractMenu)) {
     CRM_Core_BAO_Navigation::processDelete($jobContractMenu);
   }
-  CRM_Core_DAO::executeQuery("DELETE FROM civicrm_navigation WHERE name IN ('pay_scale','hours_location')");
+  CRM_Core_DAO::executeQuery("DELETE FROM civicrm_navigation WHERE name IN ('hoursType', 'pay_scale','hours_location')");
   CRM_Core_BAO_Navigation::resetNavigation();
 
   //delete custom groups and field
@@ -156,7 +163,7 @@ function hrjobcontract_civicrm_uninstall() {
  */
 function hrjobcontract_civicrm_enable() {
   //Enable the Navigation menu and submenus
-  $sql = "UPDATE civicrm_navigation SET is_active=1 WHERE name IN ('job_contracts', 'hours_location', 'pay_scale')";
+  $sql = "UPDATE civicrm_navigation SET is_active=1 WHERE name IN ('job_contracts', 'hoursType', 'hours_location', 'pay_scale')";
   CRM_Core_DAO::executeQuery($sql);
   CRM_Core_BAO_Navigation::resetNavigation();
     
@@ -171,7 +178,7 @@ function hrjobcontract_civicrm_enable() {
  */
 function hrjobcontract_civicrm_disable() {
   //Disable the Navigation menu and submenus
-  $sql = "UPDATE civicrm_navigation SET is_active=0 WHERE name IN ('job_contracts', 'hours_location', 'pay_scale')";
+  $sql = "UPDATE civicrm_navigation SET is_active=0 WHERE name IN ('job_contracts', 'hoursType', 'hours_location', 'pay_scale')";
   CRM_Core_DAO::executeQuery($sql);
   CRM_Core_BAO_Navigation::resetNavigation();
   

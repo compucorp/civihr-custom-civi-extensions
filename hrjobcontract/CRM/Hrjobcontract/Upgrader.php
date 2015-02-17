@@ -9,29 +9,6 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
       
     // $this->executeCustomDataFile('xml/customdata.xml');
     $this->executeSqlFile('sql/install.sql');
-     
-    $userApiKey = 'hrjc9c9jwe5v7upfzb40f6aq';
-    $userEmail = 'apiclient@compucorp.co.uk';
-    $userName = 'apiclient';
-    $userPassword = user_password(8);
- 
-    // Set up the user fields
-    $fields = array(
-        'name' => $userName,
-        'mail' => $userEmail,
-        'pass' => $userPassword,
-        'status' => 1,
-        'init' => 'email address',
-        'roles' => array(
-            DRUPAL_AUTHENTICATED_RID => 'authenticated user',
-            4 => 'civihr_admin' // @TODO -> don't hardcode RID as it could be potentionally different, when we upgrading sites
-        ),
-    );
-
-    // The first parameter is left blank so a new user is created
-    $account = user_save('', $fields);
-    CRM_Core_DAO::executeQuery("UPDATE civicrm_contact SET api_key = '" . $userApiKey . "' WHERE sort_name = '{$userEmail}'");
-    
     $this->migrateData();
     $this->upgradeBundle();
   }
@@ -395,19 +372,6 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
     $optionGroupId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup', 'hrjc_hours_type', 'id', 'name');
     //change value of stored hours type
     CRM_Core_DAO::executeQuery("UPDATE civicrm_hrjobcontract_hour SET hours_type = CASE hours_type WHEN 'full' THEN 8 WHEN 'part' THEN 4 WHEN 'casual' THEN 0 ELSE NULL END");
-
-    //$this->ctx->log->info('Applying update 1401');
-    $administerNavId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'Dropdown Options', 'id', 'name');
-    $params = array(
-      'label'      => ts('Hours Types'),
-      'name'       => 'hoursType',
-      'url'        => 'civicrm/hour/editoption',
-      'permission' => 'administer CiviCRM',
-      'parent_id'  => $administerNavId,
-      'is_active' => 1,
-    );
-    CRM_Core_BAO_Navigation::add($params);
-    CRM_Core_BAO_Navigation::resetNavigation();
 
     //$this->ctx->log->info('Applying update 1402');
     //Upgrade for HR-394 and HR-395

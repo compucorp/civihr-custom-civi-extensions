@@ -142,17 +142,17 @@ class CRM_Hrjobcontract_Page_Files extends CRM_Core_Page {
     $config = CRM_Core_Config::singleton();
     $postParams = $_POST;
     $result = 0;
+    $dest = $config->customFileUploadDir;
+    if ($dest != ''  && substr($dest, -1) != '/') {
+      $dest .= '/';
+    }
     
     $files = $_FILES;
     if(is_array($files) && !empty($files)) {
       foreach($files as $k => $v) {
-        $fileName = CRM_Utils_File::makeFileName(basename($v['name']));
+        $fileName = self::makeFileName(basename($v['name']), $dest);
         $maxSize = @filesize($v['tmp_name']);
 
-        $dest = $config->customFileUploadDir;
-        if ($dest != ''  && substr($dest, -1) != '/') {
-          $dest .= '/';
-        }
         $fileName = ($fileName != '') ? $fileName : basename($v['name']);
         if( is_uploaded_file($v['tmp_name']) ) {
           if( move_uploaded_file($v['tmp_name'], $dest . $fileName) ) {
@@ -181,5 +181,37 @@ class CRM_Hrjobcontract_Page_Files extends CRM_Core_Page {
 
     echo html_entity_decode(stripcslashes(json_encode(array('values' => array(array('result' => $result))), true)));
     CRM_Utils_System::civiExit( );
+  }
+  
+  /**
+   * @param $name
+   *
+   * @return string
+   */
+  static function makeFileName($name, $dest) {
+    $info     = pathinfo($name);
+    $basename = substr($info['basename'],
+      0, -(strlen(CRM_Utils_Array::value('extension', $info)) + (CRM_Utils_Array::value('extension', $info) == '' ? 0 : 1))
+    );
+    $filename = null;
+    
+    if (!CRM_Utils_File::isExtensionSafe(CRM_Utils_Array::value('extension', $info))) {
+      // munge extension so it cannot have an embbeded dot in it
+      // The maximum length of a filename for most filesystems is 255 chars.
+      // We'll truncate at 240 to give some room for the extension.
+      $filename = CRM_Utils_String::munge("{$basename}_" . CRM_Utils_Array::value('extension', $info), '_', 240) . ".unknown";
+    }
+    else {
+      $filename = CRM_Utils_String::munge("{$basename}", '_', 240) . "." . CRM_Utils_Array::value('extension', $info);
+    }
+    
+    $newFilename = $filename;
+    $i = 1;
+    while (file_exists($dest . $newFilename)) {
+        $fileinfo = pathinfo($dest . $filename);
+        $newFilename = $fileinfo['filename'] . '(' . $i++ . ')' . '.' . $fileinfo['extension'];
+    }
+    
+    return $newFilename;
   }
 }

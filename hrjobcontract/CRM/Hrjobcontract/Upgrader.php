@@ -631,20 +631,14 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
     CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_pay`  ADD `pay_cycle` INT(4) DEFAULT NULL  AFTER `annual_deductions`,  ADD `pay_per_cycle_gross` DECIMAL(10,2)  DEFAULT NULL  AFTER `pay_cycle`,  ADD `pay_per_cycle_net` DECIMAL(10,2)  DEFAULT NULL  AFTER `pay_per_cycle_gross`");
 
     CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_revision` ADD `editor_uid` INT(10) NULL DEFAULT NULL AFTER `jobcontract_id`");
-  }
-  
-  function upgrade_0001() {
+    
       CRM_Core_DAO::executeQuery("
         INSERT INTO `civicrm_hrpay_scale` (`id`, `pay_scale`, `pay_grade`, `currency`, `amount`, `periodicity`, `is_active`) VALUES
         (8, 'Not Applicable', NULL, NULL, NULL, NULL, 1)
       ");
-      return TRUE;
-  }
-  
-  function upgrade_0002() {
+    
       CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract` ADD `deleted` INT(2) UNSIGNED NOT NULL DEFAULT '0'");
       CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_revision` ADD `deleted` INT(2) UNSIGNED NOT NULL DEFAULT '0'");
-      return TRUE;
   }
           
   function decToFraction($fte) {

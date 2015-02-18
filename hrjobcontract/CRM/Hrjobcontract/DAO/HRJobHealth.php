@@ -215,6 +215,9 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
                 'name' => 'description',
                 'type' => CRM_Utils_Type::T_TEXT,
                 'title' => ts('Description Health Insurance') ,
+                'export' => true,
+                'import' => true,
+                'where' => 'civicrm_hrjobcontract_health.description',
               ) ,
               'dependents' => array(
                 'name' => 'dependents',
@@ -253,6 +256,9 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
                 'name' => 'description_life_insurance',
                 'type' => CRM_Utils_Type::T_TEXT,
                 'title' => ts('Description Life Insurance') ,
+                'export' => true,
+                'import' => true,
+                'where' => 'civicrm_hrjobcontract_health.description_life_insurance',
               ) ,
               'dependents_life_insurance' => array(
                 'name' => 'dependents_life_insurance',

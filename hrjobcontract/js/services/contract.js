@@ -169,7 +169,33 @@ define(['services/services'], function (services) {
                 });
 
                 return deffered.promise;
-            }
+            },
+            deleteRevision: function(revisionId) {
+
+                if (!revisionId || typeof +revisionId !== 'number') {
+                    return null;
+                }
+
+                var deffered = $q.defer(),
+                    val;
+
+                ContractRevision.save({
+                    action: 'create',
+                    json: {
+                        sequential: 1,
+                        deleted: 1,
+                        id: revisionId
+                    }
+                }, null, function(data){
+                    val = data.values;
+                    deffered.resolve(val.length == 1 ? val[0] : null);
+                },function(){
+                    deffered.reject('Unable to delete contract revision id: ' + revisionId);
+                });
+
+                return deffered.promise;
+
+            },
         }
 
     }]);

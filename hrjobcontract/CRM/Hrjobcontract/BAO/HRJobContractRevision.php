@@ -23,6 +23,7 @@ class CRM_Hrjobcontract_BAO_HRJobContractRevision extends CRM_Hrjobcontract_DAO_
     if ($hook === 'create')
     {
         $params['created_date'] = $now;
+        $params['deleted'] = 0;
     }
     else
     {

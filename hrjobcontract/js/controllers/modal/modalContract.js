@@ -25,7 +25,7 @@ define(['controllers/controllers',
 
                 copy.close = copy.close || 'Close',
                 copy.save = copy.save || 'Save changes',
-                copy.title = copy.title || 'Contract',
+                copy.title = copy.title || 'Contract';
 
             $scope.allowSave = typeof content.allowSave !== 'undefined' ? content.allowSave : false;
             $scope.contract = {};
@@ -117,7 +117,17 @@ define(['controllers/controllers',
                         targetDomEl: $rootElement.find('div').eq(0),
                         templateUrl: settings.pathApp+'views/modalChangeReason.html?v='+(new Date()).getTime(),
                         controller: 'ModalChangeReasonCtrl',
-                        resolve: {}
+                        resolve: {
+                            content: function(){
+                                return {
+                                    copy: {
+                                        title: copy.title
+                                    }
+                                }
+                            },
+                            date: null,
+                            reasonId: null
+                        }
                     });
 
                     return modalChangeReason.result;

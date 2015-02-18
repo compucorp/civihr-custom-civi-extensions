@@ -10153,6 +10153,10 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
   border-radius: 10px;
   background-color: #ccc;
 }
+/* line 104, ../sass/partials/_tables.scss */
+#hrjob-contract .hrjc-table-revision-list .btn-group-action {
+  min-width: 80px;
+}
 /* line 1, ../sass/partials/_tooltip.scss */
 #hrjob-contract .tooltip-inner {
   text-align: left;

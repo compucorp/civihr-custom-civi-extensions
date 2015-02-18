@@ -1,9 +1,17 @@
 define(['controllers/controllers', 'moment'], function(controllers, moment){
-    controllers.controller('ModalChangeReasonCtrl',['$scope','$modalInstance', '$log',
-        function($scope, $modalInstance, $log){
+    controllers.controller('ModalChangeReasonCtrl',['$scope','$modalInstance', 'content', 'date', 'reasonId', '$log',
+        function($scope, $modalInstance, content, date, reasonId, $log){
             $log.debug('Controller: ModalChangeReasonCtrl');
 
+            var content = content || {},
+                copy = content.copy || {};
+
+            copy.title = copy.title || 'Revision data';
+
             $scope.dpDateEffectiveMin = new Date();
+            $scope.change_reason = reasonId || '';
+            $scope.copy = copy;
+            $scope.effective_date = date || '';
 
             $scope.dpOpen = function($event, opened){
                 $event.preventDefault();

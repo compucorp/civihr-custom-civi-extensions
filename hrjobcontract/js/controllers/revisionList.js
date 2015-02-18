@@ -1,8 +1,8 @@
 define(['controllers/controllers', 'services/contract'], function(controllers){
-    controllers.controller('RevisionListCtrl',['$scope', '$filter', '$q', 'settings', 'ContractService',
+    controllers.controller('RevisionListCtrl',['$scope', '$filter', '$q', '$modal', '$rootElement', 'settings', 'ContractService',
         'ContractDetailsService', 'ContractHourService', 'ContractPayService', '$log',
-        function($scope, $filter, $q, settings, ContractService, ContractDetailsService, ContractHourService,
-                 ContractPayService, $log){
+        function($scope, $filter, $q, $modal, $rootElement, settings, ContractService, ContractDetailsService,
+                 ContractHourService, ContractPayService, $log){
             $log.debug('Controller: RevisionListCtrl');
 
             var contractId = $scope.contract.id,
@@ -112,9 +112,48 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
 
                 return url;
             };
-
             $scope.urlCSV = urlCSVBuild();
 
+            $scope.modalRevisionEdit = function(revisionEntityIdObj){
+                var date = revisionEntityIdObj.effective_date,
+                    reasonId = revisionEntityIdObj.change_reason;
+
+                var modalChangeReason = $modal.open({
+                    targetDomEl: $rootElement.find('div').eq(0),
+                    templateUrl: settings.pathApp+'views/modalChangeReason.html?v='+(new Date()).getTime(),
+                    controller: 'ModalChangeReasonCtrl',
+                    resolve: {
+                        content: function() {
+                            return {
+                                copy: {
+                                    title: 'Edit revision data'
+                                }
+                            }
+                        },
+                        date: function(){
+                            return date;
+                        },
+                        reasonId: function(){
+                            return reasonId;
+                        }
+                    }
+                });
+
+                modalChangeReason.result.then(function(results){
+                    if (results.date != date || results.reasonId != reasonId) {
+                        ContractService.saveRevision({
+                            id: revisionEntityIdObj.id,
+                            change_reason: results.reasonId,
+                            effective_date: results.date
+                        }).then(function(){
+                            revisionEntityIdObj.effective_date = results.date;
+                            revisionEntityIdObj.change_reason = results.reasonId;
+                            $scope.sortBy();
+                            $scope.createPage();
+                        });
+                    }
+                });
+            };
 
             $scope.$watch('currentPage', function() {
                 $scope.createPage();

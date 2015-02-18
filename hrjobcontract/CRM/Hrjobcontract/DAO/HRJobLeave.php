@@ -155,6 +155,8 @@ class CRM_Hrjobcontract_DAO_HRJobLeave extends CRM_Hrjobcontract_DAO_Base
                 'name' => 'leave_type',
                 'type' => CRM_Utils_Type::T_INT,
                 'title' => ts('Leave Type') ,
+                'export' => true,
+                'import' => true,
                 'pseudoconstant' => array(
                   'table' => 'civicrm_hrabsence_type',
                   'keyColumn' => 'id',

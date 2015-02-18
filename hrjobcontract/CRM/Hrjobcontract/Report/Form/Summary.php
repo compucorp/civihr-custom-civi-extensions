@@ -446,7 +446,7 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                     'dbAlias' => 'hrjobcontract_pay_civireport.pay_scale',
                 ),
                 'pay_is_paid' => array(
-                    'title' => ts('Paid / Unpaid'),
+                    'title' => ts('Paid'),
                     'no_repeat' => TRUE,
                     'dbAlias' => 'hrjobcontract_pay_civireport.is_paid',
                 ),

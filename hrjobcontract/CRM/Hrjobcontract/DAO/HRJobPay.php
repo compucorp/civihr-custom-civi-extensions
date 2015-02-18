@@ -209,7 +209,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
               'hrjob_is_paid' => array(
                 'name' => 'is_paid',
                 'type' => CRM_Utils_Type::T_INT,
-                'title' => ts('Paid / Unpaid') ,
+                'title' => ts('Paid') ,
                 'maxlength' => 63,
                 'size' => CRM_Utils_Type::BIG,
                 'import' => true,
@@ -266,6 +266,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'type' => CRM_Utils_Type::T_MONEY,
                 'title' => ts('Estimated Annual Pay') ,
                 'export' => true,
+                'import' => true,
                 'where' => 'civicrm_hrjobcontract_pay.pay_annualized_est',
                 'headerPattern' => '',
                 'dataPattern' => '',
@@ -274,6 +275,8 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'name' => 'pay_is_auto_est',
                 'type' => CRM_Utils_Type::T_BOOLEAN,
                 'title' => ts('Estimated Auto Pay') ,
+                'export' => true,
+                'import' => true,
                 'default' => '1',
               ) ,
               'annual_benefits' => array(

@@ -8,10 +8,10 @@ define(['controllers/controllers', 'moment'], function(controllers, moment){
 
             copy.title = copy.title || 'Revision data';
 
-            $scope.dpDateEffectiveMin = new Date();
             $scope.change_reason = reasonId || '';
             $scope.copy = copy;
             $scope.effective_date = date || '';
+            $scope.isPast = false;
 
             $scope.dpOpen = function($event, opened){
                 $event.preventDefault();
@@ -30,5 +30,9 @@ define(['controllers/controllers', 'moment'], function(controllers, moment){
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
             };
+
+            $scope.$watch('effective_date', function(dateSelected){
+                $scope.isPast = (new Date(dateSelected) < new Date());
+            });
         }]);
 });

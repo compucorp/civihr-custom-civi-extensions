@@ -113,6 +113,43 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
             };
             $scope.urlCSV = urlCSVBuild();
 
+            $scope.deleteRevision = function(revisionId) {
+
+                var modalInstance = $modal.open({
+                    targetDomEl: $rootElement.find('div').eq(0),
+                    templateUrl: settings.pathApp+'views/modalDialog.html',
+                    size: 'sm',
+                    controller: 'ModalDialogCtrl',
+                    resolve: {
+                        content: function(){
+                            return {
+                                msg: 'Are you sure you want to delete this job contract revision?'
+                            };
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function(confirm){
+                    if (confirm) {
+                        ContractService.deleteRevision(revisionId).then(function(results){
+                            var i = 0, len = $scope.revisionList.length;
+                            if (!results.is_error) {
+                                for (i; i < len; i++) {
+                                    if ($scope.revisionList[i].id == revisionId) {
+                                        $scope.revisionList.splice(i,1);
+                                        $scope.revisionDataList.splice(i,1);
+                                        break;
+                                    }
+                                }
+                                $scope.sortBy();
+                                $scope.createPage();
+                            }
+                        });
+                    }
+                })
+
+            }
+
             $scope.modalRevisionEdit = function(revisionEntityIdObj){
                 var date = revisionEntityIdObj.effective_date,
                     reasonId = revisionEntityIdObj.change_reason;

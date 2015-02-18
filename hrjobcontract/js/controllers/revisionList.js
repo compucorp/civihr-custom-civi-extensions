@@ -1,8 +1,8 @@
 define(['controllers/controllers', 'services/contract'], function(controllers){
     controllers.controller('RevisionListCtrl',['$scope', '$filter', '$q', '$modal', '$rootElement', 'settings', 'ContractService',
         'ContractDetailsService', 'ContractHourService', 'ContractPayService', '$log',
-        function($scope, $filter, $q, $modal, $rootElement, settings, ContractService, ContractDetailsService,
-                 ContractHourService, ContractPayService, $log){
+        function($scope, $filter, $q, $modal, $rootElement, settings, ContractService,
+                 ContractDetailsService, ContractHourService, ContractPayService, $log){
             $log.debug('Controller: RevisionListCtrl');
 
             var contractId = $scope.contract.id,
@@ -113,7 +113,16 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
             };
             $scope.urlCSV = urlCSVBuild();
 
-            $scope.deleteRevision = function(revisionId) {
+            $scope.deleteRevision = function(revisionId, e) {
+
+                if ($scope.revisionList.length == 1) {
+                    e.stopPropagation();
+                    return;
+                }
+
+                if (!revisionId || typeof +revisionId !== 'number') {
+                    return;
+                }
 
                 var modalInstance = $modal.open({
                     targetDomEl: $rootElement.find('div').eq(0),
@@ -131,6 +140,7 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
 
                 modalInstance.result.then(function(confirm){
                     if (confirm) {
+                        $scope.$parent.$parent.$parent.$broadcast('hrjc-loader-show');
                         ContractService.deleteRevision(revisionId).then(function(results){
                             var i = 0, len = $scope.revisionList.length;
                             if (!results.is_error) {
@@ -143,6 +153,7 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                                 }
                                 $scope.sortBy();
                                 $scope.createPage();
+                                $scope.$parent.$parent.$parent.$broadcast('hrjc-loader-hide');
                             }
                         });
                     }

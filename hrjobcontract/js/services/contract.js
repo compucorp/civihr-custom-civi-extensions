@@ -134,6 +134,7 @@ define(['services/services'], function (services) {
 
                 var deffered = $q.defer(),
                     params = angular.extend({
+                        deleted: 0,
                         sequential: 1
                     },revisionDetails),
                     val;

@@ -193,7 +193,6 @@ define(['controllers/controllers'], function(controllers){
                     fieldName, prefix;
 
                 angular.forEach($scope.fields, function(field){
-
                     fieldName = field.name != 'editor_name' ? field.name : 'editor_uid';
                     prefix = !field.extends ? (entityName + '_') : '';
 
@@ -207,12 +206,12 @@ define(['controllers/controllers'], function(controllers){
                         '&order_bys[3][column]=-&order_bys[3][order]=ASC' +
                         '&order_bys[4][column]=-&order_bys[4][order]=ASC' +
                         '&order_bys[5][column]=-&order_bys[5][order]=ASC' +
-                        '&group_bys[civicrm_hrjobcontract_'+entityName+'_jobcontract_revision_id]=1' +
                         '&contract_id_op=eq&permission=access+CiviReport' +
                         '&row_count=' +
                         '&_qf_Summary_submit_csv=Preview+CSV' +
                         '&groups=' +
-                        '&contract_id_value='+revisionList[0].jobcontract_id;
+                        '&contract_id_value='+revisionList[0].jobcontract_id +
+                        (entityName != 'leave' ? '&group_bys[civicrm_hrjobcontract_'+entityName+'_jobcontract_revision_id]=1' : '');
 
                 return url;
             };

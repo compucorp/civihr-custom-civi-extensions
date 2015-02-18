@@ -90,7 +90,6 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                     })
                 });
 
-
                 url += 'fields[id]=1&' +
                 'fields[change_reason]=1&' +
                 'fields[contact_id]=1&' +

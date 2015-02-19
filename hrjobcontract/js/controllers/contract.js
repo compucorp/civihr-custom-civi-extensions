@@ -208,7 +208,7 @@ define(['controllers/controllers',
                         $scope.$parent.$parent.toggleIsPrimary(contractId, !!results.revisionCreated);
                     }
 
-                    if (results.files) {
+                    if (results.files.length) {
                         promiseFiles = $q.all({
                             details: ContractFilesService.get($scope.details.jobcontract_revision_id,'civicrm_hrjobcontract_details'),
                             pension: ContractFilesService.get($scope.pension.jobcontract_revision_id,'civicrm_hrjobcontract_pension')

@@ -4,6 +4,20 @@
   }
 }
 
+.modal-progress {
+  .modal-body {
+    padding-top: 25px;
+  }
+
+  .progress {
+    margin-bottom: 2px;
+  }
+
+  .progress-bar {
+    min-width: 2.5em;
+  }
+}
+
 .modal-revision {
   .modal-header {
     .btn-group-action {

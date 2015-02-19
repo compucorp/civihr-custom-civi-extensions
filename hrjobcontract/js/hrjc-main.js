@@ -40,6 +40,7 @@ require([
     'controllers/modal/modalContract',
     'controllers/modal/modalContractNew',
     'controllers/modal/modalDialog',
+    'controllers/modal/modalProgress',
     'controllers/modal/modalRevision',
     'controllers/form/formGeneral',
     'controllers/form/formHour',

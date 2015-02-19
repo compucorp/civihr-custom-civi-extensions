@@ -1,6 +1,6 @@
 define(['controllers/controllers'], function(controllers){
-    controllers.controller('ModalDialogCtrl',['$scope','$modalInstance','content', '$log',
-        function($scope, $modalInstance, content, $log){
+    controllers.controller('ModalDialogCtrl',['$scope','$modalInstance', '$timeout', 'content', '$log',
+        function($scope, $modalInstance, $timeout, content, $log){
             $log.debug('Controller: ModalDialogCtrl');
 
             $scope.title = content.title || 'CiviHR Job Contract';
@@ -13,7 +13,7 @@ define(['controllers/controllers'], function(controllers){
             };
 
             $scope.cancel = function () {
-                $modalInstance.dismiss('cancel');
+                $modalInstance.dismiss('Cancel');
             };
         }]);
 });

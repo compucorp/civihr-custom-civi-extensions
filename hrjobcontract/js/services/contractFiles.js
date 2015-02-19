@@ -34,7 +34,7 @@ define(['services/services',
                             return
                         }
 
-                        deffered.resolve(data.values);
+                        deffered.resolve(data.values[0]);
                     },function(){
                         deffered.reject('Unable to delete file');
                     });
@@ -88,32 +88,26 @@ define(['services/services',
 
                     return new FileUploader(uploaderSettings);
                 },
-                upload: function(uploaderInsance, revisionId) {
+                upload: function(uploaderInstance, revisionId) {
 
-                    if (!uploaderInsance || typeof uploaderInsance !== 'object' ||
+                    if (!uploaderInstance || typeof uploaderInstance !== 'object' ||
                         !revisionId || typeof +revisionId !== 'number') {
                         return null;
                     }
 
-                    var deffered = $q.defer();
+                    var deffered = $q.defer(), results = [];
 
-                    uploaderInsance.onBeforeUploadItem = function(item){
+                    uploaderInstance.onBeforeUploadItem = function(item){
                         item.formData.push({
                             entityID: revisionId
                         });
                     };
 
-                    uploaderInsance.onCompleteItem = function(item, response, status, headers){
-                        $log.debug(' ===== Item Complete: ' + status + ' ======');
-                        $log.debug(' =====  - item ======');
-                        $log.debug(item);
-                        $log.debug(' =====  - response ======');
-                        $log.debug(response);
-                        $log.debug(' =====  - headers ======');
-                        $log.debug(headers);
+                    uploaderInstance.onCompleteItem = function(item, response){
+                        results.push(response);
                     };
 
-                    uploaderInsance.onErrorItem = function(item, response, status, headers){
+                    uploaderInstance.onErrorItem = function(item, response, status, headers){
                         deffered.reject('Could not upload file: '+item.file.name);
                         $log.error(' ===== Item Error: ' + status + ' ======');
                         $log.error(' =====  - item ======');
@@ -124,11 +118,11 @@ define(['services/services',
                         $log.error(headers);
                     };
 
-                    uploaderInsance.onCompleteAll = function(){
-                        deffered.resolve(true);
+                    uploaderInstance.onCompleteAll = function(){
+                        deffered.resolve(results);
                     };
 
-                    uploaderInsance.uploadAll();
+                    uploaderInstance.uploadAll();
 
                     return deffered.promise
                 }

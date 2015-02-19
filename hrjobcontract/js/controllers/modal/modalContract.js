@@ -156,7 +156,7 @@ define(['controllers/controllers',
                     var contractNew = $scope.contract,
                         filesTrash = $scope.filesTrash,
                         uploader = $scope.uploader,
-                        entityName, file, i = 0, len;
+                        entityName, file, i, len, modalInstance;
 
                     var promiseContractEdit = {
                             details: ContractDetailsService.save(contractNew.details),
@@ -166,29 +166,52 @@ define(['controllers/controllers',
                             health: ContractHealthService.save(contractNew.health),
                             pension: ContractPensionService.save(contractNew.pension)
                         },
-                        promiseFilesEdit = [];
-
-                    if (uploader.details.contract_file.queue.length) {
-                        promiseFilesEdit.push(ContractFilesService.upload(uploader.details.contract_file, contractNew.details.jobcontract_revision_id));
-                    }
-
-                    if (uploader.pension.evidence_file.queue.length) {
-                        promiseFilesEdit.push(ContractFilesService.upload(uploader.pension.evidence_file, contractNew.pension.jobcontract_revision_id));
-                    }
+                        promiseFilesEditUpload = [], promiseFilesEditDelete = [];
 
                     for (entityName in filesTrash) {
                         i = 0, len = filesTrash[entityName].length;
                         for (i; i < len; i++) {
                             file = filesTrash[entityName][i];
-                            promiseFilesEdit.push(ContractFilesService.delete(file.fileID, file.entityID, file.entityTable));
+                            promiseFilesEditDelete.push(ContractFilesService.delete(file.fileID, file.entityID, file.entityTable));
                         }
                     }
 
-                    if (promiseFilesEdit.length) {
-                        promiseContractEdit.files = $q.all(promiseFilesEdit);
-                    }
+                    $q.all(promiseFilesEditDelete).then(function(results){
+                        promiseContractEdit.files = results;
 
-                    $q.all(promiseContractEdit).then(function(results){
+                        if (uploader.details.contract_file.queue.length) {
+                            promiseFilesEditUpload.push(ContractFilesService.upload(uploader.details.contract_file, contractNew.details.jobcontract_revision_id));
+                        }
+
+                        if (uploader.pension.evidence_file.queue.length) {
+                            promiseFilesEditUpload.push(ContractFilesService.upload(uploader.pension.evidence_file, contractNew.pension.jobcontract_revision_id));
+                        }
+
+                        if (promiseFilesEditUpload.length) {
+                            modalInstance  = $modal.open({
+                                targetDomEl: $rootElement.find('div').eq(0),
+                                templateUrl: settings.pathApp+'views/modalProgress.html?v='+(new Date()).getTime(),
+                                size: 'sm',
+                                controller: 'ModalProgressCtrl',
+                                resolve: {
+                                    uploader: function(){
+                                        return uploader;
+                                    },
+                                    promiseFilesUpload: function(){
+                                        return promiseFilesEditUpload;
+                                    }
+                                }
+                            });
+
+                            return modalInstance.result;
+                        } else {
+                            return promiseFilesEditUpload;
+                        }
+
+                    }).then(function(results){
+                        angular.extend(promiseContractEdit.files,results);
+                        return $q.all(promiseContractEdit);
+                    }).then(function(results){
 
                         //TODO (incorrect date format in the API response)
                         results.details.period_start_date = contractNew.details.period_start_date;

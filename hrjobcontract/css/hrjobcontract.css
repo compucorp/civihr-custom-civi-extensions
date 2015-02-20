@@ -10024,63 +10024,64 @@ a.list-group-item.active > #hrjob-contract .badge, .nav-pills > .active > a > #h
 }
 /* line 8, ../sass/partials/_modals.scss */
 #hrjob-contract .modal-progress .modal-body {
+  overflow: hidden;
   padding-top: 25px;
 }
-/* line 12, ../sass/partials/_modals.scss */
+/* line 13, ../sass/partials/_modals.scss */
 #hrjob-contract .modal-progress .progress {
   margin-bottom: 2px;
 }
-/* line 16, ../sass/partials/_modals.scss */
+/* line 17, ../sass/partials/_modals.scss */
 #hrjob-contract .modal-progress .progress-bar {
   min-width: 2.5em;
 }
-/* line 23, ../sass/partials/_modals.scss */
+/* line 24, ../sass/partials/_modals.scss */
 #hrjob-contract .modal-revision .modal-header .btn-group-action {
   float: right;
   margin-right: 20px;
   margin-top: -2px;
 }
-/* line 28, ../sass/partials/_modals.scss */
+/* line 29, ../sass/partials/_modals.scss */
 #hrjob-contract .modal-revision .modal-header .btn-group-action .checkbox {
   font-size: 12px;
   margin-bottom: 5px;
   margin-top: 5px;
   padding: 0px 10px;
 }
-/* line 34, ../sass/partials/_modals.scss */
+/* line 35, ../sass/partials/_modals.scss */
 #hrjob-contract .modal-revision .modal-header .btn-group-action .checkbox input[type="checkbox"] {
   margin-top: 1px;
 }
-/* line 38, ../sass/partials/_modals.scss */
+/* line 39, ../sass/partials/_modals.scss */
 #hrjob-contract .modal-revision .modal-header .btn-group-action .checkbox label {
   min-height: 17px;
 }
-/* line 46, ../sass/partials/_modals.scss */
+/* line 47, ../sass/partials/_modals.scss */
 #hrjob-contract .modal-revision .table {
   font-size: 13px;
 }
-/* line 49, ../sass/partials/_modals.scss */
+/* line 50, ../sass/partials/_modals.scss */
 #hrjob-contract .modal-revision .table .table {
   background-color: transparent;
   font-size: 12px;
 }
-/* line 53, ../sass/partials/_modals.scss */
+/* line 54, ../sass/partials/_modals.scss */
 #hrjob-contract .modal-revision .table .table th {
   font-size: 12px;
 }
-/* line 59, ../sass/partials/_modals.scss */
+/* line 60, ../sass/partials/_modals.scss */
 #hrjob-contract .modal-revision .pagination {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 @media (min-width: 768px) {
-  /* line 67, ../sass/partials/_modals.scss */
+  /* line 68, ../sass/partials/_modals.scss */
   #hrjob-contract .modal-dialog {
     margin: 60px auto;
   }
 }
 @media (min-width: 992px) {
-  /* line 73, ../sass/partials/_modals.scss */
+  /* line 74, ../sass/partials/_modals.scss */
   #hrjob-contract .modal-revision .modal-dialog {
     width: 1140px;
   }

@@ -9,11 +9,11 @@ define(['controllers/controllers',
         'services/contractFiles',
         'services/utils'], function(controllers){
 
-    controllers.controller('ModalContractNewCtrl', ['$scope', '$modalInstance', '$q', 'Contract','ContractService',
-        'ContractDetailsService', 'ContractHourService', 'ContractPayService', 'ContractLeaveService',
+    controllers.controller('ModalContractNewCtrl', ['$scope', '$modalInstance', '$q', '$modal', '$rootElement',
+        'Contract','ContractService', 'ContractDetailsService', 'ContractHourService', 'ContractPayService', 'ContractLeaveService',
         'ContractHealthService', 'ContractPensionService', 'ContractFilesService', 'model', 'UtilsService', 'utils',
         'settings', '$log',
-        function($scope, $modalInstance, $q, Contract, ContractService, ContractDetailsService, ContractHourService,
+        function($scope, $modalInstance, $q, $modal, $rootElement, Contract, ContractService, ContractDetailsService, ContractHourService,
                  ContractPayService, ContractLeaveService, ContractHealthService, ContractPensionService,
                  ContractFilesService, model, UtilsService, utils, settings, $log){
             $log.debug('Controller: ModalContractNewCtrl');
@@ -62,6 +62,8 @@ define(['controllers/controllers',
                         contractLeave = $scope.contract.leave,
                         contractHealth = $scope.contract.health,
                         contractPension = $scope.contract.pension,
+                        modalInstance,
+                        promiseContractNew,
                         promiseUpload = [],
                         revisionId;
 
@@ -83,14 +85,13 @@ define(['controllers/controllers',
                             UtilsService.prepareEntityIds(entity, contractId, revisionId);
                         });
 
-                        return $q.all([
+                        promiseContractNew = [
                             ContractHourService.save(contractHour),
                             ContractPayService.save(contractPay),
                             ContractLeaveService.save(contractLeave),
                             ContractHealthService.save(contractHealth),
                             ContractPensionService.save(contractPension)
-                        ]);
-                    }).then(function(){
+                        ];
 
                         if ($scope.uploader.details.contract_file.queue.length) {
                             promiseUpload.push(ContractFilesService.upload($scope.uploader.details.contract_file, revisionId));
@@ -100,8 +101,26 @@ define(['controllers/controllers',
                             promiseUpload.push(ContractFilesService.upload($scope.uploader.pension.evidence_file, revisionId));
                         }
 
-                        return $q.all(promiseUpload);
+                        if (promiseUpload.length) {
+                            modalInstance  = $modal.open({
+                                targetDomEl: $rootElement.find('div').eq(0),
+                                templateUrl: settings.pathApp+'views/modalProgress.html?v='+(new Date()).getTime(),
+                                size: 'sm',
+                                controller: 'ModalProgressCtrl',
+                                resolve: {
+                                    uploader: function(){
+                                        return $scope.uploader;
+                                    },
+                                    promiseFilesUpload: function(){
+                                        return promiseUpload;
+                                    }
+                                }
+                            });
 
+                            promiseContractNew.push(modalInstance.result);
+                        }
+
+                        return $q.all(promiseContractNew);
                     },function(reason){
                         CRM.alert(reason, 'Error', 'error');
                         $modalInstance.dismiss();

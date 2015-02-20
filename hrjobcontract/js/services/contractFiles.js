@@ -25,7 +25,6 @@ define(['services/services',
                         entityID: entityId,
                         fileID: fileId
                     }, null, function(data){
-
                         if (data.values && !+data.values[0].result) {
                             data.is_error = 1;
                         }

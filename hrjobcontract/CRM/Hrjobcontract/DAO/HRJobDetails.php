@@ -393,7 +393,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                 'funding_notes' => 'funding_notes',
                 'contract_type' => 'hrjob_contract_type',
                 'period_type' => 'period_type',
-                'period_start_date' => 'period_start_date',
+                'period_start_date' => 'hrjob_period_start_date',
                 'period_end_date' => 'hrjob_period_end_date',
                 'notice_amount' => 'hrjob_notice_amount',
                 'notice_unit' => 'hrjob_notice_unit',
@@ -478,6 +478,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
   
   static function handlePrimary($instance, array $params)
   {
+      return null; //// TODO!
         $isPrimary = 0;
         if (is_numeric(CRM_Utils_Array::value('is_primary', $params)))
         {

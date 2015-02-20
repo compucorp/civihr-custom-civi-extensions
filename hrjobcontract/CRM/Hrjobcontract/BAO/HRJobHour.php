@@ -57,7 +57,7 @@ class CRM_Hrjobcontract_BAO_HRJobHour extends CRM_Hrjobcontract_DAO_HRJobHour {
     ));
     $revision = CRM_Utils_Array::first($revisionResult['values']);
     
-    if ($hook == 'create') {
+    if ($hook == 'create' && empty($params['import'])) {
         $result = civicrm_api3('HRJobRole', 'get', array(
           'sequential' => 1,
           'jobcontract_revision_id' => $revision['role_revision_id'],

@@ -123,7 +123,7 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
   {
     if (!self::$_links) {
       self::$_links = array(
-        new CRM_Core_Reference_Basic(self::getTableName() , 'jobcontract_id', 'civicrm_hrjobcontract', 'idt') ,
+        new CRM_Core_Reference_Basic(self::getTableName() , 'jobcontract_id', 'civicrm_hrjobcontract', 'id') ,
       );
     }
     return self::$_links;
@@ -143,6 +143,8 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
           'type' => CRM_Utils_Type::T_INT,
           'title' => ts('Revision Id') ,
           'required' => true,
+          'export' => true,
+          'import' => true,
           'where' => 'civicrm_hrjobcontract_revision.id',
         ) ,
         'jobcontract_id' => array(

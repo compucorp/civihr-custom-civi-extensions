@@ -142,9 +142,8 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
           'name' => 'id',
           'type' => CRM_Utils_Type::T_INT,
           'title' => ts('Job Contract Id') ,
-          'required' => true,
-          //'export' => true,
-          //'import' => true,
+          'required' => false,
+          'where' => 'civicrm_hrjobcontract.id',
         ) ,
         'contact_id' => array(
           'name' => 'contact_id',

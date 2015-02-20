@@ -81,6 +81,6 @@ function civicrm_api3_h_r_job_contract_revision_getcurrentrevision($params) {
     {
         throw new API_Exception("Cannot get current revision: missing jobcontract_id value");
     }
-    return _civicrm_hrjobcontract_api3_get_current_revision((int)$params['jobcontract_id']);
+    return _civicrm_hrjobcontract_api3_get_current_revision($params);
 }
 

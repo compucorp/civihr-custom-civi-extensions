@@ -44,6 +44,14 @@ function civicrm_api3_h_r_job_contract_delete($params) {
  * @throws API_Exception
  */
 function civicrm_api3_h_r_job_contract_get($params) {
+    $returnFields = array();
+    if (!empty($params['return'])) {
+        if (is_array($params['return'])) {
+            $returnFields = $params['return'];
+        } else {
+            $returnFields = explode(',', $params['return']);
+        }
+    }
     $contracts = _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params);
     foreach ($contracts['values'] as $key => $contract)
     {
@@ -69,7 +77,7 @@ function civicrm_api3_h_r_job_contract_get($params) {
         }
         $contracts['values'][$key]['is_primary'] = (int)$isPrimary;
         
-        foreach ($params['return'] as $returnField) {
+        foreach ($returnFields as $returnField) {
             if (!empty($details[$returnField])) {
                 $contracts['values'][$key][$returnField] = $details[$returnField];
             }

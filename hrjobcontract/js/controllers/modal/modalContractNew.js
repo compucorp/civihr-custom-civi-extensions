@@ -65,6 +65,7 @@ define(['controllers/controllers',
                         modalInstance,
                         promiseContractNew,
                         promiseUpload = [],
+                        uploader = $scope.uploader,
                         revisionId;
 
                     contract.is_current = !contractDetails.period_end_date || new Date(contractDetails.period_end_date) > new Date();
@@ -94,22 +95,22 @@ define(['controllers/controllers',
                         ];
 
                         if ($scope.uploader.details.contract_file.queue.length) {
-                            promiseUpload.push(ContractFilesService.upload($scope.uploader.details.contract_file, revisionId));
+                            promiseUpload.push(ContractFilesService.upload(uploader.details.contract_file, revisionId));
                         }
 
                         if ($scope.uploader.pension.evidence_file.queue.length) {
-                            promiseUpload.push(ContractFilesService.upload($scope.uploader.pension.evidence_file, revisionId));
+                            promiseUpload.push(ContractFilesService.upload(uploader.pension.evidence_file, revisionId));
                         }
 
                         if (promiseUpload.length) {
                             modalInstance  = $modal.open({
                                 targetDomEl: $rootElement.find('div').eq(0),
-                                templateUrl: settings.pathApp+'views/modalProgress.html?v='+(new Date()).getTime(),
+                                templateUrl: settings.pathApp+'views/modalProgress.html',
                                 size: 'sm',
                                 controller: 'ModalProgressCtrl',
                                 resolve: {
                                     uploader: function(){
-                                        return $scope.uploader;
+                                        return uploader;
                                     },
                                     promiseFilesUpload: function(){
                                         return promiseUpload;

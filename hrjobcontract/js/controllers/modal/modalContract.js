@@ -241,7 +241,7 @@ define(['controllers/controllers',
                         filesTrash = $scope.filesTrash,
                         uploader = $scope.uploader,
                         entityName, field, fieldName, file, entityChangedList = [], entityChangedListLen = 0,
-                        entityFilesTrashLen, i = 0, ii = 0, isChanged, modalInstance, promiseContractChange = {},
+                        entityFilesTrashLen, i = 0, isChanged, modalInstance, promiseContractChange = {},
                         promiseFilesChangeDelete = [], promiseFilesChangeUpload = [], revisionId, entityServices = {
                             details: ContractDetailsService,
                             hour: ContractHourService,
@@ -283,24 +283,11 @@ define(['controllers/controllers',
 
                     entityChangedList[0].service.save(entityChangedList[0].data).then(function(results){
                         revisionId = !angular.isArray(results) ? results.jobcontract_revision_id : results[0].jobcontract_revision_id,
-                            i = 0;
+                            i = 1;
+                        promiseContractChange[entityChangedList[0].name] = results;
 
                         for (i; i < entityChangedListLen; i++) {
                             entityName = entityChangedList[i].name;
-
-                            ii = 0;
-                            if (filesTrash[entityName] && filesTrash[entityName].length) {
-                                entityFilesTrashLen =  filesTrash[entityName].length;
-                                for (ii; ii < entityFilesTrashLen; ii++) {
-                                    file = filesTrash[entityName][ii];
-                                    promiseFilesChangeDelete.push(ContractFilesService.delete(file.fileID, revisionId, file.entityTable));
-                                }
-                            }
-
-                            if (!i) {
-                                promiseContractChange[entityName] = results;
-                                continue;
-                            }
 
                             UtilsService.prepareEntityIds(entityChangedList[i].data,contract.id,revisionId);
                             promiseContractChange[entityName] = entityChangedList[i].service.save(entityChangedList[i].data);
@@ -313,7 +300,7 @@ define(['controllers/controllers',
                                 effective_date: date
                             })
                         },{
-                            files: !!promiseFilesChangeDelete.length ? $q.all(promiseFilesChangeDelete) : false
+                            files: false
                         }));
 
                     }).then(function(results){
@@ -321,12 +308,11 @@ define(['controllers/controllers',
                         for (entityName in contractNew) {
                             results[entityName] = results[entityName] || contractNew[entityName];
 
-                            if (uploader[entityName]) {
-                                for (fieldName in uploader[entityName]) {
-                                    field = uploader[entityName][fieldName];
-                                    if (field.queue.length) {
-                                        promiseFilesChangeUpload.push(ContractFilesService.upload(field, revisionId));
-                                    }
+                            if (filesTrash[entityName] && filesTrash[entityName].length) {
+                                i = 0, entityFilesTrashLen =  filesTrash[entityName].length;
+                                for (i; i < entityFilesTrashLen; i++) {
+                                    file = filesTrash[entityName][i];
+                                    promiseFilesChangeDelete.push(ContractFilesService.delete(file.fileID, revisionId, file.entityTable));
                                 }
                             }
                         }
@@ -353,10 +339,33 @@ define(['controllers/controllers',
                             pension_revision_id: results.pension.jobcontract_revision_id
                         });
 
+                        if (promiseFilesChangeDelete.length) {
+                            results.files = $q.all(promiseFilesChangeDelete);
+                            return $q.all(results);
+                        }
+
+                        return results
+
+                    }).then(function(results){
+
+                        i = 0;
+                        for (i; i < entityChangedListLen; i++) {
+                            entityName = entityChangedList[i].name;
+
+                            if (uploader[entityName]) {
+                                for (fieldName in uploader[entityName]) {
+                                    field = uploader[entityName][fieldName];
+                                    if (field.queue.length) {
+                                        promiseFilesChangeUpload.push(ContractFilesService.upload(field, revisionId));
+                                    }
+                                }
+                            }
+                        }
+
                         if (promiseFilesChangeUpload.length) {
                             modalInstance  = $modal.open({
                                 targetDomEl: $rootElement.find('div').eq(0),
-                                templateUrl: settings.pathApp+'views/modalProgress.html?v='+(new Date()).getTime(),
+                                templateUrl: settings.pathApp+'views/modalProgress.html',
                                 size: 'sm',
                                 controller: 'ModalProgressCtrl',
                                 resolve: {
@@ -373,7 +382,7 @@ define(['controllers/controllers',
                             return $q.all(results);
                         }
 
-                        return results
+                        return results;
 
                     }).then(function(results){
                         $scope.$broadcast('hrjc-loader-hide');

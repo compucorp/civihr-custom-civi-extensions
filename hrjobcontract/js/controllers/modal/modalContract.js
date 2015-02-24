@@ -308,9 +308,6 @@ define(['controllers/controllers',
                         for (entityName in contractNew) {
                             results[entityName] = results[entityName] || contractNew[entityName];
 
-                            console.log('filesTrash['+entityName+']');
-                            console.log(filesTrash[entityName]);
-
                             if (filesTrash[entityName] && filesTrash[entityName].length) {
                                 i = 0, entityFilesTrashLen =  filesTrash[entityName].length;
                                 for (i; i < entityFilesTrashLen; i++) {
@@ -342,8 +339,6 @@ define(['controllers/controllers',
                             pension_revision_id: results.pension.jobcontract_revision_id
                         });
 
-                        console.log('promiseFilesChangeDelete');
-                        console.log(promiseFilesChangeDelete);
                         if (promiseFilesChangeDelete.length) {
                             results.files = $q.all(promiseFilesChangeDelete);
                             return $q.all(results);
@@ -352,8 +347,6 @@ define(['controllers/controllers',
                         return results
 
                     }).then(function(results){
-                        console.log('results');
-                        console.log(results);
 
                         i = 0;
                         for (i; i < entityChangedListLen; i++) {

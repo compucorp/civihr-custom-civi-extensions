@@ -7,7 +7,6 @@ define(['controllers/controllers'], function(controllers){
             var entityName, fieldName;
 
             $scope.uploader = uploader;
-            console.log(uploader);
 
             for (entityName in uploader) {
                 for (fieldName in uploader[entityName]){
@@ -15,8 +14,6 @@ define(['controllers/controllers'], function(controllers){
                         uploader[entityName][fieldName].item = uploader[entityName][fieldName].queue[0].file.name;
                     }
                     uploader[entityName][fieldName].onProgressItem = function(item){
-                        console.log(item.file.name);
-                        console.log(item);
                         this.item = item.file.name;
                     };
                 }

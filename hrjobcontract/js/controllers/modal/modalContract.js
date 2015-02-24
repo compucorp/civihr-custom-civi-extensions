@@ -372,7 +372,7 @@ define(['controllers/controllers',
                         if (promiseFilesChangeUpload.length) {
                             modalInstance  = $modal.open({
                                 targetDomEl: $rootElement.find('div').eq(0),
-                                templateUrl: settings.pathApp+'views/modalProgress.html?v='+(new Date()).getTime(),
+                                templateUrl: settings.pathApp+'views/modalProgress.html',
                                 size: 'sm',
                                 controller: 'ModalProgressCtrl',
                                 resolve: {

@@ -27,6 +27,22 @@ class CRM_Hrjobcontract_BAO_HRJobDetails extends CRM_Hrjobcontract_DAO_HRJobDeta
         
         $instance = parent::create($params);
         
+        // setting 'effective_date' if it's not set:
+        $revision = civicrm_api3('HRJobContractRevision', 'get', array(
+            'sequential' => 1,
+            'jobcontract_id' => $params['jobcontract_id'],
+            'id' => $instance->jobcontract_revision_id,
+        ));
+        if (!empty($revision['values'][0])) {
+            $revisionData = array_shift($revision['values']);
+            if (!$revisionData['effective_date']) {
+                civicrm_api3('HRJobContractRevision', 'create', array(
+                    'id' => $revisionData['id'],
+                    'effective_date' => $instance->period_start_date,
+                ));
+            }
+        }
+        
         if ((is_numeric(CRM_Utils_Array::value('is_primary', $params)) || empty($params['id'])) && empty($params['import'])) {
             //CRM_Core_BAO_Block::handlePrimary($params, get_class());
             CRM_Hrjobcontract_DAO_HRJobDetails::handlePrimary($instance, $params);

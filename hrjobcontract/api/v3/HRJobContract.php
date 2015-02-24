@@ -116,6 +116,9 @@ function civicrm_api3_h_r_job_contract_deletecontractpermanently($params) {
  */
 function _civicrm_api3_h_r_job_contract_getlist_params(&$request) {
   $fieldsToReturn = array('contact_id', 'is_current', 'is_primary');
+  if (!empty($request['return'])) {
+      $fieldsToReturn = array_merge($fieldsToReturn, $request['return']);
+  }
   $request['params']['return'] = array_unique(array_merge($fieldsToReturn, $request['extra']));
 }
 

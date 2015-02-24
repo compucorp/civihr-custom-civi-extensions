@@ -68,6 +68,12 @@ function civicrm_api3_h_r_job_contract_get($params) {
             $isPrimary = $details['is_primary'];
         }
         $contracts['values'][$key]['is_primary'] = (int)$isPrimary;
+        
+        foreach ($params['return'] as $returnField) {
+            if (!empty($details[$returnField])) {
+                $contracts['values'][$key][$returnField] = $details[$returnField];
+            }
+        }
     }
     
     return $contracts;
@@ -93,4 +99,36 @@ function civicrm_api3_h_r_job_contract_deletecontract($params) {
  */
 function civicrm_api3_h_r_job_contract_deletecontractpermanently($params) {
   return _civicrm_hrjobcontract_api3_deletecontractpermanently($params);
+}
+
+/**
+ * @see _civicrm_api3_generic_getlist_params.
+ *
+ * @param $request array
+ */
+function _civicrm_api3_h_r_job_contract_getlist_params(&$request) {
+  $fieldsToReturn = array('contact_id', 'is_current', 'is_primary');
+  $request['params']['return'] = array_unique(array_merge($fieldsToReturn, $request['extra']));
+}
+
+/**
+ * @see _civicrm_api3_generic_getlist_output
+ *
+ * @param $result array
+ * @param $request array
+ *
+ * @return array
+ */
+function _civicrm_api3_h_r_job_contract_getlist_output($result, $request) {
+  $output = array();
+  if (!empty($result['values'])) {
+    foreach ($result['values'] as $row) {
+      $data = $row;
+      foreach ($request['extra'] as $field) {
+        $data['extra'][$field] = isset($row[$field]) ? $row[$field] : NULL;
+      }
+      $output[] = $data;
+    }
+  }
+  return $output;
 }

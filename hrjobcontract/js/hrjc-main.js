@@ -123,14 +123,12 @@ require([
                 $log.debug('OPTIONS:');
                 $log.debug(results);
                 $rootScope.options = results;
-
             });
         }
     ]);
 
     document.addEventListener('hrjcLoad', function(){
         angular.bootstrap(document.getElementById('hrjob-contract'), ['hrjc']);
-
     });
 
 })

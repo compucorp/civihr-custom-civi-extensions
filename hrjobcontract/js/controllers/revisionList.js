@@ -169,7 +169,7 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                     if (confirm) {
                         $scope.$parent.$parent.$parent.$broadcast('hrjc-loader-show');
                         ContractService.deleteRevision(revisionId).then(function(results){
-                            var i = 0, len = $scope.revisionList.length, revisionCurrent = $scope.revisionCurrent;
+                            var i = 0, len = $scope.revisionList.length;
                             if (!results.is_error) {
 
                                 for (i; i < len; i++) {

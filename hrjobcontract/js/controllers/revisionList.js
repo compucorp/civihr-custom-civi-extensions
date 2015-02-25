@@ -42,7 +42,7 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
             };
 
             function setCurrentRevision(){
-                var revisionCurrent;
+                var revisionCurrent, i = 0;
 
                 if ($scope.revisionList.length) {
                     var revisionList = $filter('orderBy')($scope.revisionList, ['effective_date','id']);
@@ -54,12 +54,16 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                     });
 
                     if (!revisionCurrent) {
-                        revisionCurrent = revisionList[0];
+                        do {
+                            revisionCurrent = revisionList[i];
+                            i++;
+                        } while (revisionList[i] && revisionList[i-1].effective_date == revisionList[i].effective_date);
                     }
 
                     angular.extend($scope.revisionCurrent,revisionCurrent);
-
+                    return revisionCurrent.id;
                 }
+                return null;
             }
 
             function fetchRevisions(contractId){
@@ -165,8 +169,9 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                     if (confirm) {
                         $scope.$parent.$parent.$parent.$broadcast('hrjc-loader-show');
                         ContractService.deleteRevision(revisionId).then(function(results){
-                            var i = 0, len = $scope.revisionList.length;
+                            var i = 0, len = $scope.revisionList.length, revisionCurrent = $scope.revisionCurrent;
                             if (!results.is_error) {
+
                                 for (i; i < len; i++) {
                                     if ($scope.revisionList[i].id == revisionId) {
                                         $scope.revisionList.splice(i,1);
@@ -174,9 +179,15 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                                         break;
                                     }
                                 }
-                                setCurrentRevision();
+
                                 $scope.sortBy();
                                 $scope.createPage();
+
+                                if ($scope.revisionCurrent.id != setCurrentRevision()) {
+                                    $scope.$emit('updateContractView');
+                                    return
+                                }
+
                                 $scope.$parent.$parent.$parent.$broadcast('hrjc-loader-hide');
                             }
                         });
@@ -219,9 +230,13 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                         }).then(function(){
                             revisionEntityIdObj.effective_date = results.date;
                             revisionEntityIdObj.change_reason = results.reasonId;
-                            setCurrentRevision();
+
                             $scope.sortBy();
                             $scope.createPage();
+
+                            if ($scope.revisionCurrent.id != setCurrentRevision()) {
+                                $scope.$emit('updateContractView');
+                            }
                         });
                     }
                 });
@@ -231,9 +246,11 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                 $scope.createPage();
             });
 
-            $scope.$watch('revisionDataList.length', function() {
+            $scope.$watch('revisionDataList.length', function(lengthNow, lengthPrev) {
                 revisionDataListLocal = $scope.revisionDataList;
-                setCurrentRevision();
+                if (lengthNow > lengthPrev) {
+                    setCurrentRevision();
+                }
                 $scope.sortBy();
                 $scope.createPage();
             });

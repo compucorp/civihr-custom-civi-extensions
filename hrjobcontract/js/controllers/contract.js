@@ -202,15 +202,20 @@ define(['controllers/controllers',
                             pay: results.pay
                         });
                     } else {
+                        var revisionListEntitiesView = ['details','hour','pay'], i, objExt;
                         updateContractView(results);
                         angular.forEach($scope.revisionDataList, function(revisionData){
-                            if (revisionData.revisionEntityIdObj.id == $scope.revisionCurrent.id) {
-                                angular.extend(revisionData, {
-                                    details: results.details,
-                                    hour: results.hour,
-                                    pay: results.pay
-                                });
+                            i = 0;
+                            objExt = {};
+                            while (revisionListEntitiesView[i]){
+                                if (revisionData.revisionEntityIdObj[revisionListEntitiesView[i]+'_revision_id'] ==
+                                    $scope.revisionCurrent[revisionListEntitiesView[i]+'_revision_id']) {
+                                    objExt[revisionListEntitiesView[i]] = results[revisionListEntitiesView[i]];
+                                    angular.extend(revisionData, objExt);
+                                }
+                                i++;
                             }
+
                         })
                     }
 

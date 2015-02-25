@@ -297,10 +297,10 @@ class CRM_Hrjobcontract_Import_Form_MapFieldBaseClass extends CRM_Import_Form_Ma
         $importKeys[] = $mapperPart[0];
       }
       $requiredFields = array(
-        'contact_id' => ts('Contact ID'),
-        'title' => ts('Job Title'),
-        'position' => ts('Job Position'),
-        'contract_type' => ts('Job Contract Type'),
+        //'contact_id' => ts('Contact ID'),
+        //'title' => ts('Job Title'),
+        //'position' => ts('Job Position'),
+        //'contract_type' => ts('Job Contract Type'),
       );
 
       $missingNames = array();

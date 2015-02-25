@@ -18,6 +18,7 @@ define(['controllers/controllers',
 
             $scope.contractLoaded = false;
             $scope.isCollapsed = true;
+            $scope.revisionCurrent = {};
             $scope.revisionList = [];
             $scope.revisionDataList = [];
 
@@ -45,7 +46,6 @@ define(['controllers/controllers',
                 angular.forEach($scope.leave, function(leaveType, leaveTypeId){
                     angular.extend(leaveType, results.leave ? results.leave[leaveTypeId] || contractRevisionIdObj : contractRevisionIdObj);
                 });
-
 
                 angular.extend($scope.health, results.health || contractRevisionIdObj);
                 angular.extend($scope.pension, results.pension || contractRevisionIdObj);
@@ -175,33 +175,49 @@ define(['controllers/controllers',
 
                 modalInstance.result.then(function(results){
 
+                    function updateEntities(scope){
+                        angular.extend($scope.details, scope.details);
+                        angular.extend($scope.hour, scope.hour);
+                        angular.extend($scope.pay, scope.pay);
+                        $scope.leave = scope.leave;
+                        angular.extend($scope.health, scope.health);
+                        angular.extend($scope.pension, scope.pension);
+                    }
+
                     if (results.requireReload) {
                         $route.reload();
                     }
 
-                    angular.extend($scope.details, results.details);
-                    angular.extend($scope.hour, results.hour);
-                    angular.extend($scope.pay, results.pay);
-                    $scope.leave = results.leave;
-                    angular.extend($scope.health, results.health);
-                    angular.extend($scope.pension, results.pension);
-
                     if (results.revisionCreated) {
-                        $scope.revisionList.unshift(results.revisionCreated);
+                        var dateEffectiveRevisionCreated = new Date(results.revisionCreated.effective_date).setHours(0, 0, 0, 0),
+                            dateEffectiveRevisionCurrent = new Date($scope.revisionCurrent.effective_date).setHours(0, 0, 0, 0),
+                            dateToday = new Date().setHours(0, 0, 0, 0);
 
+                        if ((dateEffectiveRevisionCreated <= dateToday &&
+                            dateEffectiveRevisionCreated >= dateEffectiveRevisionCurrent) ||
+                            (dateEffectiveRevisionCurrent > dateToday &&
+                            dateEffectiveRevisionCreated <= dateEffectiveRevisionCurrent)) {
+                            updateEntities(results);
+                        }
+
+                        $scope.revisionList.unshift(results.revisionCreated);
                         $scope.revisionDataList.unshift({
                             revisionEntityIdObj: results.revisionCreated,
                             details: results.details,
                             hour: results.hour,
                             pay: results.pay
                         });
-
                     } else {
-                        angular.extend($scope.revisionDataList[0], {
-                            details: results.details,
-                            hour: results.hour,
-                            pay: results.pay
-                        });
+                        updateEntities(results);
+                        angular.forEach($scope.revisionDataList, function(revisionData){
+                            if (revisionData.revisionEntityIdObj.id == $scope.revisionCurrent.id) {
+                                angular.extend(revisionData, {
+                                    details: results.details,
+                                    hour: results.hour,
+                                    pay: results.pay
+                                });
+                            }
+                        })
                     }
 
                     if (results.isPrimarySet) {

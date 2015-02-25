@@ -6,7 +6,8 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
             $log.debug('Controller: RevisionListCtrl');
 
             var contractId = $scope.contract.id,
-                revisionDataListCurrent = $scope.revisionDataList = $scope.$parent.$parent.$parent.$parent.revisionDataList;
+                revisionDataListLocal = $scope.revisionDataList = $scope.$parent.$parent.$parent.$parent.revisionDataList;
+                $scope.revisionCurrent = $scope.$parent.$parent.$parent.$parent.revisionCurrent;
 
             $scope.currentPage = 1;
             $scope.itemsPerPage = 5;
@@ -18,7 +19,7 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                 var start = (($scope.currentPage - 1) * $scope.itemsPerPage),
                     end = start + $scope.itemsPerPage;
 
-                $scope.revisionDataListPage = revisionDataListCurrent.slice(start, end);
+                $scope.revisionDataListPage = revisionDataListLocal.slice(start, end);
             }
 
             $scope.sortBy = function(sortCol, sortReverse){
@@ -37,8 +38,29 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                     $scope.sortReverse = sortReverse;
                 }
 
-                revisionDataListCurrent = $filter('orderBy')($scope.revisionDataList, $scope.sortCol, $scope.sortReverse);
+                revisionDataListLocal = $filter('orderBy')($scope.revisionDataList, $scope.sortCol, $scope.sortReverse);
             };
+
+            function setCurrentRevision(){
+                var revisionCurrent;
+
+                if ($scope.revisionList.length) {
+                    var revisionList = $filter('orderBy')($scope.revisionList, ['effective_date','id']);
+
+                    angular.forEach(revisionList, function(revision){
+                        if (new Date(revision.effective_date).setHours(0, 0, 0, 0) <= new Date().setHours(0, 0, 0, 0)) {
+                            revisionCurrent = revision;
+                        }
+                    });
+
+                    if (!revisionCurrent) {
+                        revisionCurrent = revisionList[0];
+                    }
+
+                    angular.extend($scope.revisionCurrent,revisionCurrent);
+
+                }
+            }
 
             function fetchRevisions(contractId){
                 $scope.revisionList.length = 0;
@@ -47,7 +69,7 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                 ContractService.getRevision(contractId).then(function(revisionList){
                     var promiseRevisionList = [];
 
-                    revisionList = $filter('orderBy')(revisionList, 'id', true);
+                    revisionList = $filter('orderBy')(revisionList, ['-effective_date','-id']);
 
                     $scope.revisionList.push.apply($scope.revisionList,revisionList);
 
@@ -76,6 +98,7 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                 }).then(function(results){
                     $scope.revisionDataList.push.apply($scope.revisionDataList,results);
                 });
+
             };
             fetchRevisions(contractId);
 
@@ -151,6 +174,7 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                                         break;
                                     }
                                 }
+                                setCurrentRevision();
                                 $scope.sortBy();
                                 $scope.createPage();
                                 $scope.$parent.$parent.$parent.$broadcast('hrjc-loader-hide');
@@ -195,6 +219,7 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                         }).then(function(){
                             revisionEntityIdObj.effective_date = results.date;
                             revisionEntityIdObj.change_reason = results.reasonId;
+                            setCurrentRevision();
                             $scope.sortBy();
                             $scope.createPage();
                         });
@@ -207,7 +232,8 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
             });
 
             $scope.$watch('revisionDataList.length', function() {
-                revisionDataListCurrent = $scope.revisionDataList;
+                revisionDataListLocal = $scope.revisionDataList;
+                setCurrentRevision();
                 $scope.sortBy();
                 $scope.createPage();
             });

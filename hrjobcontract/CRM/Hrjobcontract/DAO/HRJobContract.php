@@ -121,11 +121,9 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
    */
   static function getReferenceColumns()
   {
-    if (!self::$_links) {
-      self::$_links = array(
-        new CRM_Core_Reference_Basic(self::getTableName() , 'contact_id', 'civicrm_contact', 'id') ,
-      );
-    }
+    self::$_links = static ::createReferenceColumns(__CLASS__);
+    self::$_links[] = new CRM_Core_Reference_Basic(self::getTableName() , 'contact_id', 'civicrm_contact', 'id');
+    
     return self::$_links;
   }
   /**
@@ -149,9 +147,10 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
           'name' => 'contact_id',
           'type' => CRM_Utils_Type::T_INT,
           'title' => ts('Contact Id') ,
-          'required' => true,
+          'required' => false,
           'export' => true,
           'import' => true,
+          'headerPattern' => '/contact(.?id)?/i',
           'FKClassName' => 'CRM_Contact_DAO_Contact',
         ) ,
         'deleted' => array(
@@ -220,7 +219,7 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
       foreach($fields as $name => $field) {
         if (!empty($field['import'])) {
           if ($prefix) {
-            self::$_import['hrjob_contract'] = & $fields[$name];
+            self::$_import['hrjobcontract'] = & $fields[$name];
           } else {
             self::$_import[$name] = & $fields[$name];
           }
@@ -244,7 +243,7 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
       foreach($fields as $name => $field) {
         if (!empty($field['export'])) {
           if ($prefix) {
-            self::$_export['hrjob_contract'] = & $fields[$name];
+            self::$_export['hrjobcontract'] = & $fields[$name];
           } else {
             self::$_export[$name] = & $fields[$name];
           }

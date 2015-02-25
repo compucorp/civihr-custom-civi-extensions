@@ -295,6 +295,11 @@ define(['controllers/controllers',
                 }).then(function(results){
                     updateContractView(results)
                     $scope.$broadcast('hrjc-loader-hide');
+                }).then(function(){
+                    promiseFiles = $q.all({
+                        details: ContractFilesService.get($scope.details.jobcontract_revision_id,'civicrm_hrjobcontract_details'),
+                        pension: ContractFilesService.get($scope.pension.jobcontract_revision_id,'civicrm_hrjobcontract_pension')
+                    });
                 });
             });
 

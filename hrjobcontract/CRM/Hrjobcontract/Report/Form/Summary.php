@@ -96,23 +96,49 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                 'fields' => array(
                     'email' => array(
                         'title' => ts('Email'),
-                        //'required' => TRUE,
                         'no_repeat' => TRUE,
                     ),
                 ),
                 'filters' => array(
                     'email' => array(
-                        'title' => ts('Email')),
+                        'title' => ts('Email')
+                    ),
                 ),
                 'grouping' => 'contact-fields',
-                /*'order_bys' => array(
-                    'sort_name' => array(
-                        'title' => ts('Last Name, First Name'), 'default' => '1', 'default_weight' => '0', 'default_order' => 'ASC',
-                    ),
-                ),*/
             ),
-
-
+            
+            'civicrm_address' => array(
+                'fields' => array(
+                    'street_address' => array(
+                        'title' => ts('Street Address'),
+                        'no_repeat' => TRUE,
+                    ),
+/*                    'street_number' => array(
+                        'title' => ts('Street Number'),
+                        'no_repeat' => TRUE,
+                    ),
+                    'street_number_suffix' => array(
+                        'title' => ts('Street Number Suffix'),
+                        'no_repeat' => TRUE,
+                    ),*/
+                    'city' => array(
+                        'title' => ts('City'),
+                        'no_repeat' => TRUE,
+                    ),
+                ),
+                'grouping' => 'contact-fields',
+            ),
+            
+            'civicrm_country' => array(
+                'fields' => array(
+                    'name' => array(
+                        'title' => ts('Country'),
+                        'no_repeat' => TRUE,
+                    ),
+                ),
+                'grouping' => 'contact-fields',
+            ),
+            
             'civicrm_hrjobcontract' => array(
                 'dao' => 'CRM_Hrjobcontract_DAO_HRJobContract',
                 'fields' => array(
@@ -739,6 +765,8 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
     $this->_from = "
     FROM civicrm_contact {$this->_aliases['civicrm_contact']} {$this->_aclFrom}
     LEFT JOIN civicrm_email AS {$this->_aliases['civicrm_email']} ON {$this->_aliases['civicrm_contact']}.id = {$this->_aliases['civicrm_email']}.contact_id
+    LEFT JOIN civicrm_address AS {$this->_aliases['civicrm_address']} ON {$this->_aliases['civicrm_contact']}.id = {$this->_aliases['civicrm_address']}.contact_id
+LEFT JOIN civicrm_country AS {$this->_aliases['civicrm_country']} ON {$this->_aliases['civicrm_address']}.country_id = {$this->_aliases['civicrm_country']}.id
     LEFT JOIN civicrm_hrjobcontract AS {$this->_aliases['civicrm_hrjobcontract']} ON {$this->_aliases['civicrm_contact']}.id = {$this->_aliases['civicrm_hrjobcontract']}.contact_id
     LEFT JOIN civicrm_hrjobcontract_revision AS {$this->_aliases['civicrm_hrjobcontract_revision']} ON {$this->_aliases['civicrm_hrjobcontract']}.id = {$this->_aliases['civicrm_hrjobcontract_revision']}.jobcontract_id
     LEFT JOIN civicrm_hrjobcontract_details AS {$this->_aliases['civicrm_hrjobcontract_details']} ON {$this->_aliases['civicrm_hrjobcontract_revision']}.details_revision_id = {$this->_aliases['civicrm_hrjobcontract_details']}.jobcontract_revision_id
@@ -799,7 +827,9 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
         foreach ($fields as $key => $value) {
             $fieldName = substr($key, strlen($tableName) + 1);
             $rowKey = 'civicrm_hrjobcontract_' . $tableName . '_' . $tableName . '_' . $fieldName;
-            $rows[$rowNum][$rowKey] = $ei->export($tableName, $fieldName, $row[$rowKey]);
+            if (!empty($row[$rowKey])) {
+                $rows[$rowNum][$rowKey] = $ei->export($tableName, $fieldName, $row[$rowKey]);
+            }
         }
       }
       

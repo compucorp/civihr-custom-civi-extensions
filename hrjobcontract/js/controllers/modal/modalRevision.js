@@ -200,9 +200,15 @@ define(['controllers/controllers'], function(controllers){
                         url += 'fields['+prefix+fieldName+']=1&';
                     }
                 });
-
-                url += 'order_bys[1][column]=sort_name&order_bys[1][order]=ASC' +
-                        '&order_bys[2][column]=-&order_bys[2][order]=ASC' +
+                
+                url += 'fields[sort_name]=1' +
+                        '&fields[first_name]=1' +
+                        '&fields[last_name]=1' +
+                        '&fields[external_identifier]=1' +
+                        '&fields[email]=1' +
+                        '&fields[contact_id]=1' +
+                        '&order_bys[1][column]=id&order_bys[1][order]=ASC' +
+                        '&order_bys[2][column]=civicrm_hrjobcontract_revision_revision_id&order_bys[2][order]=ASC' +
                         '&order_bys[3][column]=-&order_bys[3][order]=ASC' +
                         '&order_bys[4][column]=-&order_bys[4][order]=ASC' +
                         '&order_bys[5][column]=-&order_bys[5][order]=ASC' +
@@ -211,7 +217,7 @@ define(['controllers/controllers'], function(controllers){
                         '&_qf_Summary_submit_csv=Preview+CSV' +
                         '&groups=' +
                         '&contract_id_value='+revisionList[0].jobcontract_id +
-                        (entityName != 'leave' ? '&group_bys[civicrm_hrjobcontract_'+entityName+'_jobcontract_revision_id]=1' : '');
+                        '&group_bys[civicrm_hrjobcontract_revision_revision_id]=1';
 
                 return url;
             };

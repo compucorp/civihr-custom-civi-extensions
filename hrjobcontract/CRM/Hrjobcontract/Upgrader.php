@@ -215,8 +215,20 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
             );
         }
         
+        $effectiveDate = null;
+        $periodStartDate = explode('-', $hrJob->period_start_date);
+        if (count($periodStartDate) === 3)
+        {
+            $effectiveDate = array(
+                'month' => $periodStartDate[1],
+                'day' => $periodStartDate[2],
+                'year' => $periodStartDate[0],
+            );
+        }
+        
         // Updating Revision:
         $updateRevisionQuery = 'UPDATE civicrm_hrjobcontract_revision SET '
+            . 'effective_date = %12,'
             . 'details_revision_id = %1,'
             . 'health_revision_id = %2,'
             . 'hour_revision_id = %3,'
@@ -240,6 +252,7 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
             9 => array(CRM_Utils_Date::getToday( null, 'YmdHis' ), 'Timestamp'),
             10 => array(1, 'Integer'),
             11 => array($revisionId, 'Integer'),
+            12 => array(CRM_Utils_Date::getToday($effectiveDate, 'Ymd'), 'Timestamp'),
         );
         
         CRM_Core_DAO::executeQuery($updateRevisionQuery, $updateRevisionParams);
@@ -409,8 +422,6 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
         ('hrjobcontract', 'work_weeks_per_year', 'i:50;', 1, NULL, 1, NULL, '2014-12-01 03:01:02', NULL)");
 
     CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_hour` ADD `location_type` INT(3) NULL DEFAULT NULL AFTER `id`");
-
-    CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_revision` ADD `effective_date` DATE NULL DEFAULT NULL AFTER `modified_date`, ADD `change_reason` INT(3) NULL DEFAULT NULL AFTER `effective_date`");
 
     CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_hour` CHANGE `location_type` `location_standard_hours` INT(3) NULL DEFAULT NULL");
 

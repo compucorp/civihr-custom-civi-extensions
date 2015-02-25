@@ -66,12 +66,15 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                     ),
                     'first_name' => array(
                         'title' => ts('First Name'),
-                    ),
-                    'middle_name' => array(
-                        'title' => ts('Middle Name'),
+                        'no_repeat' => TRUE,
                     ),
                     'last_name' => array(
                         'title' => ts('Last Name'),
+                        'no_repeat' => TRUE,
+                    ),
+                    'external_identifier' => array(
+                        'title' => ts('External Identifier'),
+                        'no_repeat' => TRUE,
                     ),
                 ),
                 'filters' => array(
@@ -86,6 +89,27 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                         'title' => ts('Last Name, First Name'), 'default' => '1', 'default_weight' => '0', 'default_order' => 'ASC',
                     ),
                 ),
+            ),
+            
+            'civicrm_email' => array(
+                //'dao' => 'CRM_Contact_DAO_Contact',
+                'fields' => array(
+                    'email' => array(
+                        'title' => ts('Email'),
+                        //'required' => TRUE,
+                        'no_repeat' => TRUE,
+                    ),
+                ),
+                'filters' => array(
+                    'email' => array(
+                        'title' => ts('Email')),
+                ),
+                'grouping' => 'contact-fields',
+                /*'order_bys' => array(
+                    'sort_name' => array(
+                        'title' => ts('Last Name, First Name'), 'default' => '1', 'default_weight' => '0', 'default_order' => 'ASC',
+                    ),
+                ),*/
             ),
 
 
@@ -680,8 +704,14 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
       if (array_key_exists('fields', $table)) {
         foreach ($table['fields'] as $fieldName => $field) {
           if (!empty($field['required']) || !empty($this->_params['fields'][$fieldName])) {
-            $alias = "{$tableName}_{$fieldName}";
-            $select[] = "{$field['dbAlias']} as {$alias}";
+            if ($tableName == 'civicrm_hrjobcontract_leave' && $fieldName == 'leave_leave_type') {
+                $select[] = "GROUP_CONCAT(hrjobcontract_leave_civireport.leave_type SEPARATOR ',') AS {$tableName}_{$fieldName}";
+            } elseif ($tableName == 'civicrm_hrjobcontract_leave' && $fieldName == 'leave_leave_amount') {
+                $select[] = "GROUP_CONCAT(hrjobcontract_leave_civireport.leave_type , ':', hrjobcontract_leave_civireport.leave_amount SEPARATOR ',') AS {$tableName}_{$fieldName}";
+            } else {
+                $alias = "{$tableName}_{$fieldName}";
+                $select[] = "{$field['dbAlias']} as {$alias}";
+            }
             $this->_columnHeaders["{$tableName}_{$fieldName}"]['type'] = CRM_Utils_Array::value('type', $field);
             $this->_columnHeaders["{$tableName}_{$fieldName}"]['title'] = $field['title'];
             $this->_selectAliases[] = $alias;
@@ -708,6 +738,7 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
   function from() {
     $this->_from = "
     FROM civicrm_contact {$this->_aliases['civicrm_contact']} {$this->_aclFrom}
+    LEFT JOIN civicrm_email AS {$this->_aliases['civicrm_email']} ON {$this->_aliases['civicrm_contact']}.id = {$this->_aliases['civicrm_email']}.contact_id
     LEFT JOIN civicrm_hrjobcontract AS {$this->_aliases['civicrm_hrjobcontract']} ON {$this->_aliases['civicrm_contact']}.id = {$this->_aliases['civicrm_hrjobcontract']}.contact_id
     LEFT JOIN civicrm_hrjobcontract_revision AS {$this->_aliases['civicrm_hrjobcontract_revision']} ON {$this->_aliases['civicrm_hrjobcontract']}.id = {$this->_aliases['civicrm_hrjobcontract_revision']}.jobcontract_id
     LEFT JOIN civicrm_hrjobcontract_details AS {$this->_aliases['civicrm_hrjobcontract_details']} ON {$this->_aliases['civicrm_hrjobcontract_revision']}.details_revision_id = {$this->_aliases['civicrm_hrjobcontract_details']}.jobcontract_revision_id
@@ -727,7 +758,7 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
     $this->buildACLClause($this->_aliases['civicrm_contact']);
 
     $sql = $this->buildQuery(TRUE);
-
+    
     $rows = $graphRows = array();
     $this->buildRows($sql, $rows);
 
@@ -739,35 +770,12 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
   function alterDisplay(&$rows) {
     // custom code to alter rows
     $entryFound = FALSE;
-    $changeReasonOptins = array();
-    CRM_Core_OptionGroup::getAssoc('hrjc_revision_change_reason', $changeReasonOptins);
     
-    $payScaleOptions = array();
-    $payScale = new CRM_Hrjobcontract_BAO_PayScale();
-    $payScale->find();
-    while ($payScale->fetch()) {
-        $payScaleOptions[$payScale->id] = (array)$payScale;
-    }
+    $entities = array('HRJobDetails', 'HRJobHour', 'HRJobHealth', 'HRJobLeave', 'HRJobPay', 'HRJobPension', 'HRJobRole');
+    $ei = CRM_Hrjobcontract_ExportImportValuesConverter::singleton();
     
-    $hoursLocationOptions = array();
-    $hoursLocation = new CRM_Hrjobcontract_BAO_HoursLocation();
-    $hoursLocation->find();
-    while ($hoursLocation->fetch()) {
-        $hoursLocationOptions[$hoursLocation->id] = (array)$hoursLocation;
-    }
-    
-    $leaveTypes = array();
-    $absenceType = new CRM_HRAbsence_BAO_HRAbsenceType();
-    $absenceType->find();
-    while ($absenceType->fetch()) {
-        $leaveTypes[$absenceType->id] = (array)$absenceType;
-    }
-    
-    $hoursTypeOptions = array();
-    CRM_Core_OptionGroup::getAssoc('hrjc_hours_type', $hoursType, true);
-    foreach ($hoursType as $hourType) {
-        $hoursTypeOptions[$hourType['value']] = $hourType;
-    }
+    $changeReasonOptions = array();
+    CRM_Core_OptionGroup::getAssoc('hrjc_revision_change_reason', $changeReasonOptions);
     
     foreach ($rows as $rowNum => $row) {
       // make count columns point to detail report
@@ -784,72 +792,21 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
         $entryFound = TRUE;
       }
       
+      // Convert revisionable HRJobContract Entities values for export
+      foreach ($entities as $entity) {
+        $tableName = _civicrm_get_table_name($entity);
+        $fields = $this->_columns['civicrm_hrjobcontract_' . $tableName]['fields'];
+        foreach ($fields as $key => $value) {
+            $fieldName = substr($key, strlen($tableName) + 1);
+            $rowKey = 'civicrm_hrjobcontract_' . $tableName . '_' . $tableName . '_' . $fieldName;
+            $rows[$rowNum][$rowKey] = $ei->export($tableName, $fieldName, $row[$rowKey]);
+        }
+      }
+      
+      // Convert non-revisionable HRJobContract Entities values for export
       if (!empty($row['civicrm_hrjobcontract_revision_change_reason'])) {
-          $rows[$rowNum]['civicrm_hrjobcontract_revision_change_reason'] = $changeReasonOptins['label'][$rows[$rowNum]['civicrm_hrjobcontract_revision_change_reason']];
+          $rows[$rowNum]['civicrm_hrjobcontract_revision_change_reason'] = $changeReasonOptions['label'][$rows[$rowNum]['civicrm_hrjobcontract_revision_change_reason']];
           $entryFound = TRUE;
-      }
-      
-      $rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'] = (int)$rows[$rowNum]['civicrm_hrjobcontract_details_details_is_primary'] ? 'Yes' : 'No';
-      
-      $isEnrolled = (int)$rows[$rowNum]['civicrm_hrjobcontract_pension_pension_is_enrolled'];
-      switch ($isEnrolled) {
-          case 0:
-              $rows[$rowNum]['civicrm_hrjobcontract_pension_pension_is_enrolled'] = 'No';
-          break;
-          case 1:
-              $rows[$rowNum]['civicrm_hrjobcontract_pension_pension_is_enrolled'] = 'Yes';
-          break;
-          case 2:
-              $rows[$rowNum]['civicrm_hrjobcontract_pension_pension_is_enrolled'] = 'Opted out';
-          break;
-      }
-      
-      $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'] = (int)$rows[$rowNum]['civicrm_hrjobcontract_pay_pay_is_paid'] ? 'Yes' : 'No';
-      
-      if (!empty($row['civicrm_hrjobcontract_pay_pay_pay_scale'])) {
-          $payScaleId = $row['civicrm_hrjobcontract_pay_pay_pay_scale'];
-          if ($payScaleId) {
-            $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_pay_scale'] = $payScaleOptions[$payScaleId]['pay_scale'] . ' - ' .
-                    $payScaleOptions[$payScaleId]['pay_grade'] . ' - ' .
-                    $payScaleOptions[$payScaleId]['currency'] . ' ' .
-                    $payScaleOptions[$payScaleId]['amount'] . ' per ' .
-                    $payScaleOptions[$payScaleId]['periodicity'];
-            $entryFound = TRUE;
-          }
-      }
-      
-      $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_pay_is_auto_est'] = (int)$rows[$rowNum]['civicrm_hrjobcontract_pay_pay_pay_is_auto_est'] ? 'Yes' : 'No';
-      
-      if (!empty($row['civicrm_hrjobcontract_pay_pay_annual_benefits'])) {
-          $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_annual_benefits'] = $this->getAnnualReadableValues('benefit', $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_annual_benefits']);
-          $entryFound = TRUE;
-      }
-      
-      if (!empty($row['civicrm_hrjobcontract_pay_pay_annual_deductions'])) {
-          $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_annual_deductions'] = $this->getAnnualReadableValues('deduction', $rows[$rowNum]['civicrm_hrjobcontract_pay_pay_annual_deductions']);
-          $entryFound = TRUE;
-      }
-      
-      if (!empty($row['civicrm_hrjobcontract_leave_leave_leave_type'])) {
-          $leaveTypeId = $row['civicrm_hrjobcontract_leave_leave_leave_type'];
-          $rows[$rowNum]['civicrm_hrjobcontract_leave_leave_leave_type'] = $leaveTypes[$leaveTypeId]['title'];
-          $entryFound = TRUE;
-      }
-      
-      if (!empty($row['civicrm_hrjobcontract_hour_hour_hours_type'])) {
-          $hoursTypeId = $rows[$rowNum]['civicrm_hrjobcontract_hour_hour_hours_type'];
-          $rows[$rowNum]['civicrm_hrjobcontract_hour_hour_hours_type'] = $hoursTypeOptions[$rows[$rowNum]['civicrm_hrjobcontract_hour_hour_hours_type']]['label'];
-          $entryFound = TRUE;
-      }
-      
-      if (!empty($row['civicrm_hrjobcontract_hour_hour_location_standard_hours'])) {
-          $hoursLocationId = $row['civicrm_hrjobcontract_hour_hour_location_standard_hours'];
-          if ($hoursLocationId) {
-            $rows[$rowNum]['civicrm_hrjobcontract_hour_hour_location_standard_hours'] = $hoursLocationOptions[$hoursLocationId]['location'] . ' - ' .
-                    $hoursLocationOptions[$hoursLocationId]['standard_hours'] . ' hours per ' .
-                    $hoursLocationOptions[$hoursLocationId]['periodicity'];
-            $entryFound = TRUE;
-          }
       }
       
       // skip looking further in rows, if first row itself doesn't
@@ -858,24 +815,6 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
         break;
       }*/
     }
-  }
-  
-  function getAnnualReadableValues($field, $json) {
-      $list = json_decode($json, true);
-      $output = '';
-      
-      if (!empty($list)) {
-          foreach ($list as $row) {
-            CRM_Core_OptionGroup::getAssoc('hrjc_' . $field . '_name', $benefitNameOptions);
-            CRM_Core_OptionGroup::getAssoc('hrjc_' . $field . '_type', $benefitTypeOptions);
-            $output .= 'name: ' . $benefitNameOptions['name'][$row['name']] . ', ';
-            $output .= 'type: ' . $benefitTypeOptions['name'][$row['type']] . ', ';
-            $output .= 'amount pct: ' . $row['amount_pct'] . ', ';
-            $output .= 'amount abs: ' . $row['amount_abs'] . '; ';
-          }
-      }
-      
-      return $output;
   }
   
   function buildQuickForm() {

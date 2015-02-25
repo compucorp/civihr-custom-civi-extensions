@@ -72,44 +72,59 @@ class CRM_Hrjobcontract_BAO_HRJobContract extends CRM_Hrjobcontract_DAO_HRJobCon
    * @access public
    * @static
    */
-  static function importableFields($contactType = 'HRJobContract',
+  static function &importableFields($contactType = 'Individual',
     $status          = FALSE,
     $showAll         = FALSE,
     $isProfile       = FALSE,
     $checkPermission = TRUE,
     $withMultiCustomFields = FALSE
   ) {
-    if (empty($contactType)) {
-      $contactType = 'HRJobContract';
-    }
+      
+     $contactType = 'Individual';
+     
+     $fields = CRM_Hrjobcontract_DAO_HRJobContract::import();
+     
+      $tmpContactField = $contactFields = array();
+      $contactFields = array( );
+      
+        $contactFields = CRM_Contact_BAO_Contact::importableFields($contactType, NULL);
 
-    $cacheKeyString = "";
-    $cacheKeyString .= $status ? '_1' : '_0';
-    $cacheKeyString .= $showAll ? '_1' : '_0';
-    $cacheKeyString .= $isProfile ? '_1' : '_0';
-    $cacheKeyString .= $checkPermission ? '_1' : '_0';
-
-    $fields = CRM_Utils_Array::value($cacheKeyString, self::$_importableFields);
-
-    if (!$fields) {
-      $fields = CRM_Hrjobcontract_DAO_HRJobContract::import();
-
-      $fields = array_merge($fields, CRM_Hrjobcontract_DAO_HRJobContract::import());
-
-      //Sorting fields in alphabetical order(CRM-1507)
-      $fields = CRM_Utils_Array::crmArraySortByField($fields, 'title');
-      $fields = CRM_Utils_Array::index(array('name'), $fields);
-
-      CRM_Core_BAO_Cache::setItem($fields, 'contact fields', $cacheKeyString);
-     }
-
-    self::$_importableFields[$cacheKeyString] = $fields;
-
-    if (!$isProfile) {
-        $fields = array_merge(array('do_not_import' => array('title' => ts('- do not import -'))),
-          self::$_importableFields[$cacheKeyString]
+        // Using new Dedupe rule.
+        $ruleParams = array(
+          'contact_type' => $contactType,
+          'used'         => 'Unsupervised',
         );
-    }
-    return $fields;
+        $fieldsArray = CRM_Dedupe_BAO_Rule::dedupeRuleFields($ruleParams);
+        if (is_array($fieldsArray)) {
+          foreach ($fieldsArray as $value) {
+            $customFieldId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_CustomField',
+              $value,
+              'id',
+              'column_name'
+            );
+            $value = $customFieldId ? 'custom_' . $customFieldId : $value;
+            $tmpContactField[trim($value)] = CRM_Utils_Array::value(trim($value), $contactFields);
+            if (!$status) {
+              $title = $tmpContactField[trim($value)]['title'] . ' (match to contact)';
+            }
+            else {
+              $title = $tmpContactField[trim($value)]['title'];
+            }
+
+            $tmpContactField[trim($value)]['title'] = $title;
+          }
+        }
+        
+      $extIdentifier = CRM_Utils_Array::value('external_identifier', $contactFields);
+      if ($extIdentifier) {
+        $tmpContactField['external_identifier'] = $extIdentifier;
+        $tmpContactField['external_identifier']['title'] =
+          CRM_Utils_Array::value('title', $extIdentifier) . ' (match to contact)';
+      }
+
+      $fields = array_merge($fields, $tmpContactField);
+
+      self::$_importableFields = $fields;
+    return self::$_importableFields;//$fields;
   }
 }

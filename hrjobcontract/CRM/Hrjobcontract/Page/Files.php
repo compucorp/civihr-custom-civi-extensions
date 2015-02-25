@@ -173,7 +173,7 @@ class CRM_Hrjobcontract_Page_Files extends CRM_Core_Page {
             $newEntityFile->file_id = $file_save['id'];
             $newEntityFile->save();
             $fileName = basename($v['name']);
-            $result = 1;
+            $result++;
           }
         }
       }

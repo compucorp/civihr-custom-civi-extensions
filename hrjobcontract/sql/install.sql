@@ -39,6 +39,8 @@ CREATE TABLE IF NOT EXISTS `civicrm_hrjobcontract_revision` (
     `jobcontract_id` int(10) unsigned NOT NULL,
     `created_date` datetime DEFAULT NULL,
     `modified_date` datetime DEFAULT NULL,
+    `effective_date` DATE NULL DEFAULT NULL,
+    `change_reason` INT(3) NULL DEFAULT NULL,
     `status` tinyint(4) DEFAULT NULL,
     `details_revision_id` int(10) unsigned DEFAULT NULL,
     `health_revision_id` int(10) unsigned DEFAULT NULL,

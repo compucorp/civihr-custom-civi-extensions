@@ -105,6 +105,142 @@ function hrjobcontract_civicrm_install() {
       'parent_id'  => $administerNavId,
     ),
   );
+  
+  // hrjc_contact_type:
+  $result = civicrm_api3('OptionGroup', 'get', array(
+    'sequential' => 1,
+    'name' => "hrjc_contract_type",
+  ));
+  if (!empty($result['id'])) {
+    $jobContractOptionsMenuTree[] = array(
+      'label'      => ts('Contract Type'),
+      'name'       => 'hrjc_contract_type',
+      'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+      'permission' => 'administer CiviCRM',
+      'parent_id'  => $administerNavId,
+    );
+  }
+  
+  // hrjc_location:
+  $result = civicrm_api3('OptionGroup', 'get', array(
+    'sequential' => 1,
+    'name' => "hrjc_location",
+  ));
+  if (!empty($result['id'])) {
+    $jobContractOptionsMenuTree[] = array(
+      'label'      => ts('Normal place of work'),
+      'name'       => 'hrjc_location',
+      'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+      'permission' => 'administer CiviCRM',
+      'parent_id'  => $administerNavId,
+    );
+  }
+  
+  // hrjc_pay_cycle:
+  $result = civicrm_api3('OptionGroup', 'get', array(
+    'sequential' => 1,
+    'name' => "hrjc_pay_cycle",
+  ));
+  if (!empty($result['id'])) {
+    $jobContractOptionsMenuTree[] = array(
+      'label'      => ts('Pay cycle'),
+      'name'       => 'hrjc_pay_cycle',
+      'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+      'permission' => 'administer CiviCRM',
+      'parent_id'  => $administerNavId,
+    );
+  }
+  
+  // hrjc_benefit_name:
+  $result = civicrm_api3('OptionGroup', 'get', array(
+    'sequential' => 1,
+    'name' => "hrjc_benefit_name",
+  ));
+  if (!empty($result['id'])) {
+    $jobContractOptionsMenuTree[] = array(
+      'label'      => ts('Benefits'),
+      'name'       => 'hrjc_benefit_name',
+      'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+      'permission' => 'administer CiviCRM',
+      'parent_id'  => $administerNavId,
+    );
+  }
+  
+  // hrjc_benefit_type:
+  $result = civicrm_api3('OptionGroup', 'get', array(
+    'sequential' => 1,
+    'name' => "hrjc_benefit_type",
+  ));
+  if (!empty($result['id'])) {
+    $jobContractOptionsMenuTree[] = array(
+      'label'      => ts('Benefit type'),
+      'name'       => 'hrjc_benefit_type',
+      'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+      'permission' => 'administer CiviCRM',
+      'parent_id'  => $administerNavId,
+    );
+  }
+  
+  // hrjc_deduction_name:
+  $result = civicrm_api3('OptionGroup', 'get', array(
+    'sequential' => 1,
+    'name' => "hrjc_deduction_name",
+  ));
+  if (!empty($result['id'])) {
+    $jobContractOptionsMenuTree[] = array(
+      'label'      => ts('Deductions'),
+      'name'       => 'hrjc_deduction_name',
+      'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+      'permission' => 'administer CiviCRM',
+      'parent_id'  => $administerNavId,
+    );
+  }
+  
+  // hrjc_deduction_type:
+  $result = civicrm_api3('OptionGroup', 'get', array(
+    'sequential' => 1,
+    'name' => "hrjc_deduction_type",
+  ));
+  if (!empty($result['id'])) {
+    $jobContractOptionsMenuTree[] = array(
+      'label'      => ts('Deduction type'),
+      'name'       => 'hrjc_deduction_type',
+      'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+      'permission' => 'administer CiviCRM',
+      'parent_id'  => $administerNavId,
+    );
+  }
+  
+  // hrjc_health_provider:
+  $result = civicrm_api3('OptionGroup', 'get', array(
+    'sequential' => 1,
+    'name' => "hrjc_health_provider",
+  ));
+  if (!empty($result['id'])) {
+    $jobContractOptionsMenuTree[] = array(
+      'label'      => ts('Health provider'),
+      'name'       => 'hrjc_health_provider',
+      'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+      'permission' => 'administer CiviCRM',
+      'parent_id'  => $administerNavId,
+    );
+  }
+  
+  // hrjc_life_provider:
+  $result = civicrm_api3('OptionGroup', 'get', array(
+    'sequential' => 1,
+    'name' => "hrjc_life_provider",
+  ));
+  if (!empty($result['id'])) {
+    $jobContractOptionsMenuTree[] = array(
+      'label'      => ts('Life provider'),
+      'name'       => 'hrjc_life_provider',
+      'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+      'permission' => 'administer CiviCRM',
+      'parent_id'  => $administerNavId,
+    );
+  }
+  
   foreach ($jobContractOptionsMenuTree as $key => $menuItems) {
     $menuItems['is_active'] = 1;
     CRM_Core_BAO_Navigation::add($menuItems);
@@ -136,7 +272,7 @@ function hrjobcontract_civicrm_uninstall() {
   if (!empty($jobContractMenu)) {
     CRM_Core_BAO_Navigation::processDelete($jobContractMenu);
   }
-  CRM_Core_DAO::executeQuery("DELETE FROM civicrm_navigation WHERE name IN ('hoursType', 'pay_scale','hours_location')");
+  CRM_Core_DAO::executeQuery("DELETE FROM civicrm_navigation WHERE name IN ('job_contracts', 'hoursType', 'pay_scale','hours_location', 'hrjc_contact_type', 'hrjc_location', 'hrjc_pay_cycle', 'hrjc_benefit_name', 'hrjc_benefit_type', 'hrjc_deduction_name', 'hrjc_deduction_type', 'hrjc_health_provider', 'hrjc_life_provider')");
   CRM_Core_BAO_Navigation::resetNavigation();
 
   //delete custom groups and field
@@ -163,7 +299,7 @@ function hrjobcontract_civicrm_uninstall() {
  */
 function hrjobcontract_civicrm_enable() {
   //Enable the Navigation menu and submenus
-  $sql = "UPDATE civicrm_navigation SET is_active=1 WHERE name IN ('job_contracts', 'hoursType', 'hours_location', 'pay_scale')";
+  $sql = "UPDATE civicrm_navigation SET is_active=1 WHERE name IN ('job_contracts', 'hoursType', 'hours_location', 'pay_scale', 'hrjc_contact_type', 'hrjc_location', 'hrjc_pay_cycle', 'hrjc_benefit_name', 'hrjc_benefit_type', 'hrjc_deduction_name', 'hrjc_deduction_type', 'hrjc_health_provider', 'hrjc_life_provider')";
   CRM_Core_DAO::executeQuery($sql);
   CRM_Core_BAO_Navigation::resetNavigation();
     
@@ -178,7 +314,7 @@ function hrjobcontract_civicrm_enable() {
  */
 function hrjobcontract_civicrm_disable() {
   //Disable the Navigation menu and submenus
-  $sql = "UPDATE civicrm_navigation SET is_active=0 WHERE name IN ('job_contracts', 'hoursType', 'hours_location', 'pay_scale')";
+  $sql = "UPDATE civicrm_navigation SET is_active=0 WHERE name IN ('job_contracts', 'hoursType', 'hours_location', 'pay_scale', 'hrjc_contact_type', 'hrjc_location', 'hrjc_pay_cycle', 'hrjc_benefit_name', 'hrjc_benefit_type', 'hrjc_deduction_name', 'hrjc_deduction_type', 'hrjc_health_provider', 'hrjc_life_provider')";
   CRM_Core_DAO::executeQuery($sql);
   CRM_Core_BAO_Navigation::resetNavigation();
   

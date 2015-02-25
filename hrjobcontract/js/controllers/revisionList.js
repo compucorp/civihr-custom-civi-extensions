@@ -123,6 +123,9 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                 '&fields[last_name]=1' +
                 '&fields[external_identifier]=1' +
                 '&fields[email]=1' +
+                '&fields[street_address]=1' +
+                '&fields[city]=1' +
+                '&fields[name]=1' +
                 '&fields[contact_id]=1' +
                 '&fields[change_reason]=1' +
                 '&fields[created_date]=1' +

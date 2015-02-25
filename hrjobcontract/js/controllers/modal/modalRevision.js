@@ -206,6 +206,9 @@ define(['controllers/controllers'], function(controllers){
                         '&fields[last_name]=1' +
                         '&fields[external_identifier]=1' +
                         '&fields[email]=1' +
+                        '&fields[street_address]=1' +
+                        '&fields[city]=1' +
+                        '&fields[name]=1' +
                         '&fields[contact_id]=1' +
                         '&order_bys[1][column]=id&order_bys[1][order]=ASC' +
                         '&order_bys[2][column]=civicrm_hrjobcontract_revision_revision_id&order_bys[2][order]=ASC' +

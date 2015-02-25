@@ -14,7 +14,7 @@ define(['controllers/controllers',
                  ContractPensionService, ContractFilesService, $log){
             $log.debug('Controller: ContractCtrl');
 
-            var contractId = $scope.contract.id, contractRevisionIdObj, promiseFiles;
+            var contractId = $scope.contract.id, promiseFiles;
 
             $scope.contractLoaded = false;
             $scope.isCollapsed = true;
@@ -23,6 +23,25 @@ define(['controllers/controllers',
             $scope.revisionDataList = [];
 
             angular.extend($scope, angular.copy($scope.model));
+
+            function updateEntities(newScope){
+                var contractRevisionIdObj = {
+                    id: null,
+                    jobcontract_id: contractId,
+                    jobcontract_revision_id: newScope.details.jobcontract_revision_id
+                };
+
+                angular.extend($scope.details, newScope.details);
+                angular.extend($scope.hour, newScope.hour || contractRevisionIdObj);
+                angular.extend($scope.pay, newScope.pay || contractRevisionIdObj);
+
+                angular.forEach($scope.leave, function(leaveType, leaveTypeId){
+                    angular.extend(leaveType, newScope.leave ? newScope.leave[leaveTypeId] || contractRevisionIdObj : contractRevisionIdObj);
+                });
+
+                angular.extend($scope.health, newScope.health || contractRevisionIdObj);
+                angular.extend($scope.pension, newScope.pension || contractRevisionIdObj);
+            }
 
             $q.all({
                 details: ContractDetailsService.getOne({ jobcontract_id: contractId}),
@@ -33,22 +52,7 @@ define(['controllers/controllers',
                 pension: ContractPensionService.getOne({ jobcontract_id: contractId})
             }).then(function(results){
 
-                contractRevisionIdObj = {
-                    id: null,
-                    jobcontract_id: contractId,
-                    jobcontract_revision_id: results.details.jobcontract_revision_id
-                };
-
-                angular.extend($scope.details, results.details);
-                angular.extend($scope.hour, results.hour || contractRevisionIdObj);
-                angular.extend($scope.pay, results.pay || contractRevisionIdObj);
-
-                angular.forEach($scope.leave, function(leaveType, leaveTypeId){
-                    angular.extend(leaveType, results.leave ? results.leave[leaveTypeId] || contractRevisionIdObj : contractRevisionIdObj);
-                });
-
-                angular.extend($scope.health, results.health || contractRevisionIdObj);
-                angular.extend($scope.pension, results.pension || contractRevisionIdObj);
+                updateEntities(results);
 
                 $scope.contractLoaded = true;
 
@@ -286,6 +290,23 @@ define(['controllers/controllers',
             $scope.$on('unsetIsPrimary',function(e, excludeContractId){
                 if (contractId == excludeContractId) {
                     $scope.details.is_primary = 0;
+                }
+            });
+
+            $scope.$watch('revisionCurrent.id', function(idCurrent, idPrev){
+                if (idPrev) {
+                    $scope.$broadcast('hrjc-loader-show');
+                    $q.all({
+                        details: ContractDetailsService.getOne({ jobcontract_revision_id: $scope.revisionCurrent.details_revision_id }),
+                        hour: ContractHourService.getOne({ jobcontract_revision_id: $scope.revisionCurrent.hour_revision_id }),
+                        pay: ContractPayService.getOne({ jobcontract_revision_id: $scope.revisionCurrent.pay_revision_id }),
+                        leave: ContractLeaveService.get({ jobcontract_revision_id: $scope.revisionCurrent.leave_revision_id }),
+                        health: ContractHealthService.getOne({ jobcontract_revision_id: $scope.revisionCurrent.health_revision_id }),
+                        pension: ContractPensionService.getOne({ jobcontract_revision_id: $scope.revisionCurrent.pension_revision_id })
+                    }).then(function(results){
+                        updateEntities(results)
+                        $scope.$broadcast('hrjc-loader-hide');
+                    });
                 }
             });
 

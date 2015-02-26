@@ -62,7 +62,7 @@ require([
     app.constant('settings', {
         classNamePrefix: 'hrjc-',
         contactId: CRM.jobContractTabApp.contactId,
-        debug: CRM.debug,
+        debug: +CRM.debug,
         pathApp: CRM.jobContractTabApp.path,
         pathFile: CRM.url('civicrm/hrjobcontract/file/'),
         pathReport: CRM.url('civicrm/report/hrjobcontract/summary'),
@@ -85,9 +85,9 @@ require([
                     controller: 'ContractListCtrl',
                     templateUrl: settings.pathApp+'views/contractList.html?v='+(new Date().getTime()),
                     resolve: {
-                        contractList: function(ContractService){
+                        contractList: ['ContractService',function(ContractService){
                             return ContractService.get()
-                        }
+                        }]
                     }
                 }
             ).otherwise({redirectTo:'/'});

@@ -271,81 +271,43 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
     return self::$_export;
   }
   
-  static function handlePrimary($instance, array $params) // TODO!
+  static function handlePrimary($instance, array $params)
   {
-      return null; //// TODO!
         $isPrimary = 0;
         if (is_numeric(CRM_Utils_Array::value('is_primary', $params)))
         {
             $isPrimary = (int)$params['is_primary'];
         }
         
-        $revisionResult = civicrm_api3('HRJobContractRevision', 'get', array(
-            'sequential' => 1,
-            'id' => $instance->jobcontract_revision_id,
-        ));
-        $revision = CRM_Utils_Array::first($revisionResult['values']);
-        if (empty($revision))
-        {
-            // No revision found (id = ' . $instance->jobcontract_revision_id . '), returning.
-            return false;
-        }
-        
-        $jobcontractResult = civicrm_api3('HRJobContract', 'get', array(
-            'sequential' => 1,
-            'id' => $revision['jobcontract_id'],
-        ));
-        $jobcontract = CRM_Utils_Array::first($jobcontractResult['values']);
-        if (empty($jobcontract))
-        {
-            // No job contract found (id = ' . $revision['jobcontract_id'] . '), returning.
-            return false;
-        }
-        
-        $hrOtherPrimaryJobContracts = CRM_Core_DAO::executeQuery(
-            'SELECT c.id, c.contact_id, r.status, d.id AS details_id, d.is_primary FROM civicrm_hrjobcontract_details d
-            JOIN civicrm_hrjobcontract_revision r ON d.jobcontract_revision_id = r.id
-            JOIN civicrm_hrjobcontract c ON r.jobcontract_id = c.id
-            WHERE c.contact_id = %1 AND r.status = 1 AND d.is_primary = 1 AND c.id <> %2',
-            array(
-                1 => array($jobcontract['contact_id'], 'Integer'),
-                2 => array($jobcontract['id'], 'Integer'),
-            )
-        );
-        
-        $primaries = array();
-        while ($hrOtherPrimaryJobContracts->fetch())
-        {
-            $primaries[$hrOtherPrimaryJobContracts->id] = $hrOtherPrimaryJobContracts->details_id;
-        }
-        
-        if (empty($primaries))
-        {
-            // There is no primary contract, setting current one to primary.
-            $instance->is_primary = 1;
-            $instance->save();
-            return true;
-        }
-        
         if ($isPrimary)
         {
-            // Setting other primaries to 0.
-            foreach ($primaries as $key => $value)
+            $otherContracts = civicrm_api3('HRJobContract', 'get', array(
+                'sequential' => 1,
+                'contact_id' => $instance->contact_id,
+            ));
+            foreach ($otherContracts['values'] as $otherContract)
             {
-                $createParams = array(
-                    'jobcontract_id' => $key,
-                    'is_primary' => 0,
-                );
-                if (!empty($params['id']))
+                if ($otherContract['id'] != $instance->id)
                 {
-                    $createParams['id'] = $value;
+                    civicrm_api3('HRJobContract', 'create', array(
+                        'id' => $otherContract['id'],
+                        'is_primary' => 0,
+                    ));
                 }
-                CRM_Hrjobcontract_BAO_HRJobDetails::create($createParams);
             }
         }
         
-        $instance->is_primary = $isPrimary;
-        $instance->save();
+        $primaryContracts = civicrm_api3('HRJobContract', 'get', array(
+            'sequential' => 1,
+            'contact_id' => $instance->contact_id,
+            'is_primary' => 1,
+        ));
+        
+        if (empty($primaryContracts['values']))
+        {
+            $instance->is_primary = 1;
+            $instance->save();
+        }
         
         return (bool)$isPrimary;
   }

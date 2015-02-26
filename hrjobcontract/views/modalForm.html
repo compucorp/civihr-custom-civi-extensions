@@ -584,6 +584,8 @@
 
                             <div class="col-sm-8">
                                 <input type="text" id="{{prefix}}health-health-provider" name="healthProviderHealth" class="form-control"
+                                       autocomplete="off"
+                                       autocorrect="off"
                                        typeahead="provider as provider.label for provider in search($viewValue, 'Health_Insurance_Provider')"
                                        typeahead-editable="false"
                                        typeahead-loading="typeheadLoading.provider"
@@ -648,6 +650,8 @@
 
                             <div class="col-sm-8">
                                 <input type="text" id="{{prefix}}health-life-provider" name="healthProviderLife" class="form-control"
+                                autocomplete="off"
+                                autocorrect="off"
                                 typeahead="provider as provider.label for provider in search($viewValue, 'Life_Insurance_Provider')"
                                 typeahead-editable="false"
                                 typeahead-loading="typeheadLoading.provider_life_insurance"

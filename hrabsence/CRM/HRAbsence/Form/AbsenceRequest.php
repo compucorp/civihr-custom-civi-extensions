@@ -201,32 +201,18 @@ class CRM_HRAbsence_Form_AbsenceRequest extends CRM_Core_Form {
   
   public function getPrimaryJobContractId($employeeID)
   {
-      $primaryJobContractId = null;
-      
       $jobContracts = civicrm_api3('HRJobContract', 'get', array(
           'contact_id' => $this->_targetContactID,
+          'is_primary' => 1,
+          'options' => array('limit' => 1),
       ));
       
       if (!empty($jobContracts['values']))
       {
-          foreach ($jobContracts['values'] as $jobContract)
-          {
-              $jobData = civicrm_api3('HRJobDetails', 'get', array(
-                  'jobcontract_id' => $jobContract['id'],
-              ));
-              
-              if (count($jobData['values']) === 1)
-              {
-                  if ((int)$jobData['values']['is_primary'] === 1)
-                  {
-                      $primaryJobContractId = $jobContract['id'];
-                      break;
-                  }
-              }
-          }
+          return $jobContracts['id'];
       }
       
-      return $primaryJobContractId;
+      return null;
   }
 
   /**

@@ -19,6 +19,10 @@ function _civicrm_get_entity_name($baoName)
 
 function _civicrm_get_table_name($className)
 {
+    if ($className === 'HRJobContract')
+    {
+        return 'contract';
+    }
     preg_match_all('/((?:^|[A-Z])[a-z]+)/', $className, $matches);
     if (!empty($matches[0]))
     {

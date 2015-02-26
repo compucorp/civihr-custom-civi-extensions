@@ -121,33 +121,33 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
         return $value;
     }
     
-    public function details_is_primary_export($value)
+    public function contract_is_primary_export($value)
     {
         return (int)$value ? 'Yes' : 'No';
     }
-    public function details_is_primary_import($value)
+    public function contract_is_primary_import($value)
     {
         return strtolower($value) === 'yes' ? 1 : 0;
     }
     
     public function hour_hours_type_export($value)
     {
-        return !empty($value) ? $this->_hoursTypeOptions[$value]['label'] : null;
+        return isset($value) ? $this->_hoursTypeOptions[$value]['label'] : null;
     }
     public function hour_hours_type_import($value)
     {
-        return !empty($value) ? $this->_hoursTypeOptionsFlipped[$value] : null;
+        return isset($value) ? $this->_hoursTypeOptionsFlipped[$value] : null;
     }
     
     public function hour_location_standard_hours_export($value)
     {
-        return !empty($value) ? $this->_hoursLocationOptions[$value]['location'] . ' - ' .
+        return isset($value) ? $this->_hoursLocationOptions[$value]['location'] . ' - ' .
             $this->_hoursLocationOptions[$value]['standard_hours'] . ' hours per ' .
             $this->_hoursLocationOptions[$value]['periodicity'] : null;
     }
     public function hour_location_standard_hours_import($value)
     {
-        if (empty($value))
+        if (!isset($value))
         {
             return null;
         }
@@ -177,7 +177,7 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
     }
     public function leave_leave_amount_import($value)
     {
-        if (is_array($value) && !empty($value[0]['leave_amount']))
+        if (is_array($value) && isset($value[0]['leave_amount']))
         {
             $value = $value[0]['leave_amount'];
         }
@@ -205,35 +205,35 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
     }
     public function leave_leave_type_import($value)
     {
-        //return !empty($value) ? $this->_leaveTypesFlipped[$value] : null;
+        //return isset($value) ? $this->_leaveTypesFlipped[$value] : null;
         return null;
     }
     
     public function pay_annual_benefits_export($value)
     {
-        return !empty($value) ? $this->_getAnnualReadableValues('benefit', $value) : null;
+        return isset($value) ? $this->_getAnnualReadableValues('benefit', $value) : null;
     }
     public function pay_annual_benefits_import($value)
     {
-        return !empty($value) ? $this->_getAnnualValues('benefit', $value) : null;
+        return isset($value) ? $this->_getAnnualValues('benefit', $value) : null;
     }
     
     public function pay_annual_deductions_export($value)
     {
-        return !empty($value) ? $this->_getAnnualReadableValues('deduction', $value) : null;
+        return isset($value) ? $this->_getAnnualReadableValues('deduction', $value) : null;
     }
     public function pay_annual_deductions_import($value)
     {
-        return !empty($value) ? $this->_getAnnualValues('deduction', $value) : null;
+        return isset($value) ? $this->_getAnnualValues('deduction', $value) : null;
     }
     
     public function pay_pay_cycle_export($value)
     {
-        return !empty($value) ? $this->_payCycleOptions[$value]['label'] : null;
+        return isset($value) ? $this->_payCycleOptions[$value]['label'] : null;
     }
     public function pay_pay_cycle_import($value)
     {
-        return !empty($value) ? $this->_payCycleOptionsFlipped[$value] : null;
+        return isset($value) ? $this->_payCycleOptionsFlipped[$value] : null;
     }
     
     public function pay_pay_is_auto_est_export($value)
@@ -257,7 +257,7 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
     public function pay_pay_scale_export($value)
     {
         $result = '';
-        if (!empty($value)) {
+        if (isset($value)) {
             $result = $this->_payScaleOptions[$value]['pay_scale'];
             if ($value != 8)
             {
@@ -272,7 +272,7 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
     }
     public function pay_pay_scale_import($value)
     {
-        if (empty($value))
+        if (!isset($value))
         {
             return null;
         }
@@ -335,7 +335,7 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
     {
         $list = json_decode($json, true);
         $output = '';
-        if (!empty($list))
+        if (isset($list))
         {
             foreach ($list as $row)
             {
@@ -350,7 +350,7 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
     
     protected function _getAnnualValues($field, $value)
     {
-        if (empty($value))
+        if (!isset($value))
         {
             return null;
         }
@@ -359,7 +359,7 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
         foreach ($rows as $row)
         {
             $row = trim($row);
-            if (empty($row))
+            if (!isset($row))
             {
                 continue;
             }
@@ -369,7 +369,7 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
             {
                 $pair = explode(': ', $column);
                 $k = $pair[0];
-                $v = !empty($pair[1]) ? $pair[1] : '';
+                $v = isset($pair[1]) ? $pair[1] : '';
                 switch ($k)
                 {
                     case 'amount pct':

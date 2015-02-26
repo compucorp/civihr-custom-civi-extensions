@@ -22,8 +22,11 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
     while ($hrJob->fetch())
     {
         // Creating Job Contract:
-        $insertContractQuery = 'INSERT INTO civicrm_hrjobcontract SET contact_id = %1';
-        $insertContractParams = array(1 => array($hrJob->contact_id, 'Integer'));
+        $insertContractQuery = 'INSERT INTO civicrm_hrjobcontract SET contact_id = %1, is_primary = %2';
+        $insertContractParams = array(
+            1 => array($hrJob->contact_id, 'Integer'),
+            2 => array($hrJob->is_primary, 'Integer'),
+        );
         CRM_Core_DAO::executeQuery($insertContractQuery, $insertContractParams);
         $jobContractId = (int)CRM_Core_DAO::singleValueQuery('SELECT LAST_INSERT_ID()');
         
@@ -50,7 +53,6 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
                 'notice_amount_employee' => 'Float',
                 'notice_unit_employee' => 'String',
                 'location' => 'String',
-                'is_primary' => 'Integer',
             ),
             $revisionId
         );

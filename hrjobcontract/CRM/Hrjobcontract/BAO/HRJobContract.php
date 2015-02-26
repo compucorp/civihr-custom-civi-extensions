@@ -22,6 +22,10 @@ class CRM_Hrjobcontract_BAO_HRJobContract extends CRM_Hrjobcontract_DAO_HRJobCon
     $instance->save();
     CRM_Utils_Hook::post($hook, $entityName, $instance->id, $instance);
     
+    if ((is_numeric(CRM_Utils_Array::value('is_primary', $params)) || empty($params['id'])) && empty($params['import'])) {
+        CRM_Hrjobcontract_DAO_HRJobContract::handlePrimary($instance, $params);
+    }
+    
     if (module_exists('rules')) {
         rules_invoke_event('hrjobcontract_after_create', $instance);
     }

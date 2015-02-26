@@ -643,8 +643,224 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
 
     CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_revision` ADD `editor_uid` INT(10) NULL DEFAULT NULL AFTER `jobcontract_id`");
     
-      CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract` ADD `deleted` INT(2) UNSIGNED NOT NULL DEFAULT '0'");
-      CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_revision` ADD `deleted` INT(2) UNSIGNED NOT NULL DEFAULT '0'");
+    CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract` ADD `deleted` INT(2) UNSIGNED NOT NULL DEFAULT '0'");
+    CRM_Core_DAO::executeQuery("ALTER TABLE `civicrm_hrjobcontract_revision` ADD `deleted` INT(2) UNSIGNED NOT NULL DEFAULT '0'");
+    
+    
+    // Navigation items:
+    CRM_Core_DAO::executeQuery("DELETE FROM `civicrm_navigation` WHERE name IN ('hoursType', 'pay_scale', 'hours_location', 'hrjc_contract_type', 'hrjc_location', 'hrjc_pay_cycle', 'hrjc_benefit_name', 'hrjc_benefit_type', 'hrjc_deduction_name', 'hrjc_deduction_type', 'hrjc_health_provider', 'hrjc_life_provider', 'hrjc_pension_type', 'hrjc_revision_change_reason')");
+    // Add administer options
+    $administerNavId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'Dropdown Options', 'id', 'name');
+
+    $jobContractOptionsMenuTree = array(
+      array(
+        'label'      => ts('Hours Types'),
+        'name'       => 'hoursType',
+        'url'        => 'civicrm/hour/editoption',
+        'permission' => 'administer CiviCRM',
+        'parent_id'  => $administerNavId,
+      ),
+      array(
+        'label'      => ts('Job Contract Pay Scale'),
+        'name'       => 'pay_scale',
+        'url'        => 'civicrm/pay_scale',
+        'permission' => 'administer CiviCRM',
+        'parent_id'  => $administerNavId,
+      ),
+      array(
+        'label'      => ts('Job Contract Hours/Location'),
+        'name'       => 'hours_location',
+        'url'        => 'civicrm/hours_location',
+        'permission' => 'administer CiviCRM',
+        'parent_id'  => $administerNavId,
+      ),
+    );
+
+    // hrjc_contract_type:
+    $result = civicrm_api3('OptionGroup', 'get', array(
+      'sequential' => 1,
+      'name' => "hrjc_contract_type",
+    ));
+    if (!empty($result['id'])) {
+      $jobContractOptionsMenuTree[] = array(
+        'label'      => ts('Contract Type'),
+        'name'       => 'hrjc_contract_type',
+        'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+        'permission' => 'administer CiviCRM',
+        'parent_id'  => $administerNavId,
+      );
+    }
+
+    // hrjc_location:
+    $result = civicrm_api3('OptionGroup', 'get', array(
+      'sequential' => 1,
+      'name' => "hrjc_location",
+    ));
+    if (!empty($result['id'])) {
+      $jobContractOptionsMenuTree[] = array(
+        'label'      => ts('Normal place of work'),
+        'name'       => 'hrjc_location',
+        'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+        'permission' => 'administer CiviCRM',
+        'parent_id'  => $administerNavId,
+      );
+    }
+
+    // hrjc_pay_cycle:
+    $result = civicrm_api3('OptionGroup', 'get', array(
+      'sequential' => 1,
+      'name' => "hrjc_pay_cycle",
+    ));
+    if (!empty($result['id'])) {
+      $jobContractOptionsMenuTree[] = array(
+        'label'      => ts('Pay cycle'),
+        'name'       => 'hrjc_pay_cycle',
+        'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+        'permission' => 'administer CiviCRM',
+        'parent_id'  => $administerNavId,
+      );
+    }
+
+    // hrjc_benefit_name:
+    $result = civicrm_api3('OptionGroup', 'get', array(
+      'sequential' => 1,
+      'name' => "hrjc_benefit_name",
+    ));
+    if (!empty($result['id'])) {
+      $jobContractOptionsMenuTree[] = array(
+        'label'      => ts('Benefits'),
+        'name'       => 'hrjc_benefit_name',
+        'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+        'permission' => 'administer CiviCRM',
+        'parent_id'  => $administerNavId,
+      );
+    }
+
+    // hrjc_benefit_type:
+    $result = civicrm_api3('OptionGroup', 'get', array(
+      'sequential' => 1,
+      'name' => "hrjc_benefit_type",
+    ));
+    if (!empty($result['id'])) {
+      $jobContractOptionsMenuTree[] = array(
+        'label'      => ts('Benefit type'),
+        'name'       => 'hrjc_benefit_type',
+        'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+        'permission' => 'administer CiviCRM',
+        'parent_id'  => $administerNavId,
+      );
+    }
+
+    // hrjc_deduction_name:
+    $result = civicrm_api3('OptionGroup', 'get', array(
+      'sequential' => 1,
+      'name' => "hrjc_deduction_name",
+    ));
+    if (!empty($result['id'])) {
+      $jobContractOptionsMenuTree[] = array(
+        'label'      => ts('Deductions'),
+        'name'       => 'hrjc_deduction_name',
+        'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+        'permission' => 'administer CiviCRM',
+        'parent_id'  => $administerNavId,
+      );
+    }
+
+    // hrjc_deduction_type:
+    $result = civicrm_api3('OptionGroup', 'get', array(
+      'sequential' => 1,
+      'name' => "hrjc_deduction_type",
+    ));
+    if (!empty($result['id'])) {
+      $jobContractOptionsMenuTree[] = array(
+        'label'      => ts('Deduction type'),
+        'name'       => 'hrjc_deduction_type',
+        'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+        'permission' => 'administer CiviCRM',
+        'parent_id'  => $administerNavId,
+      );
+    }
+
+    // hrjc_health_provider:
+    $result = civicrm_api3('OptionGroup', 'get', array(
+      'sequential' => 1,
+      'name' => "hrjc_health_provider",
+    ));
+    if (!empty($result['id'])) {
+      $jobContractOptionsMenuTree[] = array(
+        'label'      => ts('Health provider'),
+        'name'       => 'hrjc_health_provider',
+        'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+        'permission' => 'administer CiviCRM',
+        'parent_id'  => $administerNavId,
+      );
+    }
+
+    // hrjc_life_provider:
+    $result = civicrm_api3('OptionGroup', 'get', array(
+      'sequential' => 1,
+      'name' => "hrjc_life_provider",
+    ));
+    if (!empty($result['id'])) {
+      $jobContractOptionsMenuTree[] = array(
+        'label'      => ts('Life provider'),
+        'name'       => 'hrjc_life_provider',
+        'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+        'permission' => 'administer CiviCRM',
+        'parent_id'  => $administerNavId,
+      );
+    }
+
+    // hrjc_pension_type:
+    $result = civicrm_api3('OptionGroup', 'get', array(
+      'sequential' => 1,
+      'name' => "hrjc_pension_type",
+    ));
+    if (!empty($result['id'])) {
+      $jobContractOptionsMenuTree[] = array(
+        'label'      => ts('Pension provider type'),
+        'name'       => 'hrjc_pension_type',
+        'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+        'permission' => 'administer CiviCRM',
+        'parent_id'  => $administerNavId,
+      );
+    }
+
+    // hrjc_revision_change_reason:
+    $result = civicrm_api3('OptionGroup', 'get', array(
+      'sequential' => 1,
+      'name' => "hrjc_revision_change_reason",
+    ));
+    if (!empty($result['id'])) {
+      $jobContractOptionsMenuTree[] = array(
+        'label'      => ts('Reason for change'),
+        'name'       => 'hrjc_revision_change_reason',
+        'url'        => 'civicrm/admin/options?gid=' . $result['id'],
+        'permission' => 'administer CiviCRM',
+        'parent_id'  => $administerNavId,
+      );
+    }
+
+
+    foreach ($jobContractOptionsMenuTree as $key => $menuItems) {
+      $menuItems['is_active'] = 1;
+      CRM_Core_BAO_Navigation::add($menuItems);
+    }
+
+    CRM_Core_BAO_Navigation::resetNavigation();
+    
+    // Delete old HRJob Option Groups:
+    CRM_Core_DAO::executeQuery("DELETE FROM civicrm_option_group WHERE name IN ('hrjob_contract_type',
+    'hrjob_department',
+    'hrjob_health_provider',
+    'hrjob_hours_type',
+    'hrjob_level_type',
+    'hrjob_life_provider',
+    'hrjob_pay_grade',
+    'hrjob_pay_scale',
+    'hrjob_pension_type',
+    'hrjob_region',
+    'hrjob_location')");
   }
           
   function decToFraction($fte) {

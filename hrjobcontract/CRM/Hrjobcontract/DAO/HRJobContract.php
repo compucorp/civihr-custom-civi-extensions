@@ -273,6 +273,7 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
   
   static function handlePrimary($instance, array $params)
   {
+        $instance->find(TRUE);
         $isPrimary = 0;
         if (is_numeric(CRM_Utils_Array::value('is_primary', $params)))
         {

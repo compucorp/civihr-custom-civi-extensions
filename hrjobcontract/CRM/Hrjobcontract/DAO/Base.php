@@ -276,10 +276,6 @@ class CRM_Hrjobcontract_DAO_Base extends CRM_Core_DAO
                 $previousInstance->id = $previousEntity['id'];
                 $previousInstance->find(true);
             }*/
-            if (!empty($params['is_primary']))
-            {
-                $previousInstance->is_primary = null;
-            }
         }
         
         if (empty($params['jobcontract_revision_id']))

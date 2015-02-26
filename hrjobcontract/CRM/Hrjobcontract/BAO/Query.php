@@ -230,9 +230,6 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
             $side JOIN civicrm_hrjobcontract_revision rev ON rev.jobcontract_id = hrjobcontract.id AND rev.status = 1
             ";
       break;
-      case 'civicrm_hrjob':
-        $from .= " $side JOIN civicrm_hrjob ON civicrm_hrjob.contact_id = contact_a.id AND civicrm_hrjob.is_primary = 1";
-        break;
       case 'civicrm_hrjobcontract':
         $from .= " /*civicrm_hrjobcontract*/
         ";

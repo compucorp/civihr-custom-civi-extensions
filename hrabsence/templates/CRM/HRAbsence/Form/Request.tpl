@@ -83,7 +83,7 @@
       param = {};
 
     $("input[name=contacts_id]", $form).change(function() {
-        CRM.api3('HRJobContract', 'get', {'sequential': 1, 'contact_id': $(this).val()})
+        CRM.api3('HRJobContract', 'get', {'sequential': 1, 'contact_id': $(this).val(), 'is_primary': 1})
         .done(function(data) {
             for (i in data.values) {
                 CRM.api3('HRJobContractRevision', 'get', {'sequential': 1, 'jobcontract_id': data.values[i].id})
@@ -91,9 +91,7 @@
                     for (j in revisions.values) {
                         CRM.api3('HRJobDetails', 'get', {'sequential': 1, 'jobcontract_revision_id': revisions.values[j].details_revision_id})
                         .done(function(details) {
-                            if(+details.values[0].is_primary === 1) {
-                                $('#position td:nth-child(2)', $form).html(details.values[0].position);
-                            }
+                            $('#position td:nth-child(2)', $form).html(details.values[0].position);
                         });
                     }
                 });

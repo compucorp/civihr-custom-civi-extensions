@@ -20,7 +20,9 @@ DROP TABLE IF EXISTS `civicrm_hrjobcontract`;
 CREATE TABLE IF NOT EXISTS `civicrm_hrjobcontract` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique HRJobContract ID',
     `contact_id` int(10) unsigned DEFAULT NULL COMMENT 'FK to Contact ID',
+    `is_primary` tinyint(4) DEFAULT '0',
     PRIMARY KEY (`id`),
+    KEY `index_is_primary` (`is_primary`),
     INDEX `FK_civicrm_hrjobcontract_contact_id` (contact_id ASC),
     CONSTRAINT `FK_civicrm_hrjobcontract_contact_id`  FOREIGN KEY (`contact_id`)  REFERENCES `civicrm_contact` (`id`)  ON DELETE NO ACTION  ON UPDATE NO ACTION
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
@@ -84,7 +86,6 @@ CREATE TABLE IF NOT EXISTS `civicrm_hrjobcontract_details` (
     `notice_amount_employee` double DEFAULT '0',
     `notice_unit_employee` varchar(63) DEFAULT NULL,
     `location` varchar(127) DEFAULT NULL,
-    `is_primary` tinyint(4) DEFAULT '0',
     `jobcontract_revision_id` int(10) unsigned DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY `index_position` (`position`),
@@ -92,7 +93,6 @@ CREATE TABLE IF NOT EXISTS `civicrm_hrjobcontract_details` (
     KEY `index_contract_typ` (`contract_type`),
     KEY `index_period_type` (`period_type`),
     KEY `index_location` (`location`),
-    KEY `index_is_primary` (`is_primary`),
     KEY `index_jobcontract_revision_id` (`jobcontract_revision_id`),
     CONSTRAINT `FK_civicrm_hrjobcontract_details_contract_revision_id` FOREIGN KEY (`jobcontract_revision_id`) REFERENCES `civicrm_hrjobcontract_revision` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;

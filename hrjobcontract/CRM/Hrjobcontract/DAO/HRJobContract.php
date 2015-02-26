@@ -102,6 +102,13 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
   public $contact_id;
 
   /**
+   * Is this the primary?
+   *
+   * @var boolean
+   */
+  public $is_primary;
+  
+  /**
    * class constructor
    *
    * @access public
@@ -153,6 +160,16 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
           'headerPattern' => '/contact(.?id)?/i',
           'FKClassName' => 'CRM_Contact_DAO_Contact',
         ) ,
+        'is_primary' => array(
+          'name' => 'is_primary',
+          'type' => CRM_Utils_Type::T_BOOLEAN,
+          'title' => ts('Is Primary?') ,
+          'export' => true,
+          'import' => true,
+          'where' => 'civicrm_hrjobcontract.is_primary',
+          'headerPattern' => '',
+          'dataPattern' => '',
+        ) ,
         'deleted' => array(
           'name' => 'deleted',
           'type' => CRM_Utils_Type::T_INT,
@@ -178,6 +195,7 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
       self::$_fieldKeys = array(
         'id' => 'id',
         'contact_id' => 'contact_id',
+        'is_primary' => 'is_primary',
         'deleted' => 'deleted',
       );
     }
@@ -251,5 +269,47 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
       }
     }
     return self::$_export;
+  }
+  
+  static function handlePrimary($instance, array $params)
+  {
+        $instance->find(TRUE);
+        $isPrimary = 0;
+        if (is_numeric(CRM_Utils_Array::value('is_primary', $params)))
+        {
+            $isPrimary = (int)$params['is_primary'];
+        }
+        
+        if ($isPrimary)
+        {
+            $otherContracts = civicrm_api3('HRJobContract', 'get', array(
+                'sequential' => 1,
+                'contact_id' => $instance->contact_id,
+            ));
+            foreach ($otherContracts['values'] as $otherContract)
+            {
+                if ($otherContract['id'] != $instance->id)
+                {
+                    civicrm_api3('HRJobContract', 'create', array(
+                        'id' => $otherContract['id'],
+                        'is_primary' => 0,
+                    ));
+                }
+            }
+        }
+        
+        $primaryContracts = civicrm_api3('HRJobContract', 'get', array(
+            'sequential' => 1,
+            'contact_id' => $instance->contact_id,
+            'is_primary' => 1,
+        ));
+        
+        if (empty($primaryContracts['values']))
+        {
+            $instance->is_primary = 1;
+            $instance->save();
+        }
+        
+        return (bool)$isPrimary;
   }
 }

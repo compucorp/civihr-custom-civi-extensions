@@ -139,17 +139,23 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                 'grouping' => 'contact-fields',
             ),
             
-            'civicrm_hrjobcontract' => array(
+            'civicrm_hrjobcontract_contract' => array(
                 'dao' => 'CRM_Hrjobcontract_DAO_HRJobContract',
                 'fields' => array(
-                    'contact_id' => array(
+                    'contract_contact_id' => array(
                         'title' => ts('Contact Id'),
                         'no_repeat' => TRUE,
+                        'dbAlias' => 'hrjobcontract_contract_civireport.contact_id',
                     ),
-                    'contract_id' => array('title' => ts('Contract Id'),
+                    'contract_contract_id' => array('title' => ts('Contract Id'),
                         'no_repeat' => TRUE,
-                        //'required' => TRUE,
                         'name' => 'id',
+                        'dbAlias' => 'hrjobcontract_contract_civireport.id',
+                    ),
+                    'contract_is_primary' => array(
+                        'title' => ts('Is primary?'),
+                        'no_repeat' => TRUE,
+                        'dbAlias' => 'hrjobcontract_contract_civireport.is_primary',
                     ),
                 ),
                 'filters' => array( 'contract_id'   =>
@@ -299,11 +305,6 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                     'title' => ts('Normal Place of Work'),
                     'no_repeat' => TRUE,
                     'dbAlias' => 'hrjobcontract_details_civireport.location',
-                ),
-                'details_is_primary' => array(
-                    'title' => ts('Is primary?'),
-                    'no_repeat' => TRUE,
-                    'dbAlias' => 'hrjobcontract_details_civireport.is_primary',
                 ),
               ),
               'grouping' => 'details-fields',
@@ -731,9 +732,9 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
         foreach ($table['fields'] as $fieldName => $field) {
           if (!empty($field['required']) || !empty($this->_params['fields'][$fieldName])) {
             if ($tableName == 'civicrm_hrjobcontract_leave' && $fieldName == 'leave_leave_type') {
-                $select[] = "GROUP_CONCAT(hrjobcontract_leave_civireport.leave_type SEPARATOR ',') AS {$tableName}_{$fieldName}";
+                $select[] = "GROUP_CONCAT(DISTINCT hrjobcontract_leave_civireport.leave_type SEPARATOR ',') AS {$tableName}_{$fieldName}";
             } elseif ($tableName == 'civicrm_hrjobcontract_leave' && $fieldName == 'leave_leave_amount') {
-                $select[] = "GROUP_CONCAT(hrjobcontract_leave_civireport.leave_type , ':', hrjobcontract_leave_civireport.leave_amount SEPARATOR ',') AS {$tableName}_{$fieldName}";
+                $select[] = "GROUP_CONCAT(DISTINCT hrjobcontract_leave_civireport.leave_type , ':', hrjobcontract_leave_civireport.leave_amount SEPARATOR ',') AS {$tableName}_{$fieldName}";
             } else {
                 $alias = "{$tableName}_{$fieldName}";
                 $select[] = "{$field['dbAlias']} as {$alias}";
@@ -766,9 +767,9 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
     FROM civicrm_contact {$this->_aliases['civicrm_contact']} {$this->_aclFrom}
     LEFT JOIN civicrm_email AS {$this->_aliases['civicrm_email']} ON {$this->_aliases['civicrm_contact']}.id = {$this->_aliases['civicrm_email']}.contact_id
     LEFT JOIN civicrm_address AS {$this->_aliases['civicrm_address']} ON {$this->_aliases['civicrm_contact']}.id = {$this->_aliases['civicrm_address']}.contact_id
-LEFT JOIN civicrm_country AS {$this->_aliases['civicrm_country']} ON {$this->_aliases['civicrm_address']}.country_id = {$this->_aliases['civicrm_country']}.id
-    LEFT JOIN civicrm_hrjobcontract AS {$this->_aliases['civicrm_hrjobcontract']} ON {$this->_aliases['civicrm_contact']}.id = {$this->_aliases['civicrm_hrjobcontract']}.contact_id
-    LEFT JOIN civicrm_hrjobcontract_revision AS {$this->_aliases['civicrm_hrjobcontract_revision']} ON {$this->_aliases['civicrm_hrjobcontract']}.id = {$this->_aliases['civicrm_hrjobcontract_revision']}.jobcontract_id
+    LEFT JOIN civicrm_country AS {$this->_aliases['civicrm_country']} ON {$this->_aliases['civicrm_address']}.country_id = {$this->_aliases['civicrm_country']}.id
+    LEFT JOIN civicrm_hrjobcontract AS {$this->_aliases['civicrm_hrjobcontract_contract']} ON {$this->_aliases['civicrm_contact']}.id = {$this->_aliases['civicrm_hrjobcontract_contract']}.contact_id
+    LEFT JOIN civicrm_hrjobcontract_revision AS {$this->_aliases['civicrm_hrjobcontract_revision']} ON {$this->_aliases['civicrm_hrjobcontract_contract']}.id = {$this->_aliases['civicrm_hrjobcontract_revision']}.jobcontract_id
     LEFT JOIN civicrm_hrjobcontract_details AS {$this->_aliases['civicrm_hrjobcontract_details']} ON {$this->_aliases['civicrm_hrjobcontract_revision']}.details_revision_id = {$this->_aliases['civicrm_hrjobcontract_details']}.jobcontract_revision_id
     LEFT JOIN civicrm_hrjobcontract_health AS {$this->_aliases['civicrm_hrjobcontract_health']} ON {$this->_aliases['civicrm_hrjobcontract_revision']}.health_revision_id = {$this->_aliases['civicrm_hrjobcontract_health']}.jobcontract_revision_id
     LEFT JOIN civicrm_hrjobcontract_hour AS {$this->_aliases['civicrm_hrjobcontract_hour']} ON {$this->_aliases['civicrm_hrjobcontract_revision']}.hour_revision_id = {$this->_aliases['civicrm_hrjobcontract_hour']}.jobcontract_revision_id
@@ -799,7 +800,7 @@ LEFT JOIN civicrm_country AS {$this->_aliases['civicrm_country']} ON {$this->_al
     // custom code to alter rows
     $entryFound = FALSE;
     
-    $entities = array('HRJobDetails', 'HRJobHour', 'HRJobHealth', 'HRJobLeave', 'HRJobPay', 'HRJobPension', 'HRJobRole');
+    $entities = array('HRJobContract', 'HRJobDetails', 'HRJobHour', 'HRJobHealth', 'HRJobLeave', 'HRJobPay', 'HRJobPension', 'HRJobRole');
     $ei = CRM_Hrjobcontract_ExportImportValuesConverter::singleton();
     
     $changeReasonOptions = array();
@@ -827,7 +828,7 @@ LEFT JOIN civicrm_country AS {$this->_aliases['civicrm_country']} ON {$this->_al
         foreach ($fields as $key => $value) {
             $fieldName = substr($key, strlen($tableName) + 1);
             $rowKey = 'civicrm_hrjobcontract_' . $tableName . '_' . $tableName . '_' . $fieldName;
-            if (!empty($row[$rowKey])) {
+            if (isset($row[$rowKey])) {
                 $rows[$rowNum][$rowKey] = $ei->export($tableName, $fieldName, $row[$rowKey]);
             }
         }

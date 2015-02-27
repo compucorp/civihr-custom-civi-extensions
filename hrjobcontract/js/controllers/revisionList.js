@@ -264,13 +264,5 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
                 $scope.createPage();
             });
 
-            $scope.$on('unsetIsPrimary',function(e, excludeContractId, revisionCreated){
-                if (contractId == excludeContractId) {
-                    if (revisionCreated) {
-                        fetchRevisions(contractId);
-                    }
-                }
-            });
-
         }]);
 });

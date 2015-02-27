@@ -25,7 +25,6 @@ define(['controllers/controllers',
                 }, entityName, promiseFields = {}, promiseModel = {};
 
             $scope.contractListLoaded = false;
-            $scope.contractIdPrimary = 0;
             $scope.contractCurrent = [];
             $scope.contractPast = [];
             $scope.utils = {
@@ -58,10 +57,6 @@ define(['controllers/controllers',
 
                 angular.forEach(contractList,function(contract){
                     +contract.is_current ? $scope.contractCurrent.push(contract) : $scope.contractPast.push(contract);
-
-                    if (+contract.is_primary) {
-                        $scope.contractIdPrimary = contract.id;
-                    }
                 });
 
                 $scope.$watchCollection('contractCurrent',function(){
@@ -88,22 +83,28 @@ define(['controllers/controllers',
                 $log.error('Failed: ' + reason);
             });
 
-            $scope.toggleIsPrimary = function(contractId, revisionCreated) {
-                var contractPrimaryOld, contractPrimaryNew;
+            $scope.toggleIsPrimary = function(contractId) {
+                function unsetIsPrimary(contractArray){
+                    var i = 0,
+                        len = contractArray.length;
 
-                $scope.$broadcast('unsetIsPrimary',$scope.contractIdPrimary, revisionCreated);
+                    for (i; i < len; i++){
+                        if (+contractArray[i].id != +contractId && +contractArray[i].is_primary) {
+                            contractArray[i].is_primary = '0';
+                            return contractArray[i].id;
+                        }
+                    }
 
-                contractPrimaryOld = $filter('getObjById')($scope.contractCurrent,$scope.contractIdPrimary) || $filter('getObjById')($scope.contractPast,$scope.contractIdPrimary) || {};
-                contractPrimaryNew = $filter('getObjById')($scope.contractCurrent,contractId) || $filter('getObjById')($scope.contractPast,contractId) || {};
+                    return null;
+                }
 
-                contractPrimaryOld.is_primary = '0';
-                contractPrimaryNew.is_primary = '1';
+                unsetIsPrimary($scope.contractCurrent) || unsetIsPrimary($scope.contractPast);
+
+                ($filter('getObjById')($scope.contractCurrent,contractId) || $filter('getObjById')($scope.contractPast,contractId) || {}).is_primary = '1';
 
                 $scope.contractCurrent = $filter('orderBy')($scope.contractCurrent,'-is_primary');
                 $scope.contractPast = $filter('orderBy')($scope.contractPast,'-is_primary');
-
-                $scope.contractIdPrimary = contractId;
-            }
+            };
 
             $scope.modalContract = function(action){
 
@@ -132,7 +133,7 @@ define(['controllers/controllers',
                 modalInstance.result.then(function(contract){
                     +contract.is_current ? $scope.contractCurrent.push(contract) : $scope.contractPast.push(contract);
                     if (+contract.is_primary) {
-                        $scope.toggleIsPrimary(contract.id, true);
+                        $scope.toggleIsPrimary(contract.id);
                     }
                 });
             }

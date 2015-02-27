@@ -11,11 +11,11 @@ define(['controllers/controllers',
 
     controllers.controller('ModalContractCtrl',['$scope','$modal', '$modalInstance','$q', '$rootElement','$rootScope','$filter',
         'ContractService', 'ContractDetailsService', 'ContractHourService', 'ContractPayService', 'ContractLeaveService',
-        'ContractHealthService', 'ContractPensionService', 'ContractFilesService', 'action', 'contract',
+        'ContractHealthService', 'ContractPensionService', 'ContractFilesService', 'action', 'entity',
         'content', 'files', 'UtilsService', 'utils', 'settings', '$log',
         function($scope, $modal, $modalInstance, $q, $rootElement, $rootScope, $filter, ContractService, ContractDetailsService,
                  ContractHourService, ContractPayService, ContractLeaveService, ContractHealthService,
-                 ContractPensionService, ContractFilesService, action, contract, content, files,
+                 ContractPensionService, ContractFilesService, action, entity, content, files,
                  UtilsService, utils, settings, $log){
             $log.debug('Controller: ModalContractCtrl');
 
@@ -28,13 +28,13 @@ define(['controllers/controllers',
                 copy.title = copy.title || 'Contract';
 
             $scope.allowSave = typeof content.allowSave !== 'undefined' ? content.allowSave : false;
-            $scope.contract = {};
+            $scope.entity = {};
             $scope.copy = copy;
             $scope.files = {};
             $scope.filesTrash = {};
             $scope.isDisabled = typeof content.isDisabled !== 'undefined' ? content.isDisabled : true;
-            $scope.isPrimaryDisabled = +contract.details.is_primary;
-            $scope.showIsPrimary = utils.contractListLen > 1;
+            $scope.isPrimaryDisabled = +entity.contract.is_primary;
+            $scope.showIsPrimary = utils.contractListLen > 1 && action != 'change';
             $scope.uploader = {
                 details: {
                     contract_file: ContractFilesService.uploader('civicrm_hrjobcontract_details')
@@ -45,12 +45,12 @@ define(['controllers/controllers',
             };
             $scope.utils = utils;
 
-            angular.copy(contract,$scope.contract);
+            angular.copy(entity,$scope.entity);
             angular.copy(files,$scope.files);
 
             angular.forEach($scope.files, function(entityFiles, entityName){
                 $scope.filesTrash[entityName] = [];
-            })
+            });
 
             $modalInstance.opened.then(function(){
                 $rootScope.$broadcast('hrjc-loader-hide');
@@ -59,7 +59,7 @@ define(['controllers/controllers',
             $scope.cancel = function () {
 
                 if (action == 'view' ||
-                    (angular.equals(contract,$scope.contract) && angular.equals(files,$scope.files) &&
+                    (angular.equals(entity,$scope.entity) && angular.equals(files,$scope.files) &&
                     !$scope.uploader.details.contract_file.queue.length && !$scope.uploader.pension.evidence_file.queue.length)) {
                     $scope.$broadcast('hrjc-loader-hide');
                     $modalInstance.dismiss('cancel');
@@ -67,17 +67,19 @@ define(['controllers/controllers',
                 }
 
                 //DEBUG
-                angular.forEach(contract, function(entity, entityName){
-                    if (!angular.equals(entity,$scope.contract[entityName])) {
-                        $log.debug('======================');
-                        $log.debug('Changed entity: '+entityName);
-                        $log.debug('Before:');
-                        $log.debug(entity);
-                        $log.debug('After:');
-                        $log.debug($scope.contract[entityName]);
-                    }
+                if (settings.debug) {
+                    angular.forEach(entity, function(entityData, entityName){
+                        if (!angular.equals(entityData,$scope.entity[entityName])) {
+                            $log.debug('======================');
+                            $log.debug('Changed entity: '+entityName);
+                            $log.debug('Before:');
+                            $log.debug(entityData);
+                            $log.debug('After:');
+                            $log.debug($scope.entity[entityName]);
+                        }
 
-                });
+                    });
+                }
 
                 var modalInstance = $modal.open({
                     targetDomEl: $rootElement.find('div').eq(0),
@@ -109,7 +111,7 @@ define(['controllers/controllers',
 
                 entityFilesTrash.push(entityFiles[index]);
                 entityFiles.splice(index, 1);
-            }
+            };
 
             if ($scope.allowSave) {
                 function changeReason(){
@@ -153,18 +155,19 @@ define(['controllers/controllers',
                 function contractEdit(){
                     $scope.$broadcast('hrjc-loader-show');
 
-                    var contractNew = $scope.contract,
+                    var entityNew = $scope.entity,
                         filesTrash = $scope.filesTrash,
                         uploader = $scope.uploader,
                         entityName, file, i, len, modalInstance;
 
                     var promiseContractEdit = {
-                            details: ContractDetailsService.save(contractNew.details),
-                            hour: ContractHourService.save(contractNew.hour),
-                            pay: ContractPayService.save(contractNew.pay),
-                            leave: ContractLeaveService.save(contractNew.leave),
-                            health: ContractHealthService.save(contractNew.health),
-                            pension: ContractPensionService.save(contractNew.pension)
+                            contract: ContractService.save(entityNew.contract),
+                            details: ContractDetailsService.save(entityNew.details),
+                            hour: ContractHourService.save(entityNew.hour),
+                            pay: ContractPayService.save(entityNew.pay),
+                            leave: ContractLeaveService.save(entityNew.leave),
+                            health: ContractHealthService.save(entityNew.health),
+                            pension: ContractPensionService.save(entityNew.pension)
                         },
                         promiseFilesEditUpload = [], promiseFilesEditDelete = [];
 
@@ -182,25 +185,23 @@ define(['controllers/controllers',
 
                     $q.all(promiseContractEdit).then(function(results){
                         if (uploader.details.contract_file.queue.length) {
-                            promiseFilesEditUpload.push(ContractFilesService.upload(uploader.details.contract_file, contractNew.details.jobcontract_revision_id));
+                            promiseFilesEditUpload.push(ContractFilesService.upload(uploader.details.contract_file, entityNew.details.jobcontract_revision_id));
                         }
 
                         if (uploader.pension.evidence_file.queue.length) {
-                            promiseFilesEditUpload.push(ContractFilesService.upload(uploader.pension.evidence_file, contractNew.pension.jobcontract_revision_id));
+                            promiseFilesEditUpload.push(ContractFilesService.upload(uploader.pension.evidence_file, entityNew.pension.jobcontract_revision_id));
                         }
 
                         //TODO (incorrect date format in the API response)
-                        results.details.period_start_date = contractNew.details.period_start_date;
-                        results.details.period_end_date = contractNew.details.period_end_date;
+                        results.details.period_start_date = entityNew.details.period_start_date;
+                        results.details.period_end_date = entityNew.details.period_end_date;
                         //
 
                         //TODO (incorrect JSON format in the API response)
-                        results.pay.annual_benefits = contractNew.pay.annual_benefits;
-                        results.pay.annual_deductions = contractNew.pay.annual_deductions;
+                        results.pay.annual_benefits = entityNew.pay.annual_benefits;
+                        results.pay.annual_deductions = entityNew.pay.annual_deductions;
 
-
-                        results.isPrimarySet = results.details.is_primary != contract.details.is_primary && +results.details.is_primary,
-                        results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
+                        results.requireReload = entity.details.period_end_date ? entity.details.period_end_date !== results.details.period_end_date : !!entity.details.period_end_date !== !!results.details.period_end_date;
 
                         if (promiseFilesEditUpload.length) {
                             modalInstance  = $modal.open({
@@ -237,7 +238,7 @@ define(['controllers/controllers',
                 function contractChange(reasonId, date){
                     $scope.$broadcast('hrjc-loader-show');
 
-                    var contractNew = $scope.contract,
+                    var entityNew = $scope.entity,
                         filesTrash = $scope.filesTrash,
                         uploader = $scope.uploader,
                         entityName, field, fieldName, file, entityChangedList = [], entityChangedListLen = 0,
@@ -249,10 +250,10 @@ define(['controllers/controllers',
                             leave: ContractLeaveService,
                             health: ContractHealthService,
                             pension: ContractPensionService
-                        }
+                        };
 
-                    for (entityName in contractNew) {
-                        isChanged = !angular.equals(contract[entityName], contractNew[entityName]);
+                    for (entityName in entityServices) {
+                        isChanged = !angular.equals(entity[entityName], entityNew[entityName]);
 
                         if (!isChanged) {
                             isChanged = !!filesTrash[entityName] && !!filesTrash[entityName].length;
@@ -272,128 +273,135 @@ define(['controllers/controllers',
                         if (isChanged) {
                             entityChangedList[i] = {};
                             entityChangedList[i].name = entityName;
-                            entityChangedList[i].data = contractNew[entityName];
+                            entityChangedList[i].data = entityNew[entityName];
                             entityChangedList[i].service = entityServices[entityName];
-                            i++
+                            i++;
                             entityChangedListLen = i;
                         }
                     }
 
-                    UtilsService.prepareEntityIds(entityChangedList[0].data,contract.id);
+                    if (entityChangedListLen) {
 
-                    entityChangedList[0].service.save(entityChangedList[0].data).then(function(results){
-                        revisionId = !angular.isArray(results) ? results.jobcontract_revision_id : results[0].jobcontract_revision_id,
-                            i = 1;
-                        promiseContractChange[entityChangedList[0].name] = results;
+                        UtilsService.prepareEntityIds(entityChangedList[0].data,entity.contract.id);
 
-                        for (i; i < entityChangedListLen; i++) {
-                            entityName = entityChangedList[i].name;
+                        entityChangedList[0].service.save(entityChangedList[0].data).then(function(results){
+                            revisionId = !angular.isArray(results) ? results.jobcontract_revision_id : results[0].jobcontract_revision_id,
+                                i = 1;
+                            promiseContractChange[entityChangedList[0].name] = results;
 
-                            UtilsService.prepareEntityIds(entityChangedList[i].data,contract.id,revisionId);
-                            promiseContractChange[entityName] = entityChangedList[i].service.save(entityChangedList[i].data);
-                        }
+                            for (i; i < entityChangedListLen; i++) {
+                                entityName = entityChangedList[i].name;
 
-                        return $q.all(angular.extend(promiseContractChange,{
-                            revisionCreated: ContractService.saveRevision({
-                                id: revisionId,
-                                change_reason: reasonId,
-                                effective_date: date
-                            })
-                        },{
-                            files: false
-                        }));
-
-                    }).then(function(results){
-
-                        for (entityName in contractNew) {
-                            results[entityName] = results[entityName] || contractNew[entityName];
-
-                            if (filesTrash[entityName] && filesTrash[entityName].length) {
-                                i = 0, entityFilesTrashLen =  filesTrash[entityName].length;
-                                for (i; i < entityFilesTrashLen; i++) {
-                                    file = filesTrash[entityName][i];
-                                    promiseFilesChangeDelete.push(ContractFilesService.delete(file.fileID, revisionId, file.entityTable));
-                                }
+                                UtilsService.prepareEntityIds(entityChangedList[i].data,entity.contract.id,revisionId);
+                                promiseContractChange[entityName] = entityChangedList[i].service.save(entityChangedList[i].data);
                             }
-                        }
 
-                        //TODO (incorrect date format in the API response)
-                        results.details.period_start_date = contractNew.details.period_start_date;
-                        results.details.period_end_date = contractNew.details.period_end_date;
-                        results.revisionCreated.effective_date = date || '';
-                        //
+                            return $q.all(angular.extend(promiseContractChange,{
+                                revisionCreated: ContractService.saveRevision({
+                                    id: revisionId,
+                                    change_reason: reasonId,
+                                    effective_date: date
+                                })
+                            },{
+                                files: false
+                            }));
 
-                        //TODO (incorrect JSON format in the API response)
-                        results.pay.annual_benefits = contractNew.pay.annual_benefits;
-                        results.pay.annual_deductions = contractNew.pay.annual_deductions;
+                        }).then(function(results){
 
-                        results.isPrimarySet = results.details.is_primary != contract.details.is_primary && +results.details.is_primary;
-                        results.requireReload = contract.details.period_end_date ? contract.details.period_end_date !== results.details.period_end_date : !!contract.details.period_end_date !== !!results.details.period_end_date;
-                        angular.extend(results.revisionCreated, {
-                            details_revision_id: results.details.jobcontract_revision_id,
-                            health_revision_id: results.health.jobcontract_revision_id,
-                            hour_revision_id: results.hour.jobcontract_revision_id,
-                            jobcontract_id: contractNew.id,
-                            leave_revision_id: results.leave[0].jobcontract_revision_id,
-                            pay_revision_id: results.pay.jobcontract_revision_id,
-                            pension_revision_id: results.pension.jobcontract_revision_id
-                        });
+                            for (entityName in entityServices) {
+                                results[entityName] = results[entityName] || entityNew[entityName];
 
-                        if (promiseFilesChangeDelete.length) {
-                            results.files = $q.all(promiseFilesChangeDelete);
-                            return $q.all(results);
-                        }
-
-                        return results
-
-                    }).then(function(results){
-
-                        i = 0;
-                        for (i; i < entityChangedListLen; i++) {
-                            entityName = entityChangedList[i].name;
-
-                            if (uploader[entityName]) {
-                                for (fieldName in uploader[entityName]) {
-                                    field = uploader[entityName][fieldName];
-                                    if (field.queue.length) {
-                                        promiseFilesChangeUpload.push(ContractFilesService.upload(field, revisionId));
+                                if (filesTrash[entityName] && filesTrash[entityName].length) {
+                                    i = 0, entityFilesTrashLen =  filesTrash[entityName].length;
+                                    for (i; i < entityFilesTrashLen; i++) {
+                                        file = filesTrash[entityName][i];
+                                        promiseFilesChangeDelete.push(ContractFilesService.delete(file.fileID, revisionId, file.entityTable));
                                     }
                                 }
                             }
-                        }
 
-                        if (promiseFilesChangeUpload.length) {
-                            modalInstance  = $modal.open({
-                                targetDomEl: $rootElement.find('div').eq(0),
-                                templateUrl: settings.pathApp+'views/modalProgress.html',
-                                size: 'sm',
-                                controller: 'ModalProgressCtrl',
-                                resolve: {
-                                    uploader: function(){
-                                        return uploader;
-                                    },
-                                    promiseFilesUpload: function(){
-                                        return promiseFilesChangeUpload;
-                                    }
-                                }
+                            //TODO (incorrect date format in the API response)
+                            results.details.period_start_date = entityNew.details.period_start_date;
+                            results.details.period_end_date = entityNew.details.period_end_date;
+                            results.revisionCreated.effective_date = date || '';
+                            //
+
+                            //TODO (incorrect JSON format in the API response)
+                            results.pay.annual_benefits = entityNew.pay.annual_benefits;
+                            results.pay.annual_deductions = entityNew.pay.annual_deductions;
+
+                            results.requireReload = entity.details.period_end_date ? entity.details.period_end_date !== results.details.period_end_date : !!entity.details.period_end_date !== !!results.details.period_end_date;
+                            angular.extend(results.revisionCreated, {
+                                details_revision_id: results.details.jobcontract_revision_id,
+                                health_revision_id: results.health.jobcontract_revision_id,
+                                hour_revision_id: results.hour.jobcontract_revision_id,
+                                jobcontract_id: entity.contract.id,
+                                leave_revision_id: results.leave[0].jobcontract_revision_id,
+                                pay_revision_id: results.pay.jobcontract_revision_id,
+                                pension_revision_id: results.pension.jobcontract_revision_id
                             });
 
-                            results.files = modalInstance.result;
-                            return $q.all(results);
-                        }
+                            if (promiseFilesChangeDelete.length) {
+                                results.files = $q.all(promiseFilesChangeDelete);
+                                return $q.all(results);
+                            }
 
-                        return results;
+                            return results
 
-                    }).then(function(results){
+                        }).then(function(results){
+
+                            i = 0;
+                            for (i; i < entityChangedListLen; i++) {
+                                entityName = entityChangedList[i].name;
+
+                                if (uploader[entityName]) {
+                                    for (fieldName in uploader[entityName]) {
+                                        field = uploader[entityName][fieldName];
+                                        if (field.queue.length) {
+                                            promiseFilesChangeUpload.push(ContractFilesService.upload(field, revisionId));
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (promiseFilesChangeUpload.length) {
+                                modalInstance  = $modal.open({
+                                    targetDomEl: $rootElement.find('div').eq(0),
+                                    templateUrl: settings.pathApp+'views/modalProgress.html',
+                                    size: 'sm',
+                                    controller: 'ModalProgressCtrl',
+                                    resolve: {
+                                        uploader: function(){
+                                            return uploader;
+                                        },
+                                        promiseFilesUpload: function(){
+                                            return promiseFilesChangeUpload;
+                                        }
+                                    }
+                                });
+
+                                results.files = modalInstance.result;
+                                return $q.all(results);
+                            }
+
+                            return results;
+
+                        }).then(function(results){
+                            $scope.$broadcast('hrjc-loader-hide');
+                            $modalInstance.close(results);
+                        });
+                    } else {
                         $scope.$broadcast('hrjc-loader-hide');
-                        $modalInstance.close(results);
-                    });
+                        $modalInstance.close();
+                    }
 
                 }
 
                 $scope.save = function () {
 
-                    if (angular.equals(contract,$scope.contract) &&
+                    console.log($scope.contractForm);
+
+                    if (angular.equals(entity,$scope.entity) &&
                         angular.equals(files,$scope.files) &&
                         !$scope.uploader.details.contract_file.queue.length &&
                         !$scope.uploader.pension.evidence_file.queue.length) {
@@ -404,20 +412,23 @@ define(['controllers/controllers',
 
                     switch (action){
                         case 'edit':
-                            confirmEdit().then(function(confirmed){
-                                switch (confirmed) {
-                                    case 'edit':
-                                        contractEdit();
-                                        break;
-                                    case 'change':
-                                        changeReason().then(function(results){
-                                            contractChange(results.reasonId, results.date);
-                                        });
-                                        break;
+                            if ($scope.entity.contract.is_primary == entity.contract.is_primary) {
+                                confirmEdit().then(function(confirmed){
+                                    switch (confirmed) {
+                                        case 'edit':
+                                            contractEdit();
+                                            break;
+                                        case 'change':
+                                            changeReason().then(function(results){
+                                                contractChange(results.reasonId, results.date);
+                                            });
+                                            break;
 
-                                }
-                            });
-
+                                    }
+                                });
+                            } else {
+                                contractEdit();
+                            }
                             break;
                         case 'change':
                             changeReason().then(function(results){

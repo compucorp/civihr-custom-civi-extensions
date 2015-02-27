@@ -18,14 +18,14 @@
                             <label for="{{prefix}}position" class="col-sm-4 control-label">Position</label>
 
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="{{prefix}}position" name="detailsPosition" ng-model="contract.details.position" ng-disabled="isDisabled" required>
+                                <input type="text" class="form-control" id="{{prefix}}position" name="detailsPosition" ng-model="entity.details.position" ng-disabled="isDisabled" required>
                             </div>
                         </div>
                         <div class="form-group required"  hrjc-validate>
                             <label for="{{prefix}}title" class="col-sm-4 control-label">Title</label>
 
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="{{prefix}}title" name="detailsTitle"  ng-model="contract.details.title" ng-disabled="isDisabled" required>
+                                <input type="text" class="form-control" id="{{prefix}}title" name="detailsTitle"  ng-model="entity.details.title" ng-disabled="isDisabled" required>
                             </div>
                         </div>
                         <div class="form-group required" hrjc-validate>
@@ -33,7 +33,7 @@
 
                             <div class="col-sm-5">
                                 <select id="{{prefix}}contract-type" class="form-control" name="detailsContractType"
-                                        ng-model="contract.details.contract_type"
+                                        ng-model="entity.details.contract_type"
                                         ng-options="key as value for (key, value) in options.details.contract_type"
                                         ng-disabled="isDisabled" required>
                                     <option value="">- select -</option>
@@ -45,7 +45,7 @@
 
                             <div class="col-sm-5">
                                 <select id="{{prefix}}location" class="form-control"
-                                        ng-model="contract.details.location"
+                                        ng-model="entity.details.location"
                                         ng-options="key as value for (key, value) in options.details.location"
                                         ng-disabled="isDisabled">
                                     <option value="">- select -</option>
@@ -59,7 +59,7 @@
                                 <input type="checkbox" id="{{prefix}}is-primary"
                                        ng-true-value="1"
                                        ng-false-value="0"
-                                       ng-model="contract.details.is_primary"
+                                       ng-model="entity.contract.is_primary"
                                        ng-disabled="isDisabled || isPrimaryDisabled">
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                                            datepicker-popup="yyyy-MM-dd"
                                            is-open="dpDateStartOpen"
                                            max-date="dpDateStartMax"
-                                           ng-model="contract.details.period_start_date"
+                                           ng-model="entity.details.period_start_date"
                                            ng-disabled="isDisabled"
                                            required>
                                     <span class="input-group-btn">
@@ -90,7 +90,7 @@
                                            datepicker-popup="yyyy-MM-dd"
                                            is-open="dpDateEndOpen"
                                            min-date="dpDateEndMin"
-                                           ng-model="contract.details.period_end_date"
+                                           ng-model="entity.details.period_end_date"
                                            ng-disabled="isDisabled">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-class="{disabled: isDisabled}" ng-click="dpOpen($event, 'dpDateEndOpen')" ng-disabled="isDisabled"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -112,13 +112,13 @@
                                 <div class="form-inline">
                                     <input type="text" class="form-control input-inline-sm" id="{{prefix}}notice-amount"
                                            hrjc-number="0"
-                                           ng-model="contract.details.notice_amount"
+                                           ng-model="entity.details.notice_amount"
                                            ng-disabled="isDisabled">
                                     <select id="{{prefix}}notice-unit" class="form-control" name="detailsNoticeUnit"
-                                            ng-model="contract.details.notice_unit"
+                                            ng-model="entity.details.notice_unit"
                                             ng-options="key as value for (key, value) in options.details.notice_unit"
                                             ng-disabled="isDisabled"
-                                            ng-required="contract.details.notice_amount && contract.details.notice_amount != 0">
+                                            ng-required="entity.details.notice_amount && entity.details.notice_amount != 0">
                                         <option value="">- select -</option>
                                     </select>
                                 </div>
@@ -131,13 +131,13 @@
                                 <div class="form-inline">
                                     <input type="text" class="form-control input-inline-sm" id="{{prefix}}notice-amount-employee"
                                            hrjc-number="0"
-                                           ng-model="contract.details.notice_amount_employee"
+                                           ng-model="entity.details.notice_amount_employee"
                                            ng-disabled="isDisabled">
                                     <select id="{{prefix}}notice-unit-employee" class="form-control" name="detailsNoticeUnitEmployee"
-                                            ng-model="contract.details.notice_unit_employee"
+                                            ng-model="entity.details.notice_unit_employee"
                                             ng-options="key as value for (key, value) in options.details.notice_unit_employee"
                                             ng-disabled="isDisabled"
-                                            ng-required="contract.details.notice_amount_employee && contract.details.notice_amount_employee != '0'">
+                                            ng-required="entity.details.notice_amount_employee && entity.details.notice_amount_employee != '0'">
                                         <option value="">- select -</option>
                                     </select>
                                 </div>
@@ -208,7 +208,7 @@
                             <div class="col-sm-5">
                                 <select id="standard-hours" class="form-control"
                                         ng-options="hoursLocation.id as (hoursLocation.location + ' - ' + hoursLocation.standard_hours + ' hours per ' + hoursLocation.periodicity) for hoursLocation in utils.hoursLocation"
-                                        ng-model="contract.hour.location_standard_hours"
+                                        ng-model="entity.hour.location_standard_hours"
                                         ng-disabled="isDisabled">
                                 </select>
                             </div>
@@ -219,7 +219,7 @@
                             <div class="col-sm-5">
                                 <select id="{{prefix}}hours-type" class="form-control"
                                         ng-options="key as value for (key, value) in options.hour.hours_type"
-                                        ng-model="contract.hour.hours_type"
+                                        ng-model="entity.hour.hours_type"
                                         ng-disabled="isDisabled">
                                     <option value="">- select -</option>
                                 </select>
@@ -233,14 +233,14 @@
                                         <input type="text" class="form-control input-inline-sm" id="{{prefix}}actual-hours"
                                                hrjc-number
                                                hrjc-number-float="true"
-                                               ng-model="contract.hour.hours_amount"
-                                               ng-disabled="isDisabled || contract.hour.hours_type == 8" ng-required="hrsTypeDefined">
+                                               ng-model="entity.hour.hours_amount"
+                                               ng-disabled="isDisabled || entity.hour.hours_type == 8" ng-required="hrsTypeDefined">
                                         per
-                                        <input type="text" class="form-control input-inline-sm" ng-model="contract.hour.hours_unit" ng-disabled="true" ng-required="hrsTypeDefined">
+                                        <input type="text" class="form-control input-inline-sm" ng-model="entity.hour.hours_unit" ng-disabled="true" ng-required="hrsTypeDefined">
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group required" ng-show="+contract.hour.hours_type">
+                            <div class="form-group required" ng-show="+entity.hour.hours_type">
                                 <label for="{{prefix}}fte" class="col-sm-4 control-label">FTE
                                     <a tooltip-placement="right"
                                        tooltip-html-unsafe="<strong>FTE</strong> stands for
@@ -275,11 +275,11 @@
                                                ng-model="fteFraction" ng-disabled="true">
                                         &nbsp;or&nbsp;
                                         <input type="text" class="form-control input-inline-sm"
-                                               ng-model="contract.hour.hours_fte" ng-disabled="true"><br>
+                                               ng-model="entity.hour.hours_fte" ng-disabled="true"><br>
                                         <input type="hidden" class="form-control input-inline-sm"
-                                               ng-model="contract.hour.fte_num" ng-disabled="isDisabled" ng-required="hrsTypeDefined">
+                                               ng-model="entity.hour.fte_num" ng-disabled="isDisabled" ng-required="hrsTypeDefined">
                                         <input type="hidden" class="form-control input-inline-sm"
-                                               ng-model="contract.hour.fte_denom" ng-disabled="isDisabled" ng-required="hrsTypeDefined">
+                                               ng-model="entity.hour.fte_denom" ng-disabled="isDisabled" ng-required="hrsTypeDefined">
                                     </div>
                                 </div>
                             </div>
@@ -298,16 +298,16 @@
                         <div class="form-group">
                             <div class="col-sm-5 col-sm-offset-4">
                                 <label class="radio-inline">
-                                    <input type="radio" id="{{prefix}}paid" value="1" ng-model="contract.pay.is_paid" ng-change="setDefaults()" ng-disabled="isDisabled"> Paid
+                                    <input type="radio" id="{{prefix}}paid" value="1" ng-model="entity.pay.is_paid" ng-change="setDefaults()" ng-disabled="isDisabled"> Paid
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" id="{{prefix}}unpaid" value="0" ng-model="contract.pay.is_paid" ng-change="resetData()" ng-disabled="isDisabled"> Unpaid
+                                    <input type="radio" id="{{prefix}}unpaid" value="0" ng-model="entity.pay.is_paid" ng-change="resetData()" ng-disabled="isDisabled"> Unpaid
                                 </label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div collapse="contract.pay.is_paid == '0'">
+                <div collapse="entity.pay.is_paid == '0'">
                     <hr>
                     <div class="form-group">
                         <label for="{{prefix}}pay-scale-grade" class="col-sm-4 control-label">Pay Scale / Grade</label>
@@ -316,7 +316,7 @@
                             <select id="{{prefix}}pay-scale-grade" class="form-control"
                                     ng-change="applyPayScaleGradeData()"
                                     ng-options="payScaleGrade.id as (payScaleGrade.pay_scale + (payScaleGrade.pay_grade ? ' - ' + payScaleGrade.pay_grade : '') + (payScaleGrade.currency || payScaleGrade.amount ? ' - ' : '') + payScaleGrade.currency + ' ' + payScaleGrade.amount + (payScaleGrade.periodicity ? ' per ' + payScaleGrade.periodicity : '')) for payScaleGrade in utils.payScaleGrade"
-                                    ng-model="contract.pay.pay_scale"
+                                    ng-model="entity.pay.pay_scale"
                                     ng-disabled="isDisabled">
                                 <option value="">- select -</option>
                             </select>
@@ -328,14 +328,14 @@
                         <div class="col-sm-8">
                             <div class="form-inline">
                                 <select class="form-control"
-                                        ng-model="contract.pay.pay_currency"
+                                        ng-model="entity.pay.pay_currency"
                                         ng-options="key as value for (key, value) in options.pay.pay_currency"
                                         ng-disabled="isDisabled">
                                 </select>
-                                <input id="{{prefix}}pay-amount" type="text" class="form-control input-inline-sm" hrjc-number ng-model="contract.pay.pay_amount" ng-disabled="isDisabled">
+                                <input id="{{prefix}}pay-amount" type="text" class="form-control input-inline-sm" hrjc-number ng-model="entity.pay.pay_amount" ng-disabled="isDisabled">
                                 per
                                 <select class="form-control"
-                                        ng-model="contract.pay.pay_unit"
+                                        ng-model="entity.pay.pay_unit"
                                         ng-options="key as value for (key, value) in options.pay.pay_unit"
                                         ng-disabled="isDisabled">
                                     <option value="">- select -</option>
@@ -348,7 +348,7 @@
                             benefits and deductions</label>
 
                         <div class="col-sm-3">
-                            <input type="text" id="{{prefix}}pay-estimate-annual" class="form-control disabled" ng-model="contract.pay.pay_annualized_est" ng-disabled="isDisabled || true">
+                            <input type="text" id="{{prefix}}pay-estimate-annual" class="form-control disabled" ng-model="entity.pay.pay_annualized_est" ng-disabled="isDisabled || true">
                         </div>
                     </div>
                     <div class="form-group">
@@ -358,7 +358,7 @@
                             <select id="{{prefix}}pay-cycle" class="form-control"
                                     ng-change="calcPayPerCycleGross(); calcBenefitsPerCycle(); calcDeductionsPerCycle();"
                                     ng-options="key as value for (key, value) in options.pay.pay_cycle"
-                                    ng-model="contract.pay.pay_cycle"
+                                    ng-model="entity.pay.pay_cycle"
                                     ng-disabled="isDisabled">
                             </select>
                         </div>
@@ -370,7 +370,7 @@
                             </label>
 
                             <div class="col-sm-3">
-                                <input type="text" id="{{prefix}}pay-cycle-gross" class="form-control disabled" ng-model="contract.pay.pay_per_cycle_gross"  disabled>
+                                <input type="text" id="{{prefix}}pay-cycle-gross" class="form-control disabled" ng-model="entity.pay.pay_per_cycle_gross"  disabled>
                             </div>
                         </div>
                     </div>
@@ -395,7 +395,7 @@
                                             <col class="col-amount-abs">
                                             <col class="col-action">
                                         </colgroup>
-                                        <thead ng-show="contract.pay.annual_benefits.length">
+                                        <thead ng-show="entity.pay.annual_benefits.length">
                                         <tr>
                                             <th>#</th>
                                             <th>Benefit</th>
@@ -406,7 +406,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr ng-repeat="benefit in contract.pay.annual_benefits">
+                                        <tr ng-repeat="benefit in entity.pay.annual_benefits">
                                             <td class="index">{{$index+1}}</td>
                                             <td><select class="form-control"
                                                         ng-options="key as value for (key, value) in options.pay.benefit_name"
@@ -427,13 +427,13 @@
                                                        ng-model="benefit.amount_pct"
                                                        ng-disabled="isDisabled"></td>
                                             <td><input type="text" class="form-control" hrjc-number ng-model="benefit.amount_abs" ng-disabled="isDisabled || benefit.type == '2'"></td>
-                                            <td class="action"><a class="btn btn-default btn-sm btn-danger" ng-click="remove(contract.pay.annual_benefits, $index)" ng-disabled="isDisabled">
+                                            <td class="action"><a class="btn btn-default btn-sm btn-danger" ng-click="remove(entity.pay.annual_benefits, $index)" ng-disabled="isDisabled">
                                                 <span class="fa fa-remove" aria-hidden="true"></span>
                                             </a></td>
                                         </tr>
                                         <tr ng-if="!isDisabled">
                                             <td colspan="6" class="text-right">
-                                                <a class="btn btn-default btn-sm btn-primary" ng-click="add(contract.pay.annual_benefits)">
+                                                <a class="btn btn-default btn-sm btn-primary" ng-click="add(entity.pay.annual_benefits)">
                                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
                                                 </a>
                                             </td>
@@ -456,7 +456,7 @@
                                             <col class="col-amount-abs">
                                             <col class="col-action">
                                         </colgroup>
-                                        <thead ng-show="contract.pay.annual_deductions.length">
+                                        <thead ng-show="entity.pay.annual_deductions.length">
                                         <tr>
                                             <th>#</th>
                                             <th>Deduction</th>
@@ -467,7 +467,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr ng-repeat="deduction in contract.pay.annual_deductions">
+                                        <tr ng-repeat="deduction in entity.pay.annual_deductions">
                                             <td class="index">{{$index+1}}</td>
                                             <td><select class="form-control"
                                                         ng-options="key as value for (key, value) in options.pay.deduction_name"
@@ -488,13 +488,13 @@
                                                        ng-model="deduction.amount_pct"
                                                        ng-disabled="isDisabled"></td>
                                             <td><input type="text" class="form-control" hrjc-number ng-model="deduction.amount_abs" ng-disabled="isDisabled || deduction.type == '2'"></td>
-                                            <td class="action"><a class="btn btn-default btn-sm btn-danger" ng-click="remove(contract.pay.annual_deductions, $index)" ng-disabled="isDisabled">
+                                            <td class="action"><a class="btn btn-default btn-sm btn-danger" ng-click="remove(entity.pay.annual_deductions, $index)" ng-disabled="isDisabled">
                                                 <span class="fa fa-remove" aria-hidden="true"></span>
                                             </a></td>
                                         </tr>
                                         <tr ng-if="!isDisabled">
                                             <td colspan="6" class="text-right">
-                                                <a class="btn btn-default btn-sm btn-primary" ng-click="add(contract.pay.annual_deductions)">
+                                                <a class="btn btn-default btn-sm btn-primary" ng-click="add(entity.pay.annual_deductions)">
                                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
                                                 </a>
                                             </td>
@@ -529,7 +529,7 @@
 
                             <div class="col-sm-3">
                                 <input type="hidden" ng-model="benefits_per_cycle_net" disabled>
-                                <input type="text" id="{{prefix}}pay-cycle-net" class="form-control disabled" ng-model="contract.pay.pay_per_cycle_net" disabled>
+                                <input type="text" id="{{prefix}}pay-cycle-net" class="form-control disabled" ng-model="entity.pay.pay_per_cycle_net" disabled>
                             </div>
                         </div>
                     </div>
@@ -551,7 +551,7 @@
                                 Days per year
                             </div>
                         </div>
-                        <div class="form-group" ng-repeat="leaveEntry in contract.leave">
+                        <div class="form-group" ng-repeat="leaveEntry in entity.leave">
                             <label for="{{prefix}}leave-{{leaveEntry.leave_type}}" class="col-sm-4 control-label">{{options.leave.leave_type[leaveEntry.leave_type]}}</label>
 
                             <div class="col-sm-2">
@@ -573,8 +573,8 @@
                     <div class="col-xs-12">
                         <div class="form-group has-feedback"
                              ng-class="{
-                                'has-error': (contractForm.healthProviderHealth.$dirty && (!contract.health.provider && contractForm.healthProviderHealth.$viewValue)),
-                                'has-success': (contractForm.healthProviderHealth.$dirty && (contract.health.provider)),
+                                'has-error': (contractForm.healthProviderHealth.$dirty && (!entity.health.provider && contractForm.healthProviderHealth.$viewValue)),
+                                'has-success': (contractForm.healthProviderHealth.$dirty && (entity.health.provider)),
                              }">
                             <label for="{{prefix}}health-health-provider" class="col-sm-4 control-label">Provider
                                 <a tooltip-placement="right"
@@ -592,9 +592,9 @@
                                        placeholder="- select -"
                                        ng-model="typehead.provider"
                                        ng-disabled="isDisabled">
-                                <i ng-show="contractForm.healthProviderHealth.$dirty && contract.health.provider" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></i>
+                                <i ng-show="contractForm.healthProviderHealth.$dirty && entity.health.provider" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></i>
                                 <i ng-show="typeheadLoading.provider" class="fa fa-spin fa-spinner fa-spin-loading"></i>
-                                <input type="hidden" ng-model="contract.health.provider">
+                                <input type="hidden" ng-model="entity.health.provider">
                             </div>
                         </div>
                         <div class="form-group">
@@ -602,7 +602,7 @@
 
                             <div class="col-sm-4">
                                 <select id="health-health-plan" class="form-control"
-                                        ng-model="contract.health.plan_type"
+                                        ng-model="entity.health.plan_type"
                                         ng-options="key as value for (key, value) in options.health.plan_type"
                                         ng-disabled="isDisabled">
                                     <option value="">- select -</option>
@@ -614,7 +614,7 @@
 
                             <div class="col-sm-8">
                                 <textarea id="health-health-desc" name="health-health-desc" class="form-control"
-                                          rows="3" ng-model="contract.health.description" ng-disabled="isDisabled"></textarea>
+                                          rows="3" ng-model="entity.health.description" ng-disabled="isDisabled"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -629,7 +629,7 @@
 
                             <div class="col-sm-8">
                                 <textarea id="health-health-deps" name="health-health-deps" class="form-control"
-                                          rows="3" ng-model="contract.health.dependents" ng-disabled="isDisabled"></textarea>
+                                          rows="3" ng-model="entity.health.dependents" ng-disabled="isDisabled"></textarea>
                             </div>
                         </div>
                     </div>
@@ -643,8 +643,8 @@
                     <div class="col-xs-12">
                         <div class="form-group has-feedback"
                              ng-class="{
-                                'has-error': (contractForm.healthProviderLife.$dirty && (!contract.health.provider_life_insurance && contractForm.healthProviderLife.$viewValue)),
-                                'has-success': (contractForm.healthProviderLife.$dirty && (contract.health.provider_life_insurance)),
+                                'has-error': (contractForm.healthProviderLife.$dirty && (!entity.health.provider_life_insurance && contractForm.healthProviderLife.$viewValue)),
+                                'has-success': (contractForm.healthProviderLife.$dirty && (entity.health.provider_life_insurance)),
                              }">
                             <label for="{{prefix}}health-life-provider" class="col-sm-4 control-label">Provider</label>
 
@@ -658,9 +658,9 @@
                                 placeholder="- select -"
                                 ng-model="typehead.provider_life_insurance"
                                 ng-disabled="isDisabled">
-                                <i ng-show="contractForm.healthProviderLife.$dirty && contract.health.provider_life_insurance" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></i>
+                                <i ng-show="contractForm.healthProviderLife.$dirty && entity.health.provider_life_insurance" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></i>
                                 <i ng-show="typeheadLoading.provider_life_insurance" class="fa fa-spin fa-spinner fa-spin-loading"></i>
-                                <input type="hidden" ng-model="contract.health.provider_life_insurance">
+                                <input type="hidden" ng-model="entity.health.provider_life_insurance">
                             </div>
                         </div>
                         <div class="form-group">
@@ -668,7 +668,7 @@
 
                             <div class="col-sm-4">
                                 <select id="health-life-plan" class="form-control"
-                                        ng-model="contract.health.plan_type_life_insurance"
+                                        ng-model="entity.health.plan_type_life_insurance"
                                         ng-options="key as value for (key, value) in options.health.plan_type_life_insurance"
                                         ng-disabled="isDisabled">
                                     <option value="">- select -</option>
@@ -680,7 +680,7 @@
 
                             <div class="col-sm-8">
                                 <textarea id="health-life-desc" name="health-life-desc" class="form-control"
-                                          rows="3" ng-model="contract.health.description_life_insurance" ng-disabled="isDisabled"></textarea>
+                                          rows="3" ng-model="entity.health.description_life_insurance" ng-disabled="isDisabled"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -695,7 +695,7 @@
 
                             <div class="col-sm-8">
                                 <textarea id="health-life-deps" name="health-life-deps" class="form-control"
-                                          rows="3" ng-model="contract.health.dependents_life_insurance" ng-disabled="isDisabled"></textarea>
+                                          rows="3" ng-model="entity.health.dependents_life_insurance" ng-disabled="isDisabled"></textarea>
                             </div>
                         </div>
                     </div>
@@ -713,7 +713,7 @@
                             <label for="pension-isenrolled" class="col-sm-4 control-label">Is Enrolled</label>
                             <div class="col-sm-4">
                                 <select id="pension-isenrolled" class="form-control"
-                                        ng-model="contract.pension.is_enrolled"
+                                        ng-model="entity.pension.is_enrolled"
                                         ng-options="key as value for (key, value) in options.pension.is_enrolled"
                                         ng-disabled="isDisabled">
                                     <option value="">- select -</option>
@@ -725,7 +725,7 @@
 
                             <div class="col-sm-4">
                                 <select id="pension-provider" class="form-control"
-                                        ng-model="contract.pension.pension_type"
+                                        ng-model="entity.pension.pension_type"
                                         ng-options="key as value for (key, value) in options.pension.pension_type"
                                         ng-disabled="isDisabled">
                                     <option value="">- select -</option>
@@ -744,7 +744,7 @@
                                 <input type="text" id="pension-contrib-emplr" name="pension-contrib-emplr" class="form-control"
                                        hrjc-number
                                        hrjc-number-float="true"
-                                       ng-model="contract.pension.er_contrib_pct"
+                                       ng-model="entity.pension.er_contrib_pct"
                                        ng-disabled="isDisabled">
                             </div>
                         </div>
@@ -760,7 +760,7 @@
                                 <input type="text" id="pension-contrib-emple" name="pension-contrib-emple" class="form-control"
                                        hrjc-number
                                        hrjc-number-float="true"
-                                       ng-model="contract.pension.ee_contrib_pct"
+                                       ng-model="entity.pension.ee_contrib_pct"
                                        ng-disabled="isDisabled">
                             </div>
                         </div>
@@ -771,7 +771,7 @@
 
                             <div class="col-sm-3">
                                 <input type="text" id="pension-contrib-emple-abs" hrjc-number name="pension-contrib-emple-abs"
-                                       ng-model="contract.pension.ee_contrib_abs" class="form-control" ng-disabled="isDisabled">
+                                       ng-model="entity.pension.ee_contrib_abs" class="form-control" ng-disabled="isDisabled">
                             </div>
                         </div>
                         <div class="form-group">
@@ -827,7 +827,7 @@
 
                             <div class="col-sm-8">
                                 <input type="text" id="pension-evidence-note" name="pension-evidence-note" class="form-control"
-                                       ng-model="contract.pension.ee_evidence_note" ng-disabled="isDisabled">
+                                       ng-model="entity.pension.ee_evidence_note" ng-disabled="isDisabled">
                             </div>
                         </div>
                     </div>
@@ -845,7 +845,7 @@
                             <label for="pension-funding-notes" class="col-sm-4 control-label">Funding Notes</label>
                             <div class="col-sm-8">
                                 <textarea id="pension-funding-notes" name="pension-funding-notes" class="form-control"
-                                          rows="3" ng-model="contract.details.funding_notes" ng-disabled="isDisabled"></textarea>
+                                          rows="3" ng-model="entity.details.funding_notes" ng-disabled="isDisabled"></textarea>
                             </div>
                         </div>
                     </div>

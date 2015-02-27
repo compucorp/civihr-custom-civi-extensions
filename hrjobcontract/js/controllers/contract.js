@@ -14,7 +14,8 @@ define(['controllers/controllers',
                  ContractPensionService, ContractFilesService, $log){
             $log.debug('Controller: ContractCtrl');
 
-            var contractId = $scope.contract.id, promiseFiles;
+            var contractId = $scope.contract.id,
+                promiseFiles;
 
             $scope.contractLoaded = false;
             $scope.isCollapsed = true;
@@ -29,7 +30,7 @@ define(['controllers/controllers',
                     id: null,
                     jobcontract_id: contractId,
                     jobcontract_revision_id: newScope.details.jobcontract_revision_id
-                };
+                    };
 
                 angular.extend($scope.details, newScope.details);
                 angular.extend($scope.hour, newScope.hour || contractRevisionIdObj);
@@ -40,6 +41,7 @@ define(['controllers/controllers',
                 angular.forEach($scope.leave, function(leaveType, leaveTypeId){
                     angular.extend(leaveType, newScope.leave ? newScope.leave[leaveTypeId] || contractRevisionIdObj : contractRevisionIdObj);
                 });
+
             }
 
             $q.all({
@@ -75,7 +77,7 @@ define(['controllers/controllers',
                     options = {
                         controller: 'ModalContractCtrl',
                         targetDomEl: $rootElement.find('div').eq(0),
-                        templateUrl: settings.pathApp+'views/modalForm.html?v=ergreg',
+                        templateUrl: settings.pathApp+'views/modalForm.html?v=65464',
                         size: 'lg',
                         resolve: {
                             action: function(){
@@ -84,18 +86,18 @@ define(['controllers/controllers',
                             content: function(){
                                 return null;
                             },
-                            contract: function(){
+                            entity: function(){
 
                                 if (!revisionEntityIdObj) {
                                     return {
-                                        id: contractId,
+                                        contract: $scope.contract,
                                         details: $scope.details,
                                         hour: $scope.hour,
                                         pay: $scope.pay,
                                         leave: $scope.leave,
                                         health: $scope.health,
                                         pension: $scope.pension
-                                    }
+                                    };
                                 }
 
                                 return $q.all({
@@ -107,24 +109,26 @@ define(['controllers/controllers',
                                     pension: ContractPensionService.getOne({ jobcontract_revision_id: revisionEntityIdObj.pension_revision_id })
                                 }).then(function(results){
 
-                                    var contract = {},
+                                    var entity = {
+                                            contract: $scope.contract
+                                        },
                                         contractRevisionIdObj = {
                                             id: null,
                                             jobcontract_id: contractId,
                                             jobcontract_revision_id: results.details.jobcontract_revision_id
                                         };
 
-                                    angular.extend(contract, angular.copy($scope.model));
-                                    angular.extend(contract.details, results.details);
-                                    angular.extend(contract.hour, results.hour || contractRevisionIdObj);
-                                    angular.extend(contract.pay, results.pay || contractRevisionIdObj);
-                                    angular.forEach(contract.leave, function(leaveType, leaveTypeId){
+                                    angular.extend(entity, angular.copy($scope.model));
+                                    angular.extend(entity.details, results.details);
+                                    angular.extend(entity.hour, results.hour || contractRevisionIdObj);
+                                    angular.extend(entity.pay, results.pay || contractRevisionIdObj);
+                                    angular.forEach(entity.leave, function(leaveType, leaveTypeId){
                                         angular.extend(leaveType, results.leave ? results.leave[leaveTypeId] || contractRevisionIdObj : contractRevisionIdObj);
                                     });
-                                    angular.extend(contract.health, results.health || contractRevisionIdObj);
-                                    angular.extend(contract.pension, results.pension || contractRevisionIdObj);
+                                    angular.extend(entity.health, results.health || contractRevisionIdObj);
+                                    angular.extend(entity.pension, results.pension || contractRevisionIdObj);
 
-                                    return contract;
+                                    return entity;
                                 });
                             },
                             files: function(){
@@ -178,6 +182,10 @@ define(['controllers/controllers',
 
                 modalInstance.result.then(function(results){
 
+                    if (!results) {
+                        return;
+                    }
+
                     if (results.requireReload) {
                         $route.reload();
                     }
@@ -203,7 +211,13 @@ define(['controllers/controllers',
                         });
                     } else {
                         var revisionListEntitiesView = ['details','hour','pay'], i, objExt;
+
                         updateContractView(results);
+
+                        if ($scope.contract.is_primary != results.contract.is_primary) {
+                            $scope.$parent.$parent.toggleIsPrimary($scope.contract.id);
+                        }
+
                         angular.forEach($scope.revisionDataList, function(revisionData){
                             i = 0;
                             objExt = {};
@@ -217,10 +231,6 @@ define(['controllers/controllers',
                             }
 
                         })
-                    }
-
-                    if (results.isPrimarySet) {
-                        $scope.$parent.$parent.toggleIsPrimary(contractId, !!results.revisionCreated);
                     }
 
                     if (results.files) {
@@ -253,7 +263,7 @@ define(['controllers/controllers',
                     targetDomEl: $rootElement.find('div').eq(0),
                     size: 'lg',
                     controller: 'ModalRevisionCtrl',
-                    templateUrl: settings.pathApp+'views/modalRevision.html?v=wfrwe',
+                    templateUrl: settings.pathApp+'views/modalRevision.html?v=ergerg',
                     windowClass: 'modal-revision',
                     resolve: {
                         entity: function(){
@@ -281,12 +291,6 @@ define(['controllers/controllers',
                 };
                 return $modal.open(options);
             }
-
-            $scope.$on('unsetIsPrimary',function(e, excludeContractId){
-                if (contractId == excludeContractId) {
-                    $scope.details.is_primary = 0;
-                }
-            });
 
             $scope.$on('updateContractView',function(){
                 $scope.$broadcast('hrjc-loader-show');

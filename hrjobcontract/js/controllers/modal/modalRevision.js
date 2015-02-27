@@ -97,9 +97,6 @@ define(['controllers/controllers'], function(controllers){
             })();
 
             switch (entity) {
-                case 'details':
-                    $filter('filter')($scope.fields,{name: 'is_primary'})[0].pseudoconstant = true;
-                    break;
                 case 'hour':
                     (function(){
                         var hoursLocation;

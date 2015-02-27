@@ -24,7 +24,7 @@ define(['controllers/controllers',
                 save: 'Add New Job Contract',
                 title: 'Add New Job Contract'
             };
-            $scope.contract = {};
+            $scope.entity = {};
             $scope.isDisabled = false;
             $scope.showIsPrimary = utils.contractListLen;
             $scope.uploader = {
@@ -37,7 +37,10 @@ define(['controllers/controllers',
             };
             $scope.utils = utils;
 
-            angular.copy(model,$scope.contract);
+            angular.copy(model,$scope.entity);
+            $scope.entity.contract = {
+                is_primary: 0
+            };
 
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
@@ -47,33 +50,35 @@ define(['controllers/controllers',
                 $scope.$broadcast('hrjc-loader-show');
                 var contract = new Contract();
 
+                console.log($scope);
+
                 contract.$save({
                     action: 'create',
                     json: {
                         sequential: 1,
-                        contact_id: settings.contactId
+                        contact_id: settings.contactId,
+                        is_primary: utils.contractListLen ? $scope.entity.contract.is_primary : 1
                     }
                 },function(data){
                     var contract = data.values[0],
                         contractId = contract.id,
-                        contractDetails = $scope.contract.details,
-                        contractHour = $scope.contract.hour,
-                        contractPay = $scope.contract.pay,
-                        contractLeave = $scope.contract.leave,
-                        contractHealth = $scope.contract.health,
-                        contractPension = $scope.contract.pension,
+                        entityDetails = $scope.entity.details,
+                        entityHour = $scope.entity.hour,
+                        entityPay = $scope.entity.pay,
+                        entityLeave = $scope.entity.leave,
+                        entityHealth = $scope.entity.health,
+                        entityPension = $scope.entity.pension,
                         modalInstance,
                         promiseContractNew,
                         promiseUpload = [],
                         uploader = $scope.uploader,
                         revisionId;
 
-                    contract.is_current = !contractDetails.period_end_date || new Date(contractDetails.period_end_date) > new Date();
+                    contract.is_current = !entityDetails.period_end_date || new Date(entityDetails.period_end_date) > new Date();
 
-                    UtilsService.prepareEntityIds(contractDetails, contractId);
+                    UtilsService.prepareEntityIds(entityDetails, contractId);
 
-                    ContractDetailsService.save(contractDetails).then(function(results){
-                        contract.is_primary = results.is_primary;
+                    ContractDetailsService.save(entityDetails).then(function(results){
                         revisionId = results.jobcontract_revision_id;
                     },function(reason){
                         CRM.alert(reason, 'Error', 'error');
@@ -82,16 +87,16 @@ define(['controllers/controllers',
                         return $q.reject();
                     }).then(function(){
 
-                        angular.forEach($scope.contract, function(entity){
+                        angular.forEach($scope.entity, function(entity){
                             UtilsService.prepareEntityIds(entity, contractId, revisionId);
                         });
 
                         promiseContractNew = [
-                            ContractHourService.save(contractHour),
-                            ContractPayService.save(contractPay),
-                            ContractLeaveService.save(contractLeave),
-                            ContractHealthService.save(contractHealth),
-                            ContractPensionService.save(contractPension)
+                            ContractHourService.save(entityHour),
+                            ContractPayService.save(entityPay),
+                            ContractLeaveService.save(entityLeave),
+                            ContractHealthService.save(entityHealth),
+                            ContractPensionService.save(entityPension)
                         ];
 
                         if ($scope.uploader.details.contract_file.queue.length) {

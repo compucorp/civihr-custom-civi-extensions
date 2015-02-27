@@ -78,7 +78,7 @@ define(['services/services'], function (services) {
                     val = data.values;
                     deffered.resolve(val.length == 1 ? val[0] : null);
                 },function(){
-                    deffered.reject('Unable to fetch contract list');
+                    deffered.reject('Unable to fetch contract data');
                 });
 
                 return deffered.promise;
@@ -125,6 +125,33 @@ define(['services/services'], function (services) {
 
                 return deffered.promise;
             },
+            save: function(contractDetails) {
+
+                if ((!contractDetails || typeof contractDetails !== 'object') ||
+                    (!contractDetails.id || typeof +contractDetails.id !== 'number')) {
+                    return null;
+                }
+
+                var deffered = $q.defer(),
+                    params = angular.extend({
+                        deleted: 0,
+                        sequential: 1
+                    },contractDetails),
+                    val;
+
+                Contract.save({
+                    action: 'create',
+                    json: params
+                }, null, function(data){
+                    val = data.values;
+                    deffered.resolve(val.length == 1 ? val[0] : null);
+                },function(){
+                    deffered.reject('Unable to fetch contract contract data');
+                });
+
+                return deffered.promise;
+
+            },
             saveRevision: function(revisionDetails) {
 
                 if ((!revisionDetails || typeof revisionDetails !== 'object') ||
@@ -146,7 +173,7 @@ define(['services/services'], function (services) {
                     val = data.values;
                     deffered.resolve(val.length == 1 ? val[0] : null);
                 },function(){
-                    deffered.reject('Unable to fetch contract revision id: ' + revisionId);
+                    deffered.reject('Unable to fetch contract revision');
                 });
 
                 return deffered.promise;

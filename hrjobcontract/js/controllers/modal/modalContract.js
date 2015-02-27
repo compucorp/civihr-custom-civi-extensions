@@ -399,8 +399,6 @@ define(['controllers/controllers',
 
                 $scope.save = function () {
 
-                    console.log($scope.contractForm);
-
                     if (angular.equals(entity,$scope.entity) &&
                         angular.equals(files,$scope.files) &&
                         !$scope.uploader.details.contract_file.queue.length &&

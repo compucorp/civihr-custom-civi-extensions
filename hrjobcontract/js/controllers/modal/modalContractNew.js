@@ -50,8 +50,6 @@ define(['controllers/controllers',
                 $scope.$broadcast('hrjc-loader-show');
                 var contract = new Contract();
 
-                console.log($scope);
-
                 contract.$save({
                     action: 'create',
                     json: {

@@ -185,7 +185,7 @@ define(['controllers/controllers'], function(controllers){
             }
 
             function urlCSVBuild(){
-                var url = settings.pathReport + '?',
+                var url = settings.pathReport + (settings.pathReport.indexOf('?') > -1 ? '&' : '?' ),
                     entityName = $scope.entity,
                     fieldName, prefix;
 

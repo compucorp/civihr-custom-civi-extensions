@@ -5,13 +5,14 @@ define(['controllers/controllers',
         'services/contractLeave',
         'services/contractPension',
         'services/contractHealth',
-        'services/utils',], function(controllers){
+        'services/contact',
+        'services/utils'], function(controllers){
     controllers.controller('ContractCtrl',['$scope', '$route', '$filter', '$modal', '$rootElement', '$q', 'settings',
         'API', 'ContractDetailsService', 'ContractHourService', 'ContractPayService', 'ContractLeaveService',
-        'ContractHealthService', 'ContractPensionService','ContractFilesService','$log',
+        'ContractHealthService', 'ContractPensionService','ContractFilesService','ContactService','$log',
         function($scope, $route, $filter, $modal, $rootElement, $q, settings, API, ContractDetailsService,
                  ContractHourService, ContractPayService, ContractLeaveService, ContractHealthService,
-                 ContractPensionService, ContractFilesService, $log){
+                 ContractPensionService, ContractFilesService, ContactService, $log){
             $log.debug('Controller: ContractCtrl');
 
             var contractId = $scope.contract.id,
@@ -30,18 +31,36 @@ define(['controllers/controllers',
                     id: null,
                     jobcontract_id: contractId,
                     jobcontract_revision_id: newScope.details.jobcontract_revision_id
-                    };
+                };
 
                 angular.extend($scope.details, newScope.details);
                 angular.extend($scope.hour, newScope.hour || contractRevisionIdObj);
                 angular.extend($scope.pay, newScope.pay || contractRevisionIdObj);
+
+                if (newScope.health &&
+                    newScope.health.provider &&
+                    newScope.health.provider != $scope.health.provider) {
+                    ContactService.getOne(newScope.health.provider).then(function(contact){
+                        console.log(contact.label);
+                        newScope.health.provider_name = contact.label;
+                    });
+                }
+
+                if (newScope.health &&
+                    newScope.health.provider_life_insurance &&
+                    newScope.health.provider_life_insurance != $scope.health.provider_life_insurance) {
+                    ContactService.getOne(newScope.health.provider_life_insurance).then(function(contact){
+                        console.log(contact.label);
+                        newScope.health.provider_life_insurance_name = contact.label;
+                    });
+                }
+
                 angular.extend($scope.health, newScope.health || contractRevisionIdObj);
                 angular.extend($scope.pension, newScope.pension || contractRevisionIdObj);
 
                 angular.forEach($scope.leave, function(leaveType, leaveTypeId){
                     angular.extend(leaveType, newScope.leave ? newScope.leave[leaveTypeId] || contractRevisionIdObj : contractRevisionIdObj);
                 });
-
             }
 
             $q.all({

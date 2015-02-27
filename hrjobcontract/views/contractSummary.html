@@ -86,7 +86,10 @@
                             <label class="col-sm-4 control-label">Health Insurance</label>
                             <div class="col-sm-6">
                                 <p class="form-control-static">
-                                    <span ng-if="health.plan_type" class="subfield">{{health.plan_type}}</span>
+                                    <span ng-if="health.plan_type || health.provider" class="subfield">
+                                        <span ng-if="health.plan_type">{{health.plan_type}} </span>
+                                        <span ng-if="health.provider">(with {{health.provider}})</span>
+                                    </span>
                                     <span ng-if="health.description" class="subfield"><strong>Description:</strong> {{health.description}}</span>
                                     <span ng-if="health.dependents" class="subfield"><strong>Dependents:</strong> {{health.dependents}}</span>
                                 </p>
@@ -101,6 +104,10 @@
                             <label class="col-sm-4 control-label">Life Insurance</label>
                             <div class="col-sm-6">
                                 <p class="form-control-static">
+                                    <span ng-if="health.plan_type_life_insurance || health.provider_life_insurance" class="subfield">
+                                        <span ng-if="health.plan_type_life_insurance">{{health.plan_type_life_insurance}} </span>
+                                        <span ng-if="health.provider_life_insurance">(with {{health.provider_life_insurance}})</span>
+                                    </span>
                                     <span ng-if="health.plan_type_life_insurance" class="subfield">{{health.plan_type_life_insurance}}</span>
                                     <span ng-if="health.description_life_insurance" class="subfield"><strong>Description:</strong> {{health.description_life_insurance}}</span>
                                     <span ng-if="health.dependents_life_insurance" class="subfield"><strong>Dependents:</strong> {{health.dependents_life_insurance}}</span>

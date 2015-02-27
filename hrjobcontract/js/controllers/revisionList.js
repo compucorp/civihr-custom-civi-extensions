@@ -107,10 +107,9 @@ define(['controllers/controllers', 'services/contract'], function(controllers){
             fetchRevisions(contractId);
 
             function urlCSVBuild(){
-                var url = settings.pathReport + '?',
+                var url = settings.pathReport + (settings.pathReport.indexOf('?') > -1 ? '&' : '?' ),
                     fields = $scope.fields;
-console.info('pathReport');
-console.info(settings.pathReport);
+
                 angular.forEach(fields, function(entityFields, entityName){
                     url += 'fields['+entityName+'_revision_id]=1&';
                     angular.forEach(entityFields, function(field){

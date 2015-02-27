@@ -184,6 +184,8 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
                 'type' => CRM_Utils_Type::T_INT,
                 'title' => ts('Job Contract Health Id') ,
                 'required' => true,
+                'export' => false,
+                'import' => false,
               ) ,
               'hrjob_health_provider' => array(
                 'name' => 'provider',
@@ -195,6 +197,7 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
                 'headerPattern' => '',
                 'dataPattern' => '',
                 'FKClassName' => 'CRM_Contact_DAO_Contact',
+                'headerPattern' => '/^healthcare\s?provider/i',
               ) ,
               'hrjob_health_plan_type' => array(
                 'name' => 'plan_type',
@@ -209,7 +212,8 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
                 'dataPattern' => '',
                 'pseudoconstant' => array(
                   'callback' => 'CRM_Hrjobcontract_SelectValues::planType',
-                )
+                ),
+                'headerPattern' => '/^healthcare\s?plan\s?type/i',
               ) ,
               'description' => array(
                 'name' => 'description',
@@ -218,6 +222,7 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
                 'export' => true,
                 'import' => true,
                 'where' => 'civicrm_hrjobcontract_health.description',
+                'headerPattern' => '/^description\s?health\s?insurance/i',
               ) ,
               'dependents' => array(
                 'name' => 'dependents',
@@ -225,6 +230,7 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
                 'title' => ts('Healthcare Dependents') ,
                 'export' => true,
                 'import' => true,
+                'headerPattern' => '/^healthcare\s?dependents/i',
               ) ,
               'hrjob_health_provider_life_insurance' => array(
                 'name' => 'provider_life_insurance',
@@ -236,6 +242,7 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
                 'headerPattern' => '',
                 'dataPattern' => '',
                 'FKClassName' => 'CRM_Contact_DAO_Contact',
+                'headerPattern' => '/^life\s?insurance\s?provider/i',
               ) ,
               'hrjob_life_insurance_plan_type' => array(
                 'name' => 'plan_type_life_insurance',
@@ -250,7 +257,8 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
                 'dataPattern' => '',
                 'pseudoconstant' => array(
                   'callback' => 'CRM_Hrjobcontract_SelectValues::planTypeLifeInsurance',
-                )
+                ),
+                'headerPattern' => '/^life\s?insurance\s?plan\s?type/i',
               ) ,
               'description_life_insurance' => array(
                 'name' => 'description_life_insurance',
@@ -259,6 +267,7 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
                 'export' => true,
                 'import' => true,
                 'where' => 'civicrm_hrjobcontract_health.description_life_insurance',
+                'headerPattern' => '/^description\s?life\s?insurance/i',
               ) ,
               'dependents_life_insurance' => array(
                 'name' => 'dependents_life_insurance',
@@ -266,6 +275,7 @@ class CRM_Hrjobcontract_DAO_HRJobHealth extends CRM_Hrjobcontract_DAO_Base
                 'title' => ts('Life Insurance Dependents') ,
                 'export' => true,
                 'import' => true,
+                'headerPattern' => '/^life\s?insurance\s?dependents/i',
               ) ,
             )
         );

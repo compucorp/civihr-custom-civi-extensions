@@ -150,6 +150,8 @@ class CRM_Hrjobcontract_DAO_HRJobLeave extends CRM_Hrjobcontract_DAO_Base
                 'type' => CRM_Utils_Type::T_INT,
                 'title' => ts('Leave Id') ,
                 'required' => true,
+                'export' => false,
+                'import' => false,
               ) ,
               'leave_type' => array(
                 'name' => 'leave_type',
@@ -161,7 +163,8 @@ class CRM_Hrjobcontract_DAO_HRJobLeave extends CRM_Hrjobcontract_DAO_Base
                   'table' => 'civicrm_hrabsence_type',
                   'keyColumn' => 'id',
                   'labelColumn' => 'name',
-                )
+                ),
+                'headerPattern' => '/^leave\s?type/i',
               ) ,
               'leave_amount' => array(
                 'name' => 'leave_amount',
@@ -172,6 +175,7 @@ class CRM_Hrjobcontract_DAO_HRJobLeave extends CRM_Hrjobcontract_DAO_Base
                 'headerPattern' => '',
                 'dataPattern' => '',
                 'export' => true,
+                'headerPattern' => '/^contract\s?leave\s?amount/i',
               ) ,
             )
         );

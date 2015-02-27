@@ -148,6 +148,8 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
           'type' => CRM_Utils_Type::T_INT,
           'title' => ts('Job Contract Id') ,
           'required' => false,
+          'export' => false,
+          'import' => false,
           'where' => 'civicrm_hrjobcontract.id',
         ) ,
         'contact_id' => array(
@@ -174,8 +176,8 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
           'name' => 'deleted',
           'type' => CRM_Utils_Type::T_INT,
           'title' => ts('Is deleted?') ,
-          'export' => true,
-          'import' => true,
+          'export' => false,
+          'import' => false,
           'where' => 'civicrm_hrjobcontract.deleted',
         ) ,
       );

@@ -192,7 +192,8 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'type' => CRM_Utils_Type::T_INT,
                 'title' => ts('Job Pay Id') ,
                 'required' => true,
-                //'export' => true, // TODO: make 'export' = true, but set 'name' of the field to unique in DB, maybe with 'where' parameter??
+                'export' => false,
+                'import' => false,
               ) ,
               'hrjob_pay_scale' => array(
                 'name' => 'pay_scale',
@@ -205,6 +206,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'headerPattern' => '',
                 'dataPattern' => '',
                 'export' => true,
+                'headerPattern' => '/^pay\s?scale/i',
               ) ,
               'hrjob_is_paid' => array(
                 'name' => 'is_paid',
@@ -219,7 +221,8 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'export' => true,
                 'pseudoconstant' => array(
                   'optionGroupName' => 'hrjc_pay_grade',
-                )
+                ),
+                'headerPattern' => '/^paid/i',
               ) ,
               'hrjob_pay_amount' => array(
                 'name' => 'pay_amount',
@@ -230,6 +233,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'headerPattern' => '',
                 'dataPattern' => '',
                 'export' => true,
+                'headerPattern' => '/^pay\s?amount/i',
               ) ,
               'hrjob_pay_unit' => array(
                 'name' => 'pay_unit',
@@ -244,7 +248,8 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'export' => true,
                 'pseudoconstant' => array(
                   'callback' => 'CRM_Hrjobcontract_SelectValues::payUnit',
-                )
+                ),
+                'headerPattern' => '/^pay\s?unit/i',
               ) ,
               'hrjob_pay_currency' => array(
                 'name' => 'pay_currency',
@@ -259,7 +264,8 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'export' => true,
                 'pseudoconstant' => array(
                   'optionGroupName' => 'currencies_enabled',
-                )
+                ),
+                'headerPattern' => '/^pay\s?currency/i',
               ) ,
               'hrjob_pay_annualized_est' => array(
                 'name' => 'pay_annualized_est',
@@ -270,6 +276,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'where' => 'civicrm_hrjobcontract_pay.pay_annualized_est',
                 'headerPattern' => '',
                 'dataPattern' => '',
+                'headerPattern' => '/^estimated\s?annual\s?pay/i',
               ) ,
               'pay_is_auto_est' => array(
                 'name' => 'pay_is_auto_est',
@@ -278,6 +285,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'export' => true,
                 'import' => true,
                 'default' => '1',
+                'headerPattern' => '/^estimated\s?auto\s?pay/i',
               ) ,
               'annual_benefits' => array(
                 'name' => 'annual_benefits',
@@ -291,6 +299,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'headerPattern' => '',
                 'dataPattern' => '',
                 'callback' => 'CRM_Hrjobcontract_Callback::getJSON',
+                'headerPattern' => '/^annual\s?benefits/i',
               ) ,
               'annual_deductions' => array(
                 'name' => 'annual_deductions',
@@ -304,6 +313,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'headerPattern' => '',
                 'dataPattern' => '',
                 'callback' => 'CRM_Hrjobcontract_Callback::getJSON',
+                'headerPattern' => '/^annual\s?deductions/i',
               ) ,
               'pay_cycle' => array(
                 'name' => 'pay_cycle',
@@ -317,7 +327,8 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'export' => true,
                 'pseudoconstant' => array(
                   'optionGroupName' => 'hrjc_pay_cycle',
-                )
+                ),
+                'headerPattern' => '/^pay\s?cycle/i',
               ) ,
               'pay_per_cycle_gross' => array(
                 'name' => 'pay_per_cycle_gross',
@@ -329,6 +340,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'headerPattern' => '',
                 'dataPattern' => '',
                 'export' => true,
+                'headerPattern' => '/^pay\s?per\s?cycle\s?gross/i',
               ) ,
               'pay_per_cycle_net' => array(
                 'name' => 'pay_per_cycle_net',
@@ -340,6 +352,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'headerPattern' => '',
                 'dataPattern' => '',
                 'export' => true,
+                'headerPattern' => '/^pay\s?per\s?cycle\s?net/i',
               ) ,
             )
         );

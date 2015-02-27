@@ -223,37 +223,40 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
                   'name' => 'id',
                   'type' => CRM_Utils_Type::T_INT,
                   'title' => ts('Job Role Id') ,
-                  'export' => true,
-                  'import' => true,
+                  'export' => false,
+                  'import' => false,
                   'required' => true,
                 ) ,
                 'title' => array(
                   'name' => 'title',
                   'type' => CRM_Utils_Type::T_STRING,
-                  'title' => ts('Title') ,
+                  'title' => ts('Role Title') ,
                   'export' => true,
                   'import' => true,
                   'maxlength' => 127,
                   'size' => CRM_Utils_Type::HUGE,
+                  'headerPattern' => '/^role\s?title/i',
                 ) ,
                 'description' => array(
                   'name' => 'description',
                   'type' => CRM_Utils_Type::T_TEXT,
-                  'title' => ts('Description') ,
+                  'title' => ts('Role Description') ,
                   'export' => true,
                   'import' => true,
+                  'headerPattern' => '/^role\s?description/i',
                 ) ,
                 'hrjob_role_hours' => array(
                   'name' => 'hours',
                   'type' => CRM_Utils_Type::T_FLOAT,
-                  'title' => ts('Amount') ,
+                  'title' => ts('Role Hours Amount') ,
                   'export' => true,
                   'import' => true,
+                  'headerPattern' => '/^role\s?hours\s?amount/i',
                 ) ,
                 'hrjob_role_unit' => array(
                   'name' => 'role_hours_unit',
                   'type' => CRM_Utils_Type::T_STRING,
-                  'title' => ts('Hours Unit') ,
+                  'title' => ts('Role Hours Unit') ,
                   'export' => true,
                   'import' => true,
                   'maxlength' => 63,
@@ -265,7 +268,8 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
                   'export' => true,
                   'pseudoconstant' => array(
                     'callback' => 'CRM_Hrjobcontract_SelectValues::commonUnit',
-                  )
+                  ),
+                  'headerPattern' => '/^role\s?hours\s?unit/i',
                 ) ,
                 'hrjob_region' => array(
                   'name' => 'region',
@@ -282,7 +286,8 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
                   'export' => true,
                   'pseudoconstant' => array(
                     'optionGroupName' => 'hrjc_region',
-                  )
+                  ),
+                  'headerPattern' => '/^region/i',
                 ) ,
                 'hrjob_role_department' => array(
                   'name' => 'department',
@@ -298,7 +303,8 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
                   'dataPattern' => '',
                   'pseudoconstant' => array(
                     'optionGroupName' => 'hrjc_department',
-                  )
+                  ),
+                  'headerPattern' => '/^department/i',
                 ) ,
                 'hrjob_role_level_type' => array(
                   'name' => 'level_type',
@@ -315,7 +321,8 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
                   'export' => true,
                   'pseudoconstant' => array(
                     'optionGroupName' => 'hrjc_level_type',
-                  )
+                  ),
+                  'headerPattern' => '/^level/i',
                 ) ,
                 'manager_contact_id' => array(
                   'name' => 'manager_contact_id',
@@ -324,6 +331,7 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
                   'export' => true,
                   'import' => true,
                   'FKClassName' => 'CRM_Contact_DAO_Contact',
+                  'headerPattern' => '/^manager\s?contact\s?id/i',
                 ) ,
                 'functional_area' => array(
                   'name' => 'functional_area',
@@ -333,6 +341,7 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
                   'import' => true,
                   'maxlength' => 127,
                   'size' => CRM_Utils_Type::HUGE,
+                  'headerPattern' => '/^functional\s?area/i',
                 ) ,
                 'organization' => array(
                   'name' => 'organization',
@@ -342,6 +351,7 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
                   'import' => true,
                   'maxlength' => 127,
                   'size' => CRM_Utils_Type::HUGE,
+                  'headerPattern' => '/^organization/i',
                 ) ,
                 'cost_center' => array(
                   'name' => 'cost_center',
@@ -351,6 +361,7 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
                   'import' => true,
                   'maxlength' => 127,
                   'size' => CRM_Utils_Type::HUGE,
+                  'headerPattern' => '/^cost\s?center/i',
                 ) ,
                 'hrjob_funder' => array(
                   'name' => 'funder',
@@ -364,6 +375,7 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
                   'where' => 'civicrm_hrjobcontract_role.funder',
                   'headerPattern' => '',
                   'dataPattern' => '',
+                  'headerPattern' => '/^funder/i',
                 ) ,
                 'hrjob_role_percent_pay_funder' => array(
                   'name' => 'percent_pay_funder',
@@ -377,6 +389,7 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
                   'where' => 'civicrm_hrjobcontract_role.percent_pay_funder',
                   'headerPattern' => '',
                   'dataPattern' => '',
+                  'headerPattern' => '/^percent\s?of\s?pay\s?assigned\s?to\s?this\s?funder/i',
                 ) ,
                 'hrjob_role_percent_pay_role' => array(
                   'name' => 'percent_pay_role',
@@ -387,6 +400,7 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
                   'where' => 'civicrm_hrjobcontract_role.percent_pay_role',
                   'headerPattern' => '',
                   'dataPattern' => '',
+                  'headerPattern' => '/^percent\s?of\s?pay\s?assigned\s?to\s?this\s?role/i',
                 ) ,
                 'location' => array(
                   'name' => 'location',
@@ -401,7 +415,8 @@ class CRM_Hrjobcontract_DAO_HRJobRole extends CRM_Hrjobcontract_DAO_Base
                   'dataPattern' => '',
                   'pseudoconstant' => array(
                     'optionGroupName' => 'hrjc_location',
-                  )
+                  ),
+                  'headerPattern' => '/^location/i',
                 ) ,
             )
         );

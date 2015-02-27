@@ -10,7 +10,6 @@ class CRM_Hrjobcontract_Import_Parser_Api extends CRM_Hrjobcontract_Import_Parse
   protected $_previousRevision = array();
   protected $_revisionIds = array();
   protected $_revisionEntityMap = array();
-  protected $_faza = 0;
 
   /**
    * Params for the current entity being prepared for the api
@@ -198,7 +197,6 @@ class CRM_Hrjobcontract_Import_Parser_Api extends CRM_Hrjobcontract_Import_Parse
         $this->_previousRevision['local']['id'] = null;
         $this->_revisionIds = array();
         $this->_revisionEntityMap = array();
-        $this->_faza = 0;
     }
     $localJobContractId = $this->_jobContractIds[$importedJobContractId];
     

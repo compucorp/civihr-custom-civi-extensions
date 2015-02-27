@@ -130,13 +130,43 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
         return strtolower($value) === 'yes' ? 1 : 0;
     }
     
+    public function health_provider_import($value)
+    {
+        if (empty($value))
+        {
+            return null;
+        }
+        
+        $contactLookup = array();
+        $keys = preg_split("/(InternalID: |, Email: |, ExternalID: |\))/", $value);
+        if (isset($keys[1]))
+        {
+            $contactLookup['id'] = $keys[1];
+        }
+        if (isset($keys[2]))
+        {
+            $contactLookup['email'] = $keys[2];
+        }
+        if (isset($keys[3]))
+        {
+            $contactLookup['external_identifier'] = (int)$keys[3];
+        }
+        
+        return $this->getContactByLookup($contactLookup);
+    }
+    
+    public function health_provider_life_insurance_import($value)
+    {
+        return $this->health_provider_import($value);
+    }
+    
     public function hour_hours_type_export($value)
     {
         return isset($value) ? $this->_hoursTypeOptions[$value]['label'] : null;
     }
     public function hour_hours_type_import($value)
     {
-        return isset($value) ? $this->_hoursTypeOptionsFlipped[$value] : null;
+        return !empty($value) ? $this->_hoursTypeOptionsFlipped[$value] : null;
     }
     
     public function hour_location_standard_hours_export($value)
@@ -215,7 +245,7 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
     }
     public function pay_annual_benefits_import($value)
     {
-        return isset($value) ? $this->_getAnnualValues('benefit', $value) : null;
+        return !empty($value) ? $this->_getAnnualValues('benefit', $value) : null;
     }
     
     public function pay_annual_deductions_export($value)
@@ -224,7 +254,7 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
     }
     public function pay_annual_deductions_import($value)
     {
-        return isset($value) ? $this->_getAnnualValues('deduction', $value) : null;
+        return !empty($value) ? $this->_getAnnualValues('deduction', $value) : null;
     }
     
     public function pay_pay_cycle_export($value)
@@ -233,7 +263,7 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
     }
     public function pay_pay_cycle_import($value)
     {
-        return isset($value) ? $this->_payCycleOptionsFlipped[$value] : null;
+        return !empty($value) ? $this->_payCycleOptionsFlipped[$value] : null;
     }
     
     public function pay_pay_is_auto_est_export($value)
@@ -259,7 +289,7 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
         $result = '';
         if (isset($value)) {
             $result = $this->_payScaleOptions[$value]['pay_scale'];
-            if ($value != 8)
+            if (!empty($this->_payScaleOptions[$value]['pay_grade']))
             {
                 $result .= ' - ' .
                 $this->_payScaleOptions[$value]['pay_grade'] . ' - ' .
@@ -276,24 +306,73 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
         {
             return null;
         }
-        if ($this->_payScaleOptions[8]['pay_scale'] == $value)
-        {
-            return 8;
-        }
         $keys = preg_split("/( - | per )/", $value);
-        $parts = explode(' ', $keys[2]);
-        foreach ($this->_payScaleOptions as $key => $payScaleOption)
+        $parts = array();
+        if (isset($keys[2]))
         {
-            if ($payScaleOption['pay_scale'] === $keys[0] &&
-                $payScaleOption['pay_grade'] === $keys[1] &&
-                $payScaleOption['currency'] === $parts[0] &&
-                $payScaleOption['amount'] === $parts[1] &&
-                $payScaleOption['periodicity'] === $keys[3])
+            $parts = explode(' ', $keys[2]);
+        }
+        
+        if (count($keys) === 4 && count($parts) === 2)
+        {
+            $result = civicrm_api3('HRPayScale', 'get', array(
+                'sequential' => 1,
+                'pay_scale' => $keys[0],
+                'pay_grade' => $keys[1],
+                'currency' => $parts[0],
+                'amount' => $parts[1],
+                'periodicity' => $keys[3],
+            ));
+            if (!empty($result['values']))
             {
-                return $key;
+                return $result['id'];
+            }
+            else
+            {
+                $result = civicrm_api3('HRPayScale', 'create', array(
+                    'sequential' => 1,
+                    'pay_scale' => $keys[0],
+                    'pay_grade' => $keys[1],
+                    'currency' => $parts[0],
+                    'amount' => $parts[1],
+                    'periodicity' => $keys[3],
+                    'is_active' => 1,
+                ));
+                $this->_payScaleOptions[$result['id']] = array(
+                    'pay_scale' => $keys[0],
+                    'pay_grade' => $keys[1],
+                    'currency' => $parts[0],
+                    'amount' => $parts[1],
+                    'periodicity' => $keys[3],
+                );
+                return $result['id'];
             }
         }
-        return $value;
+        else
+        {
+            $result = civicrm_api3('HRPayScale', 'get', array(
+                'sequential' => 1,
+                'pay_scale' => $value,
+            ));
+            if (!empty($result['values']))
+            {
+                return $result['id'];
+            }
+            else
+            {
+                $result = civicrm_api3('HRPayScale', 'create', array(
+                    'sequential' => 1,
+                    'pay_scale' => $value,
+                    'is_active' => 1,
+                ));
+                $this->_payScaleOptions[$result['id']] = array(
+                    'pay_scale' => $value,
+                );
+                return $result['id'];
+            }
+        }
+        
+        return null;
     }
     
     public function pension_is_enrolled_export($value)
@@ -335,22 +414,27 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
     {
         $list = json_decode($json, true);
         $output = '';
-        if (isset($list))
+        if (!empty($list))
         {
             foreach ($list as $row)
             {
+                if (empty($row))
+                {
+                    continue;
+                }
                 $output .= 'name: ' . $this->_annualOptions[$field]['name']['name'][$row['name']] . ', ';
                 $output .= 'type: ' . $this->_annualOptions[$field]['type']['name'][$row['type']] . ', ';
                 $output .= 'amount pct: ' . $row['amount_pct'] . ', ';
                 $output .= 'amount abs: ' . $row['amount_abs'] . '; ';
             }
         }
+        
         return $output;
     }
     
     protected function _getAnnualValues($field, $value)
     {
-        if (!isset($value))
+        if (empty($value))
         {
             return null;
         }
@@ -367,6 +451,10 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
             $columns = explode(', ', $row);
             foreach ($columns as $column)
             {
+                if (empty($column))
+                {
+                    continue;
+                }
                 $pair = explode(': ', $column);
                 $k = $pair[0];
                 $v = isset($pair[1]) ? $pair[1] : '';
@@ -385,6 +473,46 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
             }
             $outputArray[] = $outputRow;
         }
+        
         return $outputArray;
+    }
+    
+    public function getContactByLookup($data)
+    {
+        $contactId = null;
+        
+        // external_identifier:
+        if (!empty($data['external_identifier']) && !$contactId) {
+          $checkCid = new CRM_Contact_DAO_Contact();
+          $checkCid->external_identifier = $data['external_identifier'];
+          $checkCid->find(TRUE);
+          if (!empty($checkCid->id)) {
+              $contactId = $checkCid->id;
+          }
+        }
+        
+        // email:
+        if (!empty($data['email']) && !$contactId)
+        {
+            $checkEmail = new CRM_Core_BAO_Email();
+            $checkEmail->email = $data['email'];
+            $checkEmail->find(TRUE);
+            if (!empty($checkEmail->contact_id))
+            {
+                $contactId = $checkEmail->contact_id;
+            }
+        }
+        
+        // id:
+        if (!empty($data['id']) && !$contactId) {
+          $checkId = new CRM_Contact_DAO_Contact();
+          $checkId->id = $data['id'];
+          $checkId->find(TRUE);
+          if (!empty($checkId->id)) {
+              $contactId = $checkId->id;
+          }
+        }
+        
+        return $contactId;
     }
 }

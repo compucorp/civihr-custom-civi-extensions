@@ -266,11 +266,6 @@ class CRM_Hrjobcontract_Report_Form_Summary extends CRM_Report_Form {
                     'no_repeat' => TRUE,
                     'dbAlias' => 'hrjobcontract_details_civireport.contract_type',
                 ),
-                'details_period_type' => array(
-                    'title' => ts('Duration'),
-                    'no_repeat' => TRUE,
-                    'dbAlias' => 'hrjobcontract_details_civireport.period_type',
-                ),
                 'details_period_start_date' => array(
                     'title' => ts('Contract Start Date'),
                     'no_repeat' => TRUE,

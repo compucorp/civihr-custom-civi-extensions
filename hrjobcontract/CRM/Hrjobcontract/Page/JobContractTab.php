@@ -81,7 +81,6 @@ class CRM_Hrjobcontract_Page_JobContractTab extends CRM_Core_Page {
       'HRJobDetails' => array(
         "contract_type",
         "level_type",
-        "period_type",
         "location",
         'notice_unit',
         'notice_unit_employee',

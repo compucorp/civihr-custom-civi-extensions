@@ -67,7 +67,6 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
                 'title' => 'String',
                 'funding_notes' => 'String',
                 'contract_type' => 'String',
-                'period_type' => 'String',
                 'period_start_date' => 'Date',
                 'period_end_date' => 'Date',
                 'notice_amount' => 'Float',

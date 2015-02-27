@@ -124,7 +124,6 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
       case 'hrjob_role_level_type':
       case 'hrjob_contract_type':
       case 'hrjob_is_paid':
-      case 'hrjob_period_type':
       case 'hrjob_hours_type':
       case 'hrjob_hours_unit':
         $display = $options = $value;

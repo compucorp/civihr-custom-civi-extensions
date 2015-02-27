@@ -46,12 +46,6 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2">
-                {$form.hrjob_period_type.label}<br />
-                {$form.hrjob_period_type.html}
-            </td>
-        </tr>
-        <tr>
            <td colspan="2"><label>{ts}Period Start Date{/ts}</label></td>
         </tr>
         <tr>

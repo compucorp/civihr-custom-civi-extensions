@@ -78,7 +78,6 @@ CREATE TABLE IF NOT EXISTS `civicrm_hrjobcontract_details` (
     `title` varchar(127) DEFAULT NULL,
     `funding_notes` text,
     `contract_type` varchar(63) DEFAULT NULL,
-    `period_type` varchar(63) DEFAULT NULL,
     `period_start_date` date DEFAULT NULL,
     `period_end_date` date DEFAULT NULL,
     `notice_amount` double DEFAULT '0',
@@ -91,7 +90,6 @@ CREATE TABLE IF NOT EXISTS `civicrm_hrjobcontract_details` (
     KEY `index_position` (`position`),
     KEY `index_title` (`title`),
     KEY `index_contract_typ` (`contract_type`),
-    KEY `index_period_type` (`period_type`),
     KEY `index_location` (`location`),
     KEY `index_jobcontract_revision_id` (`jobcontract_revision_id`),
     CONSTRAINT `FK_civicrm_hrjobcontract_details_contract_revision_id` FOREIGN KEY (`jobcontract_revision_id`) REFERENCES `civicrm_hrjobcontract_revision` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION

@@ -41,7 +41,6 @@ class HRJobContractTestBase extends CiviUnitTestCase {
           'title' => "some title",
           'funding_notes' => "some funding notes",
           'contract_type' => "",
-          'period_type' => "Temporary",
           'period_start_date' => "2014-09-01",
           'period_end_date' => "2015-08-31",
           'notice_amount' => 3,

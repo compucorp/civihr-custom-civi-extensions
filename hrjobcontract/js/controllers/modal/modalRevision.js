@@ -209,7 +209,13 @@ define(['controllers/controllers'], function(controllers){
                         '&fields[street_address]=1' +
                         '&fields[city]=1' +
                         '&fields[name]=1' +
-                        '&fields[contact_id]=1' +
+                        '&fields[contract_contact_id]=1' +
+                        '&fields[contract_contract_id]=1' +
+                        '&fields[jobcontract_revision_id]=1' +
+                        '&fields[change_reason]=1' +
+                        '&fields[created_date]=1' +
+                        '&fields[effective_date]=1' +
+                        '&fields[modified_date]=1' +
                         '&order_bys[1][column]=id&order_bys[1][order]=ASC' +
                         '&order_bys[2][column]=civicrm_hrjobcontract_revision_revision_id&order_bys[2][order]=ASC' +
                         '&order_bys[3][column]=-&order_bys[3][order]=ASC' +

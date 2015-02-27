@@ -443,7 +443,7 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
         foreach ($rows as $row)
         {
             $row = trim($row);
-            if (!isset($row))
+            if (empty($row))
             {
                 continue;
             }

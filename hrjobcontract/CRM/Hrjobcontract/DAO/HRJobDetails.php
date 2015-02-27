@@ -116,12 +116,6 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
    */
   public $contract_type;
   /**
-   * .
-   *
-   * @var string
-   */
-  public $period_type;
-  /**
    * First day of the job
    *
    * @var date
@@ -260,21 +254,6 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                   ),
                   'headerPattern' => '/^contract\s?type/i',
                 ) ,
-                'period_type' => array(
-                  'name' => 'period_type',
-                  'type' => CRM_Utils_Type::T_STRING,
-                  'title' => ts('Duration') ,
-                  'maxlength' => 63,
-                  'size' => CRM_Utils_Type::BIG,
-                  'export' => false,
-                  'import' => false,
-                  'where' => 'civicrm_hrjobcontract_details.period_type',
-                  'headerPattern' => '',
-                  'dataPattern' => '',
-                  'pseudoconstant' => array(
-                    'callback' => 'CRM_Hrjobcontract_SelectValues::periodType',
-                  ),
-                ) ,
                 'hrjob_period_start_date' => array(
                   'name' => 'period_start_date',
                   'type' => CRM_Utils_Type::T_DATE,
@@ -389,7 +368,6 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                 'title' => 'hrjob_title',
                 'funding_notes' => 'funding_notes',
                 'contract_type' => 'hrjob_contract_type',
-                'period_type' => 'period_type',
                 'period_start_date' => 'hrjob_period_start_date',
                 'period_end_date' => 'hrjob_period_end_date',
                 'notice_amount' => 'hrjob_notice_amount',

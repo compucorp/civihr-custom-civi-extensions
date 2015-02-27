@@ -41,7 +41,6 @@ class HRJobContractTestBase extends CiviUnitTestCase {
           'title' => "some title",
           'funding_notes' => "some funding notes",
           'contract_type' => "",
-          'period_type' => "Temporary",
           'period_start_date' => "2014-09-01",
           'period_end_date' => "2015-08-31",
           'notice_amount' => 3,
@@ -159,8 +158,6 @@ class HRJobContractTestBase extends CiviUnitTestCase {
             (103, 'hrjc_hours_type', 'Hours Type', NULL, 1, 1, NULL),
             (104, 'hrjc_pay_scale', 'Pay Scale', NULL, 1, 1, NULL),
             (105, 'hrjc_pay_grade', 'Pay Grade', NULL, 1, 1, NULL),
-            (106, 'hrjc_health_provider', 'Healthcare Provider', NULL, 1, 1, NULL),
-            (107, 'hrjc_life_provider', 'Life Provider', NULL, 1, 1, NULL),
             (108, 'hrjc_location', 'Work Location', NULL, 1, 1, NULL),
             (109, 'hrjc_pension_type', 'Pension Type', NULL, 1, 1, NULL),
             (110, 'hrjc_region', 'Region', NULL, 1, 1, NULL)"

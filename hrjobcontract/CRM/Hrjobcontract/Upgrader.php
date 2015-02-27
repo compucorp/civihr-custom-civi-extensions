@@ -67,7 +67,6 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
                 'title' => 'String',
                 'funding_notes' => 'String',
                 'contract_type' => 'String',
-                'period_type' => 'String',
                 'period_start_date' => 'Date',
                 'period_end_date' => 'Date',
                 'notice_amount' => 'Float',
@@ -357,11 +356,6 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
 
     //$this->ctx->log->info('Applying update 1101');
     $this->executeCustomDataFile('xml/1101_departments.xml');
-
-    //$this->ctx->log->info('Applying update 1103');
-    if (!CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup','hrjc_life_provider', 'name')) {
-      $this->executeCustomDataFile('xml/1103_life_provider.xml');
-    }
 
     //$this->ctx->log->info('Applying update 1105');
     if (!CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup','hrjc_pension_type', 'name')) {
@@ -788,36 +782,6 @@ class CRM_Hrjobcontract_Upgrader extends CRM_Hrjobcontract_Upgrader_Base {
       $jobContractOptionsMenuTree[] = array(
         'label'      => ts('Deduction type'),
         'name'       => 'hrjc_deduction_type',
-        'url'        => 'civicrm/admin/options?gid=' . $result['id'],
-        'permission' => 'administer CiviCRM',
-        'parent_id'  => $administerNavId,
-      );
-    }
-
-    // hrjc_health_provider:
-    $result = civicrm_api3('OptionGroup', 'get', array(
-      'sequential' => 1,
-      'name' => "hrjc_health_provider",
-    ));
-    if (!empty($result['id'])) {
-      $jobContractOptionsMenuTree[] = array(
-        'label'      => ts('Health provider'),
-        'name'       => 'hrjc_health_provider',
-        'url'        => 'civicrm/admin/options?gid=' . $result['id'],
-        'permission' => 'administer CiviCRM',
-        'parent_id'  => $administerNavId,
-      );
-    }
-
-    // hrjc_life_provider:
-    $result = civicrm_api3('OptionGroup', 'get', array(
-      'sequential' => 1,
-      'name' => "hrjc_life_provider",
-    ));
-    if (!empty($result['id'])) {
-      $jobContractOptionsMenuTree[] = array(
-        'label'      => ts('Life provider'),
-        'name'       => 'hrjc_life_provider',
         'url'        => 'civicrm/admin/options?gid=' . $result['id'],
         'permission' => 'administer CiviCRM',
         'parent_id'  => $administerNavId,

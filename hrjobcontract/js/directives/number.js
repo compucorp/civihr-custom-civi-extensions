@@ -1,5 +1,5 @@
 define(['directives/directives'], function(directives){
-    directives.directive('hrjcNumber',function($log){
+    directives.directive('hrjcNumber',['$log',function($log){
         $log.debug('Directive: hrjcNumber');
 
         return {
@@ -20,5 +20,5 @@ define(['directives/directives'], function(directives){
                 });
             }
         }
-    });
+    }]);
 });

@@ -290,7 +290,7 @@ function hrjobcontract_civicrm_pageRun($page) {
         CRM_Core_Region::instance('page-footer')->add(array(
             'type' => 'markup',
             'markup' => '<script data-main="'
-                .CRM_Core_Resources::singleton()->getUrl('org.civicrm.hrjobcontract', 'js/hrjc-main', FALSE).
+                .CRM_Core_Resources::singleton()->getUrl('org.civicrm.hrjobcontract', CRM_Core_Config::singleton()->debug ? 'js/hrjc-main' : 'dist/hrjc-main', FALSE).
                 '" src="'
                 .CRM_Core_Resources::singleton()->getUrl('org.civicrm.hrjobcontract', 'js/vendor/require.js', TRUE).
                 '"></script>',

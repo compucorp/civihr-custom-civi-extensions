@@ -1,5 +1,5 @@
 define(['filters/filters'], function(filters){
-    filters.filter('getObjById',function($log){
+    filters.filter('getObjById',['$log',function($log){
         $log.debug('Filter: getObjById');
 
         return function(input, id, key) {
@@ -11,5 +11,5 @@ define(['filters/filters'], function(filters){
             }
             return null;
         }
-    });
+    }]);
 });

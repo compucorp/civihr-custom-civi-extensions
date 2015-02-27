@@ -196,7 +196,7 @@ define(['services/services'], function (services) {
 
                 return deffered.promise;
 
-            },
+            }
         }
 
     }]);

@@ -1,5 +1,5 @@
 define(['directives/directives'], function(directives){
-    directives.directive('hrjcValidate',function($log){
+    directives.directive('hrjcValidate',['$log',function($log){
         $log.debug('Directive: hrjcValidate');
 
         return {
@@ -62,5 +62,5 @@ define(['directives/directives'], function(directives){
                 });
             }
         }
-    });
+    }]);
 });

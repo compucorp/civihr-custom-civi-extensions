@@ -1,5 +1,5 @@
 define(['directives/directives'], function(directives){
-    directives.directive('hrjcLoader',function($rootScope, $log){
+    directives.directive('hrjcLoader',['$rootScope','$log',function($rootScope, $log){
         $log.debug('Directive: hrjcLoader');
 
         return {
@@ -43,5 +43,5 @@ define(['directives/directives'], function(directives){
 
             }
         }
-    });
+    }]);
 });

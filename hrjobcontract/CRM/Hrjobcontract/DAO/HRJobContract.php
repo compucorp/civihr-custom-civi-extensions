@@ -164,8 +164,8 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
           'name' => 'is_primary',
           'type' => CRM_Utils_Type::T_BOOLEAN,
           'title' => ts('Is Primary?') ,
-          'export' => true,
-          'import' => true,
+          'export' => false,
+          'import' => false,
           'where' => 'civicrm_hrjobcontract.is_primary',
           'headerPattern' => '',
           'dataPattern' => '',
@@ -274,11 +274,7 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
   static function handlePrimary($instance, array $params)
   {
         $instance->find(TRUE);
-        $isPrimary = 0;
-        if (is_numeric(CRM_Utils_Array::value('is_primary', $params)))
-        {
-            $isPrimary = (int)$params['is_primary'];
-        }
+        $isPrimary = (int)CRM_Utils_Array::value('is_primary', $params);
         
         if ($isPrimary)
         {

@@ -33,18 +33,6 @@
       <is_active>1</is_active>
     </OptionGroup>
     <OptionGroup>
-      <name>hrjc_health_provider</name>
-      <title>Healthcare Provider</title>
-      <is_reserved>1</is_reserved>
-      <is_active>1</is_active>
-    </OptionGroup>
-    <OptionGroup>
-      <name>hrjc_life_provider</name>
-      <title>Life Provider</title>
-      <is_reserved>1</is_reserved>
-      <is_active>1</is_active>
-    </OptionGroup>
-    <OptionGroup>
       <name>hrjc_location</name>
       <title>Work Location</title>
       <is_reserved>1</is_reserved>
@@ -239,28 +227,6 @@
       <is_reserved>0</is_reserved>
       <is_active>1</is_active>
       <option_group_name>hrjc_pay_grade</option_group_name>
-    </OptionValue>
-    <OptionValue>
-      <label>Unknown</label>
-      <value>Unknown</value>
-      <name>Unknown</name>
-      <is_default>0</is_default>
-      <weight>1</weight>
-      <is_optgroup>0</is_optgroup>
-      <is_reserved>0</is_reserved>
-      <is_active>1</is_active>
-      <option_group_name>hrjc_health_provider</option_group_name>
-    </OptionValue>
-    <OptionValue>
-      <label>Unknown</label>
-      <value>Unknown</value>
-      <name>Unknown</name>
-      <is_default>0</is_default>
-      <weight>1</weight>
-      <is_optgroup>0</is_optgroup>
-      <is_reserved>0</is_reserved>
-      <is_active>1</is_active>
-      <option_group_name>hrjc_life_provider</option_group_name>
     </OptionValue>
     <OptionValue>
       <label>Headquarters</label>

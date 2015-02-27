@@ -47,6 +47,7 @@ require([
     'controllers/form/formHealth',
     'controllers/form/formPay',
     'controllers/form/formPension',
+    'directives/contact',
     'directives/directives',
     'directives/loader',
     'directives/number',

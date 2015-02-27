@@ -41,8 +41,7 @@ define(['controllers/controllers',
                     newScope.health.provider &&
                     newScope.health.provider != $scope.health.provider) {
                     ContactService.getOne(newScope.health.provider).then(function(contact){
-                        console.log(contact.label);
-                        newScope.health.provider_name = contact.label;
+                        $scope.health.provider_contact = contact;
                     });
                 }
 
@@ -50,8 +49,7 @@ define(['controllers/controllers',
                     newScope.health.provider_life_insurance &&
                     newScope.health.provider_life_insurance != $scope.health.provider_life_insurance) {
                     ContactService.getOne(newScope.health.provider_life_insurance).then(function(contact){
-                        console.log(contact.label);
-                        newScope.health.provider_life_insurance_name = contact.label;
+                        $scope.health.provider_life_insurance_contact = contact;
                     });
                 }
 

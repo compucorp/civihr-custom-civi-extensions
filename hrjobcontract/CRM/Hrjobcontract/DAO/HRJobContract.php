@@ -281,14 +281,18 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
             $otherContracts = civicrm_api3('HRJobContract', 'get', array(
                 'sequential' => 1,
                 'contact_id' => $instance->contact_id,
+                'is_primary' => 1,
+                'deleted' => 0,
             ));
             foreach ($otherContracts['values'] as $otherContract)
             {
                 if ($otherContract['id'] != $instance->id)
                 {
                     civicrm_api3('HRJobContract', 'create', array(
+                        'sequential' => 1,
                         'id' => $otherContract['id'],
                         'is_primary' => 0,
+                        'import' => 1,
                     ));
                 }
             }
@@ -298,6 +302,7 @@ class CRM_Hrjobcontract_DAO_HRJobContract extends CRM_Core_DAO
             'sequential' => 1,
             'contact_id' => $instance->contact_id,
             'is_primary' => 1,
+            'deleted' => 0,
         ));
         
         if (empty($primaryContracts['values']))

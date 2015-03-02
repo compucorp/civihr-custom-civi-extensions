@@ -6,14 +6,20 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
     
     protected $_annualOptions = array();
     protected $_annualOptionsFlipped = array();
+    protected $_contractTypeOptions = array();
+    protected $_contractTypeOptionsFlipped = array();
     protected $_hoursLocationOptions = array();
     protected $_hoursTypeOptions = array();
     protected $_hoursTypeOptionsFlipped = array();
     protected $_leaveTypes = array();
     protected $_leaveTypesFlipped = array();
+    protected $_locationOptions = array();
+    protected $_locationOptionsFlipped = array();
     protected $_payCycleOptions = array();
     protected $_payCycleOptionsFlipped = array();
     protected $_payScaleOptions = array();
+    protected $_pensionTypeOptions = array();
+    protected $_pensionTypeOptionsFlipped = array();
     
     private function __construct()
     {
@@ -61,6 +67,14 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
             $this->_annualOptionsFlipped['deduction']['type'][$value] = $key;
         }
         
+        // contract type options:
+        $contractTypeOptions = array();
+        CRM_Core_OptionGroup::getAssoc('hrjc_contract_type', $contractTypeOptions, true);
+        foreach ($contractTypeOptions as $contractType) {
+            $this->_contractTypeOptions[$contractType['value']] = $contractType;
+            $this->_contractTypeOptionsFlipped[$contractType['label']] = $contractType['value'];
+        }
+        
         // hours location options:
         $hoursLocation = new CRM_Hrjobcontract_BAO_HoursLocation();
         $hoursLocation->find();
@@ -85,6 +99,14 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
             $this->_leaveTypesFlipped[$absenceTypeArray['title']] = $absenceType->id;
         }
         
+        // location options:
+        $locationOptions = array();
+        CRM_Core_OptionGroup::getAssoc('hrjc_location', $locationOptions, true);
+        foreach ($locationOptions as $location) {
+            $this->_locationOptions[$location['value']] = $location;
+            $this->_locationOptionsFlipped[$location['label']] = $location['value'];
+        }
+        
         // pay cycle options:
         $payCycleOptions = array();
         CRM_Core_OptionGroup::getAssoc('hrjc_pay_cycle', $payCycleOptions, true);
@@ -98,6 +120,14 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
         $payScale->find();
         while ($payScale->fetch()) {
             $this->_payScaleOptions[$payScale->id] = (array)$payScale;
+        }
+        
+        // pension type options:
+        $pensionTypeOptions = array();
+        CRM_Core_OptionGroup::getAssoc('hrjc_pension_type', $pensionTypeOptions, true);
+        foreach ($pensionTypeOptions as $pensionType) {
+            $this->_pensionTypeOptions[$pensionType['value']] = $pensionType;
+            $this->_pensionTypeOptionsFlipped[$pensionType['label']] = $pensionType['value'];
         }
     }
     
@@ -128,6 +158,24 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
     public function contract_is_primary_import($value)
     {
         return strtolower($value) === 'yes' ? 1 : 0;
+    }
+    
+    public function details_contract_type_export($value)
+    {
+        return $this->_contractTypeOptions[$value]['label'];
+    }
+    public function details_contract_type_import($value)
+    {
+        return $this->_contractTypeOptionsFlipped[$value];
+    }
+    
+    public function details_location_export($value)
+    {
+        return $this->_locationOptions[$value]['label'];
+    }
+    public function details_location_import($value)
+    {
+        return $this->_locationOptionsFlipped[$value];
     }
     
     public function health_provider_import($value)
@@ -408,6 +456,15 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
             break;
         }
         return $result;
+    }
+    
+    public function pension_pension_type_export($value)
+    {
+        return $this->_pensionTypeOptions[$value]['label'];
+    }
+    public function pension_pension_type_import($value)
+    {
+        return $this->_pensionTypeOptionsFlipped[$value];
     }
     
     protected function _getAnnualReadableValues($field, $json)

@@ -27,35 +27,73 @@
     <table class="form-layout">
         <tr>
             <td>
-                {$form.hrjob_position.label}<br />
-                {$form.hrjob_position.html}
+                {$form.hrjobcontract_details_position.label}<br />
+                {$form.hrjobcontract_details_position.html}
             </td>
             <td>
-                {$form.hrjob_title.label}<br />
-                {$form.hrjob_title.html}
+                {$form.hrjobcontract_details_title.label}<br />
+                {$form.hrjobcontract_details_title.html}
             </td>
         </tr>
-        <tr>
-            <td>
-                {$form.hrjob_role_level_type.label}<br />
-                {$form.hrjob_role_level_type.html}
-            </td>
-            <td>
-                {$form.hrjob_contract_type.label}<br />
-                {$form.hrjob_contract_type.html}
-            </td>
-        </tr>
+        
         <tr>
            <td colspan="2"><label>{ts}Period Start Date{/ts}</label></td>
         </tr>
         <tr>
-           {include file="CRM/Core/DateRange.tpl" fieldName="hrjob_period_start_date" from='_low' to='_high'}
+           {include file="CRM/Core/DateRange.tpl" fieldName="hrjobcontract_details_period_start_date" from='_low' to='_high'}
         </tr>
         <tr>
            <td colspan="2"><label>{ts}Period End Date{/ts}</label></td>
         </tr>
         <tr>
-           {include file="CRM/Core/DateRange.tpl" fieldName="hrjob_period_end_date" from='_low' to='_high'}
+           {include file="CRM/Core/DateRange.tpl" fieldName="hrjobcontract_details_period_end_date" from='_low' to='_high'}
+        </tr>
+        
+        <tr>
+            <td>
+                {$form.hrjobcontract_role_role_level_type.label}<br />
+                {$form.hrjobcontract_role_role_level_type.html}
+            </td>
+            <td>
+                {$form.hrjobcontract_details_contract_type.label}<br />
+                {$form.hrjobcontract_details_contract_type.html}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {$form.hrjobcontract_details_notice_amount.label}<br />
+                {$form.hrjobcontract_details_notice_amount.html}
+            </td>
+            <td>
+                {$form.hrjobcontract_details_notice_unit.label}<br />
+                {$form.hrjobcontract_details_notice_unit.html}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {$form.hrjobcontract_details_notice_amount_employee.label}<br />
+                {$form.hrjobcontract_details_notice_amount_employee.html}
+            </td>
+            <td>
+                {$form.hrjobcontract_details_notice_unit_employee.label}<br />
+                {$form.hrjobcontract_details_notice_unit_employee.html}
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                {$form.hrjobcontract_details_funding_notes.label}<br />
+                {$form.hrjobcontract_details_funding_notes.html}
+            </td>
+            <td>
+                {$form.hrjobcontract_details_location.label}<br />
+                {$form.hrjobcontract_details_location.html}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                {$form.hrjobcontract_details_is_primary.label}&nbsp;{$form.hrjobcontract_details_is_primary.html}
+            </td>
         </tr>
     </table>
 </div>

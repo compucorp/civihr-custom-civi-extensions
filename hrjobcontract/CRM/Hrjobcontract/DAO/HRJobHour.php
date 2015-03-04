@@ -177,7 +177,7 @@ class CRM_Hrjobcontract_DAO_HRJobHour extends CRM_Hrjobcontract_DAO_Base
                   'export' => false,
                   'import' => false,
                 ) ,
-                'location_standard_hours' => array(
+                'hrjobcontract_hour_location_standard_hours' => array(
                   'name' => 'location_standard_hours',
                   'type' => CRM_Utils_Type::T_INT,
                   'title' => ts('Location/Standard hours') ,
@@ -188,7 +188,7 @@ class CRM_Hrjobcontract_DAO_HRJobHour extends CRM_Hrjobcontract_DAO_Base
                   'dataPattern' => '',
                   'headerPattern' => '/^location\/standard\s?hours/i',
                 ) ,
-                'hrjob_hours_type' => array(
+                'hrjobcontract_hour_hours_type' => array(
                   'name' => 'hours_type',
                   'type' => CRM_Utils_Type::T_STRING,
                   'title' => ts('Hours Type') ,
@@ -204,7 +204,7 @@ class CRM_Hrjobcontract_DAO_HRJobHour extends CRM_Hrjobcontract_DAO_Base
                   ),
                   'headerPattern' => '/^hours\s?type/i',
                 ) ,
-                'hrjob_hours_amount' => array(
+                'hrjobcontract_hour_hours_amount' => array(
                   'name' => 'hours_amount',
                   'type' => CRM_Utils_Type::T_FLOAT,
                   'title' => ts('Actual Hours (Amount)'),
@@ -215,7 +215,7 @@ class CRM_Hrjobcontract_DAO_HRJobHour extends CRM_Hrjobcontract_DAO_Base
                   'dataPattern' => '',
                   'headerPattern' => '/^actual\s?hours\s?\(amount\)/i',
                 ) ,
-                'hrjob_hours_unit' => array(
+                'hrjobcontract_hour_hours_unit' => array(
                   'name' => 'hours_unit',
                   'type' => CRM_Utils_Type::T_STRING,
                   'title' => ts('Actual Hours (Unit)'),
@@ -231,7 +231,7 @@ class CRM_Hrjobcontract_DAO_HRJobHour extends CRM_Hrjobcontract_DAO_Base
                   ),
                   'headerPattern' => '/^actual\s?hours\s?\(unit\)/i',
                 ) ,
-                'hrjob_hours_fte' => array(
+                'hrjobcontract_hour_hours_fte' => array(
                   'name' => 'hours_fte',
                   'type' => CRM_Utils_Type::T_FLOAT,
                   'title' => ts('Full-Time Equivalence') ,
@@ -242,7 +242,7 @@ class CRM_Hrjobcontract_DAO_HRJobHour extends CRM_Hrjobcontract_DAO_Base
                   'dataPattern' => '',
                   'headerPattern' => '/^full\-time\s?equivalence/i',
                 ) ,
-                'hours_fte_num' => array(
+                'hrjobcontract_hour_hours_fte_num' => array(
                   'name' => 'fte_num',
                   'type' => CRM_Utils_Type::T_INT,
                   'title' => ts('Full-Time Numerator Equivalence') ,
@@ -254,7 +254,7 @@ class CRM_Hrjobcontract_DAO_HRJobHour extends CRM_Hrjobcontract_DAO_Base
                   'default' => '1',
                   'headerPattern' => '/^full\-time\s?numerator\s?equivalence/i',
                 ) ,
-                'hrjob_fte_denom' => array(
+                'hrjobcontract_hour_fte_denom' => array(
                   'name' => 'fte_denom',
                   'type' => CRM_Utils_Type::T_INT,
                   'title' => ts('Full-Time Denominator Equivalence') ,
@@ -284,13 +284,13 @@ class CRM_Hrjobcontract_DAO_HRJobHour extends CRM_Hrjobcontract_DAO_Base
         self::$_fieldKeys = self::setFieldKeys(
             array(
                 'id' => 'id',
-                'location_standard_hours' => 'location_standard_hours',
-                'hours_type' => 'hrjob_hours_type',
-                'hours_amount' => 'hrjob_hours_amount',
-                'hours_unit' => 'hrjob_hours_unit',
-                'hours_fte' => 'hrjob_hours_fte',
-                'fte_num' => 'hours_fte_num',
-                'fte_denom' => 'hrjob_fte_denom',
+                'location_standard_hours' => 'hrjobcontract_hour_location_standard_hours',
+                'hours_type' => 'hrjobcontract_hour_hours_type',
+                'hours_amount' => 'hrjobcontract_hour_hours_amount',
+                'hours_unit' => 'hrjobcontract_hour_hours_unit',
+                'hours_fte' => 'hrjobcontract_hour_hours_fte',
+                'fte_num' => 'hrjobcontract_hour_hours_fte_num',
+                'fte_denom' => 'hrjobcontract_hour_fte_denom',
             )
         );
     }

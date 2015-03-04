@@ -195,7 +195,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'export' => false,
                 'import' => false,
               ) ,
-              'hrjob_pay_scale' => array(
+              'hrjobcontract_pay_pay_scale' => array(
                 'name' => 'pay_scale',
                 'type' => CRM_Utils_Type::T_STRING,
                 'title' => ts('Pay Scale') ,
@@ -208,7 +208,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'export' => true,
                 'headerPattern' => '/^pay\s?scale/i',
               ) ,
-              'hrjob_is_paid' => array(
+              'hrjobcontract_pay_is_paid' => array(
                 'name' => 'is_paid',
                 'type' => CRM_Utils_Type::T_INT,
                 'title' => ts('Paid') ,
@@ -224,7 +224,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 ),
                 'headerPattern' => '/^paid/i',
               ) ,
-              'hrjob_pay_amount' => array(
+              'hrjobcontract_pay_pay_amount' => array(
                 'name' => 'pay_amount',
                 'type' => CRM_Utils_Type::T_MONEY,
                 'title' => ts('Pay Amount') ,
@@ -235,7 +235,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'export' => true,
                 'headerPattern' => '/^pay\s?amount/i',
               ) ,
-              'hrjob_pay_unit' => array(
+              'hrjobcontract_pay_pay_unit' => array(
                 'name' => 'pay_unit',
                 'type' => CRM_Utils_Type::T_STRING,
                 'title' => ts('Pay Unit') ,
@@ -251,7 +251,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 ),
                 'headerPattern' => '/^pay\s?unit/i',
               ) ,
-              'hrjob_pay_currency' => array(
+              'hrjobcontract_pay_pay_currency' => array(
                 'name' => 'pay_currency',
                 'type' => CRM_Utils_Type::T_STRING,
                 'title' => ts('Pay Currency') ,
@@ -267,7 +267,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 ),
                 'headerPattern' => '/^pay\s?currency/i',
               ) ,
-              'hrjob_pay_annualized_est' => array(
+              'hrjobcontract_pay_pay_annualized_est' => array(
                 'name' => 'pay_annualized_est',
                 'type' => CRM_Utils_Type::T_MONEY,
                 'title' => ts('Estimated Annual Pay') ,
@@ -278,7 +278,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'dataPattern' => '',
                 'headerPattern' => '/^estimated\s?annual\s?pay/i',
               ) ,
-              'pay_is_auto_est' => array(
+              'hrjobcontract_pay_pay_is_auto_est' => array(
                 'name' => 'pay_is_auto_est',
                 'type' => CRM_Utils_Type::T_BOOLEAN,
                 'title' => ts('Estimated Auto Pay') ,
@@ -287,7 +287,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'default' => '1',
                 'headerPattern' => '/^estimated\s?auto\s?pay/i',
               ) ,
-              'annual_benefits' => array(
+              'hrjobcontract_pay_annual_benefits' => array(
                 'name' => 'annual_benefits',
                 'type' => CRM_Utils_Type::T_STRING,
                 'title' => ts('Annual Benefits') ,
@@ -301,7 +301,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'callback' => 'CRM_Hrjobcontract_Callback::getJSON',
                 'headerPattern' => '/^annual\s?benefits/i',
               ) ,
-              'annual_deductions' => array(
+              'hrjobcontract_pay_annual_deductions' => array(
                 'name' => 'annual_deductions',
                 'type' => CRM_Utils_Type::T_STRING,
                 'title' => ts('Annual Deductions') ,
@@ -315,7 +315,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'callback' => 'CRM_Hrjobcontract_Callback::getJSON',
                 'headerPattern' => '/^annual\s?deductions/i',
               ) ,
-              'pay_cycle' => array(
+              'hrjobcontract_pay_pay_cycle' => array(
                 'name' => 'pay_cycle',
                 'type' => CRM_Utils_Type::T_INT,
                 'title' => ts('Pay Cycle') ,
@@ -330,7 +330,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 ),
                 'headerPattern' => '/^pay\s?cycle/i',
               ) ,
-              'pay_per_cycle_gross' => array(
+              'hrjobcontract_pay_pay_per_cycle_gross' => array(
                 'name' => 'pay_per_cycle_gross',
                 'type' => CRM_Utils_Type::T_FLOAT,
                 'title' => ts('Pay Per Cycle Gross') ,
@@ -342,7 +342,7 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
                 'export' => true,
                 'headerPattern' => '/^pay\s?per\s?cycle\s?gross/i',
               ) ,
-              'pay_per_cycle_net' => array(
+              'hrjobcontract_pay_pay_per_cycle_net' => array(
                 'name' => 'pay_per_cycle_net',
                 'type' => CRM_Utils_Type::T_FLOAT,
                 'title' => ts('Pay Per Cycle Net') ,
@@ -373,17 +373,17 @@ class CRM_Hrjobcontract_DAO_HRJobPay extends CRM_Hrjobcontract_DAO_Base
             array(
                 'id' => 'id',
                 'pay_scale' => 'hrjob_pay_scale',
-                'is_paid' => 'hrjob_is_paid',
-                'pay_amount' => 'hrjob_pay_amount',
-                'pay_unit' => 'hrjob_pay_unit',
-                'pay_currency' => 'hrjob_pay_currency',
-                'pay_annualized_est' => 'hrjob_pay_annualized_est',
-                'pay_is_auto_est' => 'pay_is_auto_est',
-                'annual_benefits' => 'annual_benefits',
-                'annual_deductions' => 'annual_deductions',
-                'pay_cycle' => 'pay_cycle',
-                'pay_per_cycle_gross' => 'pay_per_cycle_gross',
-                'pay_per_cycle_net' => 'pay_per_cycle_net',
+                'is_paid' => 'hrjobcontract_pay_is_paid',
+                'pay_amount' => 'hrjobcontract_pay_pay_amount',
+                'pay_unit' => 'hrjobcontract_pay_pay_unit',
+                'pay_currency' => 'hrjobcontract_pay_pay_currency',
+                'pay_annualized_est' => 'hrjobcontract_pay_pay_annualized_est',
+                'pay_is_auto_est' => 'hrjobcontract_pay_pay_is_auto_est',
+                'annual_benefits' => 'hrjobcontract_pay_annual_benefits',
+                'annual_deductions' => 'hrjobcontract_pay_annual_deductions',
+                'pay_cycle' => 'hrjobcontract_pay_pay_cycle',
+                'pay_per_cycle_gross' => 'hrjobcontract_pay_pay_per_cycle_gross',
+                'pay_per_cycle_net' => 'hrjobcontract_pay_pay_per_cycle_net',
             )
         );
     }

@@ -204,7 +204,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                   'export' => false,
                   'import' => false,
                 ) ,
-                'hrjob_position' => array(
+                'hrjobcontract_details_position' => array(
                   'name' => 'position',
                   'type' => CRM_Utils_Type::T_STRING,
                   'title' => ts('Position') ,
@@ -217,7 +217,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                   'dataPattern' => '',
                   'headerPattern' => '/^position/i',
                 ) ,
-                'hrjob_title' => array(
+                'hrjobcontract_details_title' => array(
                   'name' => 'title',
                   'type' => CRM_Utils_Type::T_STRING,
                   'title' => ts('Title') ,
@@ -230,15 +230,16 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                   'dataPattern' => '',
                   'headerPattern' => '/^title/i',
                 ) ,
-                'funding_notes' => array(
+                'hrjobcontract_details_funding_notes' => array(
                   'name' => 'funding_notes',
                   'type' => CRM_Utils_Type::T_TEXT,
                   'title' => ts('Funding Notes') ,
                   'export' => true,
                   'import' => true,
+                  'where' => 'civicrm_hrjobcontract_details.funding_notes',
                   'headerPattern' => '/^funding\s?notes/i',
                 ) ,
-                'hrjob_contract_type' => array(
+                'hrjobcontract_details_contract_type' => array(
                   'name' => 'contract_type',
                   'type' => CRM_Utils_Type::T_STRING,
                   'title' => ts('Contract Type') ,
@@ -254,7 +255,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                   ),
                   'headerPattern' => '/^contract\s?type/i',
                 ) ,
-                'hrjob_period_start_date' => array(
+                'hrjobcontract_details_period_start_date' => array(
                   'name' => 'period_start_date',
                   'type' => CRM_Utils_Type::T_DATE,
                   'title' => ts('Contract Start Date') ,
@@ -265,7 +266,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                   'dataPattern' => '',
                   'headerPattern' => '/^contract\s?start\s?date/i',
                 ) ,
-                'hrjob_period_end_date' => array(
+                'hrjobcontract_details_period_end_date' => array(
                   'name' => 'period_end_date',
                   'type' => CRM_Utils_Type::T_DATE,
                   'title' => ts('Contract End Date') ,
@@ -276,7 +277,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                   'dataPattern' => '',
                   'headerPattern' => '/^contract\s?end\s?date/i',
                 ) ,
-                'hrjob_notice_amount' => array(
+                'hrjobcontract_details_notice_amount' => array(
                   'name' => 'notice_amount',
                   'type' => CRM_Utils_Type::T_FLOAT,
                   'title' => ts('Notice Period from Employer (Amount)') ,
@@ -287,7 +288,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                   'dataPattern' => '',
                   'headerPattern' => '/^notice\s?period\s?from\s?employer\s?\(amount\)/i',
                 ) ,
-                'hrjob_notice_unit' => array(
+                'hrjobcontract_details_notice_unit' => array(
                   'name' => 'notice_unit',
                   'type' => CRM_Utils_Type::T_STRING,
                   'title' => ts('Notice Period from Employer (Unit)') ,
@@ -303,7 +304,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                   ),
                   'headerPattern' => '/^notice\s?period\s?from\s?employer\s?\(unit\)/i',
                 ) ,
-                'hrjob_notice_amount_employee' => array(
+                'hrjobcontract_details_notice_amount_employee' => array(
                   'name' => 'notice_amount_employee',
                   'type' => CRM_Utils_Type::T_FLOAT,
                   'title' => ts('Notice Period from Employee (Amount)') ,
@@ -314,7 +315,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                   'export' => true,
                   'headerPattern' => '/^notice\s?period\s?from\s?employee\s?\(amount\)/i',
                 ) ,
-                'hrjob_notice_unit_employee' => array(
+                'hrjobcontract_details_notice_unit_employee' => array(
                   'name' => 'notice_unit_employee',
                   'type' => CRM_Utils_Type::T_STRING,
                   'title' => ts('Notice Period from Employee (Unit)') ,
@@ -330,7 +331,7 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
                   ),
                   'headerPattern' => '/^notice\s?period\s?from\s?employee\s?\(unit\)/i',
                 ) ,
-                'hrjob_location' => array(
+                'hrjobcontract_details_location' => array(
                   'name' => 'location',
                   'type' => CRM_Utils_Type::T_STRING,
                   'title' => ts('Normal Place of Work') ,
@@ -364,17 +365,17 @@ class CRM_Hrjobcontract_DAO_HRJobDetails extends CRM_Hrjobcontract_DAO_Base
         self::$_fieldKeys = self::setFieldKeys(
             array(
                 'id' => 'id',
-                'position' => 'hrjob_position',
-                'title' => 'hrjob_title',
-                'funding_notes' => 'funding_notes',
-                'contract_type' => 'hrjob_contract_type',
-                'period_start_date' => 'hrjob_period_start_date',
-                'period_end_date' => 'hrjob_period_end_date',
-                'notice_amount' => 'hrjob_notice_amount',
-                'notice_unit' => 'hrjob_notice_unit',
-                'notice_amount_employee' => 'hrjob_notice_amount_employee',
-                'notice_unit_employee' => 'hrjob_notice_unit_employee',
-                'location' => 'hrjob_location',
+                'position' => 'hrjobcontract_details_position',
+                'title' => 'hrjobcontract_details_title',
+                'funding_notes' => 'hrjobcontract_details_funding_notes',
+                'contract_type' => 'hrjobcontract_details_contract_type',
+                'period_start_date' => 'hrjobcontract_details_period_start_date',
+                'period_end_date' => 'hrjobcontract_details_period_end_date',
+                'notice_amount' => 'hrjobcontract_details_notice_amount',
+                'notice_unit' => 'hrjobcontract_details_notice_unit',
+                'notice_amount_employee' => 'hrjobcontract_details_notice_amount_employee',
+                'notice_unit_employee' => 'hrjobcontract_details_notice_unit_employee',
+                'location' => 'hrjobcontract_details_location',
             )
         );
     }

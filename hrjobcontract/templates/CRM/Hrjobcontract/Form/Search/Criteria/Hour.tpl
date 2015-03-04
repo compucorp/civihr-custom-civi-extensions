@@ -27,26 +27,58 @@
     <table class="form-layout">
         <tr>
             <td>
-                {$form.hrjob_hours_type.label}<br />
-                {$form.hrjob_hours_type.html}
+                {$form.hrjobcontract_hour_location_standard_hours.label}<br />
+                {$form.hrjobcontract_hour_location_standard_hours.html}
             </td>
             <td>
-                {$form.hrjob_hours_unit.label}<br />
-                {$form.hrjob_hours_unit.html}
+                {$form.hrjobcontract_hour_hours_type.label}<br />
+                {$form.hrjobcontract_hour_hours_type.html}
             </td>
         </tr>
         <tr>
-            <td><label>{ts}Hours Amount{/ts}</label> <br />
-                {$form.hrjob_hours_amount_low.label}
-                {$form.hrjob_hours_amount_low.html} &nbsp;&nbsp;
-                {$form.hrjob_hours_amount_high.label}
-                {$form.hrjob_hours_amount_high.html} 
+            <td>
+                {$form.hrjobcontract_hour_hours_amount.label}<br />
+                {$form.hrjobcontract_hour_hours_amount.html}
             </td>
-            <td><label>{ts}Hours FTE{/ts}</label> <br />
-                {$form.hrjob_hours_fte_low.label}
-                {$form.hrjob_hours_fte_low.html} &nbsp;&nbsp;
-                {$form.hrjob_hours_fte_high.label}
-                {$form.hrjob_hours_fte_high.html} 
+            <td>
+                {$form.hrjobcontract_hour_hours_unit.label}<br />
+                {$form.hrjobcontract_hour_hours_unit.html}
+            </td>
+        </tr>
+        
+        <tr>
+            <td colspan="2"><label>{ts}Hours Amount{/ts}</label> <br />
+                {$form.hrjobcontract_hour_hours_amount_low.label}
+                {$form.hrjobcontract_hour_hours_amount_low.html} &nbsp;&nbsp;
+                {$form.hrjobcontract_hour_hours_amount_high.label}
+                {$form.hrjobcontract_hour_hours_amount_high.html} 
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                {$form.hrjobcontract_hour_hours_fte.label}<br />
+                {$form.hrjobcontract_hour_hours_fte.html}
+            </td>
+            <td>
+                {$form.hrjobcontract_hour_hours_fte_num.label}<br />
+                {$form.hrjobcontract_hour_hours_fte_num.html}
+            </td>
+        </tr>
+        
+        <tr>
+            <td colspan="2">
+                {$form.hrjobcontract_hour_fte_denom.label}<br />
+                {$form.hrjobcontract_hour_fte_denom.html}
+            </td>
+        </tr>
+        
+        <tr>
+            <td colspan="2"><label>{ts}Hours FTE{/ts}</label> <br />
+                {$form.hrjobcontract_hour_hours_fte_low.label}
+                {$form.hrjobcontract_hour_hours_fte_low.html} &nbsp;&nbsp;
+                {$form.hrjobcontract_hour_hours_fte_high.label}
+                {$form.hrjobcontract_hour_hours_fte_high.html} 
             </td>
         </tr>
     </table>

@@ -27,7 +27,35 @@
     <table class="form-layout">
         <tr>
             <td>
-                {$form.hrjob_is_healthcare.label}&nbsp;{$form.hrjob_is_healthcare.html}
+                {$form.hrjobcontract_health_health_provider.label}<br/>{$form.hrjobcontract_health_health_provider.html}
+            </td>
+            <td>
+                {$form.hrjobcontract_health_health_plan_type.label}<br/>{$form.hrjobcontract_health_health_plan_type.html}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {$form.hrjobcontract_health_description.label}<br/>{$form.hrjobcontract_health_description.html}
+            </td>
+            <td>
+                {$form.hrjobcontract_health_dependents.label}<br/>{$form.hrjobcontract_health_dependents.html}
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                {$form.hrjobcontract_health_health_provider_life_insurance.label}<br/>{$form.hrjobcontract_health_health_provider_life_insurance.html}
+            </td>
+            <td>
+                {$form.hrjobcontract_health_life_insurance_plan_type.label}<br/>{$form.hrjobcontract_health_life_insurance_plan_type.html}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {$form.hrjobcontract_health_description_life_insurance.label}<br/>{$form.hrjobcontract_health_description_life_insurance.html}
+            </td>
+            <td>
+                {$form.hrjobcontract_health_dependents_life_insurance.label}<br/>{$form.hrjobcontract_health_dependents_life_insurance.html}
             </td>
         </tr>
     </table>

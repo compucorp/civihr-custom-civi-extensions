@@ -153,7 +153,7 @@ class CRM_Hrjobcontract_DAO_HRJobLeave extends CRM_Hrjobcontract_DAO_Base
                 'export' => false,
                 'import' => false,
               ) ,
-              'leave_type' => array(
+              'hrjobcontract_leave_leave_type' => array(
                 'name' => 'leave_type',
                 'type' => CRM_Utils_Type::T_INT,
                 'title' => ts('Leave Type') ,
@@ -166,7 +166,7 @@ class CRM_Hrjobcontract_DAO_HRJobLeave extends CRM_Hrjobcontract_DAO_Base
                 ),
                 'headerPattern' => '/^leave\s?type/i',
               ) ,
-              'leave_amount' => array(
+              'hrjobcontract_leave_leave_amount' => array(
                 'name' => 'leave_amount',
                 'type' => CRM_Utils_Type::T_INT,
                 'title' => ts('Contract Leave Amount') ,
@@ -195,8 +195,8 @@ class CRM_Hrjobcontract_DAO_HRJobLeave extends CRM_Hrjobcontract_DAO_Base
         self::$_fieldKeys = self::setFieldKeys(
             array(
                 'id' => 'id',
-                'leave_type' => 'leave_type',
-                'leave_amount' => 'leave_amount',
+                'leave_type' => 'hrjobcontract_leave_leave_type',
+                'leave_amount' => 'hrjobcontract_leave_leave_amount',
             )
         );
     }

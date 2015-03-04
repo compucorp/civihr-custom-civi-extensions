@@ -27,7 +27,7 @@
     <table class="form-layout">
         <tr>
             <td>
-                {$form.hrjob_is_healthcare.label}&nbsp;{$form.hrjob_is_healthcare.html}
+                {$form.hrjobcontract_leave_leave_type.label}&nbsp;{$form.hrjobcontract_leave_leave_type.html}
             </td>
         </tr>
     </table>

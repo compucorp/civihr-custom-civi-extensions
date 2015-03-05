@@ -162,7 +162,7 @@ class CRM_Hrjobcontract_ExportImportValuesConverter
     
     public function details_contract_type_export($value)
     {
-        return $this->_contractTypeOptions[$value]['label'];
+        return isset($this->_contractTypeOptions[$value]['label']) ? $this->_contractTypeOptions[$value]['label'] : $value;
     }
     public function details_contract_type_import($value)
     {

@@ -244,6 +244,7 @@ class CRM_Hrjobcontract_DAO_HRJobPension extends CRM_Hrjobcontract_DAO_Base
                   'export' => true,
                   'import' => true,
                   'size' => CRM_Utils_Type::HUGE,
+                  'where' => 'civicrm_hrjobcontract_pension.ee_evidence_note',
                   'headerPattern' => '/^pension\s?evidence\s?note/i',
                 ) ,
             )

@@ -208,6 +208,13 @@ class CRM_Hrjobcontract_Import_Parser_Api extends CRM_Hrjobcontract_Import_Parse
             $revisionData[$value] = $revisionParams[$value . '_revision_id'];
         }
     }
+    
+    if (empty($revisionData)) {
+        $error = 'Missing Revision data.';
+        array_unshift($values, $error);
+        return CRM_Import_Parser::ERROR;
+    }
+    
     $revisionId = max($revisionData);
     
     $newRevisionInstance = null;

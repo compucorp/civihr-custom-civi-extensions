@@ -178,6 +178,22 @@ class CRM_Hrjobcontract_Import_Parser_Api extends CRM_Hrjobcontract_Import_Parse
         return CRM_Import_Parser::ERROR;
     }
     
+    $revisionParams = $this->getEntityParams('HRJobContractRevision');
+    $revisionData = array();
+    foreach ($entityNames as $value) {
+        if (!empty($revisionParams[$value . '_revision_id'])) {
+            $revisionData[$value] = $revisionParams[$value . '_revision_id'];
+        }
+    }
+    
+    if (empty($revisionData)) {
+        $error = 'Missing Revision data.';
+        array_unshift($values, $error);
+        return CRM_Import_Parser::ERROR;
+    }
+    
+    $revisionId = max($revisionData);
+    
     if (empty($this->_jobContractIds[$importedJobContractId])) {
         try {
             $jobContractCreateResponse = civicrm_api3('HRJobContract', 'create', array('contact_id' => $params['contact_id']));
@@ -199,23 +215,6 @@ class CRM_Hrjobcontract_Import_Parser_Api extends CRM_Hrjobcontract_Import_Parse
         $this->_revisionEntityMap = array();
     }
     $localJobContractId = $this->_jobContractIds[$importedJobContractId];
-    
-    $revisionParams = $this->getEntityParams('HRJobContractRevision');
-    
-    $revisionData = array();
-    foreach ($entityNames as $value) {
-        if (!empty($revisionParams[$value . '_revision_id'])) {
-            $revisionData[$value] = $revisionParams[$value . '_revision_id'];
-        }
-    }
-    
-    if (empty($revisionData)) {
-        $error = 'Missing Revision data.';
-        array_unshift($values, $error);
-        return CRM_Import_Parser::ERROR;
-    }
-    
-    $revisionId = max($revisionData);
     
     $newRevisionInstance = null;
     if ($this->_previousRevision['imported']['id'] !== $revisionId) {

@@ -300,6 +300,13 @@ function hrjobcontract_civicrm_pageRun($page) {
         CRM_Core_Resources::singleton()
             ->addStyleFile('org.civicrm.hrjobcontract', 'css/hrjobcontract.css');
     }
+    if ($page instanceof CRM_Contact_Page_View_Summary || $page instanceof CRM_Contact_Page_Inline_CustomData) {
+        $groups = CRM_Core_PseudoConstant::get('CRM_Core_BAO_CustomField', 'custom_group_id', array('labelColumn' => 'name'));
+        $gid = array_search('HRJob_Summary', $groups);
+        CRM_Core_Resources::singleton()->addSetting(array('grID' => $gid,));
+        CRM_Core_Resources::singleton()->addScriptFile('org.civicrm.hrjobcontract', 'js/vendor/job_summary/jobsummary.js');
+        CRM_Core_Resources::singleton()->addScriptFile('org.civicrm.hrjobcontract', 'js/vendor/job_summary/readable-range.js');
+    }
 }
 
 /**

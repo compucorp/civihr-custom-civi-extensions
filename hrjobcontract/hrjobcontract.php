@@ -107,7 +107,11 @@ function hrjobcontract_civicrm_uninstall() {
   CRM_Core_BAO_Navigation::resetNavigation();
 
   //delete custom groups and field
-  //$customGroup = civicrm_api3('CustomGroup', 'getsingle', array('return' => "id",'name' => "HRJob_Summary",));
+  $customGroup = civicrm_api3('CustomGroup', 'get', array('name' => "HRJobContract_Summary",));
+  $customGroupData = CRM_Utils_Array::first($customGroup['values']);
+  if (!empty($customGroupData['id'])) {
+    civicrm_api3('CustomGroup', 'delete', array('id' => $customGroupData['id']));
+  }
   $customGroup = civicrm_api3('CustomGroup', 'get', array('name' => "HRJob_Summary",));
   $customGroupData = CRM_Utils_Array::first($customGroup['values']);
   if (!empty($customGroupData['id'])) {

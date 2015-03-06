@@ -308,8 +308,7 @@ function hrjobcontract_civicrm_pageRun($page) {
         $groups = CRM_Core_PseudoConstant::get('CRM_Core_BAO_CustomField', 'custom_group_id', array('labelColumn' => 'name'));
         $gid = array_search('HRJob_Summary', $groups);
         CRM_Core_Resources::singleton()->addSetting(array('grID' => $gid,));
-        CRM_Core_Resources::singleton()->addScriptFile('org.civicrm.hrjobcontract', 'js/vendor/job_summary/jobsummary.js');
-        CRM_Core_Resources::singleton()->addScriptFile('org.civicrm.hrjobcontract', 'js/vendor/job_summary/readable-range.js');
+        CRM_Core_Resources::singleton()->addScriptFile('org.civicrm.hrjobcontract', 'js/vendor/jobsummary.js');
     }
 }
 

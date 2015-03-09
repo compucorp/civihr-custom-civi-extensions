@@ -598,7 +598,7 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
     if ($type  == 'hrjobcontract_pension') {
       $form->add('hidden', 'hidden_hrjobcontract_pension', 1);
       
-      $form->add('select', 'hrjobcontract_pension_is_enrolled', ts('Is Enrolled'), array('' => '- select -', 0 => 'No', 1 => 'Yes'), FALSE,
+      $form->add('select', 'hrjobcontract_pension_is_enrolled', ts('Is Enrolled'), array('' => '- select -', 0 => 'No', 1 => 'Yes', 2 => 'Opted out'), FALSE,
         array('id' => 'hrjobcontract_pension_is_enrolled', 'multiple' => false)
       );
       

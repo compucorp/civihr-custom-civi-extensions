@@ -153,8 +153,14 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
         return;*/
 
       case 'hrjobcontract_pension_is_enrolled':
-        $query->_qill[$grouping][]  = $value ? ts('Is enrolled') : ts('Is not enrolled');
-        $query->_where[$grouping][] = CRM_Contact_BAO_Query::buildClause("civicrm_hrjobcontract_pension.is_enrolled", $op, $value, "Boolean");
+        $display = $options = $value;
+        if (is_array($value) && count($value) >= 1) {
+          $op      = 'IN';
+          $options = "('" . implode("','", $value) . "')";
+          $display = implode(' ' . ts('or') . ' ', $value);
+        }
+        $query->_qill[$grouping][]  = ts('%1 %2', array(1 => $fields[$name]['title'], 2 => $op)) . ' ' . $display;
+        $query->_where[$grouping][] = CRM_Contact_BAO_Query::buildClause("civicrm_hrjobcontract_pension.is_enrolled", $op, $options);
         $query->_tables['civicrm_hrjobcontract_pension'] = $query->_whereTables['civicrm_hrjobcontract_pension'] = 1;
         return;
 
@@ -598,8 +604,8 @@ class CRM_Hrjobcontract_BAO_Query extends CRM_Contact_BAO_Query_Interface {
     if ($type  == 'hrjobcontract_pension') {
       $form->add('hidden', 'hidden_hrjobcontract_pension', 1);
       
-      $form->add('select', 'hrjobcontract_pension_is_enrolled', ts('Is Enrolled'), array('' => '- select -', 0 => 'No', 1 => 'Yes'), FALSE,
-        array('id' => 'hrjobcontract_pension_is_enrolled', 'multiple' => false)
+      $form->add('select', 'hrjobcontract_pension_is_enrolled', ts('Is Enrolled'), array(0 => 'No', 1 => 'Yes', 2 => 'Opted out'), FALSE,
+        array('id' => 'hrjobcontract_pension_is_enrolled', 'multiple' => true)
       );
       
       $form->add('text', 'hrjobcontract_pension_ee_contrib_pct_low', ts('From'), array('size' => 8, 'maxlength' => 8));

@@ -22,14 +22,11 @@ define(['controllers/controllers',
                     leave: ContractLeaveService,
                     health: ContractHealthService,
                     pension: ContractPensionService
-                }, entityName, promiseFields = {}, promiseModel = {};
+                }, entityName, promiseFields = {}, promiseModel = {}, promiseUtils = {};
 
             $scope.contractListLoaded = false;
             $scope.contractCurrent = [];
             $scope.contractPast = [];
-            $scope.utils = {
-                contractListLen: contractList.length
-            };
 
             for (entityName in entityServices) {
                 promiseFields[entityName] = entityServices[entityName].getFields();
@@ -71,16 +68,10 @@ define(['controllers/controllers',
                 $scope.contractListLoaded = true;
             });
 
-            UtilsService.getHoursLocation().then(function(hoursLocation){
-                $scope.utils.hoursLocation = hoursLocation;
-            },function(reason){
-                $log.error('Failed: ' + reason);
-            });
-
-            UtilsService.getPayScaleGrade().then(function(payScaleGrade){
-                $scope.utils.payScaleGrade = payScaleGrade;
-            },function(reason){
-                $log.error('Failed: ' + reason);
+            $scope.utils = $q.all({
+                contractListLen: contractList.length,
+                hoursLocation: UtilsService.getHoursLocation(),
+                payScaleGrade: UtilsService.getPayScaleGrade()
             });
 
             $scope.toggleIsPrimary = function(contractId) {

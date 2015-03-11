@@ -82,7 +82,7 @@ define(['services/services'], function (services) {
         }
     }]);
 
-    services.factory('UtilsService', ['API','testAPI','settings','$q','$log', function (API, testAPI, settings, $q, $log) {
+    services.factory('UtilsService', ['API','testAPI','settings','$q','$log', '$timeout', function (API, testAPI, settings, $q, $log, $timeout) {
         return {
             getAbsenceType: function(){
                 var deffered = $q.defer();

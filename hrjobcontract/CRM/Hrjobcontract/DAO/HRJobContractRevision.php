@@ -152,7 +152,7 @@ class CRM_Hrjobcontract_DAO_HRJobContractRevision extends CRM_Core_DAO
           'name' => 'jobcontract_id',
           'type' => CRM_Utils_Type::T_INT,
           'title' => ts('Job Contract Id') ,
-          'required' => true,
+          'required' => false,
           'export' => true,
           'import' => true,
           'headerPattern' => '/(job\s?)?contract\s?id/i',

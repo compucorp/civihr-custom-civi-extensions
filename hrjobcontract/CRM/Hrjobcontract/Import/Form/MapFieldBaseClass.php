@@ -69,7 +69,7 @@ class CRM_Hrjobcontract_Import_Form_MapFieldBaseClass extends CRM_Import_Form_Ma
   public function preProcess() {
     $this->_mapperFields = $this->get('fields');
     $this->_entity = $this->get('_entity');
-    $this->_highlightedFields = array('contact_id', 'position', 'title', 'contract_type');
+    $this->_highlightedFields = array();
     $v = $this->_mapperFields;
     asort($this->_mapperFields);
     $this->_columnCount = $this->get('columnCount');

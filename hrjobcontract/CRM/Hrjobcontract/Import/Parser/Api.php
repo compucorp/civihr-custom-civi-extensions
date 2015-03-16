@@ -10,6 +10,8 @@ class CRM_Hrjobcontract_Import_Parser_Api extends CRM_Hrjobcontract_Import_Parse
   protected $_previousRevision = array();
   protected $_revisionIds = array();
   protected $_revisionEntityMap = array();
+  protected $_jobcontractIdIncremental = 1;
+  protected $_revisionIdIncremental = 1;
 
   /**
    * Params for the current entity being prepared for the api
@@ -144,9 +146,7 @@ class CRM_Hrjobcontract_Import_Parser_Api extends CRM_Hrjobcontract_Import_Parse
     }
     
     if (!$importedJobContractId) {
-        $error = "Missing 'jobcontract_id' value.";
-        array_unshift($values, $error);
-        return CRM_Import_Parser::ERROR;
+        $importedJobContractId = $this->_jobcontractIdIncremental++;
     }
     
     if (empty($params['contact_id']) && !empty($params['email'])) {
@@ -181,10 +181,12 @@ class CRM_Hrjobcontract_Import_Parser_Api extends CRM_Hrjobcontract_Import_Parse
     $revisionParams = $this->getEntityParams('HRJobContractRevision');
     $revisionData = array();
     foreach ($entityNames as $value) {
-        if (!empty($revisionParams[$value . '_revision_id'])) {
-            $revisionData[$value] = $revisionParams[$value . '_revision_id'];
+        if (empty($revisionParams[$value . '_revision_id'])) {
+            $revisionParams[$value . '_revision_id'] = $this->_revisionIdIncremental;
         }
+        $revisionData[$value] = $revisionParams[$value . '_revision_id'];
     }
+    $this->_revisionIdIncremental++;
     
     if (empty($revisionData)) {
         $error = 'Missing Revision data.';

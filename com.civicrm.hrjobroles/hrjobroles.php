@@ -114,9 +114,30 @@ function hrjobroles_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
  */
 function hrjobroles_civicrm_tabs(&$tabs, $contactID) {
 
-    $url = CRM_Utils_System::url('civihr_job_roles/' . $contactID);
+    $url = CRM_Utils_System::url('civicrm/job-roles/' . $contactID);
     $tabs[] = array( 'id' => 'hrjobroles',
         'url' => $url,
         'title' => 'Job Roles',
         'weight' => 300 );
+}
+
+/**
+ * Implementation of hook_civicrm_pageRun
+ */
+function hrjobroles_civicrm_pageRun($page) {
+    if ($page instanceof CRM_Contact_Page_View_Summary) {
+
+        CRM_Core_Region::instance('page-footer')->add(array(
+            'type' => 'markup',
+            'markup' => '<script data-main="'
+                .CRM_Core_Resources::singleton()->getUrl('com.civicrm.hrjobroles', CRM_Core_Config::singleton()->debug ? 'js/hrjobroles-main' : 'dist/hrjobroles-main', FALSE).
+                '" src="'
+                .CRM_Core_Resources::singleton()->getUrl('com.civicrm.hrjobroles', 'js/vendor/require.js', TRUE).
+                '"></script>',
+            'weight' => 1003
+        ));
+
+        CRM_Core_Resources::singleton()
+            ->addStyleFile('com.civicrm.hrjobroles', 'css/hrjobroles.css');
+    }
 }

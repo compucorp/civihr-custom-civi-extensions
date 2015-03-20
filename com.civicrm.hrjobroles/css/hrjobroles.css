@@ -9732,3 +9732,7 @@
 #hrjobroles .x-ng-cloak {
   display: none !important;
 }
+/* line 1, ../sass/partials/_example.scss */
+#hrjobroles .container {
+  margin-left: 10px !important;
+}

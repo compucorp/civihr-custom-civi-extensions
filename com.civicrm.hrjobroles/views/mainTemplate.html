@@ -1,0 +1,15 @@
+<p>hey test</p>{{greeting}}
+
+<div ng-controller="ExampleCtrl as jobroles">
+    {{greeting}}
+
+    <span class="glyphicons glyphicon-euro"></span>
+    <div class="well well-lg">Some content</div>
+
+    <ul class="nav nav-pills nav-stacked" style="max-width: 300px;" ng-repeat="job_roles_data in jobroles.getData">
+
+        <li><a href="#">{{job_roles_data.salary}}</a></li>
+    </ul>
+
+    {{jobroles.status}}
+</div>

@@ -131,4 +131,4 @@ require([
         angular.bootstrap(document.getElementById('hrjob-contract'), ['hrjc']);
     });
 
-})
+});

@@ -1,4 +1,4 @@
-{assign var="module" value="com.civicrm.hrjobroles" }
+{assign var="module" value="hrjobroles" }
 {assign var="prefix" value="hrjobroles-" }
 
 <div id="{$module}">

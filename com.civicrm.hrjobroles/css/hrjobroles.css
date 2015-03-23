@@ -186,47 +186,44 @@
 /* line 80, ../sass/modules/_unset.scss */
 #hrjobroles ol,
 #hrjobroles ul {
-  padding-start: 40px;
-  -moz-padding-start: 40px;
-  -webkit-padding-start: 40px;
   list-style: initial;
 }
-/* line 87, ../sass/modules/_unset.scss */
+/* line 84, ../sass/modules/_unset.scss */
 #hrjobroles blockquote,
 #hrjobroles q {
   quotes: initial;
 }
-/* line 93, ../sass/modules/_unset.scss */
+/* line 90, ../sass/modules/_unset.scss */
 #hrjobroles blockquote:before,
 #hrjobroles blockquote:after,
 #hrjobroles q:before,
 #hrjobroles q:after {
   content: initial;
 }
-/* line 98, ../sass/modules/_unset.scss */
+/* line 95, ../sass/modules/_unset.scss */
 #hrjobroles ins {
   text-decoration: initial;
 }
-/* line 101, ../sass/modules/_unset.scss */
+/* line 98, ../sass/modules/_unset.scss */
 #hrjobroles del {
   text-decoration: initial;
 }
-/* line 106, ../sass/modules/_unset.scss */
+/* line 103, ../sass/modules/_unset.scss */
 #hrjobroles table {
   border-collapse: initial;
   border-spacing: initial;
 }
-/* line 110, ../sass/modules/_unset.scss */
+/* line 107, ../sass/modules/_unset.scss */
 #hrjobroles table td, #hrjobroles table th {
   color: initial;
 }
-/* line 123, ../sass/modules/_unset.scss */
+/* line 120, ../sass/modules/_unset.scss */
 #hrjobroles input,
 #hrjobroles select,
 #hrjobroles textarea {
   font-family: initial;
 }
-/* line 126, ../sass/modules/_unset.scss */
+/* line 123, ../sass/modules/_unset.scss */
 #hrjobroles textarea {
   font-size: initial;
   line-height: initial;
@@ -1376,41 +1373,35 @@
   font-size: inherit;
   line-height: inherit;
 }
-/* line 48, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 47, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjobroles a {
   color: #337ab7;
   text-decoration: none;
 }
-/* line 53, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 52, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjobroles a:hover, #hrjobroles a:focus {
   color: #23527c;
   text-decoration: underline;
 }
-/* line 58, ../sass/bootstrap/_scaffolding-custom.scss */
-#hrjobroles a:focus {
-  outline: thin dotted;
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
-}
-/* line 69, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 64, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjobroles figure {
   margin: 0;
 }
-/* line 76, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 71, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjobroles img {
   vertical-align: middle;
 }
-/* line 81, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 76, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjobroles .img-responsive {
   display: block;
   max-width: 100%;
   height: auto;
 }
-/* line 86, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 81, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjobroles .img-rounded {
   border-radius: 6px;
 }
-/* line 93, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 88, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjobroles .img-thumbnail {
   padding: 4px;
   line-height: 1.42857143;
@@ -1424,18 +1415,18 @@
   max-width: 100%;
   height: auto;
 }
-/* line 106, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 101, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjobroles .img-circle {
   border-radius: 50%;
 }
-/* line 113, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 108, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjobroles hr {
   margin-top: 20px;
   margin-bottom: 20px;
   border: 0;
   border-top: 1px solid #eeeeee;
 }
-/* line 125, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 120, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjobroles .sr-only {
   position: absolute;
   width: 1px;
@@ -1446,7 +1437,7 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
-/* line 142, ../sass/bootstrap/_scaffolding-custom.scss */
+/* line 137, ../sass/bootstrap/_scaffolding-custom.scss */
 #hrjobroles .sr-only-focusable:active, #hrjobroles .sr-only-focusable:focus {
   position: static;
   width: auto;
@@ -9735,4 +9726,46 @@
 /* line 1, ../sass/partials/_example.scss */
 #hrjobroles .container {
   margin-left: 10px !important;
+}
+/* line 5, ../sass/partials/_example.scss */
+#hrjobroles .tab-content {
+  padding-top: 10px;
+  padding-left: 10px;
+}
+/* line 10, ../sass/partials/_example.scss */
+#hrjobroles .nav-pills > li.active > a:after {
+  content: '';
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  margin-top: -13px;
+  border-left: 0px;
+  border-bottom: 13px solid transparent;
+  border-top: 13px solid transparent;
+  border-left: 10px solid #337AB7;
+  z-index: 100;
+}
+/* line 23, ../sass/partials/_example.scss */
+#hrjobroles .nav-tabs {
+  border-bottom: none;
+}
+/* line 27, ../sass/partials/_example.scss */
+#hrjobroles .col-sm-2 {
+  padding: 0px;
+}
+/* line 31, ../sass/partials/_example.scss */
+#hrjobroles .col-xs-12, #hrjobroles .col-sm-8, #hrjobroles .col-md-6, #hrjobroles .col-lg-6 {
+  padding-left: 0px;
+  border-left: 1px solid #DDD;
+}
+/* line 36, ../sass/partials/_example.scss */
+#hrjobroles .row {
+  margin-right: 0px;
+  border: 1px solid #DDD;
+  border-radius: 4px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.176);
+}
+/* line 43, ../sass/partials/_example.scss */
+#hrjobroles .nav-tabs > li > a {
+  margin-right: 0px;
 }

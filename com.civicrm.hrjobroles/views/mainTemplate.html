@@ -10,27 +10,28 @@
             <h3>Role / Project name: <small>{{edit_data[job_roles_data.id]['title']}}</small></h3>
         </div>
 
-        <button class="btn btn-primary" class="collapse" ng-click="collapseRow(job_roles_data.id)">More Details</button>
+        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+        <button class="btn" class="collapse" ng-click="collapseRow(job_roles_data.id)">More Details</button>
 
         <div class="row" collapse="isThingsCollapsed(job_roles_data.id)">
-            <div class="col-sm-3">
-                <ul class="nav nav-tabs nav-stacked nav-pills" role="tablist">
+            <div class="col-sm-2">
+                <ul class="nav nav-tabs nav-stacked nav-pills" role="tablist" ng-init="changeTab(job_roles_data.id, 'basic_details')">
 
                     <li ng-class="{'active': view_tab[job_roles_data.id] == 'basic_details'}">
-                        <a class="btn-lg" ng-click="changeTab(job_roles_data.id, 'basic_details')" href="">Basic Details</a>
+                        <a class="btn-sm" ng-click="changeTab(job_roles_data.id, 'basic_details')" href="">Basic Details</a>
                     </li>
 
                     <li ng-class="{'active': view_tab[job_roles_data.id] == 'funding'}">
-                        <a class="btn-lg" ng-click="changeTab(job_roles_data.id, 'funding')" href="">Funding</a>
+                        <a class="btn-sm" ng-click="changeTab(job_roles_data.id, 'funding')" href="">Funding</a>
                     </li>
 
                     <li ng-class="{'active': view_tab[job_roles_data.id] == 'cost_centers'}">
-                        <a class="btn-lg" ng-click="changeTab(job_roles_data.id, 'cost_centers')" href="">Cost Centers</a>
+                        <a class="btn-sm" ng-click="changeTab(job_roles_data.id, 'cost_centers')" href="">Cost Centers</a>
                     </li>
 
                 </ul>
             </div>
-            <div class="col-sm-9">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
                 <div class="tab-content">
 
                     <div ng-show="isTab(job_roles_data.id, 'basic_details')">
@@ -46,8 +47,8 @@
 
                             <div class="form-group">
                                 <span class="col-md-2 control-label">Metadata</span>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
                                         <label for="inputKey" class="col-md-1 control-label">Key</label>
                                         <div class="col-md-2">
                                             <input type="text" class="form-control" id="inputKey" placeholder="Key">
@@ -61,13 +62,13 @@
                             </div>
 
                             <div class="form-group" ng-show="isChanged(job_roles_data.id)">
-                                <label for="inputTitle" class="col-md-2 control-label"></label>
-                                <div class="col-md-1">
-                                    <button type="submit" class="btn btn-default">Save</button>
+                                <label for="inputTitle" class="col-sm-6 control-label"></label>
+                                <div class="col-sm-3">
+                                    <button type="submit" class="btn btn-success">Save</button>
                                 </div>
 
-                                <div class="col-md-1">
-                                    <button type="reset" class="btn btn-default" ng-click="resetData(job_roles_data.id)">Reset</button>
+                                <div class="col-sm-3">
+                                    <button type="reset" class="btn btn-danger" ng-click="resetData(job_roles_data.id)">Reset</button>
                                 </div>
                             </div>
 

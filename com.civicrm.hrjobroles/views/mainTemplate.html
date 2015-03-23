@@ -10,8 +10,10 @@
             <h3>Role / Project name: <small>{{edit_data[job_roles_data.id]['title']}}</small></h3>
         </div>
 
-        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-        <button class="btn" class="collapse" ng-click="collapseRow(job_roles_data.id)">More Details</button>
+        <button class="btn" class="collapse" ng-click="collapseRow(job_roles_data.id)">
+            <span class="glyphicon glyphicon-plus" ng-hide="collapsedRows[job_roles_data.id] == false">&nbsp;More Details</span>
+            <span class="glyphicon glyphicon-minus" ng-show="collapsedRows[job_roles_data.id] == false">&nbsp;Hide Details</span>
+        </button>
 
         <div class="row" collapse="isThingsCollapsed(job_roles_data.id)">
             <div class="col-sm-2">

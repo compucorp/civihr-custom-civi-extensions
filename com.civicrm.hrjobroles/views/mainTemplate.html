@@ -34,7 +34,11 @@
     <div class="main-row" ng-repeat="job_roles_data in jobroles.getData" ng-show="job_roles_data.status_id == currentFilterId">
 
         <div class="page-header">
-            <h3>Role / Project name: <small>{{edit_data[job_roles_data.id]['title']}}</small><small>Status: {{job_roles_data.status_id}}</small></h3>
+            <h3>Role / Project name:
+                <small>{{edit_data[job_roles_data.id]['title']}}</small>
+                <small class="btn btn-info btn-xs">Status: {{job_roles_data.status_id}}</small>
+                <button type="button" class="btn btn-danger btn-xs" ng-click="removeRole(job_roles_data.id)">Remove</button>
+            </h3>
         </div>
 
         <button class="btn" class="collapse" ng-click="collapseRow(job_roles_data.id)">

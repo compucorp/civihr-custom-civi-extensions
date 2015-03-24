@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<table>
+    <base>CRM/Hrjobroles</base>
+    <class>HrJobRoles</class>
+    <name>civicrm_hrjobroles</name>
+    <comment>HR Job Roles</comment>
+    <add>4.4</add>
+    <log>true</log>
+
+    <field>
+        <name>id</name>
+        <type>int unsigned</type>
+        <required>true</required>
+        <comment>Unique HrJobRoles ID</comment>
+        <add>4.5</add>
+    </field>
+    <primaryKey>
+        <name>id</name>
+        <autoincrement>true</autoincrement>
+    </primaryKey>
+
+    <field>
+        <name>job_contract_id</name>
+        <title>Job Id</title>
+        <type>int unsigned</type>
+        <required>true</required>
+        <comment>FK to Contract</comment>
+    </field>
+    <foreignKey>
+        <name>job_contract_id</name>
+        <table>civicrm_hrjobcontract</table>
+        <key>id</key>
+        <onDelete>CASCADE</onDelete>
+    </foreignKey>
+
+    <field>
+        <name>title</name>
+        <type>varchar</type>
+        <title>Job Role Title</title>
+        <length>255</length>
+        <default>NULL</default>
+        <comment>Title or Project name for the Job Role.</comment>
+        <add>4.5</add>
+    </field>
+
+</table>

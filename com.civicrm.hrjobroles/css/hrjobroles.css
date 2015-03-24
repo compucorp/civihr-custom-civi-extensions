@@ -9724,15 +9724,11 @@
   display: none !important;
 }
 /* line 1, ../sass/partials/_example.scss */
-#hrjobroles .container {
-  margin-left: 10px !important;
-}
-/* line 5, ../sass/partials/_example.scss */
 #hrjobroles .tab-content {
   padding-top: 10px;
   padding-left: 10px;
 }
-/* line 10, ../sass/partials/_example.scss */
+/* line 6, ../sass/partials/_example.scss */
 #hrjobroles .nav-pills > li.active > a:after {
   content: '';
   position: absolute;
@@ -9745,27 +9741,28 @@
   border-left: 10px solid #337AB7;
   z-index: 100;
 }
-/* line 23, ../sass/partials/_example.scss */
+/* line 19, ../sass/partials/_example.scss */
 #hrjobroles .nav-tabs {
   border-bottom: none;
 }
-/* line 27, ../sass/partials/_example.scss */
+/* line 23, ../sass/partials/_example.scss */
 #hrjobroles .col-sm-2 {
   padding: 0px;
 }
-/* line 31, ../sass/partials/_example.scss */
+/* line 27, ../sass/partials/_example.scss */
 #hrjobroles .col-xs-12, #hrjobroles .col-sm-8, #hrjobroles .col-md-6, #hrjobroles .col-lg-6 {
   padding-left: 0px;
   border-left: 1px solid #DDD;
 }
-/* line 36, ../sass/partials/_example.scss */
+/* line 32, ../sass/partials/_example.scss */
 #hrjobroles .row {
+  margin-left: 0px;
   margin-right: 0px;
   border: 1px solid #DDD;
   border-radius: 4px;
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.176);
 }
-/* line 43, ../sass/partials/_example.scss */
+/* line 40, ../sass/partials/_example.scss */
 #hrjobroles .nav-tabs > li > a {
   margin-right: 0px;
 }

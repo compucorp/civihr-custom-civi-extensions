@@ -1,10 +1,16 @@
 <div ng-controller="ExampleCtrl as jobroles">
 
+    {{jobroles.contractsData}}
+
+    <div class="alert {{jobroles.message_type}}" ng-show="jobroles.message">
+        {{jobroles.message}}
+    </div>
+
     <div class="page-header row">
 
         <div class="col-xs-8">
-            <h1 ng-hide = "currentFilterId == 2">Current Roles and Projects</h1>
-            <h1 ng-show = "currentFilterId == 2">Inactive Roles and Projects</h1>
+            <h2 ng-hide = "currentFilterId == 2">Current Roles and Projects</h1>
+            <h2 ng-show = "currentFilterId == 2">Inactive Roles and Projects</h1>
         </div>
 
         <div class="col-xs-2">
@@ -29,14 +35,17 @@
 
     </div>
 
-    <div ng-show="add_new == true"><div ng-include src="'/sites/all/modules/civicrm/tools/extensions/civihr_compucorp/com.civicrm.hrjobroles/views/add_new_role.html'"></div></div>
+    <div ng-show="add_new == true"><div ng-include src="add_new_role_url"></div></div>
 
-    <div class="main-row" ng-repeat="job_roles_data in jobroles.getData" ng-show="job_roles_data.status_id == currentFilterId">
+    <div class="alert alert-warning" ng-show="jobroles.empty">{{jobroles.empty}}</div>
+
+    <div class="main-row" ng-repeat="job_roles_data in jobroles.getData">
+
 
         <div class="page-header">
             <h3>Role / Project name:
                 <small>{{edit_data[job_roles_data.id]['title']}}</small>
-                <small class="btn btn-info btn-xs">Status: {{job_roles_data.status_id}}</small>
+                <small class="btn btn-info btn-xs">Status: {{job_roles_data.id}}</small>
                 <button type="button" class="btn btn-danger btn-xs" ng-click="removeRole(job_roles_data.id)">Remove</button>
             </h3>
         </div>
@@ -73,7 +82,7 @@
 
                             <div class="form-group">
                                 <label for="inputTitle" class="col-md-2 control-label">Title</label>
-                                <div class="col-md-3" ng-init="initData(job_roles_data.id, 'title', job_roles_data.salary)">
+                                <div class="col-md-3" ng-init="initData(job_roles_data.id, 'title', job_roles_data.title)">
                                     <input type="text" class="form-control" id="inputTitle" placeholder="Enter role title" ng-model="edit_data[job_roles_data.id]['title']" ng-change="showSave(job_roles_data.id)">
                                 </div>
                             </div>

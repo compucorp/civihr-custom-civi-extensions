@@ -1,7 +1,9 @@
 {assign var="module" value="hrjobroles" }
 {assign var="prefix" value="hrjobroles-" }
 
-<div id="{$module}" class="container" ng-view></div>
+<div id="{$module}" >
+    <div class="container" ng-view></div>
+</div>
 
 {literal}
     <script type="text/javascript">

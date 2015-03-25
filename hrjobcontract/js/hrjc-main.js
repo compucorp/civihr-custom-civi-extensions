@@ -1,4 +1,6 @@
-require.config({
+var reqHrjc = require.config({
+    context: 'hrjobcontract',
+    baseUrl: CRM.jobContractTabApp.path + 'js',
     urlArgs: "bust=" + (new Date()).getTime(),
     paths: {
         angular: 'vendor/angular/angular.min',
@@ -29,7 +31,7 @@ require.config({
     }
 });
 
-require([
+reqHrjc([
     'angular',
     'app',
     'services/contract',

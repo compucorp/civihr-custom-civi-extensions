@@ -1,1 +1,128 @@
-<p>hey</p>
+<div ng-controller="ExampleCtrl as jobroles">
+
+    <div class="page-header row">
+
+        <div class="col-xs-8">
+            <h1 ng-hide = "currentFilterId == 2">Current Roles and Projects</h1>
+            <h1 ng-show = "currentFilterId == 2">Inactive Roles and Projects</h1>
+        </div>
+
+        <div class="col-xs-2">
+
+            <form role="form">
+                <div class="form-group">
+                    <label for="buttonnewrole">&nbsp;</label>
+                    <button class="form-control btn btn-info" ng-click="add_new_role()">Add new role</button>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="col-xs-2">
+            <form role="form">
+                <div class="form-group">
+                    <label for="rolefilter">Status:</label>
+                    <select ng-init="currentFilter = filterItems[0]" ng-options="filterItem as filterItem.name for filterItem in filterItems" ng-model="currentFilter" ng-change="filterChange()" class="form-control"></select>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <div ng-show="add_new == true"><div ng-include src="'/sites/all/modules/civicrm/tools/extensions/civihr_compucorp/com.civicrm.hrjobroles/views/add_new_role.html'"></div></div>
+
+    <div class="main-row" ng-repeat="job_roles_data in jobroles.getData" ng-show="job_roles_data.status_id == currentFilterId">
+
+        <div class="page-header">
+            <h3>Role / Project name:
+                <small>{{edit_data[job_roles_data.id]['title']}}</small>
+                <small class="btn btn-info btn-xs">Status: {{job_roles_data.status_id}}</small>
+                <button type="button" class="btn btn-danger btn-xs" ng-click="removeRole(job_roles_data.id)">Remove</button>
+            </h3>
+        </div>
+
+        <button class="btn" class="collapse" ng-click="collapseRow(job_roles_data.id)">
+            <span class="glyphicon glyphicon-plus" ng-hide="collapsedRows[job_roles_data.id] == false">&nbsp;More Details</span>
+            <span class="glyphicon glyphicon-minus" ng-show="collapsedRows[job_roles_data.id] == false">&nbsp;Hide Details</span>
+        </button>
+
+        <div class="row" collapse="isThingsCollapsed(job_roles_data.id)">
+            <div class="col-sm-2">
+                <ul class="nav nav-tabs nav-stacked nav-pills" role="tablist" ng-init="changeTab(job_roles_data.id, 'basic_details')">
+
+                    <li ng-class="{'active': view_tab[job_roles_data.id] == 'basic_details'}">
+                        <a class="btn-sm" ng-click="changeTab(job_roles_data.id, 'basic_details')" href="">Basic Details</a>
+                    </li>
+
+                    <li ng-class="{'active': view_tab[job_roles_data.id] == 'funding'}">
+                        <a class="btn-sm" ng-click="changeTab(job_roles_data.id, 'funding')" href="">Funding</a>
+                    </li>
+
+                    <li ng-class="{'active': view_tab[job_roles_data.id] == 'cost_centers'}">
+                        <a class="btn-sm" ng-click="changeTab(job_roles_data.id, 'cost_centers')" href="">Cost Centers</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
+                <div class="tab-content">
+
+                    <div ng-show="isTab(job_roles_data.id, 'basic_details')">
+
+                        <form class="form-horizontal" role="form">
+
+                            <div class="form-group">
+                                <label for="inputTitle" class="col-md-2 control-label">Title</label>
+                                <div class="col-md-3" ng-init="initData(job_roles_data.id, 'title', job_roles_data.salary)">
+                                    <input type="text" class="form-control" id="inputTitle" placeholder="Enter role title" ng-model="edit_data[job_roles_data.id]['title']" ng-change="showSave(job_roles_data.id)">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <span class="col-md-2 control-label">Metadata</span>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="inputKey" class="col-md-1 control-label">Key</label>
+                                        <div class="col-md-2">
+                                            <input type="text" class="form-control" id="inputKey" placeholder="Key">
+                                        </div>
+                                        <label for="inputValue" class="col-md-1 control-label">Value</label>
+                                        <div class="col-md-2">
+                                            <input type="text" class="form-control" id="inputValue" placeholder="Value">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-show="isChanged(job_roles_data.id)">
+                                <label for="inputTitle" class="col-sm-6 control-label"></label>
+                                <div class="col-sm-3">
+                                    <button type="submit" class="btn btn-success">Save</button>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <button type="reset" class="btn btn-danger" ng-click="resetData(job_roles_data.id)">Reset</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                    <div ng-show="isTab(job_roles_data.id, 'funding')">
+                        {{jobroles.status}}
+                        <div class="well well-lg">Some well content</div>
+                    </div>
+
+                    <div ng-show="isTab(job_roles_data.id, 'cost_centers')">
+                        {{jobroles.status}}
+                        <div class="well well-lg">Some well content</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

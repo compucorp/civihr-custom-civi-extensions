@@ -127,6 +127,11 @@ function hrjobroles_civicrm_tabs(&$tabs, $contactID) {
 function hrjobroles_civicrm_pageRun($page) {
     if ($page instanceof CRM_Contact_Page_View_Summary) {
 
+        // Returns the fully qualified URL for our extension
+        CRM_Core_Resources::singleton()->addVars('hrjobroles', array(
+            'baseURL' => CRM_Extension_System::singleton()->getMapper()->keyToUrl('com.civicrm.hrjobroles')
+        ));
+
         CRM_Core_Region::instance('page-footer')->add(array(
             'type' => 'markup',
             'markup' => '<script data-main="'

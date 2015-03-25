@@ -1,11 +1,8 @@
-{assign var="module" value="com.civicrm.hrjobroles" }
+{assign var="module" value="hrjobroles" }
 {assign var="prefix" value="hrjobroles-" }
 
-hmm22
-<div id="{$module}">
-    <div class="container" ng-view>
-    </div>
-</div>
+<div id="{$module}" class="container" ng-view></div>
+
 {literal}
     <script type="text/javascript">
         document.dispatchEvent(new CustomEvent('hrjobrolesLoad'));

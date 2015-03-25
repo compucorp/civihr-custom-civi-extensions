@@ -1,7 +1,86 @@
-hello Greg
+<div class="main-row">
 
-{{collapsedRows[1]}}
+    <div class="page-header">
+        <h3>Role / Project name:
+            <small>{{edit_data['new_role_id']['title']}}</small>
+            <small class="btn btn-info btn-xs">Status: NEW STATUS</small>
+        </h3>
+    </div>
 
-<div class="col-sm-3">
-    <button type="submit" class="btn btn-success" ng-click="saveNewRole()">Add new role</button>
+    <div class="row">
+        <div class="col-sm-2">
+            <ul class="nav nav-tabs nav-stacked nav-pills" role="tablist" ng-init="changeTab('new_role_id', 'basic_details')">
+
+                <li ng-class="{'active': view_tab['new_role_id'] == 'basic_details'}">
+                    <a class="btn-sm" ng-click="changeTab('new_role_id', 'basic_details')" href="">Basic Details</a>
+                </li>
+
+                <li ng-class="{'active': view_tab['new_role_id'] == 'funding'}">
+                    <a class="btn-sm" ng-click="changeTab('new_role_id', 'funding')" href="">Funding</a>
+                </li>
+
+                <li ng-class="{'active': view_tab['new_role_id'] == 'cost_centers'}">
+                    <a class="btn-sm" ng-click="changeTab('new_role_id', 'cost_centers')" href="">Cost Centers</a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
+            <div class="tab-content">
+
+                <div ng-show="isTab('new_role_id', 'basic_details')">
+
+                    <form class="form-horizontal" role="form">
+
+                        {{jobroles.contractsData}}
+
+                        <div class="form-group">
+                            <label for="inputTitle" class="col-md-2 control-label">Title</label>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" id="inputTitle" placeholder="Enter role title" ng-model="edit_data['new_role_id']['title']" ng-change="showSave('new_role_id')">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <span class="col-md-2 control-label">Metadata</span>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="inputKey" class="col-md-1 control-label">Key</label>
+                                    <div class="col-md-2">
+                                        <input type="text" class="form-control" id="inputKey" placeholder="Key">
+                                    </div>
+                                    <label for="inputValue" class="col-md-1 control-label">Value</label>
+                                    <div class="col-md-2">
+                                        <input type="text" class="form-control" id="inputValue" placeholder="Value">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputTitle" class="col-sm-6 control-label"></label>
+                            <div class="col-sm-3">
+                                <button type="submit" class="btn btn-success" ng-click="saveNewRole()">Save new role</button>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div ng-show="isTab('new_role_id', 'funding')">
+                    {{jobroles.status}}
+                    <div class="well well-lg">Some well content</div>
+                </div>
+
+                <div ng-show="isTab('new_role_id', 'cost_centers')">
+                    {{jobroles.status}}
+                    <div class="well well-lg">Some well content 2</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </div>

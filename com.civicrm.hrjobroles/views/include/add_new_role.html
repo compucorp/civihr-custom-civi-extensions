@@ -58,6 +58,13 @@
                         </div>
 
                         <div class="form-group">
+                            <div class="col-xs-2">
+                                <label for="newContractId">Contract:</label>
+                                <select ng-options="k as v.title for (k, v) in jobroles.contractsData" ng-model="edit_data['new_role_id']['job_contract_id']" class="form-control"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label for="inputTitle" class="col-sm-6 control-label"></label>
                             <div class="col-sm-3">
                                 <button type="submit" class="btn btn-success" ng-click="saveNewRole()">Save new role</button>

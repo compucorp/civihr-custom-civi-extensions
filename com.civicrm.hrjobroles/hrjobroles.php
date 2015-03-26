@@ -132,7 +132,8 @@ function hrjobroles_civicrm_pageRun($page) {
             'baseURL' => CRM_Extension_System::singleton()->getMapper()->keyToUrl('com.civicrm.hrjobroles')
         ));
 
-        CRM_Core_Resources::singleton()->addScriptFile('com.civicrm.hrjobroles', 'js/hrjobroles-main.js',1002);
+        CRM_Core_Resources::singleton()->addScriptFile('com.civicrm.hrjobroles', 'js/hrjobroles-main.js', 1002);
+
 /*
         CRM_Core_Region::instance('page-footer')->add(array(
             'type' => 'markup',
@@ -146,5 +147,9 @@ function hrjobroles_civicrm_pageRun($page) {
 */
         CRM_Core_Resources::singleton()
             ->addStyleFile('com.civicrm.hrjobroles', 'css/hrjobroles.css');
+
+        // Add angular xeditable css library
+        CRM_Core_Resources::singleton()
+            ->addStyleFile('com.civicrm.hrjobroles', 'angular-xeditable/css/xeditable.css');
     }
 }

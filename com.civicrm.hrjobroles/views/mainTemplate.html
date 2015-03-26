@@ -1,5 +1,7 @@
 <div ng-controller="ExampleCtrl as jobroles">
 
+    <a href="#" editable-text="user.name">{{ user.name || "empty" }}</a>
+
     {{jobroles.contractsData}}
 
     <div class="alert {{jobroles.message_type}}" ng-show="jobroles.message">

@@ -25,19 +25,24 @@
 
             </ul>
         </div>
-        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
+        <div class="col-xs-8 col-sm-6 col-md-6 col-lg-6">
             <div class="tab-content">
 
                 <div ng-show="isTab('new_role_id', 'basic_details')">
 
                     <form class="form-horizontal" role="form">
 
-                        {{jobroles.contractsData}}
+                        <div class="form-group">
+                            <label for="inputTitle" class="col-xs-3 control-label">Title</label>
+                            <div col-xs-6 control-label>
+                                <input type="text" class="form-control" id="inputTitle" placeholder="Enter role title" ng-model="edit_data['new_role_id']['title']" ng-change="showSave('new_role_id')">
+                            </div>
+                        </div>
 
                         <div class="form-group">
-                            <label for="inputTitle" class="col-md-2 control-label">Title</label>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" id="inputTitle" placeholder="Enter role title" ng-model="edit_data['new_role_id']['title']" ng-change="showSave('new_role_id')">
+                            <label for="newContractId" class="col-xs-3 control-label">Contract:</label>
+                            <div col-xs-6 control-label>
+                                <select ng-options="k as v.title for (k, v) in jobroles.contractsData" ng-model="edit_data['new_role_id']['job_contract_id']" class="form-control"></select>
                             </div>
                         </div>
 
@@ -54,13 +59,6 @@
                                         <input type="text" class="form-control" id="inputValue" placeholder="Value">
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-xs-2">
-                                <label for="newContractId">Contract:</label>
-                                <select ng-options="k as v.title for (k, v) in jobroles.contractsData" ng-model="edit_data['new_role_id']['job_contract_id']" class="form-control"></select>
                             </div>
                         </div>
 

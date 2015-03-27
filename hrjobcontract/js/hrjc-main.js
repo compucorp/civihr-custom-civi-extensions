@@ -3,37 +3,13 @@ var module, reqHrjc = require.config({
     baseUrl: CRM.jobContractTabApp.path + 'js',
     urlArgs: "bust=" + (new Date()).getTime(),
     paths: {
-        angular: CRM.vars.reqAngular.angular,
-        angularAnimate: CRM.vars.reqAngular.angularAnimate,
-        angularBootstrap: CRM.vars.reqAngular.angularBootstrap,
-        angularFileUpload: CRM.vars.reqAngular.angularFileUpload,
-        angularResource: CRM.vars.reqAngular.angularResource,
-        angularRoute: CRM.vars.reqAngular.angularRoute,
         fraction: 'vendor/fraction',
         moment: 'vendor/moment.min',
         requireLib: CRM.vars.reqAngular.requireLib
-    },
-    shim: {
-        angular: {
-            exports: 'angular'
-        },
-        angularAnimate: {
-            deps: ['angular']
-        },
-        angularBootstrap: {
-            deps: ['angular']
-        },
-        angularResource: {
-            deps: ['angular']
-        },
-        angularRoute: {
-            deps: ['angular']
-        }
     }
 });
 
 reqHrjc([
-    'angular',
     'app',
     'services/contract',
     'controllers/contractList',
@@ -61,7 +37,7 @@ reqHrjc([
     'filters/formatPeriod',
     'filters/parseInt',
     'requireLib'
-],function(angular, app){
+],function(app){
     'use strict';
 
     app.constant('settings', {

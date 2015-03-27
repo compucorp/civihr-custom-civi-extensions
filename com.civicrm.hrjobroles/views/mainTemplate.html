@@ -7,8 +7,8 @@
     <div class="page-header row">
 
         <div class="col-xs-8">
-            <h2 ng-hide = "currentFilterId == 2">Current Roles and Projects</h1>
-            <h2 ng-show = "currentFilterId == 2">Inactive Roles and Projects</h1>
+            <h2 ng-hide = "currentFilterId == 2">Current Roles and Projects</h2>
+            <h2 ng-show = "currentFilterId == 2">Inactive Roles and Projects</h2>
         </div>
 
         <div class="col-xs-2">
@@ -50,7 +50,7 @@
             </h3>
         </div>
 
-        <button class="btn" class="collapse" ng-click="collapseRow(job_roles_data.id)">
+        <button class="btn" collapse ng-click="collapseRow(job_roles_data.id)">
             <span class="glyphicon glyphicon-plus" ng-hide="collapsedRows[job_roles_data.id] == false">&nbsp;More Details</span>
             <span class="glyphicon glyphicon-minus" ng-show="collapsedRows[job_roles_data.id] == false">&nbsp;Hide Details</span>
         </button>

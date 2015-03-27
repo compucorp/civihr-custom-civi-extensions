@@ -132,18 +132,7 @@ function hrjobroles_civicrm_pageRun($page) {
             'baseURL' => CRM_Extension_System::singleton()->getMapper()->keyToUrl('com.civicrm.hrjobroles')
         ));
 
-        CRM_Core_Resources::singleton()->addScriptFile('com.civicrm.hrjobroles', 'js/hrjobroles-main.js',1002);
-/*
-        CRM_Core_Region::instance('page-footer')->add(array(
-            'type' => 'markup',
-            'markup' => '<script data-main="'
-                .CRM_Core_Resources::singleton()->getUrl('com.civicrm.hrjobroles', CRM_Core_Config::singleton()->debug ? 'js/hrjobroles-main' : 'dist/hrjobroles-main', FALSE).
-                '" src="'
-                .CRM_Core_Resources::singleton()->getUrl('com.civicrm.hrjobroles', 'js/vendor/require.js', TRUE).
-                '"></script>',
-            'weight' => 1003
-        ));
-*/
+        CRM_Core_Resources::singleton()->addScriptFile('com.civicrm.hrjobroles', CRM_Core_Config::singleton()->debug ? 'js/hrjobroles-main.js' : 'dist/hrjobroles-main.js',1003);
         CRM_Core_Resources::singleton()
             ->addStyleFile('com.civicrm.hrjobroles', 'css/hrjobroles.css');
     }

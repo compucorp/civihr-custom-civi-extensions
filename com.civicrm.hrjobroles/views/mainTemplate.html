@@ -1,7 +1,5 @@
 <div ng-controller="ExampleCtrl as jobroles">
 
-    {{jobroles.contractsData}}
-
     <div class="alert {{jobroles.message_type}}" ng-show="jobroles.message">
         {{jobroles.message}}
     </div>
@@ -9,8 +7,8 @@
     <div class="page-header row">
 
         <div class="col-xs-8">
-            <h2 ng-hide = "currentFilterId == 2">Current Roles and Projects</h1>
-            <h2 ng-show = "currentFilterId == 2">Inactive Roles and Projects</h1>
+            <h2 ng-hide = "currentFilterId == 2">Current Roles and Projects</h2>
+            <h2 ng-show = "currentFilterId == 2">Inactive Roles and Projects</h2>
         </div>
 
         <div class="col-xs-2">
@@ -45,12 +43,14 @@
         <div class="page-header">
             <h3>Role / Project name:
                 <small>{{edit_data[job_roles_data.id]['title']}}</small>
-                <small class="btn btn-info btn-xs">Status: {{job_roles_data.id}}</small>
-                <button type="button" class="btn btn-danger btn-xs" ng-click="removeRole(job_roles_data.id)">Remove</button>
+                <small class="btn btn-info btn-xs">Status: {{job_roles_data.job_contract_id}}</small>
+                <button type="button" class="btn btn-danger btn-xs" ng-click="removeRole(job_roles_data.id)">
+                    <span class="glyphicon glyphicon-trash"></span> Remove
+                </button>
             </h3>
         </div>
 
-        <button class="btn" class="collapse" ng-click="collapseRow(job_roles_data.id)">
+        <button class="btn" collapse ng-click="collapseRow(job_roles_data.id)">
             <span class="glyphicon glyphicon-plus" ng-hide="collapsedRows[job_roles_data.id] == false">&nbsp;More Details</span>
             <span class="glyphicon glyphicon-minus" ng-show="collapsedRows[job_roles_data.id] == false">&nbsp;Hide Details</span>
         </button>
@@ -78,12 +78,21 @@
 
                     <div ng-show="isTab(job_roles_data.id, 'basic_details')">
 
-                        <form class="form-horizontal" role="form">
+                        <form class="form-horizontal" role="form" editable-form name="editableForm" onaftersave="updateRole(job_roles_data.id)">
 
-                            <div class="form-group">
-                                <label for="inputTitle" class="col-md-2 control-label">Title</label>
-                                <div class="col-md-3" ng-init="initData(job_roles_data.id, 'title', job_roles_data.title)">
-                                    <input type="text" class="form-control" id="inputTitle" placeholder="Enter role title" ng-model="edit_data[job_roles_data.id]['title']" ng-change="showSave(job_roles_data.id)">
+                            <div class="form-group" ng-init="initData(job_roles_data.id, 'title', job_roles_data.title)">
+                                <!-- editable title + validation -->
+                                <label for="title" class="col-xs-3 control-label">Title:</label>
+                                <div class="col-xs-6 control-label">
+                                    <span editable-text="edit_data[job_roles_data.id]['title']" e-name="title" onbeforesave="validateTitle($data)" e-required>{{ edit_data[job_roles_data.id]['title'] || 'empty' }}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-init="initData(job_roles_data.id, 'job_contract_id', job_roles_data.job_contract_id)">
+                                <!-- editable contract select list + validation -->
+                                <label for="contract" class="col-xs-3 control-label">Contract:</label>
+                                <div class="col-xs-6 control-label">
+                                    <span editable-select="edit_data[job_roles_data.id]['job_contract_id']" e-name="contract" e-ng-options="k as v.title for (k, v) in jobroles.contractsData">{{jobroles.contractsData[edit_data[job_roles_data.id]['job_contract_id']]['title']}}</span>
                                 </div>
                             </div>
 
@@ -101,6 +110,23 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div>
+                                <!-- button to show edit form -->
+                                <button type="button" class="btn btn-default" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">
+                                    Edit
+                                </button>
+
+                                <!-- buttons to submit / cancel form -->
+                                <span ng-show="editableForm.$visible">
+                                    <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting">
+                                        Save
+                                    </button>
+                                    <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">
+                                        Reset
+                                    </button>
+                                </span>
                             </div>
 
                             <div class="form-group" ng-show="isChanged(job_roles_data.id)">

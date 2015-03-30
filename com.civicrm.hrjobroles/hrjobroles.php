@@ -133,7 +133,12 @@ function hrjobroles_civicrm_pageRun($page) {
         ));
 
         CRM_Core_Resources::singleton()->addScriptFile('com.civicrm.hrjobroles', CRM_Core_Config::singleton()->debug ? 'js/hrjobroles-main.js' : 'dist/hrjobroles-main.js',1010);
+
         CRM_Core_Resources::singleton()
             ->addStyleFile('com.civicrm.hrjobroles', 'css/hrjobroles.css');
+
+        // Add angular xeditable css library
+        CRM_Core_Resources::singleton()
+            ->addStyleFile('com.civicrm.hrjobroles', 'angular-xeditable/css/xeditable.css');
     }
 }

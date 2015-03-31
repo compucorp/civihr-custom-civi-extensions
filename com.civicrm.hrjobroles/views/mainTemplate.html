@@ -37,17 +37,20 @@
 
     <div class="alert alert-warning" ng-show="jobroles.empty">{{jobroles.empty}}</div>
 
-    <div class="main-row" ng-repeat="job_roles_data in jobroles.getData">
+    <div ng-repeat="(key, job_roles) in jobroles.getData | groupBy: 'job_contract_id'">
 
+        <h3>Group name: {{key}}</h3>
+
+        <div class="main-row" ng-repeat="job_roles_data in job_roles">
 
         <div class="page-header">
-            <h3>Role / Project name:
+            <h4>Role / Project name:
                 <small>{{edit_data[job_roles_data.id]['title']}}</small>
                 <small class="btn btn-info btn-xs">Status: {{job_roles_data.job_contract_id}}</small>
                 <button type="button" class="btn btn-danger btn-xs" ng-click="removeRole(job_roles_data.id)">
                     <span class="glyphicon glyphicon-trash"></span> Remove
                 </button>
-            </h3>
+            </h4>
         </div>
 
         <button class="btn" collapse ng-click="collapseRow(job_roles_data.id)">
@@ -158,6 +161,8 @@
                 </div>
             </div>
         </div>
+
+    </div>
 
     </div>
 

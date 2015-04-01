@@ -109,8 +109,8 @@
                                 </td>
                                 <td>
                                     <!-- editable status (select-local) -->
-                                    <span editable-select="funder.type" e-form="tableform" e-ng-options="s.value as s.text for s in statuses">
-                                        {{ showStatus(user) }}
+                                    <span editable-select="funder.type" e-form="tableform" e-ng-options="funderType.id as funderType.name for funderType in funderTypes">
+                                        {{ showFunderType(funder) }}
                                     </span>
                                 </td>
                                 <td>

@@ -102,26 +102,30 @@
                             </tr>
                             <tr ng-repeat="(key, funder) in edit_data['new_role_id']['funders']">
                                 <td>
-                                    <!-- editable username (text with validation) -->
-                                    <span editable-text="funder.funder_id" e-form="tableform" onbeforesave="checkName($data, user.id)">
-                                        {{ funder.funder_id || 'empty' }}
+                                    <!-- editable funder (text with validation) -->
+                                    <span editable-text="funder.funder_id" e-typeahead="contact as contact.sort_name for contact in jobroles.contactList | filter:$viewValue | limitTo:10" e-form="tableform" onbeforesave="checkName($data, user.id)">
+                                        {{ funder.funder_id.sort_name || 'empty' }}
                                     </span>
                                 </td>
                                 <td>
-                                    <!-- editable status (select-local) -->
+                                    <!-- editable funder type (will restrict the fields to amount or percentage -->
                                     <span editable-select="funder.type" e-form="tableform" e-ng-options="funderType.id as funderType.name for funderType in funderTypes">
                                         {{ showFunderType(funder) }}
                                     </span>
                                 </td>
                                 <td>
-                                    <!-- editable group (select-remote) -->
-                                    <span editable-select="funder.percentage" e-form="tableform" onshow="loadGroups()" e-ng-options="g.id as g.text for g in groups">
-                                        {{ showGroup(user) }}
+
+                                    <!-- editable funder type - percentage (show only when percentage type selected, otherwise read only -->
+                                    <span editable-text="funder.percentage" e-form="tableform" onbeforesave="checkName($data, user.id)">
+                                        {{ funder.percentage || 'empty' }}
                                     </span>
                                 </td>
 
                                 <td>
-                                    {{key}}
+                                    <!-- editable funder type - amount (show only when amount type selected, otherwise read only -->
+                                    <span editable-text="funder.amount" e-form="tableform" onbeforesave="checkName($data, user.id)">
+                                        {{ funder.amount || 'empty' }}
+                                    </span>
                                 </td>
 
                                 <td ng-show="tableform.$visible">

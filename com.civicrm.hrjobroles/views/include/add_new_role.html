@@ -111,8 +111,8 @@
                                 <td>
 
                                     <!-- editable funder type (will restrict the fields to amount or percentage -->
-                                    <span editable-select="funder.type" e-form="tableform" e-name="funder-type" e-ng-options="funderType.id as funderType.name for funderType in funderTypes" e-ng-change="updateFunderType('new_role_id', key, $data)">
-                                        {{ showFunderType(funder) }}
+                                    <span editable-select="funder.type" e-form="tableform" e-name="funder-type" e-ng-options="rowType.id as rowType.name for rowType in rowTypes" e-ng-change="updateAdditionalRowType('new_role_id', 'funder', key, $data)">
+                                        {{ showRowType(funder) }}
                                     </span>
                                 </td>
 
@@ -139,7 +139,7 @@
                                 </td>
 
                                 <td ng-show="tableform.$visible">
-                                    <button type="button" ng-click="deleteFunderRow('new_role_id', key)" class="btn btn-danger pull-right">Del</button>
+                                    <button type="button" ng-click="deleteAdditionalRow('new_role_id', 'funder', key)" class="btn btn-danger pull-right">Del</button>
                                 </td>
                             </tr>
                         </table>
@@ -185,8 +185,8 @@
                                 <td>
 
                                     <!-- editable cost_centre type (will restrict the fields to amount or percentage -->
-                                    <span editable-select="cost_centre.type" e-form="tableformcc" e-name="cost-centre-type" e-ng-options="funderType.id as funderType.name for funderType in funderTypes" e-ng-change="updateFunderType('new_role_id', key, $data)">
-                                        {{ showFunderType(cost_centre) }}
+                                    <span editable-select="cost_centre.type" e-form="tableformcc" e-name="cost-centre-type" e-ng-options="rowType.id as rowType.name for rowType in rowTypes" e-ng-change="updateAdditionalRowType('new_role_id', 'cost_centre', key, $data)">
+                                        {{ showRowType(cost_centre) }}
                                     </span>
                                 </td>
 
@@ -213,7 +213,7 @@
                                 </td>
 
                                 <td ng-show="tableformcc.$visible">
-                                    <button type="button" ng-click="deleteFunderRow('new_role_id', key)" class="btn btn-danger pull-right">Del</button>
+                                    <button type="button" ng-click="deleteAdditionalRow('new_role_id', 'cost_centre', key)" class="btn btn-danger pull-right">Del</button>
                                 </td>
                             </tr>
                         </table>

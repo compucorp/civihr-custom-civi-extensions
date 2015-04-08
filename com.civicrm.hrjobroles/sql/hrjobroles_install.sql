@@ -14,6 +14,7 @@ CREATE TABLE `civicrm_hrjobroles` (
   `job_contract_id` int unsigned NOT NULL   COMMENT 'FK to Contract',
   `title` varchar(255)   DEFAULT NULL COMMENT 'Title or Project name for the Job Role.',
   `description` text    COMMENT 'Negotiated name for the role',
+  `status` varchar(255)   DEFAULT NULL COMMENT 'Job Role Status (Active / Inactive)',
   `hours` double   DEFAULT 0 COMMENT 'Amount of time allocated for work (in a given week)',
   `role_hours_unit` varchar(63)    COMMENT 'Period during which hours are allocated (eg 5 hours per day; 5 hours per week)',
   `region` varchar(127)    ,
@@ -22,14 +23,14 @@ CREATE TABLE `civicrm_hrjobroles` (
   `manager_contact_id` int unsigned    COMMENT 'FK to Contact ID',
   `functional_area` varchar(127)    ,
   `organization` varchar(127)    ,
-  `cost_center` varchar(255)    COMMENT 'Cost Center option group value',
+  `cost_center` varchar(255)    COMMENT 'List of Cost Center option group values',
   `cost_center_val_type` varchar(127)    COMMENT 'Cost Center value type (fixed or %)',
-  `percent_pay_cost_center` varchar(127)   DEFAULT 0 COMMENT 'Percentage of Pay Assigned to this cost center',
-  `amount_pay_cost_center` varchar(127)   DEFAULT 0 COMMENT 'Amount of Pay Assigned to this cost center',
-  `funder` int unsigned    COMMENT 'FK to Contact ID',
+  `percent_pay_cost_center` varchar(255)   DEFAULT 0 COMMENT 'Percentage of Pay Assigned to this cost center',
+  `amount_pay_cost_center` varchar(255)   DEFAULT 0 COMMENT 'Amount of Pay Assigned to this cost center',
+  `funder` varchar(255)   DEFAULT 0 COMMENT 'List of attached Funder contact IDs',
   `funder_val_type` varchar(127)    COMMENT 'Funder value type (fixed or %)',
-  `percent_pay_funder` varchar(127)   DEFAULT 0 COMMENT 'Percentage of Pay Assigned to this funder',
-  `amount_pay_funder` varchar(127)   DEFAULT 0 COMMENT 'Amount of Pay Assigned to this funder',
+  `percent_pay_funder` varchar(255)   DEFAULT 0 COMMENT 'Percentage of Pay Assigned to this funder',
+  `amount_pay_funder` varchar(255)   DEFAULT 0 COMMENT 'Amount of Pay Assigned to this funder',
   `location` varchar(127)    COMMENT 'Main work location'
   ,
   PRIMARY KEY ( `id` )
@@ -63,6 +64,5 @@ CREATE TABLE `civicrm_hrjobroles` (
 )
 
   ,           CONSTRAINT FK_civicrm_hrjobroles_manager_contact_id FOREIGN KEY (`manager_contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE SET NULL,
-              CONSTRAINT FK_civicrm_hrjobroles_funder FOREIGN KEY (`funder`) REFERENCES `civicrm_contact`(`id`) ON DELETE SET NULL,
               CONSTRAINT FK_civicrm_hrjobroles_job_contract_id FOREIGN KEY (`job_contract_id`) REFERENCES `civicrm_hrjobcontract`(`id`)  ON DELETE CASCADE
 )  ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;

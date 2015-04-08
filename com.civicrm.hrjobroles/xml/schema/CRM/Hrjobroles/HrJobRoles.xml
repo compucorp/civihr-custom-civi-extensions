@@ -52,6 +52,16 @@
     </field>
 
     <field>
+        <name>status</name>
+        <type>varchar</type>
+        <title>Job Role Status</title>
+        <length>255</length>
+        <default>NULL</default>
+        <comment>Job Role Status (Active / Inactive)</comment>
+        <add>4.5</add>
+    </field>
+
+    <field>
         <name>hours</name>
         <title>Amount</title>
         <type>float</type>
@@ -164,7 +174,7 @@
         <title>Cost Center</title>
         <type>varchar</type>
         <length>255</length>
-        <comment>Cost Center option group value</comment>
+        <comment>List of Cost Center option group values</comment>
         <export>true</export>
         <import>true</import>
         <uniqueName>hrjob_cost_center</uniqueName>
@@ -193,7 +203,7 @@
         <name>percent_pay_cost_center</name>
         <title>Percent of Pay Assigned to this cost center</title>
         <type>varchar</type>
-        <length>127</length>
+        <length>255</length>
         <default>0</default>
         <comment>Percentage of Pay Assigned to this cost center</comment>
         <export>true</export>
@@ -205,7 +215,7 @@
         <name>amount_pay_cost_center</name>
         <title>Amount of Pay Assigned to this cost center</title>
         <type>varchar</type>
-        <length>127</length>
+        <length>255</length>
         <default>0</default>
         <comment>Amount of Pay Assigned to this cost center</comment>
         <export>true</export>
@@ -216,15 +226,11 @@
     <field>
         <name>funder</name>
         <title>Funder Contact ID</title>
-        <type>int unsigned</type>
-        <comment>FK to Contact ID</comment>
+        <type>varchar</type>
+        <length>255</length>
+        <default>0</default>
+        <comment>List of attached Funder contact IDs</comment>
     </field>
-    <foreignKey>
-        <name>funder</name>
-        <table>civicrm_contact</table>
-        <key>id</key>
-        <onDelete>SET NULL</onDelete>
-    </foreignKey>
 
     <field>
         <name>funder_val_type</name>
@@ -245,7 +251,7 @@
         <name>percent_pay_funder</name>
         <title>Percent of Pay Assigned to this funder</title>
         <type>varchar</type>
-        <length>127</length>
+        <length>255</length>
         <default>0</default>
         <comment>Percentage of Pay Assigned to this funder</comment>
         <export>true</export>
@@ -257,7 +263,7 @@
         <name>amount_pay_funder</name>
         <title>Amount of Pay Assigned to this funder</title>
         <type>varchar</type>
-        <length>127</length>
+        <length>255</length>
         <default>0</default>
         <comment>Amount of Pay Assigned to this funder</comment>
         <export>true</export>

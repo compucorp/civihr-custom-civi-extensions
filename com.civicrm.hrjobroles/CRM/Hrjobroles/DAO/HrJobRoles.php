@@ -113,6 +113,12 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
      */
     public $description;
     /**
+     * Job Role Status (Active / Inactive)
+     *
+     * @var string
+     */
+    public $status;
+    /**
      * Amount of time allocated for work (in a given week)
      *
      * @var float
@@ -157,7 +163,7 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
      */
     public $organization;
     /**
-     * Cost Center option group value
+     * List of Cost Center option group values
      *
      * @var string
      */
@@ -181,9 +187,9 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
      */
     public $amount_pay_cost_center;
     /**
-     * FK to Contact ID
+     * List of attached Funder contact IDs
      *
-     * @var int unsigned
+     * @var string
      */
     public $funder;
     /**
@@ -233,7 +239,6 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
         if (!self::$_links) {
             self::$_links = static ::createReferenceColumns(__CLASS__);
             self::$_links[] = new CRM_Core_Reference_Basic(self::getTableName() , 'manager_contact_id', 'civicrm_contact', 'id');
-            self::$_links[] = new CRM_Core_Reference_Basic(self::getTableName() , 'funder', 'civicrm_contact', 'id');
         }
         return self::$_links;
     }
@@ -270,6 +275,14 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                     'name' => 'description',
                     'type' => CRM_Utils_Type::T_TEXT,
                     'title' => ts('Job Role Description') ,
+                ) ,
+                'status' => array(
+                    'name' => 'status',
+                    'type' => CRM_Utils_Type::T_STRING,
+                    'title' => ts('Job Role Status') ,
+                    'maxlength' => 255,
+                    'size' => CRM_Utils_Type::HUGE,
+                    'default' => 'NULL',
                 ) ,
                 'hrjob_role_hours' => array(
                     'name' => 'hours',
@@ -382,7 +395,7 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                     'name' => 'percent_pay_cost_center',
                     'type' => CRM_Utils_Type::T_STRING,
                     'title' => ts('Percent of Pay Assigned to this cost center') ,
-                    'maxlength' => 127,
+                    'maxlength' => 255,
                     'size' => CRM_Utils_Type::HUGE,
                     'import' => true,
                     'where' => 'civicrm_hrjobroles.percent_pay_cost_center',
@@ -394,7 +407,7 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                     'name' => 'amount_pay_cost_center',
                     'type' => CRM_Utils_Type::T_STRING,
                     'title' => ts('Amount of Pay Assigned to this cost center') ,
-                    'maxlength' => 127,
+                    'maxlength' => 255,
                     'size' => CRM_Utils_Type::HUGE,
                     'import' => true,
                     'where' => 'civicrm_hrjobroles.amount_pay_cost_center',
@@ -404,9 +417,10 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                 ) ,
                 'funder' => array(
                     'name' => 'funder',
-                    'type' => CRM_Utils_Type::T_INT,
+                    'type' => CRM_Utils_Type::T_STRING,
                     'title' => ts('Funder Contact ID') ,
-                    'FKClassName' => 'CRM_Contact_DAO_Contact',
+                    'maxlength' => 255,
+                    'size' => CRM_Utils_Type::HUGE,
                 ) ,
                 'hrjob_funder_val_type' => array(
                     'name' => 'funder_val_type',
@@ -424,7 +438,7 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                     'name' => 'percent_pay_funder',
                     'type' => CRM_Utils_Type::T_STRING,
                     'title' => ts('Percent of Pay Assigned to this funder') ,
-                    'maxlength' => 127,
+                    'maxlength' => 255,
                     'size' => CRM_Utils_Type::HUGE,
                     'import' => true,
                     'where' => 'civicrm_hrjobroles.percent_pay_funder',
@@ -436,7 +450,7 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                     'name' => 'amount_pay_funder',
                     'type' => CRM_Utils_Type::T_STRING,
                     'title' => ts('Amount of Pay Assigned to this funder') ,
-                    'maxlength' => 127,
+                    'maxlength' => 255,
                     'size' => CRM_Utils_Type::HUGE,
                     'import' => true,
                     'where' => 'civicrm_hrjobroles.amount_pay_funder',
@@ -473,6 +487,7 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                 'job_contract_id' => 'job_contract_id',
                 'title' => 'title',
                 'description' => 'description',
+                'status' => 'status',
                 'hours' => 'hrjob_role_hours',
                 'role_hours_unit' => 'hrjob_role_unit',
                 'region' => 'hrjob_region',

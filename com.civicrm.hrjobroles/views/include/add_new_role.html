@@ -101,6 +101,9 @@
                                 <td style="width:15%" ng-show="tableform.$visible">Action</td>
                             </tr>
                             <tr ng-repeat="(key, funder) in edit_data['new_role_id']['funders']">
+
+                                {{ edit_data['new_role_id']['funders'] }} test
+
                                 <td>
                                     <!-- editable funder (text with validation) -->
                                     <span editable-text="funder.funder_id" e-typeahead="contact as contact.sort_name for contact in jobroles.contactList | filter:$viewValue | limitTo:10" e-form="tableform" e-name="funder" onbeforesave="checkName($data, user.id)">

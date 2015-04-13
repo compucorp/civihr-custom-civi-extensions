@@ -1,13 +1,16 @@
-<div class="main-row">
+<div class="main-row add-new-row">
 
-    <div class="page-header">
-        <h3>Role / Project name:
-            <small>{{edit_data['new_role_id']['title']}}</small>
-            <small class="btn btn-info btn-xs">Status: NEW STATUS</small>
-        </h3>
+    <div class="main-row-header">
+
+        <div class="col-xs-6">
+            <h4>Role / Project name:
+                <small>{{edit_data['new_role_id']['title']}}</small>
+            </h4>
+        </div>
+
     </div>
 
-    <div class="row">
+    <div class="row clear">
         <div class="col-sm-2">
             <ul class="nav nav-tabs nav-stacked nav-pills" role="tablist" ng-init="changeTab('new_role_id', 'basic_details')">
 
@@ -25,7 +28,7 @@
 
             </ul>
         </div>
-        <div class="col-xs-8 col-sm-6 col-md-6 col-lg-6">
+        <div class="col-xs-8 col-sm-10 col-md-10 col-lg-10">
             <div class="tab-content">
 
                 <div ng-show="isTab('new_role_id', 'basic_details')">
@@ -47,6 +50,15 @@
                         </div>
 
                         <div class="form-group">
+                            <!-- job role description textarea -->
+                            <label for="description" class="col-xs-3 control-label">Description:</label>
+                            <div class="col-xs-6 control-label">
+                                <textarea ng-model="edit_data['new_role_id']['description']" class="form-control" rows="5" id="description"></textarea>
+                            </div>
+                        </div>
+
+                        <!--
+                        <div class="form-group">
                             <span class="col-md-2 control-label">Metadata</span>
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -61,6 +73,7 @@
                                 </div>
                             </div>
                         </div>
+                        -->
 
                         <div class="form-group">
                             <label for="inputTitle" class="col-sm-6 control-label"></label>
@@ -75,13 +88,154 @@
                 </div>
 
                 <div ng-show="isTab('new_role_id', 'funding')">
-                    {{jobroles.status}}
-                    <div class="well well-lg">Some well content</div>
+
+                    <form editable-form name="tableform" onaftersave="saveTable()" oncancel="cancel()">
+
+                        <!-- table -->
+                        <table class="table table-bordered table-hover table-condensed">
+                            <tr style="font-weight: bold">
+                                <td style="width:40%">Funder</td>
+                                <td style="width:15%">Type</td>
+                                <td style="width:15%">% Amount</td>
+                                <td style="width:15%">Absoulute Amount</td>
+                                <td style="width:15%" ng-show="tableform.$visible">Action</td>
+                            </tr>
+                            <tr ng-repeat="(key, funder) in edit_data['new_role_id']['funders']">
+
+                                {{ edit_data['new_role_id']['funders'] }} test
+
+                                <td>
+                                    <!-- editable funder (text with validation) -->
+                                    <span editable-text="funder.funder_id" e-typeahead="contact as contact.sort_name for contact in jobroles.contactList | filter:$viewValue | limitTo:10" e-form="tableform" e-name="funder" onbeforesave="checkName($data, user.id)">
+                                        {{ funder.funder_id.sort_name || 'empty' }}
+                                    </span>
+                                </td>
+                                
+                                <td>
+
+                                    <!-- editable funder type (will restrict the fields to amount or percentage -->
+                                    <span editable-select="funder.type" e-form="tableform" e-name="funder-type" e-ng-options="rowType.id as rowType.name for rowType in rowTypes" e-ng-change="updateAdditionalRowType('new_role_id', 'funder', key, $data)">
+                                        {{ showRowType(funder) }}
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <span ng-show="funder.type == 1">
+                                        <!-- editable funder type - percentage (show only when percentage type selected, otherwise read only -->
+                                        <span editable-text="funder.percentage" e-form="tableform" e-name="funder-percent" onbeforesave="checkName($data, user.id)">
+                                            {{ funder.percentage || 'empty' }}
+                                        </span>
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <span ng-show="funder.type == 0">
+                                        <!-- editable funder type - amount (show only when amount type selected, otherwise read only -->
+                                        <span editable-text="funder.amount" e-form="tableform" e-name="funder-amount" onbeforesave="checkName($data, user.id)">
+                                            {{ funder.amount || 'empty' }}
+                                        </span>
+                                    </span>
+
+                                </td>
+
+                                <td ng-show="tableform.$visible">
+                                    <button type="button" ng-click="deleteAdditionalRow('new_role_id', 'funder', key)" class="btn btn-danger pull-right">Del</button>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- buttons -->
+                        <div class="btn-setup btn-edit">
+                            <button type="button" class="btn btn-default" ng-show="!tableform.$visible" ng-click="tableform.$show()">
+                                edit
+                            </button>
+                        </div>
+
+                        <div class="btn-form" ng-show="tableform.$visible">
+                            <button type="button" ng-disabled="tableform.$waiting" ng-click="addAdditionalRow('new_role_id', 'funder')" class="btn-setup btn btn-default pull-right">Add Funder</button>
+                            <button type="submit" ng-disabled="tableform.$waiting" class="btn btn-primary">save</button>
+                            <button type="button" ng-disabled="tableform.$waiting" ng-click="tableform.$cancel()" class="btn-setup btn btn-default">cancel</button>
+                        </div>
+
+                    </form>
+
                 </div>
 
                 <div ng-show="isTab('new_role_id', 'cost_centers')">
-                    {{jobroles.status}}
-                    <div class="well well-lg">Some well content 2</div>
+
+                    <form editable-form name="tableformcc" onaftersave="saveTable()" oncancel="cancel()">
+
+                        <!-- table -->
+                        <table class="table table-bordered table-hover table-condensed">
+                            <tr style="font-weight: bold">
+                                <td style="width:40%">Cost Centre</td>
+                                <td style="width:15%">Type</td>
+                                <td style="width:15%">% Amount</td>
+                                <td style="width:15%">Absoulute Amount</td>
+                                <td style="width:15%" ng-show="tableformcc.$visible">Action</td>
+                            </tr>
+                            <tr ng-repeat="(key, cost_centre) in edit_data['new_role_id']['cost_centers']">
+                                <td>
+                                    <!-- editable cost centre (text with validation) -->
+                                    <span editable-text="cost_centre.cost_centre_id" e-typeahead="contact as contact.sort_name for contact in jobroles.contactList | filter:$viewValue | limitTo:10" e-form="tableformcc" e-name="cost-centre" onbeforesave="checkName($data, user.id)">
+                                        {{ cost_centre.cost_centre_id.sort_name || 'empty' }}
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <!-- editable cost_centre type (will restrict the fields to amount or percentage -->
+                                    <span editable-select="cost_centre.type" e-form="tableformcc" e-name="cost-centre-type" e-ng-options="rowType.id as rowType.name for rowType in rowTypes" e-ng-change="updateAdditionalRowType('new_role_id', 'cost_centre', key, $data)">
+                                        {{ showRowType(cost_centre) }}
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <span ng-show="cost_centre.type == 1">
+                                        <!-- editable cost_centre type - percentage (show only when percentage type selected, otherwise read only -->
+                                        <span editable-text="cost_centre.percentage" e-form="tableformcc" e-name="cost-centre-percent" onbeforesave="checkName($data, user.id)">
+                                            {{ cost_centre.percentage || 'empty' }}
+                                        </span>
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <span ng-show="cost_centre.type == 0">
+                                        <!-- editable cost_centre type - amount (show only when amount type selected, otherwise read only -->
+                                        <span editable-text="cost_centre.amount" e-form="tableformcc" e-name="cost-centre-amount"  onbeforesave="checkName($data, user.id)">
+                                            {{ cost_centre.amount || 'empty' }}
+                                        </span>
+                                    </span>
+
+                                </td>
+
+                                <td ng-show="tableformcc.$visible">
+                                    <button type="button" ng-click="deleteAdditionalRow('new_role_id', 'cost_centre', key)" class="btn btn-danger pull-right">Del</button>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- buttons -->
+                        <div class="btn-setup btn-edit">
+                            <button type="button" class="btn btn-default" ng-show="!tableformcc.$visible" ng-click="tableformcc.$show()">
+                                edit
+                            </button>
+                        </div>
+
+                        <div class="btn-form" ng-show="tableformcc.$visible">
+                            <button type="button" ng-disabled="tableformcc.$waiting" ng-click="addAdditionalRow('new_role_id', 'cost_centre')" class="btn-setup btn btn-default pull-right">Add Cost Centre</button>
+                            <button type="submit" ng-disabled="tableformcc.$waiting" class="btn btn-primary">save</button>
+                            <button type="button" ng-disabled="tableformcc.$waiting" ng-click="tableformcc.$cancel()" class="btn-setup btn btn-default">cancel</button>
+                        </div>
+
+                    </form>
+
                 </div>
 
             </div>

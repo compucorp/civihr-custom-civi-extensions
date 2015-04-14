@@ -9792,5 +9792,12 @@
 /* line 67, ../sass/partials/_example.scss */
 #hrjobroles .page-header {
   padding-bottom: 0px;
-  margin: 10px 0px 70px;
+  border-bottom: 0px;
+  margin: 10px 0px 15px;
+}
+/* line 73, ../sass/partials/_example.scss */
+#hrjobroles .createrole {
+  display: inline;
+  float: inherit;
+  margin-bottom: 55px;
 }

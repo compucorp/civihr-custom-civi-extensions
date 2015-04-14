@@ -142,3 +142,16 @@ function hrjobroles_civicrm_pageRun($page) {
             ->addStyleFile('com.civicrm.hrjobroles', 'angular-xeditable/css/xeditable.css');
     }
 }
+
+/**
+ * Implementation of hook_civicrm_entityTypes
+ */
+function hrjobroles_civicrm_entityTypes(&$entityTypes) {
+
+    $entityTypes[] = array (
+        'name' => 'HrJobRoles',
+        'class' => 'CRM_Hrjobroles_DAO_HrJobRoles',
+        'table' => 'civicrm_hrjobroles',
+    );
+
+}

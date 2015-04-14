@@ -135,7 +135,7 @@
                                 </td>
 
                                 <td ng-show="tableform.$visible">
-                                    <button type="button" ng-click="deleteAdditionalRow('new_role_id', 'funder', key)" class="btn btn-danger pull-right">Del</button>
+                                    <button type="button" ng-click="deleteAdditionalRow('new_role_id', 'funder', key)" class="btn btn-danger pull-right"><span class="fa fa-remove" aria-hidden="true"></span></button>
                                 </td>
                             </tr>
                         </table>
@@ -148,7 +148,7 @@
                         </div>
 
                         <div class="btn-form" ng-show="tableform.$visible">
-                            <button type="button" ng-disabled="tableform.$waiting" ng-click="addAdditionalRow('new_role_id', 'funder')" class="btn-setup btn btn-default pull-right">Add Funder</button>
+                            <button type="button" ng-disabled="tableform.$waiting" ng-click="addAdditionalRow('new_role_id', 'funder')" class="btn-setup btn btn-default btn-primary pull-right"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Funder</button>
                             <button type="submit" ng-disabled="tableform.$waiting" class="btn btn-primary">save</button>
                             <button type="button" ng-disabled="tableform.$waiting" ng-click="tableform.$cancel()" class="btn-setup btn btn-default">cancel</button>
                         </div>
@@ -205,7 +205,7 @@
                                 </td>
 
                                 <td ng-show="tableformcc.$visible">
-                                    <button type="button" ng-click="deleteAdditionalRow('new_role_id', 'cost_centre', key)" class="btn btn-danger pull-right">Del</button>
+                                    <button type="button" ng-click="deleteAdditionalRow('new_role_id', 'cost_centre', key)" class="btn btn-danger pull-right"><span class="fa fa-remove" aria-hidden="true"></span></button>
                                 </td>
                             </tr>
                         </table>
@@ -218,7 +218,7 @@
                         </div>
 
                         <div class="btn-form" ng-show="tableformcc.$visible">
-                            <button type="button" ng-disabled="tableformcc.$waiting" ng-click="addAdditionalRow('new_role_id', 'cost_centre')" class="btn-setup btn btn-default pull-right">Add Cost Centre</button>
+                            <button type="button" ng-disabled="tableformcc.$waiting" ng-click="addAdditionalRow('new_role_id', 'cost_centre')" class="btn-setup btn btn-default btn-primary pull-right"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Cost Centre</button>
                             <button type="submit" ng-disabled="tableformcc.$waiting" class="btn btn-primary">save</button>
                             <button type="button" ng-disabled="tableformcc.$waiting" ng-click="tableformcc.$cancel()" class="btn-setup btn btn-default">cancel</button>
                         </div>

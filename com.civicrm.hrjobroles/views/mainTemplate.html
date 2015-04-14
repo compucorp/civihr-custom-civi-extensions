@@ -6,24 +6,14 @@
 
     <div class="page-header">
 
-            <h3 style="display: inline; float: left;">Create New Role</h3>
+        <h3 style="display: inline; float: left;" ng-show="add_new">Create New Role</h3>
 
-        <!--
-        <div class="col-xs-8">
-            <h3 ng-hide = "currentFilterId == 2">Current Roles and Projects</h3>
-            <h3 ng-show = "currentFilterId == 2">Inactive Roles and Projects</h3>
-        </div>
-
-        -->
-
-        <div class="col-xs-4">
-        </div>
         <div class="col-xs-2">
 
             <form role="form">
                 <div class="form-group">
                     <label for="buttonnewrole">&nbsp;</label>
-                    <button class="form-control btn btn-info" ng-click="add_new_role()">Add new role</button>
+                    <button class="form-control btn btn-info" ng-click="add_new_role()" ng-hide="add_new">Add new role</button>
                 </div>
             </form>
 

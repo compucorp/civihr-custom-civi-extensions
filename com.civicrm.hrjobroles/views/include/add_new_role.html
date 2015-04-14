@@ -36,7 +36,7 @@
                     <form class="form-horizontal" role="form">
 
                         <div class="form-group">
-                            <label for="inputTitle" class="col-xs-3 control-label">Title</label>
+                            <label for="inputTitle" class="col-xs-3 control-label">Title:</label>
                             <div class="col-xs-6 control-label">
                                 <input type="text" class="form-control" id="inputTitle" placeholder="Enter role title" ng-model="edit_data['new_role_id']['title']" ng-change="showSave('new_role_id')">
                             </div>
@@ -49,6 +49,14 @@
                             </div>
                         </div>
 
+                        {{ jobroles.LevelsData[979] }}
+                        <div class="form-group">
+                            <label for="newLevel" class="col-xs-3 control-label">Level:</label>
+                            <div class="col-xs-6 control-label">
+                                <select ng-options="k as v.title for (k, v) in jobroles.LevelsData" ng-model="edit_data['new_role_id']['level']" class="form-control"></select>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <!-- job role description textarea -->
                             <label for="description" class="col-xs-3 control-label">Description:</label>
@@ -56,24 +64,6 @@
                                 <textarea ng-model="edit_data['new_role_id']['description']" class="form-control" rows="5" id="description"></textarea>
                             </div>
                         </div>
-
-                        <!--
-                        <div class="form-group">
-                            <span class="col-md-2 control-label">Metadata</span>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="inputKey" class="col-md-1 control-label">Key</label>
-                                    <div class="col-md-2">
-                                        <input type="text" class="form-control" id="inputKey" placeholder="Key">
-                                    </div>
-                                    <label for="inputValue" class="col-md-1 control-label">Value</label>
-                                    <div class="col-md-2">
-                                        <input type="text" class="form-control" id="inputValue" placeholder="Value">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        -->
 
                         <div class="form-group">
                             <label for="inputTitle" class="col-xs-3 control-label"></label>

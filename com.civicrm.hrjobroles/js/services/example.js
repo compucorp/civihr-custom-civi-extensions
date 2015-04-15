@@ -38,7 +38,7 @@ define(['services/services'], function (services) {
 
                 CRM.api3('HrJobRoles', 'get', {
                     "sequential": 1,
-                    "return": "id,job_contract_id,title,description,status,funder,funder_val_type,percent_pay_funder,amount_pay_funder,cost_center,cost_center_val_type,percent_pay_cost_center,amount_pay_cost_center,level_type",
+                    "return": "id,job_contract_id,title,description,status,funder,funder_val_type,percent_pay_funder,amount_pay_funder,cost_center,cost_center_val_type,percent_pay_cost_center,amount_pay_cost_center,level_type,location",
                     "job_contract_id": {"IN": job_contract_ids}
                 }).done(function(result) {
 
@@ -143,8 +143,6 @@ define(['services/services'], function (services) {
                     }
                 }
 
-                console.log(funders);
-
                 var deferred = $q.defer();
 
                 CRM.api3('HrJobRoles', 'create', {
@@ -160,7 +158,8 @@ define(['services/services'], function (services) {
                     "cost_center_val_type": cost_center_types,
                     "percent_pay_cost_center": percent_cost_centers,
                     "amount_pay_cost_center": amount_cost_centers,
-                    "level_type": job_roles_data.level
+                    "level_type": job_roles_data.level,
+                    "location": job_roles_data.location
                 }).done(function(result) {
 
                     console.log(result);
@@ -255,7 +254,8 @@ define(['services/services'], function (services) {
                     "cost_center_val_type": cost_center_types,
                     "percent_pay_cost_center": percent_cost_centers,
                     "amount_pay_cost_center": amount_cost_centers,
-                    "level_type": job_roles_data.level
+                    "level_type": job_roles_data.level,
+                    "location": job_roles_data.location
 
                 }).done(function(result) {
 
@@ -298,22 +298,36 @@ define(['services/services'], function (services) {
 
             },
 
-            getLevels: function(search_value) {
+            getOptionValues: function(option_group_name) {
+
+                console.log(option_group_name);
 
                 var deferred = $q.defer();
 
-                CRM.api3('OptionValue', 'get', {
+                CRM.api3('OptionGroup', 'get', {
                     "sequential": 1,
-                    "option_group_id": 131
-                }).done(function(result) {
+                    "name": option_group_name
+                }).done(function(option_group_data) {
+                    console.log(option_group_data);
 
-                    // Passing data to deferred's resolve function on successful completion
-                    deferred.resolve(result);
+                    if (option_group_data.is_error !== 1) {
 
-                }).error(function(result) {
+                        CRM.api3('OptionValue', 'get', {
+                            "sequential": 1,
+                            "option_group_id": option_group_data.id
+                        }).done(function(result) {
 
-                    // Sending a friendly error message in case of failure
-                    deferred.reject("An error occured while fetching items");
+                            // Passing data to deferred's resolve function on successful completion
+                            deferred.resolve(result);
+
+                        }).error(function(result) {
+
+                            // Sending a friendly error message in case of failure
+                            deferred.reject("An error occured while fetching items");
+
+                        });
+
+                    }
 
                 });
 

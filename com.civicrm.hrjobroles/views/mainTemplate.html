@@ -102,6 +102,13 @@
                                 </div>
                             </div>
 
+                            <div class="form-group" ng-init="initData(job_roles_data.id, 'location', job_roles_data.location)">
+                                <label for="newLocation" class="col-xs-3 control-label">Location:</label>
+                                <div class="col-xs-6 control-label">
+                                    <span editable-select="edit_data[job_roles_data.id]['location']" e-name="newLocation" e-ng-options="k as v.title for (k, v) in jobroles.LocationsData">{{ jobroles.LocationsData[edit_data[job_roles_data.id]['location']]['title'] }}</span>
+                                </div>
+                            </div>
+
                             <div class="form-group" ng-init="initData(job_roles_data.id, 'description', job_roles_data.description)">
                                 <!-- editable job role description textarea -->
                                 <label for="description" class="col-xs-3 control-label">Description:</label>

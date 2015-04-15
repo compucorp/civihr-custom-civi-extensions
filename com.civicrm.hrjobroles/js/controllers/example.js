@@ -29,6 +29,9 @@ define(['controllers/controllers'], function(controllers){
             // Store the level types
             $scope.LevelsData = {};
 
+            // Store the location types
+            $scope.LocationsData = {};
+
             // Contact List IDs array to use for the select lists
             $scope.contactList = [];
 
@@ -364,6 +367,9 @@ define(['controllers/controllers'], function(controllers){
             // Get the option groups -> level types
             getLevels();
 
+            // Get the option groups -> location types
+            getLocations();
+
             // Get job roles based on the passed Contact ID
             getJobRolesList($scope.$parent.contactId);
 
@@ -413,11 +419,11 @@ define(['controllers/controllers'], function(controllers){
 
             function getLevels() {
 
-                ExampleService.getLevels().then(function(data){
+                ExampleService.getOptionValues('hrjc_level_type').then(function(data){
 
                         if (data.is_error == 1) {
                             job_roles.message_type = 'alert-danger';
-                            job_roles.message = 'Cannot get level lit!';
+                            job_roles.message = 'Cannot get level list!';
                         }
                         else {
 
@@ -436,6 +442,43 @@ define(['controllers/controllers'], function(controllers){
 
                             job_roles.message_type = 'alert-success';
                             job_roles.message = 'Level list OK!';
+                        }
+
+                        // Hide the message after some seconds
+                        $timeout(function() {
+                            job_roles.message = null;
+                        }, 3000);
+                    },
+                    function(errorMessage){
+                        $scope.error = errorMessage;
+                    });
+            }
+
+            function getLocations() {
+
+                ExampleService.getOptionValues('hrjc_location').then(function(data){
+
+                        if (data.is_error == 1) {
+                            job_roles.message_type = 'alert-danger';
+                            job_roles.message = 'Cannot get location list!';
+                        }
+                        else {
+
+                            // Pass the location option group list to the scope
+                            var LocationList = {};
+
+                            for (var i = 0; i < data.count; i++) {
+
+                                // Build the contact list
+                                LocationList[data.values[i]['id']] = {id: data.values[i]['id'], title: data.values[i]['label']};
+
+                            }
+
+                            // Store the Location types what we can reuse later
+                            job_roles.LocationsData = LocationList;
+
+                            job_roles.message_type = 'alert-success';
+                            job_roles.message = 'Location list OK!';
                         }
 
                         // Hide the message after some seconds

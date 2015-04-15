@@ -32,6 +32,9 @@ define(['controllers/controllers'], function(controllers){
             // Store the location types
             $scope.LocationsData = {};
 
+            // Store the region types
+            $scope.RegionsData = {};
+
             // Contact List IDs array to use for the select lists
             $scope.contactList = [];
 
@@ -370,6 +373,9 @@ define(['controllers/controllers'], function(controllers){
             // Get the option groups -> location types
             getLocations();
 
+            // Get the option groups -> region types
+            getRegions();
+
             // Get job roles based on the passed Contact ID
             getJobRolesList($scope.$parent.contactId);
 
@@ -479,6 +485,43 @@ define(['controllers/controllers'], function(controllers){
 
                             job_roles.message_type = 'alert-success';
                             job_roles.message = 'Location list OK!';
+                        }
+
+                        // Hide the message after some seconds
+                        $timeout(function() {
+                            job_roles.message = null;
+                        }, 3000);
+                    },
+                    function(errorMessage){
+                        $scope.error = errorMessage;
+                    });
+            }
+
+            function getRegions() {
+
+                ExampleService.getOptionValues('hrjc_region').then(function(data){
+
+                        if (data.is_error == 1) {
+                            job_roles.message_type = 'alert-danger';
+                            job_roles.message = 'Cannot get region list!';
+                        }
+                        else {
+
+                            // Pass the region option group list to the scope
+                            var RegionList = {};
+
+                            for (var i = 0; i < data.count; i++) {
+
+                                // Build the region list
+                                RegionList[data.values[i]['id']] = {id: data.values[i]['id'], title: data.values[i]['label']};
+
+                            }
+
+                            // Store the Region types what we can reuse later
+                            job_roles.RegionsData = RegionList;
+
+                            job_roles.message_type = 'alert-success';
+                            job_roles.message = 'Region list OK!';
                         }
 
                         // Hide the message after some seconds

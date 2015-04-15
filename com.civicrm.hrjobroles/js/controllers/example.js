@@ -29,8 +29,11 @@ define(['controllers/controllers'], function(controllers){
             // Store the level types
             $scope.LevelsData = {};
 
-            // Contact List to use for the select lists
+            // Contact List IDs array to use for the select lists
             $scope.contactList = [];
+
+            // Contact List object stores more details about the contact
+            $scope.contactListObject = {};
 
             // Implement angular tabs
             $scope.changeTab = function(row_id, tab_id) {
@@ -77,10 +80,6 @@ define(['controllers/controllers'], function(controllers){
             // Set the data from the webservice call
             $scope.initData = function(role_id, form_id, data) {
 
-                console.log('hmmm');
-                console.log(data);
-                console.log('hmmm1');
-
                 // Check if we have the array already
                 if (typeof $scope.edit_data[role_id] == "undefined") {
                     $scope.edit_data[role_id] = {};
@@ -112,7 +111,7 @@ define(['controllers/controllers'], function(controllers){
                             // Set default funder rows funder rows
                             $scope.edit_data[role_id]['funders'].push({
                                 id: $scope.edit_data[role_id]['funders'].length + 1,
-                                funder_id: {id: funder_contact_ids[i], sort_name: funder_contact_ids[i] + 'test name'},
+                                funder_id: { id: funder_contact_ids[i], sort_name: job_roles.contactListObject[funder_contact_ids[i]]['sort_name'] },
                                 type: funder_types[i],
                                 percentage: percent_funders[i],
                                 amount: amount_funders[i]
@@ -150,7 +149,7 @@ define(['controllers/controllers'], function(controllers){
                             // Set default funder rows funder rows
                             $scope.edit_data[role_id]['cost_centers'].push({
                                 id: $scope.edit_data[role_id]['cost_centers'].length + 1,
-                                cost_centre_id: {id: cost_center_contact_ids[i], sort_name: cost_center_contact_ids[i] + 'test costc name'},
+                                cost_centre_id: { id: cost_center_contact_ids[i], sort_name: job_roles.contactListObject[cost_center_contact_ids[i]]['sort_name'] },
                                 type: cost_center_types[i],
                                 percentage: percent_cost_centers[i],
                                 amount: amount_cost_centers[i]
@@ -383,15 +382,20 @@ define(['controllers/controllers'], function(controllers){
 
                             // Pass the contact list to the scope
                             var contactList = [];
+                            var contactListObject = {};
 
                             for (var i = 0; i < data.count; i++) {
 
                                 // Build the contact list
-                                contactList.push({id: data.values[i]['id'], sort_name: data.values[i]['sort_name']});
+                                contactList.push( {id: data.values[i]['id'], sort_name: data.values[i]['sort_name']} );
+                                contactListObject[data.values[i]['id']] = { id: data.values[i]['id'], sort_name: data.values[i]['sort_name'] };
                             }
 
-                            // Store the ContractsData what we can reuse later
+                            // Store the ContactList as Array as typeahead needs array what we can reuse later
                             job_roles.contactList = contactList;
+
+                            // Store the object too, so we can point to right values by Contact ID
+                            job_roles.contactListObject = contactListObject;
 
                             job_roles.message_type = 'alert-success';
                             job_roles.message = 'Contact list OK!';
@@ -427,7 +431,7 @@ define(['controllers/controllers'], function(controllers){
 
                             }
 
-                            // Store the ContractsData what we can reuse later
+                            // Store the Level types what we can reuse later
                             job_roles.LevelsData = LevelList;
 
                             job_roles.message_type = 'alert-success';

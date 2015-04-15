@@ -67,7 +67,7 @@
         <type>float</type>
         <default>0</default>
         <comment>Amount of time allocated for work (in a given week)</comment>
-        <uniqueName>hrjob_role_hours</uniqueName>
+        <uniqueName>hrjc_role_hours</uniqueName>
     </field>
 
     <field>
@@ -76,12 +76,9 @@
         <type>varchar</type>
         <length>63</length>
         <comment>Period during which hours are allocated (eg 5 hours per day; 5 hours per week)</comment>
-        <pseudoconstant>
-            <callback>CRM_HRJob_SelectValues::commonUnit</callback>
-        </pseudoconstant>
         <export>true</export>
         <import>true</import>
-        <uniqueName>hrjob_role_unit</uniqueName>
+        <uniqueName>hrjc_role_unit</uniqueName>
     </field>
 
     <field>
@@ -90,10 +87,9 @@
         <type>varchar</type>
         <length>127</length>
         <export>true</export>
-        <pseudoconstant>
-            <optionGroupName>hrjob_region</optionGroupName>
-        </pseudoconstant>
-        <uniqueName>hrjob_region</uniqueName>
+        <import>true</import>
+        <comment>Role region value.</comment>
+        <uniqueName>hrjc_region</uniqueName>
     </field>
     <index>
         <name>index_region</name>
@@ -106,10 +102,9 @@
         <type>varchar</type>
         <length>127</length>
         <export>true</export>
-        <pseudoconstant>
-            <optionGroupName>hrjob_department</optionGroupName>
-        </pseudoconstant>
-        <uniqueName>hrjob_role_department</uniqueName>
+        <import>true</import>
+        <comment>Role department.</comment>
+        <uniqueName>hrjc_role_department</uniqueName>
     </field>
     <index>
         <name>index_department</name>
@@ -122,12 +117,9 @@
         <type>varchar</type>
         <length>63</length>
         <comment>Junior manager, senior manager, etc.</comment>
-        <pseudoconstant>
-            <optionGroupName>hrjob_level_type</optionGroupName>
-        </pseudoconstant>
         <export>true</export>
         <import>true</import>
-        <uniqueName>hrjob_role_level_type</uniqueName>
+        <uniqueName>hrjc_level_type</uniqueName>
     </field>
     <index>
         <name>index_level_type</name>
@@ -177,7 +169,7 @@
         <comment>List of Cost Center option group values</comment>
         <export>true</export>
         <import>true</import>
-        <uniqueName>hrjob_cost_center</uniqueName>
+        <uniqueName>hrjc_cost_center</uniqueName>
     </field>
     <index>
         <name>index_cost_center</name>
@@ -192,7 +184,7 @@
         <comment>Cost Center value type (fixed or %)</comment>
         <export>true</export>
         <import>true</import>
-        <uniqueName>hrjob_cost_center_val_type</uniqueName>
+        <uniqueName>hrjc_cost_center_val_type</uniqueName>
     </field>
     <index>
         <name>index_cost_center_val_type</name>
@@ -208,7 +200,7 @@
         <comment>Percentage of Pay Assigned to this cost center</comment>
         <export>true</export>
         <import>true</import>
-        <uniqueName>hrjob_role_percent_pay_cost_center</uniqueName>
+        <uniqueName>hrjc_role_percent_pay_cost_center</uniqueName>
     </field>
 
     <field>
@@ -220,7 +212,7 @@
         <comment>Amount of Pay Assigned to this cost center</comment>
         <export>true</export>
         <import>true</import>
-        <uniqueName>hrjob_role_amount_pay_cost_center</uniqueName>
+        <uniqueName>hrjc_role_amount_pay_cost_center</uniqueName>
     </field>
 
     <field>
@@ -240,7 +232,7 @@
         <comment>Funder value type (fixed or %)</comment>
         <export>true</export>
         <import>true</import>
-        <uniqueName>hrjob_funder_val_type</uniqueName>
+        <uniqueName>hrjc_funder_val_type</uniqueName>
     </field>
     <index>
         <name>index_funder_val_type</name>
@@ -256,7 +248,7 @@
         <comment>Percentage of Pay Assigned to this funder</comment>
         <export>true</export>
         <import>true</import>
-        <uniqueName>hrjob_role_percent_pay_funder</uniqueName>
+        <uniqueName>hrjc_role_percent_pay_funder</uniqueName>
     </field>
 
     <field>
@@ -268,7 +260,7 @@
         <comment>Amount of Pay Assigned to this funder</comment>
         <export>true</export>
         <import>true</import>
-        <uniqueName>hrjob_role_amount_pay_funder</uniqueName>
+        <uniqueName>hrjc_role_amount_pay_funder</uniqueName>
     </field>
 
     <field>
@@ -277,9 +269,8 @@
         <type>varchar</type>
         <length>127</length>
         <comment>Main work location</comment>
-        <pseudoconstant>
-            <optionGroupName>hrjob_location</optionGroupName>
-        </pseudoconstant>
+        <export>true</export>
+        <import>true</import>
     </field>
     <index>
         <name>index_location</name>

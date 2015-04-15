@@ -131,11 +131,13 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
      */
     public $role_hours_unit;
     /**
+     * Role region value.
      *
      * @var string
      */
     public $region;
     /**
+     * Role department.
      *
      * @var string
      */
@@ -284,12 +286,12 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                     'size' => CRM_Utils_Type::HUGE,
                     'default' => 'NULL',
                 ) ,
-                'hrjob_role_hours' => array(
+                'hrjc_role_hours' => array(
                     'name' => 'hours',
                     'type' => CRM_Utils_Type::T_FLOAT,
                     'title' => ts('Amount') ,
                 ) ,
-                'hrjob_role_unit' => array(
+                'hrjc_role_unit' => array(
                     'name' => 'role_hours_unit',
                     'type' => CRM_Utils_Type::T_STRING,
                     'title' => ts('Hours Unit') ,
@@ -300,39 +302,32 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                     'headerPattern' => '',
                     'dataPattern' => '',
                     'export' => true,
-                    'pseudoconstant' => array(
-                        'callback' => 'CRM_HRJob_SelectValues::commonUnit',
-                    )
                 ) ,
-                'hrjob_region' => array(
+                'hrjc_region' => array(
                     'name' => 'region',
                     'type' => CRM_Utils_Type::T_STRING,
                     'title' => ts('Region') ,
                     'maxlength' => 127,
                     'size' => CRM_Utils_Type::HUGE,
-                    'export' => true,
+                    'import' => true,
                     'where' => 'civicrm_hrjobroles.region',
                     'headerPattern' => '',
                     'dataPattern' => '',
-                    'pseudoconstant' => array(
-                        'optionGroupName' => 'hrjob_region',
-                    )
+                    'export' => true,
                 ) ,
-                'hrjob_role_department' => array(
+                'hrjc_role_department' => array(
                     'name' => 'department',
                     'type' => CRM_Utils_Type::T_STRING,
                     'title' => ts('Department') ,
                     'maxlength' => 127,
                     'size' => CRM_Utils_Type::HUGE,
-                    'export' => true,
+                    'import' => true,
                     'where' => 'civicrm_hrjobroles.department',
                     'headerPattern' => '',
                     'dataPattern' => '',
-                    'pseudoconstant' => array(
-                        'optionGroupName' => 'hrjob_department',
-                    )
+                    'export' => true,
                 ) ,
-                'hrjob_role_level_type' => array(
+                'hrjc_level_type' => array(
                     'name' => 'level_type',
                     'type' => CRM_Utils_Type::T_STRING,
                     'title' => ts('Level') ,
@@ -343,9 +338,6 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                     'headerPattern' => '',
                     'dataPattern' => '',
                     'export' => true,
-                    'pseudoconstant' => array(
-                        'optionGroupName' => 'hrjob_level_type',
-                    )
                 ) ,
                 'manager_contact_id' => array(
                     'name' => 'manager_contact_id',
@@ -367,7 +359,7 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                     'maxlength' => 127,
                     'size' => CRM_Utils_Type::HUGE,
                 ) ,
-                'hrjob_cost_center' => array(
+                'hrjc_cost_center' => array(
                     'name' => 'cost_center',
                     'type' => CRM_Utils_Type::T_STRING,
                     'title' => ts('Cost Center') ,
@@ -379,7 +371,7 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                     'dataPattern' => '',
                     'export' => true,
                 ) ,
-                'hrjob_cost_center_val_type' => array(
+                'hrjc_cost_center_val_type' => array(
                     'name' => 'cost_center_val_type',
                     'type' => CRM_Utils_Type::T_STRING,
                     'title' => ts('Cost Center value type') ,
@@ -391,7 +383,7 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                     'dataPattern' => '',
                     'export' => true,
                 ) ,
-                'hrjob_role_percent_pay_cost_center' => array(
+                'hrjc_role_percent_pay_cost_center' => array(
                     'name' => 'percent_pay_cost_center',
                     'type' => CRM_Utils_Type::T_STRING,
                     'title' => ts('Percent of Pay Assigned to this cost center') ,
@@ -403,7 +395,7 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                     'dataPattern' => '',
                     'export' => true,
                 ) ,
-                'hrjob_role_amount_pay_cost_center' => array(
+                'hrjc_role_amount_pay_cost_center' => array(
                     'name' => 'amount_pay_cost_center',
                     'type' => CRM_Utils_Type::T_STRING,
                     'title' => ts('Amount of Pay Assigned to this cost center') ,
@@ -422,7 +414,7 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                     'maxlength' => 255,
                     'size' => CRM_Utils_Type::HUGE,
                 ) ,
-                'hrjob_funder_val_type' => array(
+                'hrjc_funder_val_type' => array(
                     'name' => 'funder_val_type',
                     'type' => CRM_Utils_Type::T_STRING,
                     'title' => ts('Funder value type') ,
@@ -434,7 +426,7 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                     'dataPattern' => '',
                     'export' => true,
                 ) ,
-                'hrjob_role_percent_pay_funder' => array(
+                'hrjc_role_percent_pay_funder' => array(
                     'name' => 'percent_pay_funder',
                     'type' => CRM_Utils_Type::T_STRING,
                     'title' => ts('Percent of Pay Assigned to this funder') ,
@@ -446,7 +438,7 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                     'dataPattern' => '',
                     'export' => true,
                 ) ,
-                'hrjob_role_amount_pay_funder' => array(
+                'hrjc_role_amount_pay_funder' => array(
                     'name' => 'amount_pay_funder',
                     'type' => CRM_Utils_Type::T_STRING,
                     'title' => ts('Amount of Pay Assigned to this funder') ,
@@ -464,9 +456,11 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                     'title' => ts('Location') ,
                     'maxlength' => 127,
                     'size' => CRM_Utils_Type::HUGE,
-                    'pseudoconstant' => array(
-                        'optionGroupName' => 'hrjob_location',
-                    )
+                    'import' => true,
+                    'where' => 'civicrm_hrjobroles.location',
+                    'headerPattern' => '',
+                    'dataPattern' => '',
+                    'export' => true,
                 ) ,
             );
         }
@@ -488,22 +482,22 @@ class CRM_Hrjobroles_DAO_HrJobRoles extends CRM_Core_DAO
                 'title' => 'title',
                 'description' => 'description',
                 'status' => 'status',
-                'hours' => 'hrjob_role_hours',
-                'role_hours_unit' => 'hrjob_role_unit',
-                'region' => 'hrjob_region',
-                'department' => 'hrjob_role_department',
-                'level_type' => 'hrjob_role_level_type',
+                'hours' => 'hrjc_role_hours',
+                'role_hours_unit' => 'hrjc_role_unit',
+                'region' => 'hrjc_region',
+                'department' => 'hrjc_role_department',
+                'level_type' => 'hrjc_level_type',
                 'manager_contact_id' => 'manager_contact_id',
                 'functional_area' => 'functional_area',
                 'organization' => 'organization',
-                'cost_center' => 'hrjob_cost_center',
-                'cost_center_val_type' => 'hrjob_cost_center_val_type',
-                'percent_pay_cost_center' => 'hrjob_role_percent_pay_cost_center',
-                'amount_pay_cost_center' => 'hrjob_role_amount_pay_cost_center',
+                'cost_center' => 'hrjc_cost_center',
+                'cost_center_val_type' => 'hrjc_cost_center_val_type',
+                'percent_pay_cost_center' => 'hrjc_role_percent_pay_cost_center',
+                'amount_pay_cost_center' => 'hrjc_role_amount_pay_cost_center',
                 'funder' => 'funder',
-                'funder_val_type' => 'hrjob_funder_val_type',
-                'percent_pay_funder' => 'hrjob_role_percent_pay_funder',
-                'amount_pay_funder' => 'hrjob_role_amount_pay_funder',
+                'funder_val_type' => 'hrjc_funder_val_type',
+                'percent_pay_funder' => 'hrjc_role_percent_pay_funder',
+                'amount_pay_funder' => 'hrjc_role_amount_pay_funder',
                 'location' => 'location',
             );
         }

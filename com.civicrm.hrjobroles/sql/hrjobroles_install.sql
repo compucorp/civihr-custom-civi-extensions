@@ -17,8 +17,8 @@ CREATE TABLE `civicrm_hrjobroles` (
   `status` varchar(255)   DEFAULT NULL COMMENT 'Job Role Status (Active / Inactive)',
   `hours` double   DEFAULT 0 COMMENT 'Amount of time allocated for work (in a given week)',
   `role_hours_unit` varchar(63)    COMMENT 'Period during which hours are allocated (eg 5 hours per day; 5 hours per week)',
-  `region` varchar(127)    ,
-  `department` varchar(127)    ,
+  `region` varchar(127)    COMMENT 'Role region value.',
+  `department` varchar(127)    COMMENT 'Role department.',
   `level_type` varchar(63)    COMMENT 'Junior manager, senior manager, etc.',
   `manager_contact_id` int unsigned    COMMENT 'FK to Contact ID',
   `functional_area` varchar(127)    ,
@@ -63,6 +63,6 @@ CREATE TABLE `civicrm_hrjobroles` (
   location
 )
 
-  ,           CONSTRAINT FK_civicrm_hrjobroles_manager_contact_id FOREIGN KEY (`manager_contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE SET NULL,
-              CONSTRAINT FK_civicrm_hrjobroles_job_contract_id FOREIGN KEY (`job_contract_id`) REFERENCES `civicrm_hrjobcontract`(`id`)  ON DELETE CASCADE
-)  ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+  ,     CONSTRAINT FK_civicrm_hrjobroles_manager_contact_id FOREIGN KEY (`manager_contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE SET NULL,
+        CONSTRAINT FK_civicrm_hrjobroles_job_contract_id FOREIGN KEY (`job_contract_id`) REFERENCES `civicrm_hrjobcontract`(`id`)  ON DELETE CASCADE
+)       ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;

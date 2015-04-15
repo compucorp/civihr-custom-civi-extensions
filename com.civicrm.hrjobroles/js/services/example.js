@@ -160,7 +160,7 @@ define(['services/services'], function (services) {
                     "cost_center_val_type": cost_center_types,
                     "percent_pay_cost_center": percent_cost_centers,
                     "amount_pay_cost_center": amount_cost_centers,
-                    //"level_type": job_roles_data.level
+                    "level_type": job_roles_data.level
                 }).done(function(result) {
 
                     console.log(result);
@@ -255,6 +255,7 @@ define(['services/services'], function (services) {
                     "cost_center_val_type": cost_center_types,
                     "percent_pay_cost_center": percent_cost_centers,
                     "amount_pay_cost_center": amount_cost_centers,
+                    "level_type": job_roles_data.level
 
                 }).done(function(result) {
 

@@ -71,6 +71,13 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="newDepartment" class="col-xs-3 control-label">Department:</label>
+                            <div class="col-xs-6 control-label">
+                                <select ng-options="k as v.title for (k, v) in jobroles.DepartmentsData" ng-model="edit_data['new_role_id']['department']" class="form-control"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <!-- job role description textarea -->
                             <label for="description" class="col-xs-3 control-label">Description:</label>
                             <div class="col-xs-6 control-label">

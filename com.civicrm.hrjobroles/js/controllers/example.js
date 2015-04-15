@@ -35,6 +35,9 @@ define(['controllers/controllers'], function(controllers){
             // Store the region types
             $scope.RegionsData = {};
 
+            // Store the department types
+            $scope.DepartmentsData = {};
+
             // Contact List IDs array to use for the select lists
             $scope.contactList = [];
 
@@ -376,6 +379,9 @@ define(['controllers/controllers'], function(controllers){
             // Get the option groups -> region types
             getRegions();
 
+            // Get the option groups -> department types
+            getDepartments();
+
             // Get job roles based on the passed Contact ID
             getJobRolesList($scope.$parent.contactId);
 
@@ -522,6 +528,43 @@ define(['controllers/controllers'], function(controllers){
 
                             job_roles.message_type = 'alert-success';
                             job_roles.message = 'Region list OK!';
+                        }
+
+                        // Hide the message after some seconds
+                        $timeout(function() {
+                            job_roles.message = null;
+                        }, 3000);
+                    },
+                    function(errorMessage){
+                        $scope.error = errorMessage;
+                    });
+            }
+
+            function getDepartments() {
+
+                ExampleService.getOptionValues('hrjc_department').then(function(data){
+
+                        if (data.is_error == 1) {
+                            job_roles.message_type = 'alert-danger';
+                            job_roles.message = 'Cannot get department list!';
+                        }
+                        else {
+
+                            // Pass the department option group list to the scope
+                            var DepartmentList = {};
+
+                            for (var i = 0; i < data.count; i++) {
+
+                                // Build the department list
+                                DepartmentList[data.values[i]['id']] = {id: data.values[i]['id'], title: data.values[i]['label']};
+
+                            }
+
+                            // Store the Department types what we can reuse later
+                            job_roles.DepartmentsData = DepartmentList;
+
+                            job_roles.message_type = 'alert-success';
+                            job_roles.message = 'Department list OK!';
                         }
 
                         // Hide the message after some seconds
